@@ -1,0 +1,38 @@
+import { Link as RouterLink } from 'react-router-dom';
+// @mui
+import { styled } from '@mui/material/styles';
+import { Button, Typography, Container } from '@mui/material';
+// components
+import Page from '../components/Page';
+//
+import { MaintenanceIllustration } from '../assets';
+
+// ----------------------------------------------------------------------
+
+const RootStyle = styled('div')(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  paddingTop: theme.spacing(15),
+  paddingBottom: theme.spacing(10),
+}));
+
+// ----------------------------------------------------------------------
+
+export default function Maintenance() {
+  return (
+    <Page title="Maintenance" sx={{ height: 1 }}>
+      <RootStyle>
+        <Container sx={{ textAlign: 'center' }}>
+          <Typography variant="h3" paragraph>
+            페이지를 고치고있어요!
+          </Typography>
+          <Typography sx={{ color: 'text.secondary' }}>더 빠르게 찾아올게요!</Typography>
+          <Button variant="contained" size="large" component={RouterLink} to="/dashboard/app">
+            돌아가기
+          </Button>
+        </Container>
+      </RootStyle>
+    </Page>
+  );
+}
