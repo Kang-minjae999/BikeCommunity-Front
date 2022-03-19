@@ -7,7 +7,7 @@ import { Grid, Button, Container, Stack } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axios';
+import axios from '../../utils/axiospost';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
@@ -54,7 +54,7 @@ export default function Blogdingstas() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/dingsta');
+      const response = await axios.get('/dingsta?page=0&size=10');
 
       if (isMountedRef.current) {
         setPosts(response.data.posts);
@@ -79,9 +79,7 @@ export default function Blogdingstas() {
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
           heading="Dingsta"
-          links={[
-            { name: '' },
-          ]}
+          links={[{ name: '' }]}
           action={
             <Button
               variant="outlined"
@@ -92,9 +90,8 @@ export default function Blogdingstas() {
               글쓰기
             </Button>
           }
-          sx={{mt:2}}
+          sx={{ mt: 2 }}
         />
-        
 
         <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
           <BlogPostsSearch />

@@ -7,7 +7,7 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 // routes
-import { PATH_DASHBOARD, PATH_AUTH ,PATH_PAGE } from '../../../routes/paths';
+import { PATH_DASHBOARD, PATH_AUTH, PATH_PAGE } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -26,7 +26,7 @@ const MENU_OPTIONS = [
   {
     label: '설정',
     linkTo: PATH_DASHBOARD.user.account,
-  },  
+  },
   {
     label: '프로필',
     linkTo: PATH_DASHBOARD.user.profile,
@@ -46,7 +46,7 @@ AccountPopover.propTypes = {
   onOpenSidebar: PropTypes.func,
 };
 
-export default function AccountPopover({onOpenSidebar}) {
+export default function AccountPopover({ onOpenSidebar }) {
   const navigate = useNavigate();
 
   const { user, logout } = useAuth();
@@ -111,8 +111,8 @@ export default function AccountPopover({onOpenSidebar}) {
           }),
         }}
       >
-  {/*     <MyAvatar /> */}
-    <PersonIcon color='primary'/>
+        {/*     <MyAvatar /> */}
+        <PersonIcon color="primary" />
       </IconButtonAnimate>
 
       <MenuPopover
@@ -129,16 +129,20 @@ export default function AccountPopover({onOpenSidebar}) {
           },
         }}
       >
-        {user && <><Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?.email}
-          </Typography>
-        </Box>
+        {user && (
+          <>
+            <Box sx={{ my: 1.5, px: 2.5 }}>
+              <Typography variant="subtitle2" noWrap>
+                {user?.displayName}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
+                {user?.email}
+              </Typography>
+            </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} /></>}
+            <Divider sx={{ borderStyle: 'dashed' }} />
+          </>
+        )}
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
@@ -146,23 +150,29 @@ export default function AccountPopover({onOpenSidebar}) {
               {option.label}
             </MenuItem>
           ))}
-          <MenuItem onClick={() =>
-            {onOpenSidebar();
+          <MenuItem
+            onClick={() => {
+              onOpenSidebar();
               handleClose();
-            }}>
-           메뉴로보기
+            }}
+          >
+            메뉴로보기
           </MenuItem>
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        {user && <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
-          로그아웃
-        </MenuItem>}
+        {user && (
+          <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
+            로그아웃
+          </MenuItem>
+        )}
 
-        {!user && <MenuItem onClick={handleLogin} sx={{ m: 1 }}>
-          로그인
-        </MenuItem>}
+        {!user && (
+          <MenuItem onClick={handleLogin} sx={{ m: 1 }}>
+            로그인
+          </MenuItem>
+        )}
       </MenuPopover>
     </>
   );

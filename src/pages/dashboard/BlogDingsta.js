@@ -50,7 +50,7 @@ export default function BlogDingsta() {
     }
   }, [isMountedRef, id]);
 
-/*   const getRecentPosts = useCallback(async () => {
+  /*   const getRecentPosts = useCallback(async () => {
     try {
       const response = await axios.get('/posts', {
         params: { id },
@@ -75,19 +75,13 @@ export default function BlogDingsta() {
   return (
     <Page title="포스트">
       <Container maxWidth={themeStretch ? false : 'lx'}>
-        <HeaderBreadcrumbs
-          heading="Post Details"
-          links={[
-            { name: '' },
-          ]}
-          sx={{mt:2}}
-        />
+        <HeaderBreadcrumbs heading="Post Details" links={[{ name: '' }]} sx={{ mt: 2 }} />
 
         {post && (
           <Card>
-              <BlogPostHero post={post} />
-                <Divider/>
-              <Box sx={{ p: { xs: 3, md: 5 }}}>
+            <BlogPostHero post={post} />
+            <Divider />
+            <Box sx={{ p: { xs: 3, md: 5 } }}>
               <Typography variant="h6" sx={{ mb: 5 }}>
                 {post.content}
               </Typography>
@@ -109,7 +103,7 @@ export default function BlogDingsta() {
 
               <BlogPostCommentList post={post} />
 
-             {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                 <Pagination count={8} color="primary" />
               </Box> */}
 
@@ -122,7 +116,7 @@ export default function BlogDingsta() {
 
         {error && <Typography variant="h6">404 {error}!</Typography>}
 
-       {/*  <BlogPostRecent posts={recentPosts} /> */}
+        {/*  <BlogPostRecent posts={recentPosts} /> */}
       </Container>
     </Page>
   );

@@ -20,19 +20,15 @@ import Kakaologinimg from './kakaologinimg.png';
 import Kakaologincallback from './Kakaologincallback';
 import useResponsive from '../../../hooks/useResponsive';
 
-
-
 // ----------------------------------------------------------------------
 export default function LoginForm() {
-  
-
   const { login } = useAuth();
 
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const isDesktop = useResponsive('up','lg')
+  const isDesktop = useResponsive('up', 'lg');
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('정확한 이메일 주소를 입력해주세요.').required('이메일을 입력해주세요.'),
@@ -40,8 +36,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: '',
-    password: '',
+    email: 'lpl@naver.com',
+    password: 'dlcksdud12~',
     remember: true,
   };
 
@@ -69,10 +65,9 @@ export default function LoginForm() {
     }
   };
 
-  const REST_API_KEY = "1e48d31601f5f560eb6da4b6ea35a32b";
-  const REDIRECT_URI = "http://localhost:3000/auth/login";
+  const REST_API_KEY = '1e48d31601f5f560eb6da4b6ea35a32b';
+  const REDIRECT_URI = 'http://localhost:3000/auth/login';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -104,23 +99,32 @@ export default function LoginForm() {
         </Link>
       </Stack>
       <Stack spacing={2}>
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{
-       height:(isDesktop ? 65 : 55), fontSize:18}}>
-        로그인
-      </LoadingButton>
-      {/* <Stack
+        <LoadingButton
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          loading={isSubmitting}
+          sx={{
+            height: isDesktop ? 65 : 55,
+            fontSize: 18,
+          }}
+        >
+          로그인
+        </LoadingButton>
+        {/* <Stack
           direction="row"
           justifyContent="center"
           alignItems="center"
           spacing={2}
         > */}
-       <a href={KAKAO_AUTH_URL} target='_blank' rel='noopener noreferrer'>
-        <img style={{width:'100%', height:(isDesktop ? 65 : 55)}} src={Kakaologinimg} alt='Naverloginimg'/>
+        <a href={KAKAO_AUTH_URL} target="_blank" rel="noopener noreferrer">
+          <img style={{ width: '100%', height: isDesktop ? 65 : 55 }} src={Kakaologinimg} alt="Naverloginimg" />
         </a>
-      <a href='https://naver.com' target='_blank' rel='noopener noreferrer'>
-        <img style={{width:'100%', height:(isDesktop ? 65 : 55)}} src={Naverloginimg} alt='Naverloginimg'/>
+        <a href="https://naver.com" target="_blank" rel="noopener noreferrer">
+          <img style={{ width: '100%', height: isDesktop ? 65 : 55 }} src={Naverloginimg} alt="Naverloginimg" />
         </a>
-        </Stack>
+      </Stack>
       {/* </Stack> */}
       <Kakaologincallback />
     </FormProvider>
