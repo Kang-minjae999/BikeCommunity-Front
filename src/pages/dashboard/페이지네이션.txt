@@ -48,8 +48,6 @@ export default function BlogPosts() {
 
   const [posts, setPosts] = useState([]);
 
-  const [totalpage, settotalpage] = useState(0);
-
   const [filters, setFilters] = useState('latest');
 
   const sortedPosts = applySort(posts, filters);
@@ -83,6 +81,7 @@ export default function BlogPosts() {
     }
   };
 
+  const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
 
   const handleChange = useCallback(
