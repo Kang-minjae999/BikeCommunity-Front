@@ -121,7 +121,7 @@ export default function BlogPostHero({ post }) {
       </FooterStyle>
 
       <OverlayStyle />
-      <Image alt="post cover" src={postImageURLs} ratio="16/9" />
+      <Image alt="post cover" src={postImageURLs[0]} ratio="1/1" />
     </Box>
   );
 }
