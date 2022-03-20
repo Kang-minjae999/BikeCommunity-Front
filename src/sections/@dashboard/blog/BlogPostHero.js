@@ -38,7 +38,6 @@ const OverlayStyle = styled('h1')(({ theme }) => ({
   left: 0,
   zIndex: 9,
   position: 'absolute',
-  backgroundColor: alpha(theme.palette.grey[900], 0.72),
 }));
 
 const TitleStyle = styled('h1')(({ theme }) => ({
