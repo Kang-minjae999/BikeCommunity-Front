@@ -39,10 +39,10 @@ export default function BlogDingsta() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingstas/${id}`);
+      const response = await axios.get(`/dingsta/${id}`);
 
       if (isMountedRef.current) {
-        setPost(response.data.post);
+        setPost(response.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -73,7 +73,7 @@ export default function BlogDingsta() {
   }, [getPost]);
 
   return (
-    <Page title="포스트">
+/*     <Page title="포스트">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs heading="Post Details" links={[{ name: '' }]} sx={{ mt: 2 }} />
 
@@ -86,7 +86,7 @@ export default function BlogDingsta() {
                 {post.content}
               </Typography>
 
-              {/* <Markdown children={post.body} /> */}
+              <Markdown children={post.body} /> 
 
               <Box sx={{ my: 5 }}>
                 <Divider />
@@ -103,9 +103,9 @@ export default function BlogDingsta() {
 
               <BlogPostCommentList post={post} />
 
-              {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                 <Pagination count={8} color="primary" />
-              </Box> */}
+              </Box> 
 
               <BlogPostCommentForm />
             </Box>
@@ -116,8 +116,52 @@ export default function BlogDingsta() {
 
         {error && <Typography variant="h6">404 {error}!</Typography>}
 
-        {/*  <BlogPostRecent posts={recentPosts} /> */}
+        <BlogPostRecent posts={recentPosts} />
+      </Container>
+    </Page> */
+    <Page title="포스트">
+    <Container maxWidth={themeStretch ? false : 'lx'}>
+      <HeaderBreadcrumbs heading="Post Details" links={[{ name: '' }]} sx={{ mt: 2 }} />
+
+      {post && (
+        <Card>
+          <BlogPostHero post={post} />
+          <Divider />
+          <Box sx={{ p: { xs: 3, md: 5 } }}>
+            <Typography variant="body2" sx={{ mb: 5 }}>
+              {post.content}
+            </Typography>
+
+            {/* <Markdown children={post.body} /> */}
+
+{/*             <Box sx={{ my: 5 }}>
+              <Divider />
+              <BlogPostTags post={post} />
+              <Divider />
+            </Box>
+ */}
+           {/*  <Box sx={{ display: 'flex', mb: 2 }}>
+              <Typography variant="h4">덧글</Typography>
+              <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+                ({post.comments.length})
+              </Typography>
+            </Box> */}
+
+            {/* <BlogPostCommentList post={post} />
+ */}
+           {/*  <BlogPostCommentForm /> */}
+          </Box>
+        </Card>
+      )}
+
+      {!post && !error && <SkeletonPost />}
+
+      {error && <Typography variant="h6">404 {error}!</Typography>}
+
+      {/*  <BlogPostRecent posts={recentPosts} /> */}
       </Container>
     </Page>
   );
 }
+
+

@@ -117,7 +117,7 @@ export default function BlogPostCard({ post }) {
       <Image alt="cover" src={thumbnailImageUrl} ratio="4/3" />
     </Box>
 
-    <PostContent content={content} id={id} nicknameOfpost={nicknameOfpost} thumbnailImageUrl={thumbnailImageUrl} />
+    <PostContent content={content} id={id}/>
   </Card>
   );
 }
@@ -127,11 +127,9 @@ export default function BlogPostCard({ post }) {
 PostContent.propTypes = {
   id: PropTypes.number,
   content: PropTypes.string,
-  nicknameOfpost: PropTypes.string,
-  thumbnailImageUrl: PropTypes.string,
 };
 
-export function PostContent({  id, nicknameOfpost, thumbnailImageUrl ,content }) {
+export function PostContent({  id ,content }) {
   const isDesktop = useResponsive('up', 'md');
 
   const { pathname } = useLocation();
@@ -140,13 +138,13 @@ export function PostContent({  id, nicknameOfpost, thumbnailImageUrl ,content })
 
   useEffect(() => {
     if(pathname.includes('notices')){
-      setapi('notices')
+      setapi('notice')
     }
     if(pathname.includes('posts')){
-      setapi('posts')
+      setapi('post')
     }
     if(pathname.includes('dingstas')){
-      setapi('dingstas')
+      setapi('dingsta')
     }
   }, [pathname])
 
