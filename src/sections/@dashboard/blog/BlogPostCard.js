@@ -34,7 +34,6 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 BlogPostCard.propTypes = {
   post: PropTypes.object.isRequired,
-  index: PropTypes.number,
 };
 
 export default function BlogPostCard({ post }) {
