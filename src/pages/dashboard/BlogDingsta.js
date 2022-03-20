@@ -20,6 +20,7 @@ import {
   BlogPostRecent,
   BlogPostCommentList,
   BlogPostCommentForm,
+  Blogfeature,
 } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
@@ -126,6 +127,7 @@ export default function BlogDingsta() {
       {post && (
         <Card>
           <BlogPostHero post={post} />
+          <Blogfeature post={post}/>
           <Divider />
           <Box sx={{ p: { xs: 3, md: 5 } }}>
             <Typography variant="body2" sx={{ mb: 5 }}>

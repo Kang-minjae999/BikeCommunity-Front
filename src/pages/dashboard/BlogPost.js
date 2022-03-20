@@ -20,7 +20,7 @@ import {
   BlogPostRecent,
   BlogPostCommentList,
   BlogPostCommentForm,
-} from '../../sections/@dashboard/blog';
+} from '../../sections/@dashboard/blogpost';
 
 // ----------------------------------------------------------------------
 

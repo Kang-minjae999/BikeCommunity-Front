@@ -7,11 +7,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { CardContent, Box, Card, Typography, Link } from '@mui/material';
 // _mock_
-import { _appFeatured } from '../../../../_mock';
+import { _appFeatured } from '../../../_mock';
 // components
-import Image from '../../../../components/Image';
-import { MotionContainer, varFade } from '../../../../components/animate';
-import { CarouselDots, CarouselArrows } from '../../../../components/carousel';
+import Image from '../../../components/Image';
+import { MotionContainer, varFade } from '../../../components/animate';
+import { CarouselDots, CarouselArrows } from '../../../components/carousel';
 
 // ----------------------------------------------------------------------
 
@@ -26,17 +26,21 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+Blogfeature.propTypes = {
+  post: PropTypes.object.isRequired,
+};
 
-export default function AppFeaturedpc() {
+export default function Blogfeature({post}) {
+  const {postImageURLs} = post
   const theme = useTheme();
   const carouselRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(theme.direction === 'rtl' ? _appFeatured.length - 1 : 0);
+  const [currentIndex, setCurrentIndex] = useState(theme.direction === 'rtl' ? postImageURLs.length - 1 : 0);
 
   const settings = {
-    speed: 800,
+    speed: 400,
     dots: true,
-    arrows: true,
-    autoplay: true,
+    arrows: false,
+    autoplay: false,
     slidesToShow: 1,
     slidesToScroll: 1,
     rtl: Boolean(theme.direction === 'rtl'),
@@ -61,8 +65,8 @@ export default function AppFeaturedpc() {
   return (
     <>
       <Slider ref={carouselRef} {...settings}>
-        {_appFeatured.map((app, index) => (
-          <CarouselItem key={app.id} item={app} isActive={index === currentIndex} />
+        {postImageURLs.map((app, index) => (
+          <CarouselItem key={index} item={app} index={index} isActive={index === currentIndex} />
         ))}
       </Slider>
 
@@ -93,19 +97,17 @@ export default function AppFeaturedpc() {
 CarouselItem.propTypes = {
   isActive: PropTypes.bool,
   item: PropTypes.shape({
-    description: PropTypes.string,
     image: PropTypes.string,
-    title: PropTypes.string,
-    type: PropTypes.string,
   }),
+  index: PropTypes.number,
 };
 
-function CarouselItem({ item, isActive }) {
-  const { image, title, description, type } = item;
+function CarouselItem({ item, isActive, index }) {
+  const { image } = item;
 
   return (
     <Box sx={{ position: 'relative'}}>
-      <CardContent
+{/*       <CardContent
         component={MotionContainer}
         animate={isActive}
         action
@@ -136,8 +138,8 @@ function CarouselItem({ item, isActive }) {
           </Typography>
         </m.div>
       </CardContent>
-      <OverlayStyle />
-      <Image ratio='21/9' alt={title} src={image} />
+      <OverlayStyle /> */}
+      <Image ratio='1/1' alt={index} src={image} />
     </Box>
   );
 }

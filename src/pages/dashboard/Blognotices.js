@@ -2,7 +2,7 @@ import orderBy from 'lodash/orderBy';
 import { Link as RouterLink } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack } from '@mui/material';
+import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -16,7 +16,7 @@ import Iconify from '../../components/Iconify';
 import { SkeletonboardItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
+import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blognotice';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -48,6 +48,9 @@ export default function Blognotice() {
  /*  const { user } = useAuth() */
   const isMountedRef = useIsMountedRef();
 
+  const [page, setpage] = useState(0);
+  const [totalpage, settotalpage] = useState(0);
+  const [pagenation, setpagenation] = useState(1);
 
   const [posts, setPosts] = useState([]);
 
@@ -57,16 +60,16 @@ export default function Blognotice() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/notices');
+      const response = await axios.get(`/notices?page=${page}&size=12`);
 
       if (isMountedRef.current) {
-        setPosts(response.data.posts);
-        console.log(isMountedRef)
+        setPosts(response.data.data.content);
+        settotalpage(response.data.data.totalPages);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef]);
+  }, [isMountedRef, page]);
 
   useEffect(() => {
     getAllPosts();
@@ -78,8 +81,18 @@ export default function Blognotice() {
     }
   };
 
+  const handleChange = useCallback(
+    (event, value) => {
+      setpagenation(value);
+      setpage(value - 1);
+      getAllPosts(page);
+    },
+    [getAllPosts, page]
+  );
+
+
   return (
-    <Page title="Blog: Posts">
+    <Page title="공지사항">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
           heading="Notice"
@@ -116,6 +129,14 @@ export default function Blognotice() {
             )
           )}
         </Grid>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          >
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        </Stack>
       </Container>
     </Page>
   );

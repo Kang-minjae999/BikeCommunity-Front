@@ -16,10 +16,6 @@ import { SkeletonPost } from '../../components/skeleton';
 // sections
 import {
   BlogPostHero,
-  BlogPostTags,
-  BlogPostRecent,
-  BlogPostCommentList,
-  BlogPostCommentForm,
 } from '../../sections/@dashboard/blognotice';
 
 // ----------------------------------------------------------------------
@@ -38,10 +34,10 @@ export default function BlogPost() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/posts/${id}`);
+      const response = await axios.get(`/notices/${id}`);
 
       if (isMountedRef.current) {
-        setPost(response.data.post);
+        setPost(response.data.data.content);
       }
     } catch (error) {
       console.error(error);
@@ -54,7 +50,7 @@ export default function BlogPost() {
   }, [getPost]);
 
   return (
-    <Page title="포스트">
+    <Page title="공지사항">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
           heading="공지사항"
@@ -69,7 +65,9 @@ export default function BlogPost() {
               <BlogPostHero post={post} />
                 <Divider/>
               <Box sx={{ p: { xs: 3, md: 5 }}}>
-              <Markdown children={post.content} />
+              <Typography variant="body2" sx={{ mb: 5 }}>
+               {post.content}
+              </Typography> 
               <Box sx={{ my: 5 }}>
                 <Divider />
               </Box>
@@ -78,7 +76,6 @@ export default function BlogPost() {
         )}
         {!post && !error && <SkeletonPost />}
         {error && <Typography variant="h6">404 {error}!</Typography>}
-        {/* <BlogPostRecent posts={recentPosts} /> */}
       </Container>
     </Page>
   );

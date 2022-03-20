@@ -2,7 +2,7 @@ import orderBy from 'lodash/orderBy';
 import { Link as RouterLink } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack } from '@mui/material';
+import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -16,7 +16,7 @@ import Iconify from '../../components/Iconify';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blogpost';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -54,19 +54,24 @@ export default function BlogPosts() {
 
   const [filters, setFilters] = useState('latest');
 
+  const [page, setpage] = useState(0);
+  const [totalpage, settotalpage] = useState(0);
+  const [pagenation, setpagenation] = useState(1);
+
   const sortedPosts = applySort(posts, filters);
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get('/posts');
+      const response = await axios.get(`/posts?page=${page}&size=12`);
 
       if (isMountedRef.current) {
-        setPosts(response.data.posts);
+        setPosts(response.data.data.content);
+        settotalpage(response.data.data.totalPages);
       }
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef]);
+  }, [isMountedRef,page]);
 
   useEffect(() => {
     getAllPosts();
@@ -77,6 +82,15 @@ export default function BlogPosts() {
       setFilters(value);
     }
   };
+
+  const handleChange = useCallback(
+    (event, value) => {
+      setpagenation(value);
+      setpage(value - 1);
+      getAllPosts(page);
+    },
+    [getAllPosts, page]
+  );
 
   return (
     <Page title="포스트">
@@ -115,6 +129,14 @@ export default function BlogPosts() {
             )
           )}
         </Grid>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          >
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        </Stack>
       </Container>
     </Page>
   );

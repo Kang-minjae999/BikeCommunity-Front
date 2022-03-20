@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Avatar, SpeedDial, Typography, SpeedDialAction, Link } from '@mui/material';
+import { Box, Avatar, SpeedDial, Typography, SpeedDialAction } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
@@ -9,7 +9,6 @@ import { fDate } from '../../../utils/formatTime';
 // components
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
-import SocialsButton from '../../../components/SocialsButton';
 
 // ----------------------------------------------------------------------
 
@@ -17,22 +16,18 @@ const SOCIALS = [
   {
     name: 'Facebook',
     icon: <Iconify icon="eva:facebook-fill" width={20} height={20} color="#1877F2" />,
-    link: 'https://www.facebook.com/'
   },
   {
     name: 'Instagram',
     icon: <Iconify icon="ant-design:instagram-filled" width={20} height={20} color="#D7336D" />,
-    link: 'https://www.facebook.com/'
   },
   {
     name: 'Linkedin',
     icon: <Iconify icon="eva:linkedin-fill" width={20} height={20} color="#006097" />,
-    link: 'https://www.facebook.com/'
   },
   {
     name: 'Twitter',
     icon: <Iconify icon="eva:twitter-fill" width={20} height={20} color="#1C9CEA" />,
-    link: 'https://www.facebook.com/'
   },
 ];
 
@@ -43,7 +38,6 @@ const OverlayStyle = styled('h1')(({ theme }) => ({
   left: 0,
   zIndex: 9,
   position: 'absolute',
-  backgroundColor: alpha(theme.palette.grey[900], 0.72),
 }));
 
 const TitleStyle = styled('h1')(({ theme }) => ({
@@ -84,53 +78,49 @@ const FooterStyle = styled('div')(({ theme }) => ({
 BlogPostHero.propTypes = {
   post: PropTypes.object.isRequired,
 };
-/* 
-const { title, author, createdAt } = post; */
 
 export default function BlogPostHero({ post }) {
-  const { title } = post;
+  const { nicknameOfPost ,postImageURLs } = post;
 
   const isDesktop = useResponsive('up', 'sm');
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <TitleStyle>{title}</TitleStyle>
+     {/*  <TitleStyle>{title}</TitleStyle> */}
 
       <FooterStyle>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar alt='라이더타운' src='https://en.pimg.jp/068/513/753/1/68513753.jpg' sx={{ width: 48, height: 48 }} />
+         {/*  <Avatar alt={nicknameOfPost} src={author.avatarUrl} sx={{ width: 48, height: 48 }} /> */}
           <Box sx={{ ml: 2 }}>
-            <Typography variant="subtitle1" sx={{ color: 'common.black' , m:2}}>
-              라이더타운
+            <Typography variant="subtitle1" sx={{ color: 'common.white' }}>
+              {nicknameOfPost}
             </Typography>
-            <SocialsButton />
-            {/* <Typography variant="body2" sx={{ color: 'grey.500' }}>
+         {/*    <Typography variant="body2" sx={{ color: 'grey.500' }}>
               {fDate(createdAt)}
             </Typography> */}
           </Box>
         </Box>
-          
-{/*         <SpeedDial
+
+      {/*   <SpeedDial
           direction={isDesktop ? 'left' : 'up'}
           ariaLabel="Share post"
           icon={<Iconify icon="eva:share-fill" sx={{ width: 20, height: 20 }} />}
           sx={{ '& .MuiSpeedDial-fab': { width: 48, height: 48 } }}
         >
           {SOCIALS.map((action) => (
-            <Link key={action.name} target="_blank" rel="noopener" href={action.link}>
             <SpeedDialAction
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
               tooltipPlacement="top"
               FabProps={{ color: 'default' }}
-            /> 
-            </Link>
+            />
           ))}
         </SpeedDial> */}
       </FooterStyle>
 
       <OverlayStyle />
+      <Image alt="post cover" src={postImageURLs[0]} ratio="1/1" />
     </Box>
   );
 }

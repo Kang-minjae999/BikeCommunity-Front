@@ -21,16 +21,14 @@ import TextIconLabel from '../../../components/TextIconLabel';
 BlogPostlist.propTypes = {
   post: PropTypes.object.isRequired,
 };
-/* 
-const { title, id, createdAt } = post; */
 
 export default function BlogPostlist({ post }) {
-  const { title, id } = post;
+  const { title, view, comment, share, author, createdAt } = post;
 
-/*   const POST_INFO = [
+  const POST_INFO = [
     { number: comment, icon: 'eva:message-circle-fill' },
     { number: view, icon: 'eva:eye-fill' },
-  ]; */
+  ];
 
   return (
     <Card sx={{mb:0.5}}>
@@ -42,7 +40,7 @@ export default function BlogPostlist({ post }) {
         >  
       <Grid container>
       <Grid key={post.id} item xs={12} sm={12} md={8}>
-      <PostContent title={title} id={id} />
+      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} />
       </Grid>
       <Stack
           direction="row"
@@ -52,8 +50,8 @@ export default function BlogPostlist({ post }) {
         >  
         
       <Avatar
-          alt='ridertown'
-          src='https://en.pimg.jp/068/513/753/1/68513753.jpg'
+          alt={author.name}
+          src={author.avatarUrl}
         />
         <Typography
         gutterBottom
@@ -62,9 +60,8 @@ export default function BlogPostlist({ post }) {
         sx={{
           color: 'secondary'
         }}
-      >라이더타운</Typography>
-
-{/*        <Stack
+      >{author.name}</Typography>
+       <Stack
         flexWrap="wrap"
         direction="row"
         justifyContent="flex-end"
@@ -80,9 +77,8 @@ export default function BlogPostlist({ post }) {
             sx={{ typography: 'caption', ml: index === 0 ? 0 : 1.5 }}
           />
         ))}
-      </Stack> */}
-
-{/*       <Typography
+      </Stack>
+      <Typography
         gutterBottom
         variant="caption"
         component="div"
@@ -92,8 +88,7 @@ export default function BlogPostlist({ post }) {
       >
         
         {fyeardateTime(createdAt)}
-      </Typography> */} 
-
+      </Typography>
       </Stack>
       </Grid> 
       </Stack>
@@ -104,13 +99,17 @@ export default function BlogPostlist({ post }) {
 // ----------------------------------------------------------------------
 
 PostContent.propTypes = {
-  id: PropTypes.number,
+  index: PropTypes.number,
   title: PropTypes.string,
 };
 
-export function PostContent({ title, id}) {
+export function PostContent({ title, index }) {
+  const isDesktop = useResponsive('up', 'md');
   
-  const linkTo = `${PATH_DASHBOARD.blog.root}/notices/${id}`;
+  const linkTo = `${PATH_DASHBOARD.blog.root}/post/${paramCase(title)}`;
+
+  const latestPostLarge = index === 0;
+  const latestPostSmall = index === 1 || index === 2;
 
 
   return (
@@ -118,6 +117,13 @@ export function PostContent({ title, id}) {
       sx={{
         pt: 3,
         width: 1,
+        ...((latestPostLarge || latestPostSmall) && {
+          pt: 0,
+          zIndex: 9,
+          bottom: 0,
+          position: 'absolute',
+          color: 'common.white',
+        }),
       }}
     >
     <Stack        
@@ -127,7 +133,7 @@ export function PostContent({ title, id}) {
         sx = {{mr:4}}>
 
       <Link to={linkTo} color="inherit" component={RouterLink}>
-        <TextMaxLine variant={'subtitle2'} line={1} persistent>
+        <TextMaxLine variant={isDesktop && latestPostLarge ? 'h5' : 'subtitle2'} line={1} persistent>
           {title}
         </TextMaxLine>
       </Link>
