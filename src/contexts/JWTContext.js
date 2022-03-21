@@ -117,7 +117,6 @@ function AuthProvider({ children }) {
     });
     const user = response.data;
     const accessToken = response.headers.authorization;
-    console.log(response)
     setSession(accessToken);
     dispatch({
       type: 'LOGIN',

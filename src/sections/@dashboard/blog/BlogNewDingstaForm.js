@@ -62,6 +62,8 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
+  console.log(user)
+
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
@@ -103,7 +105,7 @@ export default function BlogNewDingstaForm() {
 
   return (
     <>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit())}>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
