@@ -34,10 +34,7 @@ export default function BlogNewDingstaForm() {
 
 
   const NewBlogSchema = Yup.object().shape({
-    dingstaPostRequest:{
-    content: Yup.string().required('내용이 필요해요!'),
-    tags: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
-    },
+    imageFiles: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
 
   /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
@@ -64,7 +61,7 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
-  console.log(user)
+  
   const onSubmit = async (data) => {
     console.log(data)
     const accessToken = window.localStorage.getItem('accessToken');
