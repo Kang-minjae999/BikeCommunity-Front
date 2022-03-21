@@ -13,12 +13,12 @@ BlogPostTags.propTypes = {
 };
 
 export default function BlogPostTags({ post }) {
-  const {  tags } = post;
+  const { tags } = post;
 
   return (
     <Box sx={{ py: 3 }}>
-      {tags.map((tag) => (
-        <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
+      {tags.map((tag, index) => (
+        <Chip key={index} label={tag} sx={{ m: 0.5 }} />
       ))}
 
     {/*   <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>

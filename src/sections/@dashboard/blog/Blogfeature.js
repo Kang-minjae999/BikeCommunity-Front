@@ -135,7 +135,7 @@ function CarouselItem({ item, isActive, index }) {
         </m.div>
       </CardContent>
       <OverlayStyle /> */}
-      <Image ratio='1/1' alt={index} src={item} />
+      <Image ratio='1/1' alt={item} src={item} />
     </Box>
   );
 }
