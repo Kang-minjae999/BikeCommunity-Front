@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback, useState } from 'react';
+import { useCallback, useState,useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate, useLocation } from 'react-router-dom';
 // form
@@ -96,13 +96,15 @@ export default function BlogNewDingstaForm() {
         acceptedFiles.map((file) =>
           Object.assign(file))
       );
-      const formData = new FormData();
-      acceptedFiles.map((file) =>
-      formData.append('imageFiles', file))
-      console.log(formData)
     },
     [setValue]
   );
+  
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append('imageFiles', watch('imageFiles'))
+    console.log(formData)
+  }, [handleDrops])
   
   const handleRemoveAll = () => {
     setValue('imageFiles', []);
