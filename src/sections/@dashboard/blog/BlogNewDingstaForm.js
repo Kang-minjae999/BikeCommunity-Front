@@ -15,6 +15,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -29,18 +30,21 @@ export default function BlogNewDingstaForm() {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const {user} = useAuth()
+
 
   const NewBlogSchema = Yup.object().shape({
     content: Yup.string().required('내용이 필요해요!'),
-    images: Yup.mixed().required('사진이 필요해요!'),
+    imageFiles: Yup.mixed().required('사진이 필요해요!'),
     tags: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
 
   const defaultValues = {
+    dingstaPostRequest:{
     content: '',
-    images: [],
     tags: '[]',
-    publish: true,
+    },
+    imageFiles: []
   };
 
   const methods = useForm({
@@ -61,7 +65,7 @@ export default function BlogNewDingstaForm() {
   const onSubmit = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post('/dingsta', {
+      await axios.post(`/dingsta/${user.nickName}`, {
         headers: {
           Authorization: accessToken,
         },
@@ -112,7 +116,7 @@ export default function BlogNewDingstaForm() {
                   onRemove={handleRemove}
                   onRemoveAll={handleRemoveAll}
                 />
-                <RHFTextField name="content" label="내용" multiline minRows={5}/>
+                <RHFTextField name="dingstaPostRequest.content" label="내용" multiline minRows={5}/>
                 <Stack
                   direction="row"
                   justifyContent="center"
@@ -122,7 +126,7 @@ export default function BlogNewDingstaForm() {
                 <Grid container spacing={1}>
                   <Grid item xs={9} md={9}>
                 <Controller
-                  name="tags"
+                  name="dingstaPostRequest.tags"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
@@ -135,18 +139,18 @@ export default function BlogNewDingstaForm() {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField name="tags" label="태그" {...params}/>}
+                      renderInput={(params) => <RHFTextField name="dingstaPostRequest.tags" label="태그" {...params}/>}
                     />
                   )}
                 />
                 </Grid>
                 <Grid item xs={3} md={3}>
-                 <RHFSwitch
+                 {/* <RHFSwitch
                     name="publish"
                     label="공개"
                     labelPlacement="start"
                     sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
-                  />
+                  /> */}
                 </Grid>
                 </Grid>
               </Stack>
