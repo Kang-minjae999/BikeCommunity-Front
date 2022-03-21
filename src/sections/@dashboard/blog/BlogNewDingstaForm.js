@@ -89,25 +89,27 @@ export default function BlogNewDingstaForm() {
     },
     [setValue]
   ); */
+  
+  const formData = new FormData()
+
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'images',
+        'imageFiles',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
-    const formData = new FormData([])
     acceptedFiles.map((file) =>
     formData.append('imageFiles', file))
     console.log(formData)
+    // key 확인하기
     },
     [setValue]
   );
-  
-  
+
 /*   useEffect(() => {
     const formData = new FormData();
     formData.append('imageFiles', watch('imageFiles'))
