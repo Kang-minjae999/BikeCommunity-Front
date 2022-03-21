@@ -1,5 +1,6 @@
 export { default as SkeletonMap } from './SkeletonMap';
 export { default as SkeletonPost } from './SkeletonPost';
+export { default as SkeletonDingsta } from './SkeletonDingsta';
 export { default as SkeletonProduct } from './SkeletonProduct';
 export { default as SkeletonPostItem } from './SkeletonPostItem';
 export { default as SkeletonboardItem } from './SkeletonboardItem';

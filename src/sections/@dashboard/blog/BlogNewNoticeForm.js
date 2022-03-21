@@ -62,7 +62,7 @@ export default function BlogNewNoticeForm() {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
-           <CardHeader title='공지사항 글쓰기'/>
+           <CardHeader title='공지사항 글쓰기' sx={{mb:2}}/>
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" />

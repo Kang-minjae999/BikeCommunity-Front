@@ -96,15 +96,11 @@ export default function Blogfeature({post}) {
 
 CarouselItem.propTypes = {
   isActive: PropTypes.bool,
-  item: PropTypes.shape({
-    image: PropTypes.string,
-  }),
+  item: PropTypes.string,
   index: PropTypes.number,
 };
 
 function CarouselItem({ item, isActive, index }) {
-  const { image } = item;
-
   return (
     <Box sx={{ position: 'relative'}}>
 {/*       <CardContent
@@ -139,7 +135,7 @@ function CarouselItem({ item, isActive, index }) {
         </m.div>
       </CardContent>
       <OverlayStyle /> */}
-      <Image ratio='1/1' alt={index} src={image} />
+      <Image ratio='1/1' alt={index} src={item} />
     </Box>
   );
 }

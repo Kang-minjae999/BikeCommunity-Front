@@ -82,7 +82,7 @@ export default function Login() {
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
               계정이 없으신가요? {''}
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                가입하기
+                회원가입
               </Link>
             </Typography>
         </HeaderStyle>
@@ -98,13 +98,12 @@ export default function Login() {
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>아이디와 비밀번호를 입력해주세요.</Typography>
               </Box>
-              <Tooltip title={capitalCase(method)} placement="right">
-                <>
-                  <SportsMotorsportsTwoToneIcon
-                    color = "primary"
-                    sx={{ width: 40, height: 40 }}
-                  />
-                </>
+              <Tooltip title='회원가입' placement="right">
+              <Typography variant="body2" sx={{ mt: { md: 2 } }}>
+              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+              회원가입
+              </Link>
+            </Typography>
               </Tooltip>
             </Stack>
             <LoginForm />
@@ -140,7 +139,7 @@ export default function Login() {
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 계정이 없으신가요?{' '}
                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                  가입하기
+                  회원가입
                 </Link>
               </Typography>
           </ContentStyle>

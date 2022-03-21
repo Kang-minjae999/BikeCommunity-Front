@@ -59,7 +59,7 @@ export default function Appclub() {
       />
         <BottomNavigationAction
         label={<Typography variant='subtitle2' color='black' fontWeight='bold'>클럽만들기</Typography>}
-        value="club/product/new"
+        value="club/clubnew"
         icon={<PhotoFilterIcon color='primary'/>}
       />
     </BottomNavigation> 

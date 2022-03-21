@@ -8,13 +8,12 @@ import { useForm, Controller } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Grid, Card, Chip, Stack, Button, Typography, Autocomplete } from '@mui/material';
+import { Grid, Chip, Stack,  Typography, Autocomplete } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile, RHFUploadMultiFile } from '../../../components/hook-form';
+import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
-import BlogNewPostPreview from './BlogNewPostPreview';
 import axios from '../../../utils/axiospost';
 
 // ----------------------------------------------------------------------
@@ -23,34 +22,18 @@ import axios from '../../../utils/axiospost';
 const TAGS_OPTION = [
   '모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'
 ];
-
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
-
 // ----------------------------------------------------------------------
 
 export default function BlogNewDingstaForm() {
   const navigate = useNavigate();
 
-  const [open, setOpen] = useState(false);
-
-  const { pathname } = useLocation();
-
-  const isnotice = pathname.includes('notice');
-  const ispost = pathname.includes('post');
-
-
   const { enqueueSnackbar } = useSnackbar();
 
 
   const NewBlogSchema = Yup.object().shape({
-    content: Yup.string().required('Title is required'),
-    images: Yup.mixed().required('Cover is required'),
-    tags: Yup.array().min(1,"주제를 한가지 정해주세요.").required('Content is required'),
+    content: Yup.string().required('내용이 필요해요!'),
+    images: Yup.mixed().required('사진이 필요해요!'),
+    tags: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
 
   const defaultValues = {
@@ -66,7 +49,6 @@ export default function BlogNewDingstaForm() {
   });
 
   const {
-    reset,
     watch,
     control,
     setValue,
@@ -84,7 +66,7 @@ export default function BlogNewDingstaForm() {
           Authorization: accessToken,
         },
       });
-      enqueueSnackbar('공지사항 추가 완료!');
+      enqueueSnackbar('딩스타그램 추가 완료!');
       navigate(PATH_DASHBOARD.blog.posts);
     } catch (error) {
       console.error(error);
@@ -138,7 +120,7 @@ export default function BlogNewDingstaForm() {
                   spacing={2}
                 >
                 <Grid container spacing={1}>
-                  <Grid item xs={12} md={9}>
+                  <Grid item xs={9} md={9}>
                 <Controller
                   name="tags"
                   control={control}
@@ -158,10 +140,10 @@ export default function BlogNewDingstaForm() {
                   )}
                 />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={3} md={3}>
                  <RHFSwitch
                     name="publish"
-                    label="공개여부"
+                    label="공개"
                     labelPlacement="start"
                     sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
                   />

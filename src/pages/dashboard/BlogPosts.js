@@ -92,6 +92,19 @@ export default function BlogPosts() {
     [getAllPosts, page]
   );
 
+  const [admin , setadmin] = useState(false)
+
+  useEffect(() => {
+    if(user){
+      if(user.role === 'admin'){
+        setadmin(true)
+      }
+    } else{
+    setadmin(false)
+    }
+  
+  }, [user])
+
   return (
     <Page title="포스트">
       <Container maxWidth={themeStretch ? false : 'lx'}>
@@ -100,8 +113,8 @@ export default function BlogPosts() {
           links={[
             { name: ''},
           ]}
-          /*   action={
-            (user.role === 'admin') && <Button
+             action={
+            (admin) && <Button
               variant="outlined"
               component={RouterLink}
               to={PATH_DASHBOARD.blog.newPost}
@@ -109,7 +122,7 @@ export default function BlogPosts() {
             >
               글쓰기
             </Button>
-          } */
+          } 
           sx={{mt:2}}
         />
 

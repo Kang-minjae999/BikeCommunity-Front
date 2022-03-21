@@ -1,55 +1,61 @@
-import { capitalCase, sentenceCase } from 'change-case';
-import { PropTypes } from 'prop-types';
-
 import { useState, useEffect } from 'react';
 // @mui
-import { Container, Tab, Box, Tabs, Grid, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Container, Tab, Box, Tabs, Grid, Typography, BottomNavigationAction, BottomNavigation, Card, Divider } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
+import HomeIcon from '@mui/icons-material/Home';
+import PhotoFilterIcon from '@mui/icons-material/PhotoFilter';
+import StoreIcon from '@mui/icons-material/Store';
+
 import { getProduct } from '../../redux/slices/product';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
-// _mock_
-import { _userPayment, _userAddressBook, _userInvoices, _userAbout } from '../../_mock';
 // components
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import {
-  AccountGeneral,
-  AccountBilling,
-  AccountSocialLinks,
-  AccountNotifications,
-  AccountChangePassword,
-} from '../../sections/@dashboard/club/account';
 import Clubroomhome from './Clubroomhome';
 import useAuth from '../../hooks/useAuth';
-import Image from '../../components/Image';
 import Clubboard from './Clubboard';
 import Clubchat from './Clubchat';
 import Clubcalender from './Clubcalender';
+import ProfileCover from '../../sections/@dashboard/club/Clubprofile';
+import useResponsive from '../../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
 export default function Clubroom() {
   const { user } = useAuth();
-  const theme = useTheme();
+  const isDesktop = useResponsive('up','lg')
   const { themeStretch } = useSettings();
   const { product } = useSelector(state => state.product);
   const dispatch = useDispatch();
-  const { name = '' } = useParams();
+  const { id = '' } = useParams();
 
   
   useEffect(() => {
-    dispatch(getProduct(name));
-    console.log(name)
-  }, [dispatch, name]);
+    dispatch(getProduct(id));
+  }, [dispatch, id]);
 
+ // ----------------------------------------------------
+ const [value, setValue] = useState('');
+ const [valuetrue, setvaluetrue] = useState(false);
+ const handleChange = (event, newValue) => {
+   setValue(newValue);
+   setvaluetrue(true);
+ };
 
-  console.log(product);
+ useEffect(() => {
+   if(valuetrue === true )
+   {
+    setCurrentTab(value)
+   } 
+   return () => {
+     setvaluetrue(false)
+     setTimeout(() => {setValue('')}, 100);
+       };
+   }, [value]); 
+   // -----------------------------------------------------
 
   const [currentTab, setCurrentTab] = useState('Home');
 
@@ -73,49 +79,57 @@ export default function Clubroom() {
       icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
       component: <Clubchat />,
     },
-    {
-      value: 'what',
-      icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
-      component: <AccountBilling cards={_userPayment} addressBook={_userAddressBook} invoices={_userInvoices} />,
-    },
-    {
-      value: 'do i do',
-      icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
-      component: <AccountChangePassword />,
-    },
   ];
 
   return (
     <Page title="프로필">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
-      <Grid container>    
-        <Grid item xs={12} md={9} >
-            <Typography variant="h4">{name}</Typography>
-            <Typography>{user.displayName}님! {name}에 오신것을 환영합니다! 안라무복하세요!</Typography><br/>
-          </Grid>     
-          <Grid item xs={12} md={3} >
-          <HeaderBreadcrumbs
-          heading="CLUB"
-          links={[
-            { name: '동호회', href: PATH_DASHBOARD.club.root },
-          ]}
-        />         
-        </Grid> 
-        </Grid> 
-        <Tabs
-          value={currentTab}
-          scrollButtons="auto"
-          variant="scrollable"
-          allowScrollButtonsMobile
-          onChange={(e, value) => setCurrentTab(value)}
+      <Container maxWidth={themeStretch ? false : 'xl'}>
+        {isDesktop && 
+        <Card
+          sx={{
+            mb: 2, mt: 2,
+            height: '70vh' ,
+            position: 'relative',
+          }}
         >
-          {ACCOUNT_TABS.map((tab) => (
-            <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
-          ))}
-        </Tabs>
-
+        {product && 
+          <ProfileCover product={product}/>} 
+        </Card>}
+        {!isDesktop && 
+        <Card
+          sx={{
+            mb: 2, mt: 2,
+            height: '30vh' ,
+            position: 'relative',
+          }}
+        >
+        {product && 
+          <ProfileCover product={product}/>} 
+        </Card>}
+        <BottomNavigation showLabels sx={{ width: '100%' ,height:'1%', mb:2}} value={value} onChange={handleChange}>
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='black'>클럽 홈</Typography>}
+            value="Home"
+            icon={<HomeIcon color='primary' />}
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='black'>게시판</Typography>}
+            value="Board"
+            icon={<StoreIcon  color='primary'/>}
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='black'>캘린더</Typography>}
+            value="Calender"
+            icon={<TwoWheelerIcon color='primary'/>}
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='black'>채팅</Typography>}
+            value="Chat"
+            icon={<PhotoFilterIcon color='primary' />}
+          />
+        </BottomNavigation>
+        <Divider />
         <Box sx={{ mb: 2 }} />
-
         {ACCOUNT_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;

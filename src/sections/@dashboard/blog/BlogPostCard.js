@@ -4,14 +4,15 @@ import { paramCase } from 'change-case';
 import { Link as RouterLink , useLocation} from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Card, Avatar, Typography, CardContent, Stack } from '@mui/material';
+import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
-import { fDate } from '../../../utils/formatTime';
-import { fShortenNumber } from '../../../utils/formatNumber';
+import { fyeardateTime } from '../../../utils/formatTime';
+import { fNumber } from '../../../utils/formatNumber';
 // components
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
@@ -37,87 +38,35 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post }) {
-  const isDesktop = useResponsive('up', 'md');
 
-  const { id, nicknameOfpost, thumbnailImageUrl ,content } = post;
-
- /*  const latestPost = index === 0 || index === 1 || index === 2;
-
-  if (isDesktop && latestPost) {
-    return (
-       <Card>
-        <Avatar
-          alt={author.name}
-          src={author.avatarUrl}
-          sx={{
-            zIndex: 9,
-            top: 24,
-            left: 24,
-            width: 40,
-            height: 40,
-            position: 'absolute',
-          }}
-        />
-        <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
-        <OverlayStyle />
-        <Image alt="cover" src={cover} sx={{ height: 360 }} />
-      </Card> 
-      <Card>
-      <PostContent title={content}  index={index} />
-      <OverlayStyle />
-      <Image alt="cover" src={thumbnailImageUrl} sx={{ height: 360 }} />
-    </Card>
-    );
-  } */
+  const { id, nicknameOfpost, thumbnailImageUrl ,content, createdDate, avatarImageURL,tags } = post;
 
   return (
-/*     <Card>
-      <Box sx={{ position: 'relative' }}>
-        <SvgIconStyle
-          src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-          sx={{
-            width: 80,
-            height: 36,
-            zIndex: 9,
-            bottom: -15,
-            position: 'absolute',
-            color: 'background.paper',
-          }}
-        />
-        <Avatar
-          alt={author.name}
-          src={author.avatarUrl}
-          sx={{
-            left: 24,
-            zIndex: 9,
-            width: 32,
-            height: 32,
-            bottom: -16,
-            position: 'absolute',
-          }}
-        />
-        <Image alt="cover" src={cover} ratio="4/3" />
-      </Box>
-
-      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} id={id} />
-    </Card> */
     <Card>
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      alignItems="center"
+      spacing={0}
+    >
+    <Stack
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="center"
+      spacing={0}
+    >
+    <Avatar alt={nicknameOfpost} src={avatarImageURL} sx={{ width: 32, height: 32, mt:1,mb:1,ml:1,mr:1 }} />
+    <Typography variant="subtitle2" sx={{ color: 'common.black' }}>
+      {nicknameOfpost}
+    </Typography>
+    </Stack>
+    <MoreHorizIcon sx={{mr:1}}/>
+    </Stack>
     <Box sx={{ position: 'relative' }}>
-      <SvgIconStyle
-        src="https://minimal-assets-api.vercel.app/assets/icons/shape-avatar.svg"
-        sx={{
-          width: 80,
-          height: 36,
-          zIndex: 9,
-          bottom: -15,
-          position: 'absolute',
-          color: 'background.paper',
-        }}
-      />
       <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
     </Box>
 
-    <PostContent content={content} id={id}/>
+    <PostContent content={content} createdDate={createdDate} id={id} tags={tags}/>
   </Card>
   );
 }
@@ -127,10 +76,11 @@ export default function BlogPostCard({ post }) {
 PostContent.propTypes = {
   id: PropTypes.number,
   content: PropTypes.string,
+  createdDate: PropTypes.string,
+  tags: PropTypes.array,
 };
 
-export function PostContent({  id ,content }) {
-  const isDesktop = useResponsive('up', 'md');
+export function PostContent({  id ,content, createdDate, tags }) {
 
   const { pathname } = useLocation();
 
@@ -150,14 +100,11 @@ export function PostContent({  id ,content }) {
 
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
 
-/*   const latestPostLarge = index === 0;
-  const latestPostSmall = index === 1 || index === 2; */
 
-/*   const POST_INFO = [
-    { number: comment, icon: 'eva:message-circle-fill' },
-    { number: view, icon: 'eva:eye-fill' },
-    { number: share, icon: 'eva:share-fill' },
-  ]; */
+    const POST_INFO = [
+    { number: '12000', icon: 'eva:eye-fill' },
+    { number: '341', icon: 'eva:message-circle-fill' },
+  ];  
 
   return (
     <CardContent
@@ -166,44 +113,44 @@ export function PostContent({  id ,content }) {
         width: 1
       }}
     >
-      {/* <Typography
+       <Typography
         gutterBottom
         variant="caption"
         component="div"
         sx={{
-          color: 'text.disabled',
-          ...((latestPostLarge || latestPostSmall) && {
-            opacity: 0.64,
-            color: 'common.white',
-          }),
-        }}
+          color: 'text.disabled'}}
       >
-        {fDate(createdAt)}
-      </Typography> */}
+        {fyeardateTime(createdDate)}
+      </Typography> 
 
       <Link to={linkTo} color="inherit" component={RouterLink}>
         <TextMaxLine variant='subtitle2' line={2} persistent>
           {content}
         </TextMaxLine>
       </Link>
-
+      {tags && 
+      <Box sx={{ py: 3 }}>
+      {tags.map((tag) => (
+        <Chip key={tag} label={tag} sx={{ m: 0.5 }} size='small'/>
+      ))}
+      </Box>}
       <Stack
         flexWrap="wrap"
         direction="row"
         justifyContent="flex-end"
         sx={{
-          mt: 3,
+          mt: 0.5,
           color: 'text.disabled',
         }}
       >
-      {/*   {POST_INFO.map((info, index) => (
+        {POST_INFO.map((info, index) => (
           <TextIconLabel
             key={index}
             icon={<Iconify icon={info.icon} sx={{ width: 16, height: 16, mr: 0.5 }} />}
-            value={fShortenNumber(info.number)}
-            sx={{ typography: 'caption', ml: index === 0 ? 0 : 1.5 }}
+            value={fNumber(info.number)}
+            sx={{ typography: 'caption', ml: 1 }}
           />
-        ))} */}
+        ))} 
       </Stack>
     </CardContent>
   );

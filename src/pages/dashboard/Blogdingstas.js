@@ -99,7 +99,7 @@ export default function Blogdingstas() {
             <Button
               variant="outlined"
               component={RouterLink}
-              to={PATH_DASHBOARD.blog.newPost}
+              to={PATH_DASHBOARD.blog.newDingsta}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
               글쓰기

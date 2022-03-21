@@ -13,6 +13,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PhotoFilterIcon from '@mui/icons-material/PhotoFilter';
 import TextureIcon from '@mui/icons-material/Texture';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
@@ -64,7 +65,7 @@ const navConfig = [
     subheader: 'Club',
     items: [ 
       { title: '클럽', path: PATH_DASHBOARD.general.club ,icon: (<CommentIcon sx={{ width: 1, height: 1 }}/>) },
-      { title: '새 클럽', path: PATH_DASHBOARD.club.newProduct ,icon: (<AddCommentIcon sx={{ width: 1, height: 1 }}/>) },
+      { title: '새 클럽', path: PATH_DASHBOARD.club.new ,icon: (<AddCommentIcon sx={{ width: 1, height: 1 }}/>) },
     ],
   },
   {
@@ -82,6 +83,8 @@ const navConfig = [
     items: [ 
       { title: '공지사항', path: PATH_DASHBOARD.blog.notices ,icon: (<AnnouncementIcon sx={{ width: 1, height: 1 }}/>) },
       { title: '포스트', path: PATH_DASHBOARD.blog.posts ,icon: (<DynamicFeedIcon sx={{ width: 1, height: 1 }}/>) },
+      { title: '딩스타그램', path: PATH_DASHBOARD.blog.dingstas ,icon: (<PhotoFilterIcon sx={{ width: 1, height: 1 }}/>) },
+      { title: '딩스타글쓰기', path: PATH_DASHBOARD.blog.newDingsta ,icon: (<AddBoxIcon sx={{ width: 1, height: 1 }}/>) },
     ],
   },
 ];

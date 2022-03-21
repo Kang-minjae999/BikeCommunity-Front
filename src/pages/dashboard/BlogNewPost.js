@@ -1,8 +1,6 @@
 // @mui
 import { useLocation } from 'react-router-dom';
 import { Container } from '@mui/material';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -23,8 +21,8 @@ export default function BlogNewPost() {
 
 
   return (
-    <Page title={(isdingsta ?'딩스타': '')}>
-      <Container maxWidth={themeStretch ? false : 'lx'}>
+    <Page title={(isdingsta ?'딩스타그램': '')}>
+      <Container maxWidth={themeStretch ? false : 'md'}>
         <HeaderBreadcrumbs
           heading={(isdingsta ?'딩스타그램': '')}
           links={[

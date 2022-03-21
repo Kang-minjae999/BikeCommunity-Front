@@ -154,11 +154,11 @@ export const PATH_DASHBOARD = {
   club: {
     root: path(ROOTS_DASHBOARD, '/club'),
     club: path(ROOTS_DASHBOARD, '/club/club'),    
-    clubroom: path(ROOTS_DASHBOARD, '/club/clubroom/:name'),    
-    product: path(ROOTS_DASHBOARD, '/club/product/:name'),
+    clubroom: path(ROOTS_DASHBOARD, '/club/clubroom/:id'),    
+    clubdetail: path(ROOTS_DASHBOARD, '/club/clubdetail/:id'),
     productById: path(ROOTS_DASHBOARD, '/club/product/nike-air-force-1-ndestrukt'),
     list: path(ROOTS_DASHBOARD, '/club/list'),
-    newProduct: path(ROOTS_DASHBOARD, '/club/product/new'),
+    new: path(ROOTS_DASHBOARD, '/club/clubnew'),
     editById: path(ROOTS_DASHBOARD, '/club/product/nike-blazer-low-77-vintage/edit'),
     checkout: path(ROOTS_DASHBOARD, '/club/checkout'),
     invoice: path(ROOTS_DASHBOARD, '/club/invoice')

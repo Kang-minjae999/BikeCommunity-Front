@@ -21,10 +21,10 @@ export default function ClubCreate() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { name } = useParams();
+  const { id } = useParams();
   const { products } = useSelector((state) => state.product);
   const isEdit = pathname.includes('edit');
-  const currentProduct = products.find((product) => paramCase(product.name) === name);
+  const currentProduct = products.find((product) => paramCase(product.id) === id);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -36,7 +36,7 @@ export default function ClubCreate() {
         <HeaderBreadcrumbs
           heading={!isEdit ? '클럽 만들기' : '클럽 수정하기'}
           links={[
-            { name: !isEdit ? '' : name },
+            { name: !isEdit ? '' : '' },
           ]}
         />
 

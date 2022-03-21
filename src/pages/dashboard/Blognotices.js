@@ -45,7 +45,8 @@ const applySort = (posts, sortBy) => {
 export default function Blognotice() {
   const { themeStretch } = useSettings();
 
- /*  const { user } = useAuth() */
+  const { user } = useAuth() 
+
   const isMountedRef = useIsMountedRef();
 
   const [page, setpage] = useState(0);
@@ -89,6 +90,20 @@ export default function Blognotice() {
     },
     [getAllPosts, page]
   );
+  const [admin , setadmin] = useState(false)
+  
+
+  useEffect(() => {
+    if(user){
+      if(user.role === 'admin'){
+        setadmin(true)
+      }
+    } else{
+    setadmin(false)
+    }
+  
+  }, [user])
+  
 
 
   return (
@@ -99,8 +114,8 @@ export default function Blognotice() {
           links={[
             { name: '' },
           ]}
-          /*  action={
-            (user.role === 'admin') && <Button
+            action={
+            (admin) && <Button
               variant="outlined"
               component={RouterLink}
               to={PATH_DASHBOARD.blog.newPost}
@@ -108,7 +123,7 @@ export default function Blognotice() {
             >
               글쓰기
             </Button>
-          } */
+          } 
         sx={{mt:2}}
         />
 

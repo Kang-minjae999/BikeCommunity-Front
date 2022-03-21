@@ -119,11 +119,8 @@ export default function MultiFilePreview({ showPreview = false, files, onRemove,
 
       {hasFile && (
         <Stack direction="row" justifyContent="flex-end" spacing={1.5}>
-          <Button color="inherit" size="small" onClick={onRemoveAll}>
-            Remove all
-          </Button>
-          <Button size="small" variant="contained">
-            Upload files
+          <Button color="inherit" variant='outlined' size="small" onClick={onRemoveAll}>
+            이미지 전부 삭제하기
           </Button>
         </Stack>
       )}

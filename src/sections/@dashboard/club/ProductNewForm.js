@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox } from '@mui/material';
+import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox, Button } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
@@ -47,6 +47,14 @@ const MODEL_OPTION = [
   'cbr600rr',
 ];
 
+const BRAND_OPTION = [
+  'cbr125r',
+  'cbr250rr',
+  'cbr500r',
+  'cbr600rr',
+];
+
+
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -66,7 +74,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [tradechecked, settradeChecked] = useState(false);
+  const [model, setmodel] = useState(false);
+  const [brand, setbrand] = useState(false);
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('동호회 이름이 필요합니다.'),
@@ -84,7 +93,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
       gender: currentProduct?.gender || GENDER_OPTION[0],
       age: currentProduct?.age || '',
       city: currentProduct?.city || '',
-      model: currentProduct?.model || MODEL_OPTION[0],
+      model: currentProduct?.model || '',
+      brand: currentProduct?.brand || '',
       clubking: currentProduct?.clubking || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +131,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
+      enqueueSnackbar(!isEdit ? '동호회 생성 완료!' : '동호회 수정 완료!');
       navigate(PATH_DASHBOARD.eCommerce.list);
     } catch (error) {
       console.error(error);
@@ -142,10 +152,14 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     [setValue]
   );
 
-   
+    
   const handleChange = () => {
-    settradeChecked((prev) => !prev);
-};
+      setbrand((prev) => !prev);
+  };
+
+  const handleChange2 = () => {
+    setmodel((prev) => !prev);
+  };
 
 
   const handleRemoveAll = () => {
@@ -157,6 +171,10 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     setValue('images', filteredItems);
   };
 
+  const hi = () => {
+    console.log(watch('brand'))
+  }
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -164,14 +182,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
               <RHFTextField name="name" label="동호회 이름" autoComplete="false"/>
-
-              <div>
-                <LabelStyle>동호회 소개</LabelStyle>
-                <RHFEditor simple name="description" />
-              </div>
-
-              <div>
-                <LabelStyle>동호회 대표 사진</LabelStyle>
+                <RHFTextField name="content" label="소개" multiline minRows={5}/>
                 <RHFUploadMultiFile
                   name="images"
                   showPreview
@@ -181,7 +192,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   onRemove={handleRemove}
                   onRemoveAll={handleRemoveAll}
                 />
-              </div>
             </Stack>
           </Card>
         </Grid>
@@ -226,13 +236,36 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       renderInput={(params) => <TextField label="나이대" {...params} />}
                     />
                   )}
-                />     
+                />
+                <FormControlLabel
+                control={<Checkbox checked={brand} onChange={handleChange} />}
+                label="입장 가능한 브랜드 선택하기"
+                />
+                {!brand
+                ? '' :  <Controller
+                 name="model"
+                 control={control}
+                 render={({ field }) => (
+                   <Autocomplete
+                     multiple
+                     onChange={(event, newValue) => field.onChange(newValue)}
+                     options={BRAND_OPTION.map((option) => option)}
+                     renderTags={(value, getTagProps) =>
+                       value.map((option, index) => (
+                         <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                       ))
+                     }
+                     renderInput={(params) => <TextField 
+                      name="brand" label="브랜드" helperText='브랜드를 검색해주세요.'{...params} />}
+                   />
+                 )}
+               />}     
 
                 <FormControlLabel
-                control={<Checkbox checked={tradechecked} onChange={handleChange} />}
+                control={<Checkbox checked={model} onChange={handleChange2} />}
                 label="입장 가능한 기종 선택하기"
                 />
-                {!tradechecked
+                {!model
                 ? '' :  <Controller
                  name="model"
                  control={control}
@@ -254,15 +287,11 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
               </Stack>
             </Card>
 
-            <Card sx={{ p: 3 }}>
-              <Stack spacing={3} mb={2}>
-                <RHFTextField name="password" label="동호회 방 비밀번호" autoComplete="false"/>
-              </Stack>
-            </Card>
 
             <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
               {!isEdit ? '동호회 등록하기' : '동호회 수정하기'}
             </LoadingButton>
+           {/*  <Button onClick={hi}>안녕하세요</Button> */}
           </Stack>
         </Grid>
       </Grid>

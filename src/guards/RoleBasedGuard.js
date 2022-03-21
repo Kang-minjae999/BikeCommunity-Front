@@ -21,8 +21,8 @@ export default function RoleBasedGuard({ accessibleRoles, children }) {
     return (
       <Container>
         <Alert severity="error">
-          <AlertTitle>Permission Denied</AlertTitle>
-          You do not have permission to access this page
+          <AlertTitle>권한이 없어요!</AlertTitle>
+          다른페이지로 이동해주세요!
         </Alert>
       </Container>
     );
