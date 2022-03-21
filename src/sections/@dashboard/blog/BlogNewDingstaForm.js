@@ -80,7 +80,7 @@ export default function BlogNewDingstaForm() {
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'images',
+        'imageFiles',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -108,7 +108,7 @@ export default function BlogNewDingstaForm() {
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
                 <RHFUploadMultiFile
-                  name="images"
+                  name="imageFiles"
                   showPreview
                   accept="image/*"
                   maxSize={3145728}
