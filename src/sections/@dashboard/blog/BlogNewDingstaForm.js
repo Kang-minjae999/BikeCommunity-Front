@@ -76,15 +76,30 @@ export default function BlogNewDingstaForm() {
       console.error(error);
     }
   };
-
-  const handleDrops = useCallback(
+  
+/*   const handleDrops = useCallback(
     (acceptedFiles) => {
       const formData = new FormData();
       acceptedFiles.map((file) =>
       formData.append('imageFiles', file))
+
       setValue(
         'imageFiles',formData
       );
+    },
+    [setValue]
+  ); */
+  const handleDrops = useCallback(
+    (acceptedFiles) => {
+      setValue(
+        'imageFiles',
+        acceptedFiles.map((file) =>
+          Object.assign(file))
+      );
+      const formData = new FormData();
+      acceptedFiles.map((file) =>
+      formData.append('imageFiles', file))
+      console.log(formData)
     },
     [setValue]
   );
