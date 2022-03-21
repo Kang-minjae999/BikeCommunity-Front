@@ -100,11 +100,11 @@ export default function BlogNewDingstaForm() {
     [setValue]
   );
   
-  useEffect(() => {
+/*   useEffect(() => {
     const formData = new FormData();
     formData.append('imageFiles', watch('imageFiles'))
     console.log(formData)
-  }, [handleDrops])
+  }, [handleDrops]) */
   
   const handleRemoveAll = () => {
     setValue('imageFiles', []);
