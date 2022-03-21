@@ -64,7 +64,7 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
-
+  console.log(user)
   const onSubmit = async (data) => {
     console.log(data)
     const accessToken = window.localStorage.getItem('accessToken');
