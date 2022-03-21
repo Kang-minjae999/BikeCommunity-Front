@@ -80,28 +80,28 @@ BlogPostHero.propTypes = {
 };
 
 export default function BlogPostHero({ post }) {
-  const { nicknameOfPost ,postImageURLs, avatarImageURL } = post;
+  const { nicknameOfPost, postImageURLs, avatarImageURL } = post;
 
   const isDesktop = useResponsive('up', 'sm');
 
   return (
     <Box sx={{ position: 'relative' }}>
-     {/*  <TitleStyle>{title}</TitleStyle> */}
+      {/*  <TitleStyle>{title}</TitleStyle> */}
 
       <FooterStyle>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-           <Avatar alt={nicknameOfPost} src={avatarImageURL} sx={{ width: 48, height: 48 }} /> 
+          <Avatar alt={nicknameOfPost} src={avatarImageURL} sx={{ width: 48, height: 48 }} />
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle1" sx={{ color: 'common.white' }}>
               {nicknameOfPost}
             </Typography>
-         {/*    <Typography variant="body2" sx={{ color: 'grey.500' }}>
+            {/*    <Typography variant="body2" sx={{ color: 'grey.500' }}>
               {fDate(createdAt)}
             </Typography> */}
           </Box>
         </Box>
 
-      {/*   <SpeedDial
+        {/*   <SpeedDial
           direction={isDesktop ? 'left' : 'up'}
           ariaLabel="Share post"
           icon={<Iconify icon="eva:share-fill" sx={{ width: 20, height: 20 }} />}

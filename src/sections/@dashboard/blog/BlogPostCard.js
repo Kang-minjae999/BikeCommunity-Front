@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
-import { Link as RouterLink , useLocation} from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip } from '@mui/material';
@@ -38,36 +38,28 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post }) {
-
-  const { id, nicknameOfpost, thumbnailImageUrl ,content, createdDate, avatarImageURL,tags } = post;
+  const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags } = post;
 
   return (
     <Card>
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="center"
-      spacing={0}
-    >
-    <Stack
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="center"
-      spacing={0}
-    >
-    <Avatar alt={nicknameOfpost} src={avatarImageURL} sx={{ width: 32, height: 32, mt:1,mb:1,ml:1,mr:1 }} />
-    <Typography variant="subtitle2" sx={{ color: 'common.black' }}>
-      {nicknameOfpost}
-    </Typography>
-    </Stack>
-    <MoreHorizIcon sx={{mr:1}}/>
-    </Stack>
-    <Box sx={{ position: 'relative' }}>
-      <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
-    </Box>
-
-    <PostContent content={content} createdDate={createdDate} id={id} tags={tags}/>
-  </Card>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
+        <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={0}>
+          <Avatar
+            alt={nicknameOfPost}
+            src={avatarImageURL}
+            sx={{ width: 32, height: 32, mt: 1, mb: 1, ml: 1, mr: 1 }}
+          />
+          <Typography variant="subtitle2" sx={{ color: 'common.black' }}>
+            {nicknameOfPost}
+          </Typography>
+        </Stack>
+        <MoreHorizIcon sx={{ mr: 1 }} />
+      </Stack>
+      <Box sx={{ position: 'relative' }}>
+        <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
+      </Box>
+      <PostContent content={content} createdDate={createdDate} id={id} tags={tags} />
+    </Card>
   );
 }
 
@@ -80,60 +72,60 @@ PostContent.propTypes = {
   tags: PropTypes.array,
 };
 
-export function PostContent({  id ,content, createdDate, tags }) {
-
+export function PostContent({ id, content, createdDate, tags }) {
   const { pathname } = useLocation();
 
-  const [api , setapi] = useState();
+  const [api, setapi] = useState();
 
   useEffect(() => {
-    if(pathname.includes('notices')){
-      setapi('notice')
+    if (pathname.includes('notices')) {
+      setapi('notice');
     }
-    if(pathname.includes('posts')){
-      setapi('post')
+    if (pathname.includes('posts')) {
+      setapi('post');
     }
-    if(pathname.includes('dingstas')){
-      setapi('dingsta')
+    if (pathname.includes('dingstas')) {
+      setapi('dingsta');
     }
-  }, [pathname])
+  }, [pathname]);
 
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
 
-
-    const POST_INFO = [
+  const POST_INFO = [
     { number: '12000', icon: 'eva:eye-fill' },
     { number: '341', icon: 'eva:message-circle-fill' },
-  ];  
+  ];
 
   return (
     <CardContent
       sx={{
         pt: 4.5,
-        width: 1
+        width: 1,
       }}
     >
-       <Typography
+      <Typography
         gutterBottom
         variant="caption"
         component="div"
         sx={{
-          color: 'text.disabled'}}
+          color: 'text.disabled',
+        }}
       >
         {fyeardateTime(createdDate)}
-      </Typography> 
+      </Typography>
 
       <Link to={linkTo} color="inherit" component={RouterLink}>
-        <TextMaxLine variant='subtitle2' line={2} persistent>
+        <TextMaxLine variant="subtitle2" line={2} persistent>
           {content}
         </TextMaxLine>
       </Link>
-      {tags && 
-      <Box sx={{ py: 3 }}>
-      {tags.map((tag) => (
-        <Chip key={tag} label={tag} sx={{ m: 0.5 }} size='small'/>
-      ))}
-      </Box>}
+      {tags && (
+        <Box sx={{ py: 3 }}>
+          {tags.map((tag) => (
+            <Chip key={tag} label={tag} sx={{ m: 0.5 }} size="small" />
+          ))}
+        </Box>
+      )}
       <Stack
         flexWrap="wrap"
         direction="row"
@@ -150,7 +142,7 @@ export function PostContent({  id ,content, createdDate, tags }) {
             value={fNumber(info.number)}
             sx={{ typography: 'caption', ml: 1 }}
           />
-        ))} 
+        ))}
       </Stack>
     </CardContent>
   );
