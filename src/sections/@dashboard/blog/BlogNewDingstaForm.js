@@ -34,11 +34,13 @@ export default function BlogNewDingstaForm() {
 
 
   const NewBlogSchema = Yup.object().shape({
+    dingstaPostRequest:{
     content: Yup.string().required('내용이 필요해요!'),
-    imageFiles: Yup.mixed().required('사진이 필요해요!'),
     tags: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
+    },
   });
 
+  /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
   const defaultValues = {
     dingstaPostRequest:{
     content: '',
@@ -62,9 +64,9 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
-  console.log(user)
 
   const onSubmit = async (data) => {
+    console.log(data)
     const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.post(`/dingsta/${user.nickname}`, data ,{
@@ -73,7 +75,7 @@ export default function BlogNewDingstaForm() {
         },
       });
       enqueueSnackbar('딩스타그램 추가 완료!');
-      navigate(PATH_DASHBOARD.blog.posts);
+      navigate(PATH_DASHBOARD.blog.dingstas);
     } catch (error) {
       console.error(error);
     }
