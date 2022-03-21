@@ -92,13 +92,21 @@ export default function BlogNewDingstaForm() {
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'imageFiles',
+        'images',
         acceptedFiles.map((file) =>
-          Object.assign(file))
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
       );
+    const formData = new FormData([])
+    acceptedFiles.map((file) =>
+    formData.append('imageFiles', file))
+    console.log(formData)
     },
     [setValue]
   );
+  
   
 /*   useEffect(() => {
     const formData = new FormData();
