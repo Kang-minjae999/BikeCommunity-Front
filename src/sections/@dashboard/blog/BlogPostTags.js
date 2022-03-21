@@ -13,7 +13,7 @@ BlogPostTags.propTypes = {
 };
 
 export default function BlogPostTags({ post }) {
-  const { favorite, tags, favoritePerson } = post;
+  const {  tags } = post;
 
   return (
     <Box sx={{ py: 3 }}>
@@ -21,7 +21,7 @@ export default function BlogPostTags({ post }) {
         <Chip key={tag} label={tag} sx={{ m: 0.5 }} />
       ))}
 
-      <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
+    {/*   <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <FormControlLabel
           control={
             <Checkbox
@@ -44,7 +44,7 @@ export default function BlogPostTags({ post }) {
             <Avatar key={person.name} alt={person.name} src={person.avatarUrl} />
           ))}
         </AvatarGroup>
-      </Box>
+      </Box> */}
     </Box>
   );
 }
