@@ -74,7 +74,7 @@ function AuthProvider({ children }) {
 
           const response = await axios.get('/users', {
             headers: {
-              Authorization: accessToken,
+              authorization: accessToken,
             },
           });
           const user = response.data;
@@ -116,7 +116,7 @@ function AuthProvider({ children }) {
       password,
     });
     const user = response.data;
-    const accessToken = response.headers.Authorization;
+    const accessToken = response.headers.authorization;
     console.log(response)
     setSession(accessToken);
     dispatch({
@@ -150,7 +150,7 @@ function AuthProvider({ children }) {
     const accessToken = window.localStorage.getItem('accessToken');
     await axios.get('/logout', {
       headers: {
-        Authorization: accessToken,
+        authorization: accessToken,
       },
     });
     setSession(null);

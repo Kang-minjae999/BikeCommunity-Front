@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Grid, Chip, Stack,  Typography, Autocomplete } from '@mui/material';
+import { Grid, Chip, Stack,  Typography, Autocomplete, Button } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
@@ -67,7 +67,7 @@ export default function BlogNewDingstaForm() {
     try {
       await axios.post(`/dingsta/${user.nickName}`, data ,{
         headers: {
-          Authorization: accessToken,
+          authorization: accessToken,
         },
       });
       enqueueSnackbar('딩스타그램 추가 완료!');
