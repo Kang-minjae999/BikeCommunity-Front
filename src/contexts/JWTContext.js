@@ -9,7 +9,7 @@ import { isValidToken, setSession } from '../utils/jwt';
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
-  user: [],
+  user: {},
 };
 
 const handlers = {
@@ -77,7 +77,7 @@ function AuthProvider({ children }) {
               authorization: accessToken,
             },
           });
-          const user = response.data;
+          const user = response.data.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -115,7 +115,7 @@ function AuthProvider({ children }) {
       email,
       password,
     });
-    const user = response.data;
+    const user = response.data.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
@@ -136,7 +136,7 @@ function AuthProvider({ children }) {
       phoneNumber,
       address,
     });
-    const user = response.data;
+    const user = response.data.data;
     dispatch({
       type: 'REGISTER',
       payload: {
