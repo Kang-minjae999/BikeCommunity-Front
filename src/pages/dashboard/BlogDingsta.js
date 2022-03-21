@@ -92,7 +92,7 @@ export default function BlogDingsta() {
             alignItems="center"
             spacing={0}
           >
-          <Avatar alt={post.id} src={post.avatarImageURL} sx={{ width: 48, height: 48, mt:1,mb:1,ml:1,mr:1 }} />
+          <Avatar alt={post.avatarImageURL} src={post.avatarImageURL} sx={{ width: 48, height: 48, mt:1,mb:1,ml:1,mr:1 }} />
           <Typography variant="subtitle1" sx={{ color: 'common.black' }}>
             {post.nicknameOfPost}
           </Typography>

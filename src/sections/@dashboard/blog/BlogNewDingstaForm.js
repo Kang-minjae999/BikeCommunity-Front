@@ -83,10 +83,7 @@ export default function BlogNewDingstaForm() {
       setValue(
         'imageFiles',
         acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+          Object.assign(file))
       );
     },
     [setValue]
