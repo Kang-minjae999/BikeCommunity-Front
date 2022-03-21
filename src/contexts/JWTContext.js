@@ -77,7 +77,7 @@ function AuthProvider({ children }) {
               authorization: accessToken,
             },
           });
-          const user = response.data.data;
+          const user = response.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -115,7 +115,7 @@ function AuthProvider({ children }) {
       email,
       password,
     });
-    const user = response.data.data;
+    const user = response.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
@@ -136,7 +136,7 @@ function AuthProvider({ children }) {
       phoneNumber,
       address,
     });
-    const user = response.data.data;
+    const user = response.data;
     dispatch({
       type: 'REGISTER',
       payload: {
