@@ -67,7 +67,7 @@ export default function BlogNewDingstaForm() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post(`/dingsta/${user.nickName}`, data ,{
+      await axios.post(`/dingsta/${user.nickname}`, data ,{
         headers: {
           authorization: accessToken,
         },
