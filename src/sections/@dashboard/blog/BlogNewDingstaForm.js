@@ -32,7 +32,6 @@ export default function BlogNewDingstaForm() {
 
   const {user} = useAuth()
 
-
   const NewBlogSchema = Yup.object().shape({
     imageFiles: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
@@ -80,22 +79,23 @@ export default function BlogNewDingstaForm() {
 
   const handleDrops = useCallback(
     (acceptedFiles) => {
+      const formData = new FormData();
+      acceptedFiles.map((file) =>
+      formData.append('imageFiles', file))
       setValue(
-        'imageFiles',
-        acceptedFiles.map((file) =>
-          Object.assign(file))
+        'imageFiles',formData
       );
     },
     [setValue]
   );
   
   const handleRemoveAll = () => {
-    setValue('images', []);
+    setValue('imageFiles', []);
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.images?.filter((_file) => _file !== file);
-    setValue('images', filteredItems);
+    setValue('imageFiles', filteredItems);
   };
 
 
