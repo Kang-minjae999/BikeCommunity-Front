@@ -40,7 +40,7 @@ const handlers = {
     const { user } = action.payload;
     return {
       ...state,
-      isAuthenticated: true,
+      isAuthenticated: false,
       user,
     };
   },
