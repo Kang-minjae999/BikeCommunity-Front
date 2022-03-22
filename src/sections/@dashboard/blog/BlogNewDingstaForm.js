@@ -34,15 +34,14 @@ export default function BlogNewDingstaForm() {
 
   const NewBlogSchema = Yup.object().shape({
     Images: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
+    tags: Yup.array().required('태그가 필요합니다.'),
+    content: Yup.string().required('내용이 필요합니다.'),
   });
 
   /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
   const defaultValues = {
-    dingstaPostRequest:{
     content: '',
     tags: '[]',
-    },
-    imageFiles: [],
     Images: []
   };
 
