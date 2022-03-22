@@ -71,6 +71,7 @@ export default function BlogNewDingstaForm() {
     data.Images.map((file) => 
     formData.append('imageFiles', file));
     formData.append('content', data.content)
+    formData.append('tags', data.tags)
     try {
       await axios.post(`/dingsta/${user.nickname}`, formData ,
       {
