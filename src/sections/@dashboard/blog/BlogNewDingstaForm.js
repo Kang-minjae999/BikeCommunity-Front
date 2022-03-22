@@ -133,7 +133,7 @@ export default function BlogNewDingstaForm() {
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
                 <RHFUploadMultiFile
-                  name="imageFiles"
+                  name="images"
                   showPreview
                   accept="image/*"
                   maxSize={3145728}
