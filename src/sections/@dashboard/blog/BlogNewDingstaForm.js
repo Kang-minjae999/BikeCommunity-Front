@@ -61,12 +61,15 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
   
+  const [photo, setphoto] = useState()
+
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    console.log(data)
-    data.Images.map((file) =>
-    formData.append('imageFiles', file))
+    data.Images.map((file) => 
+    formData.append('imageFiles', file));
+    console.log('폼데이터', formData.getAll('imageFiles'));
+    console.log('폼데이터갖고있기는하냐', formData.has('imageFiles'));
     try {
       await axios.post(`/dingsta/${user.nickname}`, {
         imageFiles: formData, 
