@@ -64,8 +64,8 @@ export default function BlogNewDingstaForm() {
     /* data.Images.map((file) => 
     formData.append('imageFiles', file)); */
 
-    
-  const onSubmit = async (data) => {
+
+/*   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     formData.append('imageFiles', data.Images)
@@ -83,8 +83,28 @@ export default function BlogNewDingstaForm() {
     } catch (error) {
       console.error(error);
     }
+  }; */
+  const onSubmit = async (data) => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    try {
+      await axios.post(`/dingsta/${user.nickname}`, 
+      {
+        imageFiles : data.imageFiles,
+        content: data.content
+      }
+       ,
+      {
+        headers: {
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('딩스타그램 추가 완료!');
+      navigate(PATH_DASHBOARD.blog.dingstas);
+    } catch (error) {
+      console.error(error);
+    }
   };
-  
 /*   const handleDrops = useCallback(
     (acceptedFiles) => {
       const formData = new FormData();
