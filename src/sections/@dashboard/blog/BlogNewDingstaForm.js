@@ -12,7 +12,7 @@ import { Grid, Chip, Stack,  Typography, Autocomplete, Button } from '@mui/mater
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
+import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile, FormProvider2 } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
@@ -151,7 +151,7 @@ export default function BlogNewDingstaForm() {
 
   return (
     <>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+      <FormProvider2 methods={methods} onSubmit={handleSubmit(onSubmit)} >
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
@@ -208,7 +208,7 @@ export default function BlogNewDingstaForm() {
               </Stack>
           </Grid>
         </Grid>
-      </FormProvider>
+      </FormProvider2>
     </>
   );
 }
