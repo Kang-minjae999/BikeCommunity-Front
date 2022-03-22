@@ -60,21 +60,18 @@ export default function BlogNewDingstaForm() {
   } = methods;
 
   const values = watch();
-  
-  const [photo, setphoto] = useState()
 
+    /* data.Images.map((file) => 
+    formData.append('imageFiles', file)); */
+
+    
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    data.Images.map((file) => 
-    formData.append('imageFiles', file));
-    console.log('폼데이터', formData.getAll('imageFiles'));
-    console.log('폼데이터갖고있기는하냐', formData.has('imageFiles'));
+    formData.append('imageFiles', data.Images)
+    formData.append('content', data.content)
     try {
-      await axios.post(`/dingsta/${user.nickname}`, {
-        imageFiles: formData, 
-        dingstaPostRequest: data.dingstaPostRequest
-      },
+      await axios.post(`/dingsta/${user.nickname}`, formData ,
       {
         headers: {
           'content-type': 'multipart/form-data',
@@ -126,9 +123,10 @@ export default function BlogNewDingstaForm() {
   };
 
   const handleRemove = (file) => {
-    const filteredItems = values.images?.filter((_file) => _file !== file);
+    const filteredItems = values.Images?.filter((_file) => _file !== file);
     setValue('Images', filteredItems);
   };
+
 
 
   return (
