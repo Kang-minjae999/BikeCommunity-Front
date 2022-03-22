@@ -33,7 +33,7 @@ export default function BlogNewDingstaForm() {
   const {user} = useAuth()
 
   const NewBlogSchema = Yup.object().shape({
-    imageFiles: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
+    Images: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
 
   /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
@@ -43,7 +43,7 @@ export default function BlogNewDingstaForm() {
     tags: '[]',
     },
     imageFiles: [],
-    images: []
+    Images: []
   };
 
   const methods = useForm({
@@ -64,11 +64,11 @@ export default function BlogNewDingstaForm() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    data.images.map((file) =>
+    data.Images.map((file) =>
     formData.append('imageFiles', file))
     try {
       await axios.post(`/dingsta/${user.nickname}`, {
-        imageFiles: data.imageFiles, 
+        imageFiles: formData, 
         dingstaPostRequest: data.dingstaPostRequest
       },
       {
@@ -99,7 +99,7 @@ export default function BlogNewDingstaForm() {
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'images',
+        'Images',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -117,12 +117,12 @@ export default function BlogNewDingstaForm() {
   }, [handleDrops]) */
   
   const handleRemoveAll = () => {
-    setValue('images', []);
+    setValue('Images', []);
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.images?.filter((_file) => _file !== file);
-    setValue('images', filteredItems);
+    setValue('Images', filteredItems);
   };
 
 
@@ -133,7 +133,7 @@ export default function BlogNewDingstaForm() {
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
                 <RHFUploadMultiFile
-                  name="images"
+                  name="Images"
                   showPreview
                   accept="image/*"
                   maxSize={3145728}
