@@ -42,7 +42,8 @@ export default function BlogNewDingstaForm() {
     content: '',
     tags: '[]',
     },
-    imageFiles: []
+    imageFiles: [],
+    images: []
   };
 
   const methods = useForm({
@@ -59,13 +60,18 @@ export default function BlogNewDingstaForm() {
   } = methods;
 
   const values = watch();
-
   
   const onSubmit = async (data) => {
-    console.log(data)
     const accessToken = window.localStorage.getItem('accessToken');
+    const formData = new FormData()
+    data.images.map((file) =>
+    formData.append('imageFiles', file))
     try {
-      await axios.post(`/dingsta/${user.nickname}`, data ,{
+      await axios.post(`/dingsta/${user.nickname}`, {
+        imageFiles: data.imageFiles, 
+        dingstaPostRequest: data.dingstaPostRequest
+      },
+      {
         headers: {
           authorization: accessToken,
         },
@@ -90,22 +96,16 @@ export default function BlogNewDingstaForm() {
     [setValue]
   ); */
   
-  const formData = new FormData()
-
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'imageFiles',
+        'images',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
       );
-    acceptedFiles.map((file) =>
-    formData.append('imageFiles', file))
-    console.log(formData)
-    // key 확인하기
     },
     [setValue]
   );
@@ -117,12 +117,12 @@ export default function BlogNewDingstaForm() {
   }, [handleDrops]) */
   
   const handleRemoveAll = () => {
-    setValue('imageFiles', []);
+    setValue('images', []);
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.images?.filter((_file) => _file !== file);
-    setValue('imageFiles', filteredItems);
+    setValue('images', filteredItems);
   };
 
 
