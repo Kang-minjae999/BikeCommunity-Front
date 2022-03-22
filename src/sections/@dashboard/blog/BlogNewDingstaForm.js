@@ -64,6 +64,7 @@ export default function BlogNewDingstaForm() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
+    console.log(data)
     data.Images.map((file) =>
     formData.append('imageFiles', file))
     try {
@@ -73,6 +74,7 @@ export default function BlogNewDingstaForm() {
       },
       {
         headers: {
+          'content-type': 'multipart/form-data',
           authorization: accessToken,
         },
       });
