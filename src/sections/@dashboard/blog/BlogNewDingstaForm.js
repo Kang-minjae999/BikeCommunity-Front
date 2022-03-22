@@ -12,7 +12,7 @@ import { Grid, Chip, Stack,  Typography, Autocomplete, Button } from '@mui/mater
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile, FormProvider2 } from '../../../components/hook-form';
+import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
@@ -65,10 +65,11 @@ export default function BlogNewDingstaForm() {
     formData.append('imageFiles', file)); */
 
 
-/*   const onSubmit = async (data) => {
+   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    formData.append('imageFiles', data.Images)
+    data.Images.map((file) => 
+    formData.append('imageFiles', file));
     formData.append('content', data.content)
     try {
       await axios.post(`/dingsta/${user.nickname}`, formData ,
@@ -83,8 +84,8 @@ export default function BlogNewDingstaForm() {
     } catch (error) {
       console.error(error);
     }
-  }; */
-  const onSubmit = async (data) => {
+  }; 
+/*   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.post(`/dingsta/${user.nickname}`, 
@@ -104,7 +105,7 @@ export default function BlogNewDingstaForm() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }; */
 /*   const handleDrops = useCallback(
     (acceptedFiles) => {
       const formData = new FormData();
@@ -151,7 +152,7 @@ export default function BlogNewDingstaForm() {
 
   return (
     <>
-      <FormProvider2 methods={methods} onSubmit={handleSubmit(onSubmit)} >
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} >
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
               <Stack spacing={2}>
@@ -208,7 +209,7 @@ export default function BlogNewDingstaForm() {
               </Stack>
           </Grid>
         </Grid>
-      </FormProvider2>
+      </FormProvider>
     </>
   );
 }
