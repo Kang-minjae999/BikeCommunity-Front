@@ -174,7 +174,7 @@ export default function BlogNewDingstaForm() {
                 <Grid container spacing={1}>
                   <Grid item xs={9} md={9}>
                 <Controller
-                  name="dingstaPostRequest.tags"
+                  name="tags"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
@@ -187,7 +187,7 @@ export default function BlogNewDingstaForm() {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField name="dingstaPostRequest.tags" label="태그" {...params}/>}
+                      renderInput={(params) => <RHFTextField name="tags" label="태그" {...params}/>}
                     />
                   )}
                 />
