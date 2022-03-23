@@ -91,7 +91,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
       images: currentProduct?.images || [],
       open: currentProduct?.open || OPEN_OPTION[0],
       gender: currentProduct?.gender || GENDER_OPTION[0],
-      age: currentProduct?.age || '',
+      age: currentProduct?.age || [],
       city: currentProduct?.city || '',
       model: currentProduct?.model || '',
       brand: currentProduct?.brand || '',
