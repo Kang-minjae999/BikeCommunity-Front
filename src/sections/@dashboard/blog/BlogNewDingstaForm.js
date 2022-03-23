@@ -39,7 +39,7 @@ export default function BlogNewDingstaForm() {
   /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
   const defaultValues = {
     content: '',
-    tags: '[]',
+    tags: [],
     Images: []
   };
 
