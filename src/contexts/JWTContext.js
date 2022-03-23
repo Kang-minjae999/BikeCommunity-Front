@@ -77,7 +77,7 @@ function AuthProvider({ children }) {
               authorization: accessToken,
             },
           });
-          const user = response.data.data;
+          const user = response.data;
 
           dispatch({
             type: 'INITIALIZE',
@@ -137,7 +137,7 @@ function AuthProvider({ children }) {
       phoneNumber,
       address,
     });
-    const user = response.data.data;
+    const user = response.data;
     dispatch({
       type: 'REGISTER',
       payload: {
