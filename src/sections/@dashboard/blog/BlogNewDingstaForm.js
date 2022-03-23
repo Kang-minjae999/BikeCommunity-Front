@@ -33,10 +33,9 @@ export default function BlogNewDingstaForm() {
   const {user} = useAuth()
 
   const NewBlogSchema = Yup.object().shape({
-    Images: Yup.array().min(1,"태그를 한가지이상 정해주세요!").required('태그를 적어주세요!'),
+    Images: Yup.array().min(1,"사진을 한가지이상 정해주세요!").required('태그를 적어주세요!'),
   });
 
-  /* imageFiles: Yup.mixed().required('사진이 필요해요!'), */
   const defaultValues = {
     content: '',
     tags: [],
@@ -58,18 +57,15 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
-    /* data.Images.map((file) => 
-    formData.append('imageFiles', file)); */
-
-
    const onSubmit = async (data) => {
-    console.log('일가지마')
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
+    const tags = `${data.tags.map((tag) => tag)},`
+    console.log(tags)
     data.Images.map((file) => 
     formData.append('imageFiles', file));
     formData.append('content', data.content)
-    formData.append('tags', data.tags) 
+    formData.append('tags', tags) 
     try {
       await axios.post(`/dingsta/${user.nickname}`, formData ,
       {
@@ -84,39 +80,6 @@ export default function BlogNewDingstaForm() {
       console.error(error);
     }
   }; 
-/*   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    try {
-      await axios.post(`/dingsta/${user.nickname}`, 
-      {
-        imageFiles : data.imageFiles,
-        content: data.content
-      }
-       ,
-      {
-        headers: {
-          'content-type': 'multipart/form-data',
-          authorization: accessToken,
-        },
-      });
-      enqueueSnackbar('딩스타그램 추가 완료!');
-      navigate(PATH_DASHBOARD.blog.dingstas);
-    } catch (error) {
-      console.error(error);
-    }
-  }; */
-/*   const handleDrops = useCallback(
-    (acceptedFiles) => {
-      const formData = new FormData();
-      acceptedFiles.map((file) =>
-      formData.append('imageFiles', file))
-
-      setValue(
-        'imageFiles',formData
-      );
-    },
-    [setValue]
-  ); */
   
   const handleDrops = useCallback(
     (acceptedFiles) => {
@@ -164,7 +127,7 @@ export default function BlogNewDingstaForm() {
                   onRemove={handleRemove}
                   onRemoveAll={handleRemoveAll}
                 />
-                <RHFTextField name="dingstaPostRequest.content" label="내용" multiline minRows={5}/>
+                <RHFTextField name="content" label="내용" multiline minRows={5}/>
                 <Stack
                   direction="row"
                   justifyContent="center"
