@@ -37,7 +37,8 @@ export default function BlogNewDingstaForm() {
   const defaultValues = {
     content: '',
     tags: [],
-    Images: []
+    Images: [],
+    isPublic: true,
   };
 
   const methods = useForm({
@@ -60,6 +61,7 @@ export default function BlogNewDingstaForm() {
     const formData = new FormData()
     data.tags.map((tag)=> formData.append('tags', tag))
     data.Images.map((file) => formData.append('imageFiles', file));
+    formData.append('isPublic', data.isPublic)
     formData.append('content', data.content)
     try {
       await axios.post(`/dingsta/${user.nickname}`, formData ,
@@ -143,12 +145,12 @@ export default function BlogNewDingstaForm() {
                 />
                 </Grid>
                 <Grid item xs={3} md={3}>
-                 {/* <RHFSwitch
-                    name="publish"
+                  <RHFSwitch
+                    name="isPublic"
                     label="공개"
                     labelPlacement="start"
                     sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
-                  /> */}
+                  /> 
                 </Grid>
                 </Grid>
               </Stack>
