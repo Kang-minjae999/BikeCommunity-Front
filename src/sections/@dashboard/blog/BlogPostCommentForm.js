@@ -54,7 +54,7 @@ export default function BlogPostCommentForm({post}) {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post(`/dingsta/${id}/comment`, {commentReq:{content:data.content}},
+      await axios.post(`/dingsta/${id}/comment`, {content:data.content},
       {
         headers: {
           authorization: accessToken,
