@@ -65,7 +65,7 @@ export default function BlogPostsSearch({setparam}) {
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
       setparam(searchQuery)
-    navigate(`${PATH_DASHBOARD.blog.root}/dingstas?${value}=${searchQuery}`);
+      navigate(`${PATH_DASHBOARD.blog.root}/dingstas?${value}=${searchQuery}`);
     }
   };
 

@@ -72,7 +72,7 @@ export default function Blogdingstas() {
   const { pathname } = useLocation();
 
   // ---------------------------------------------
-  const [api, setapi] = useState();
+  const [api, setapi] = useState('');
   const [isapi, setisapi] = useState(false);
   const [param, setparam] = useState('')
 
