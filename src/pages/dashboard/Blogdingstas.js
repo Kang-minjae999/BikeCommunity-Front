@@ -3,6 +3,7 @@ import { Link as RouterLink,useLocation } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
 import { Grid, Button, Container, Stack, Pagination, Box } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -12,6 +13,7 @@ import axios from '../../utils/axiospost';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Page from '../../components/Page';
+
 import Iconify from '../../components/Iconify';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
@@ -120,25 +122,15 @@ export default function Blogdingstas() {
           links={[{ name: '' }]}
           action={
             <>
-            <Button
-              variant="outlined"
-              component={RouterLink}
-              to={PATH_DASHBOARD.blog.newDingsta}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}
-            >
-              글쓰기
-            </Button> 
+            <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />  
             </>
           }
           sx={{ mt: 2 }}
         />
+        <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
 
-        <Stack mb={3} direction="row" alignItems="center" justifyContent="space-between">
-           <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
-          {/*  <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />  */}
-        </Stack>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} >
           {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
             post ? (
               <Grid key={post.id} item xs={12} sm={6} md={3}>

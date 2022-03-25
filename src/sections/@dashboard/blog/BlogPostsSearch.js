@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper, Box, Stack, Button, Menu, MenuItem } from '@mui/material';
-import ListIcon from '@mui/icons-material/List';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 // hooks
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // utils
@@ -18,6 +19,7 @@ import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
 import InputStyle from '../../../components/InputStyle';
 import SearchNotFound from '../../../components/SearchNotFound';
+import useResponsive from '../../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +33,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
+
+  const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -113,6 +117,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
     justifyContent="center"
     alignItems="center"
     spacing={1}
+    sx={{mb:1}}
     >
       <Button
         id="basic-button"
@@ -121,10 +126,17 @@ export default function BlogPostsSearch({setparam , setapi}) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClickButton}
       >
-        <ListIcon/>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+          >
+        <SearchIcon/>
         <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-        ({label})
+        {label}
         </Typography>
+        </Stack>
       </Button>
       <Menu
         id="basic-menu"
@@ -152,7 +164,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
       renderInput={(params) => (
         <InputStyle
           {...params}
-          stretchStart={250}
+          stretchStart={isDeskTop ? 400 : 250}
           placeholder="검색하기"
           onKeyUp={handleKeyUp}
           InputProps={{
@@ -192,6 +204,23 @@ export default function BlogPostsSearch({setparam , setapi}) {
         );
       }}
     />
+    <Link    
+    variant="outlined"
+    component={RouterLink}
+    to={PATH_DASHBOARD.blog.newDingsta}
+    >
+    <Stack
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    spacing={0}
+    >
+    <AddIcon sx={{ml:1, mr:1}}/>
+    <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+    글쓰기
+    </Typography> 
+    </Stack>
+    </Link>
     </Stack>
   );
 }
