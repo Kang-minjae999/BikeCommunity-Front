@@ -62,7 +62,7 @@ export default function BlogPostCommentForm({post}) {
       });
       reset()
       enqueueSnackbar('덧글 추가 완료!');
-      navigate(`${PATH_DASHBOARD.blog.dingsta}/${id}`);
+      navigate(`/blog/dingsta/${id}`);
     } catch (error) {
       console.error(error);
     }

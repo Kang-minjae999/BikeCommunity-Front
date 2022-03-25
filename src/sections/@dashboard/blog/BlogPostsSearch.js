@@ -106,6 +106,9 @@ export default function BlogPostsSearch({setparam , setapi}) {
         onClick={handleClickButton}
       >
         <ListIcon/>
+        <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+                ({value})
+              </Typography>
       </Button>
       <Menu
         id="basic-menu"
