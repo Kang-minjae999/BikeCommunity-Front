@@ -76,7 +76,7 @@ export default function Blogdingstas() {
   const getAllPosts2 = useCallback(async () => {
     console.log('axios')
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
