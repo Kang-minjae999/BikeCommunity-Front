@@ -16,18 +16,18 @@ export default function BlogPostCommentList({ post }) {
   return (
     <List disablePadding>
       {comments.map((comment) => {
-        const { id, replyComment, users } = comment;
-        const hasReply = replyComment.length > 0;
+        const { nicknameOfComment, avatarImageURL, createAt ,content} = comment;
+        /* const hasReply = replyComment.length > 0; */
 
         return (
-          <Box key={id} sx={{}}>
+          <Box key={createAt} sx={{}}>
             <BlogPostCommentItem
-              name={comment.name}
-              avatarUrl={comment.avatarUrl}
-              postedAt={comment.postedAt}
-              message={comment.message}
+              name={nicknameOfComment}
+              avatarUrl={avatarImageURL}
+              postedAt={createAt}
+              message={content}
             />
-            {hasReply &&
+            {/* {hasReply &&
               replyComment.map((reply) => {
                 const user = users.find((user) => user.id === reply.userId);
                 return (
@@ -41,7 +41,7 @@ export default function BlogPostCommentList({ post }) {
                     hasReply
                   />
                 );
-              })}
+              })} */}
           </Box>
         );
       })}

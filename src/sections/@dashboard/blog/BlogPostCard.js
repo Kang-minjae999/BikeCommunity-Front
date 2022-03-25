@@ -38,7 +38,7 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post }) {
-  const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags } = post;
+  const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags ,view , heart, numOfComment} = post;
 
   const [api, setapi] = useState('');
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
@@ -77,7 +77,7 @@ export default function BlogPostCard({ post }) {
         <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
         </Link>
       </Box>
-      <PostContent content={content} createdDate={createdDate} id={id} tags={tags} />
+      <PostContent content={content} createdDate={createdDate} id={id} tags={tags} view={view} heart={heart} numOfComment={numOfComment}/>
     </Card>
   );
 }
@@ -86,12 +86,15 @@ export default function BlogPostCard({ post }) {
 
 PostContent.propTypes = {
   id: PropTypes.number,
+  view: PropTypes.number,
+  heart: PropTypes.number,
+  numOfComment: PropTypes.number,
   content: PropTypes.string,
   createdDate: PropTypes.string,
   tags: PropTypes.array,
 };
 
-export function PostContent({ id, content, createdDate, tags }) {
+export function PostContent({ id, content, createdDate, tags, view, heart, numOfComment}) {
   const { pathname } = useLocation();
 
   const [api, setapi] = useState();
@@ -111,8 +114,9 @@ export function PostContent({ id, content, createdDate, tags }) {
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
 
   const POST_INFO = [
-    { number: '12000', icon: 'eva:eye-fill' },
-    { number: '341', icon: 'eva:message-circle-fill' },
+    { number: view, icon: 'eva:eye-fill' },
+    { number: numOfComment, icon: 'eva:message-circle-fill' },
+    { number: heart, icon: 'eva:heart-fill' },
   ];
 
   return (

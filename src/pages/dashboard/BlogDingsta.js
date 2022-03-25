@@ -114,12 +114,12 @@ export default function BlogDingsta() {
             <Box sx={{ display: 'flex', mb: 2 }}>
               <Typography variant="h4">댓글</Typography>
               <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                ({post.comments.length})
+                ({post.numOfComment})
               </Typography>
             </Box> 
           <Divider />
 
-          {/*   <BlogPostCommentList post={post} />  */}
+          <BlogPostCommentList post={post} />  
 
            <BlogPostCommentForm /> 
           </Box>
