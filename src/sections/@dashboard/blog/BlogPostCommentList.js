@@ -16,8 +16,7 @@ export default function BlogPostCommentList({ post }) {
   return (
     <List disablePadding>
       {comments.map((comment) => {
-        const { nicknameOfComment, avatarImageURL, createAt ,content} = comment;
-        console.log(createAt)
+        const { nicknameOfComment, avatarImageURL, createdDate ,content} = comment;
         /* const hasReply = replyComment.length > 0; */
 
         return (
@@ -25,7 +24,7 @@ export default function BlogPostCommentList({ post }) {
             <BlogPostCommentItem
               name={nicknameOfComment}
               avatarUrl={avatarImageURL}
-              postedAt={createAt}
+              postedAt={createdDate}
               message={content}
             />
             {/* {hasReply &&
