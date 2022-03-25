@@ -18,8 +18,6 @@ import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
-
-
 const TAGS_OPTION = [
   '모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'
 ];
@@ -60,12 +58,9 @@ export default function BlogNewDingstaForm() {
    const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    const tags = `${data.tags.map((tag) => tag)},`
-    console.log(tags)
-    data.Images.map((file) => 
-    formData.append('imageFiles', file));
+    data.tags.map((tag)=> formData.append('tags', tag))
+    data.Images.map((file) => formData.append('imageFiles', file));
     formData.append('content', data.content)
-    formData.append('tags', tags) 
     try {
       await axios.post(`/dingsta/${user.nickname}`, formData ,
       {
@@ -94,12 +89,6 @@ export default function BlogNewDingstaForm() {
     },
     [setValue]
   );
-
-/*   useEffect(() => {
-    const formData = new FormData();
-    formData.append('imageFiles', watch('imageFiles'))
-    console.log(formData)
-  }, [handleDrops]) */
   
   const handleRemoveAll = () => {
     setValue('Images', []);
@@ -109,8 +98,6 @@ export default function BlogNewDingstaForm() {
     const filteredItems = values.Images?.filter((_file) => _file !== file);
     setValue('Images', filteredItems);
   };
-
-
 
   return (
     <>

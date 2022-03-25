@@ -201,7 +201,7 @@ export default function Router() {
             { path: 'clubroom/:id', element: <Clubroom /> },            
             { path: 'clubdetail/:id', element: <ClubDetails /> },
             { path: 'list', element: <ClubList /> },
-            { path: 'clubnew', element: <AuthGuard><ClubCreate /></AuthGuard> },
+            { path: 'clubnew', element: <ClubCreate /> },
             { path: 'clubnew/:id/edit', element: <AuthGuard><ClubCreate /></AuthGuard> },
             { path: 'checkout', element: <ClubCheckout /> },
             { path: 'invoice', element: <ClubInvoice /> },

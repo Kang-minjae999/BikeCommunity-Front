@@ -11,6 +11,8 @@ import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox, Button } from '@mui/material';
 // routes
+import axios from 'axios';
+import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import {
@@ -25,7 +27,7 @@ import {
 
 const GENDER_OPTION = ['상관없음', '남자', '여자'];
 
-const OPEN_OPTION = ['공개', '비공개'];
+const STYLE_OPTION = ['유유자적', '빨리빨리', '맛집탐방', '친목도모', '장거리', '단거리'];
 
 
 const AGE_OPTION = [
@@ -76,26 +78,28 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   const [model, setmodel] = useState(false);
   const [brand, setbrand] = useState(false);
+  const [displacement, setdisplacement] = useState(false);
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('동호회 이름이 필요합니다.'),
-    description: Yup.string().required('설명이 필요합니다.'),
-    age: Yup.string().required('나이가 필요합니다.'),
-    city: Yup.string().required('지역이 필요합니다.'),
+    name: Yup.string().required('동호회 이름이 필요해요!'),
+    content: Yup.string().required('소개가 필요해요!'),
+    age: Yup.string().required('나이가 필요해요!'),
+    city: Yup.string().required('지역이 필요해요!'),
   });
 
   const defaultValues = useMemo(
     () => ({
       name: currentProduct?.name || '',
-      description: currentProduct?.description || '',
+      content: currentProduct?.description || '',
       images: currentProduct?.images || [],
-      open: currentProduct?.open || OPEN_OPTION[0],
       gender: currentProduct?.gender || GENDER_OPTION[0],
       age: currentProduct?.age || [],
       city: currentProduct?.city || '',
       model: currentProduct?.model || '',
       brand: currentProduct?.brand || '',
       clubking: currentProduct?.clubking || '',
+      style: currentProduct?.style || '',
+      displacement: currentProduct?.displacement || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -127,12 +131,17 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    console.log(data.age)
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+     /*  await axios.post('api',data, 
+      {headers:{
+        Authorization:'accessToken'
+      }} ) */
       reset();
       enqueueSnackbar(!isEdit ? '동호회 생성 완료!' : '동호회 수정 완료!');
-      navigate(PATH_DASHBOARD.eCommerce.list);
+      /* navigate(PATH_DASHBOARD.eCommerce.list); */
     } catch (error) {
       console.error(error);
     }
@@ -154,12 +163,17 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
     
   const handleChange = () => {
-      setbrand((prev) => !prev);
+    setbrand((prev) => !prev);
   };
 
   const handleChange2 = () => {
     setmodel((prev) => !prev);
   };
+
+  const handleChange3 = () => {
+    setdisplacement((prev) => !prev);
+  };
+
 
 
   const handleRemoveAll = () => {
@@ -171,9 +185,30 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     setValue('images', filteredItems);
   };
 
-  const hi = () => {
-    console.log(watch('brand'))
-  }
+    // 다음 주소
+    const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
+    const onChangeOpenPost = () => {
+      setIsOpenPost(!isOpenPost);
+    };
+  
+    const onCompletePost = (data) => {
+      const sido1 = data.sido;
+      const sigungu1 = data.sigungu;
+      const city = `${sido1} ${sigungu1}`
+  
+      setIsOpenPost(false);
+      setValue('city', city);
+    };
+  
+    const postCodeStyle = {
+      display: 'block',
+      position: 'relative',
+      top: '0%',
+      width: '480px',
+      height: '490px',
+      padding: '7px',
+    };
+    // 다음 주소 끝
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -199,16 +234,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
-            <LabelStyle>검색/공개 여부</LabelStyle>
-                  <RHFRadioGroup
-                    name="open"
-                    options={OPEN_OPTION}
-                    sx={{
-                      '& .MuiFormControlLabel-root': { mr: 4 },
-                    }}
-                  />
               <Stack spacing={3} mt={2}>
-
                 <div>
                   <LabelStyle>성별</LabelStyle>
                   <RHFRadioGroup
@@ -219,7 +245,14 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     }}
                   />
                 </div>
-                <RHFTextField name="city" label="지역" autoComplete="false"/>
+                <div>
+                <LabelStyle>지역</LabelStyle>
+                <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%' ,mb:1}}>
+                  지역찾기
+                </Button>
+                {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
+                <RHFTextField name="city" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />
+                </div>
                 <Controller
                   name="age"
                   control={control}
@@ -237,6 +270,25 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     />
                   )}
                 />
+                <Controller
+                  name="style"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      multiple
+                      onChange={(event, newValue) => field.onChange(newValue)}
+                      options={STYLE_OPTION.map((option) => option)}
+                      renderTags={(value, getTagProps) =>
+                        value.map((option, index) => (
+                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                        ))
+                      }
+                      renderInput={(params) => <TextField label="라이딩 스타일" {...params} />}
+                    />
+                  )}
+                />
+                <div>
+                  <LabelStyle>아래는 선택사항이니 선택하지 않으셔도 돼요!</LabelStyle>
                 <FormControlLabel
                 control={<Checkbox checked={brand} onChange={handleChange} />}
                 label="입장 가능한 브랜드 선택하기"
@@ -260,7 +312,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                    />
                  )}
                />}     
-
+                <br/>
                 <FormControlLabel
                 control={<Checkbox checked={model} onChange={handleChange2} />}
                 label="입장 가능한 기종 선택하기"
@@ -284,6 +336,31 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                    />
                  )}
                />}
+               <br/>
+                <FormControlLabel
+                control={<Checkbox checked={displacement} onChange={handleChange3} />}
+                label="입장 가능한 배기량 선택하기"
+                />
+                {!displacement
+                ? '' :  <Controller
+                 name="displacement"
+                 control={control}
+                 render={({ field }) => (
+                   <Autocomplete
+                     multiple
+                     onChange={(event, newValue) => field.onChange(newValue)}
+                     options={MODEL_OPTION.map((option) => option)}
+                     renderTags={(value, getTagProps) =>
+                       value.map((option, index) => (
+                         <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                       ))
+                     }
+                     renderInput={(params) => <TextField 
+                      name="displacement" label="배기량" helperText='배기량을 검색해주세요.'{...params} />}
+                   />
+                 )}
+               />}
+               </div>
               </Stack>
             </Card>
 
@@ -291,7 +368,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
             <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
               {!isEdit ? '동호회 등록하기' : '동호회 수정하기'}
             </LoadingButton>
-           {/*  <Button onClick={hi}>안녕하세요</Button> */}
           </Stack>
         </Grid>
       </Grid>

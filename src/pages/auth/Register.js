@@ -94,14 +94,6 @@ export default function Register() {
                 </Typography>
                 <Typography sx={{ color: 'text.secondary' }}>이름, 아이디, 비밀번호를 입력해주세요.</Typography>
               </Box>
-              <Tooltip title={capitalCase(method)}>
-                <>
-                <SportsMotorsportsTwoToneIcon
-                    color = "primary"
-                    sx={{ width: 40, height: 40 }}
-                  />
-                </>
-              </Tooltip>
             </Box>
 
             <RegisterForm />

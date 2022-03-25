@@ -24,21 +24,19 @@ export default function AccountGeneral() {
   const { user } = useAuth();
 
   const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required'),
+    name: Yup.string().required('Name is required'),
   });
 
   const defaultValues = {
-    displayName: user?.displayName || '',
+    name: user?.name || '',
     email: user?.email || '',
-    photoURL: user?.photoURL || '',
+    nickname: user?.nickname || '',
+    avatar: user?.avatar || '',
     phoneNumber: user?.phoneNumber || '',
-    country: user?.country || '',
-    address: user?.address || '',
-    state: user?.state || '',
-    city: user?.city || '',
-    zipCode: user?.zipCode || '',
-    about: user?.about || '',
-    isPublic: user?.isPublic || '',
+    address: user?.address.address || '',
+    detailAddress: user?.address.detailAddress || '',
+    zipCode: user?.address.zipcode || '',
+    birthday: user?.about || '',
   };
 
   const methods = useForm({
@@ -85,7 +83,7 @@ export default function AccountGeneral() {
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
-              name="photoURL"
+              name="avatar"
               accept="image/*"
               maxSize={3145728}
               onDrop={handleDrop}
@@ -106,7 +104,7 @@ export default function AccountGeneral() {
               }
             />
 
-            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
+         {/*    <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
           </Card>
         </Grid>
 
@@ -120,32 +118,29 @@ export default function AccountGeneral() {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
-              <RHFTextField name="email" label="Email Address" />
+              <RHFTextField name="name" label="이름" />
+              <RHFTextField name="email" label="이메일" />
 
-              <RHFTextField name="phoneNumber" label="Phone Number" />
-              <RHFTextField name="address" label="Address" />
+              <RHFTextField name="phoneNumber" label="번호" />
+              <RHFTextField name="nickname" label="닉네임" />
 
-              <RHFSelect name="country" label="Country" placeholder="Country">
+              {/* <RHFSelect name="country" label="Country" placeholder="Country">
                 <option value="" />
                 {countries.map((option) => (
                   <option key={option.code} value={option.label}>
                     {option.label}
                   </option>
                 ))}
-              </RHFSelect>
+              </RHFSelect> */}
 
-              <RHFTextField name="state" label="State/Region" />
-
-              <RHFTextField name="city" label="City" />
-              <RHFTextField name="zipCode" label="Zip/Code" />
+              <RHFTextField name="address" label="주소" />
+              <RHFTextField name="detailAddress" label="상세주소" />
+              <RHFTextField name="zipcode" label="우편번호" />
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <RHFTextField name="about" multiline rows={4} label="About" />
-
               <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                Save Changes
+                저장하기
               </LoadingButton>
             </Stack>
           </Card>
