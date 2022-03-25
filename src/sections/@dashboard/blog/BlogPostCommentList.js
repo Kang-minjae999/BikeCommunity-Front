@@ -15,12 +15,13 @@ export default function BlogPostCommentList({ post }) {
 
   return (
     <List disablePadding>
-      {comments.map((comment) => {
+      {comments.map((comment, index) => {
         const { nicknameOfComment, avatarImageURL, createdDate ,content} = comment;
         /* const hasReply = replyComment.length > 0; */
+        const key = `comment ${index}`
 
         return (
-          <Box key={avatarImageURL} sx={{}}>
+          <Box key={key} sx={{}}>
             <BlogPostCommentItem
               name={nicknameOfComment}
               avatarUrl={avatarImageURL}
