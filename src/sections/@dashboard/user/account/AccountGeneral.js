@@ -112,7 +112,7 @@ export default function AccountGeneral() {
           Authorization: accessToken,
         },
       });
-      enqueueSnackbar('아바타 업로드 완료!');
+      enqueueSnackbar('아바타 삭제 완료!');
     } catch (error) {
       console.error(error);
     }
@@ -144,8 +144,8 @@ export default function AccountGeneral() {
                 </Typography>
               }
             />
-          {(defaultValues.avatar || watch('avatar')) && <Button onclick={deleteavatar} variant='outlined' sx={{mt:1}}>아바타 삭제</Button>}
-          {avataron && <Button onclick={onClickavatar} variant='outlined' sx={{mt:1}}>아바타 업로드</Button>}
+          {(defaultValues.avatar || watch('avatar')) && <Button onClick={deleteavatar} variant='outlined' color='error' sx={{mt:1, mr:1}}>아바타 삭제</Button>}
+          {avataron && <Button onClick={onClickavatar} variant='outlined' sx={{mt:1}}>아바타 업로드</Button>}
 
          {/*    <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
           </Card>
