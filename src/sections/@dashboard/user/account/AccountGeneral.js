@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Box, Grid, Card, Stack, Typography } from '@mui/material';
+import { Box, Grid, Card, Stack, Typography, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
@@ -15,6 +15,7 @@ import { fData } from '../../../../utils/formatNumber';
 import { countries } from '../../../../_mock';
 // components
 import { FormProvider, RHFSwitch, RHFSelect, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
+import axios from '../../../../utils/axiosuser';
 
 // ----------------------------------------------------------------------
 
@@ -35,7 +36,7 @@ export default function AccountGeneral() {
     phoneNumber: user?.phoneNumber || '',
     address: user?.address.address || '',
     detailAddress: user?.address.detailAddress || '',
-    zipCode: user?.address.zipcode || '',
+    zipcode: user?.address.zipcode || '',
     birthday: user?.about || '',
   };
 
@@ -46,28 +47,36 @@ export default function AccountGeneral() {
 
   const {
     setValue,
-    getValues,
     handleSubmit,
+    watch,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+
+  const onSubmit = async (data) => {
+    const accessToken = window.localStorage.getItem('accessToken');
     try {
-      console.log(getValues('photoURL'))
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      enqueueSnackbar('Update success!');
+      await axios.post('/join', data
+       ,{
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('회원 수정 완료!');
     } catch (error) {
       console.error(error);
     }
   };
 
+  const [avataron, setavataron] = useState(false)
+
   const handleDrop = useCallback(
     (acceptedFiles) => {
       const file = acceptedFiles[0];
-
       if (file) {
+      setavataron(true)
         setValue(
-          'photoURL',
+          'avatar',
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
@@ -77,6 +86,38 @@ export default function AccountGeneral() {
     [setValue]
   );
 
+  const onClickavatar = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const formData = new FormData()
+    formData.append('imageFile', watch('avatar'))
+    try {
+      await axios.put('/users/avatar', formData
+       ,{
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('아바타 업로드 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const deleteavatar = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    setValue('avatar', '')
+    try {
+      await axios.delete('/users/avatar',{
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('아바타 업로드 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -85,7 +126,7 @@ export default function AccountGeneral() {
             <RHFUploadAvatar
               name="avatar"
               accept="image/*"
-              maxSize={3145728}
+              maxSize={31457281}
               onDrop={handleDrop}
               helperText={
                 <Typography
@@ -98,11 +139,13 @@ export default function AccountGeneral() {
                     color: 'text.secondary',
                   }}
                 >
-                  Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
+                  아바타를 올려주세요!
+                  <br /> 최대크기 : {fData(31457281)}
                 </Typography>
               }
             />
+          {(defaultValues.avatar || watch('avatar')) && <Button onclick={deleteavatar} variant='outlined' sx={{mt:1}}>아바타 삭제</Button>}
+          {avataron && <Button onclick={onClickavatar} variant='outlined' sx={{mt:1}}>아바타 업로드</Button>}
 
          {/*    <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
           </Card>
