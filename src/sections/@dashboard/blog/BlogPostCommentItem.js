@@ -63,9 +63,9 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt
               >
                 {fyeardateTime(postedAt)}
               </Typography>
-              {/* <Typography component="span" variant="body2">
-                <strong>{tagUser}</strong> {message}
-              </Typography> */}
+               <Typography component="span" variant="body2">
+                {/* <strong>{tagUser}</strong> */} {message}
+              </Typography> 
             </>
           }
         />
