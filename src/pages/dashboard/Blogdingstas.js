@@ -30,10 +30,10 @@ const SORT_OPTIONS = [
 
 const applySort = (posts, sortBy) => {
   if (sortBy === 'latest') {
-    return orderBy(posts, ['createdAt'], ['desc']);
+    return orderBy(posts, ['createdDate'], ['desc']);
   }
   if (sortBy === 'oldest') {
-    return orderBy(posts, ['createdAt'], ['asc']);
+    return orderBy(posts, ['createdDate'], ['asc']);
   }
   if (sortBy === 'popular') {
     return orderBy(posts, ['view'], ['desc']);
@@ -74,7 +74,6 @@ export default function Blogdingstas() {
   const [param, setparam] = useState('')
 
   const getAllPosts2 = useCallback(async () => {
-    console.log('axios')
     try {
       const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
       if (isMountedRef.current) {
@@ -112,6 +111,7 @@ export default function Blogdingstas() {
     [getAllPosts, page]
   );
 
+  console.log(posts)
   return (
     <Page title="Posts">
       <Container maxWidth={themeStretch ? false : 'lx'}>
