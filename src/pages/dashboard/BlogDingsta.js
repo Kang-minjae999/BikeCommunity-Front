@@ -74,6 +74,8 @@ export default function BlogDingsta() {
     getPost();
   }, [getPost]);
 
+  console.log(post)
+
   return (
     <Page title="포스트">
     <Container maxWidth={themeStretch ? false : 'md'}>
