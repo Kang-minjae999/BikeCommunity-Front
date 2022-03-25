@@ -48,7 +48,7 @@ export default function BlogDingsta() {
       }
     } catch (error) {
       console.error(error);
-      setError(error.message);
+      setError('서버와의 연결이 이상해요!');
     }
   }, [isMountedRef, id]);
 

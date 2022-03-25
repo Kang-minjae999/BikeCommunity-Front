@@ -69,29 +69,10 @@ export default function Blogdingstas() {
     }
   }, [isMountedRef,page]);
 
-  const { pathname } = useLocation();
-
   // ---------------------------------------------
   const [api, setapi] = useState('');
   const [isapi, setisapi] = useState(false);
   const [param, setparam] = useState('')
-
-  useEffect(() => {
-    if (pathname.includes('content')) {
-      setapi('content');
-      setisapi(true)
-    }
-    if (pathname.includes('tag')) {
-      setapi('tag');
-      setisapi(true)
-    }
-    if (pathname.includes('nickname')) {
-      setapi('nickname');
-      setisapi(true)
-    } else{
-      setisapi(false)
-    }
-  }, [pathname]);
 
   const getAllPosts2 = useCallback(async () => {
     try {
@@ -122,7 +103,6 @@ export default function Blogdingstas() {
     }
   };
 
-
   const handleChange = useCallback(
     (event, value) => {
       setpagenation(value);
@@ -152,11 +132,9 @@ export default function Blogdingstas() {
           }
           sx={{ mt: 2 }}
         />
-       {/*    <BlogPostSearchsort  query={filters} options={SORT_OPTIONS} onSort={handleChangeSort}/>
-          <BlogPostsSearchbar/> */}
 
         <Stack mb={3} direction="row" alignItems="center" justifyContent="space-between">
-           <BlogPostsSearch setparam={setparam}/> 
+           <BlogPostsSearch setparam={setparam} setisapi={setisapi} setapi={setapi}/> 
            <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> 
         </Stack>
 

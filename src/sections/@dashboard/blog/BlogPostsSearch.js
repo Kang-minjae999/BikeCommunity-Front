@@ -27,7 +27,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function BlogPostsSearch({setparam}) {
+export default function BlogPostsSearch({setparam ,setisapi, setapi}) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -65,7 +65,8 @@ export default function BlogPostsSearch({setparam}) {
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
       setparam(searchQuery)
-      navigate(`${PATH_DASHBOARD.blog.root}/dingstas?${value}=${searchQuery}`);
+      setisapi(true)
+      setapi(value)
     }
   };
 
