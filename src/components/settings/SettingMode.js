@@ -10,7 +10,8 @@ import { BoxMask } from '.';
 // ----------------------------------------------------------------------
 
 const BoxStyle = styled(CardActionArea)(({ theme }) => ({
-  height: 72,
+  width: 60,
+  height: 60,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -26,7 +27,7 @@ export default function SettingMode() {
 
   return (
     <RadioGroup name="themeMode" value={themeMode} onChange={onChangeMode}>
-      <Grid dir="ltr" container spacing={2.5}>
+      <Grid dir="ltr" container spacing={3}>
         {['light', 'dark'].map((mode, index) => {
           const isSelected = themeMode === mode;
 

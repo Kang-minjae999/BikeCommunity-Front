@@ -1,8 +1,8 @@
 import orderBy from 'lodash/orderBy';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink,useLocation } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
+import { Grid, Button, Container, Stack, Pagination, Box } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -16,7 +16,7 @@ import Iconify from '../../components/Iconify';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch, BlogPostsSearchbar, BlogPostSearchsort } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
@@ -69,9 +69,52 @@ export default function Blogdingstas() {
     }
   }, [isMountedRef,page]);
 
+  const { pathname } = useLocation();
+
+  // ---------------------------------------------
+  const [api, setapi] = useState();
+  const [isapi, setisapi] = useState(false);
+  const [param, setparam] = useState('')
+
   useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
+    if (pathname.includes('content')) {
+      setapi('content');
+      setisapi(true)
+    }
+    if (pathname.includes('tag')) {
+      setapi('tag');
+      setisapi(true)
+    }
+    if (pathname.includes('nickname')) {
+      setapi('nickname');
+      setisapi(true)
+    } else{
+      setisapi(false)
+    }
+  }, [pathname]);
+
+  const getAllPosts2 = useCallback(async () => {
+    try {
+      const response = await axios.get(`/dingsta?page=${page}&size=12&${api}=${param}`);
+      if (isMountedRef.current) {
+        setPosts(response.data.data.content);
+        settotalpage(response.data.data.totalPages);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef,page,api,param]);
+
+  useEffect(() => {
+    if(!isapi){
+      getAllPosts();
+    }
+    if(isapi){
+      getAllPosts2();
+    }
+  }, [getAllPosts,getAllPosts2,isapi]);
+
+  // --------------------------------------------------------------
 
   const handleChangeSort = (value) => {
     if (value) {
@@ -96,6 +139,7 @@ export default function Blogdingstas() {
           heading="Dingsta"
           links={[{ name: '' }]}
           action={
+            <>
             <Button
               variant="outlined"
               component={RouterLink}
@@ -103,14 +147,17 @@ export default function Blogdingstas() {
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
               글쓰기
-            </Button>
+            </Button> 
+            </>
           }
           sx={{ mt: 2 }}
         />
+       {/*    <BlogPostSearchsort  query={filters} options={SORT_OPTIONS} onSort={handleChangeSort}/>
+          <BlogPostsSearchbar/> */}
 
-        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <BlogPostsSearch />
-          <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
+        <Stack mb={3} direction="row" alignItems="center" justifyContent="space-between">
+           <BlogPostsSearch setparam={setparam}/> 
+           <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> 
         </Stack>
 
         <Grid container spacing={3}>

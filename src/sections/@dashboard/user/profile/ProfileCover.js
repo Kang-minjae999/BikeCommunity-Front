@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 // utils
 import cssStyles from '../../../../utils/cssStyles';
 // hooks
@@ -12,17 +13,15 @@ import Image from '../../../../components/Image';
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  '&:before': {
-    ...cssStyles().bgBlur({ blur: 2, color: theme.palette.primary.darker }),
+const RootStyle = styled('div')(() => ({
     top: 0,
     zIndex: 9,
     content: "''",
     width: '100%',
     height: '100%',
     position: 'absolute',
-  },
-}));
+  }
+));
 
 const InfoStyle = styled('div')(({ theme }) => ({
   left: 0,
@@ -51,31 +50,85 @@ export default function ProfileCover({ myProfile }) {
   const { position, cover } = myProfile;
 
   return (
-    <RootStyle>
-      <InfoStyle>
-        <MyAvatar
+    <>
+    <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
+    <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="flex-start"
+        spacing={1}
+      >
+       <Box
           sx={{
-            mx: 'auto',
-            borderWidth: 2,
-            borderStyle: 'solid',
-            borderColor: 'common.white',
-            width: { xs: 80, md: 128 },
-            height: { xs: 80, md: 128 },
-          }}
-        />
-        <Box
-          sx={{
-            ml: { md: 3 },
-            mt: { xs: 1, md: 0 },
-            color: 'common.white',
-            textAlign: { xs: 'center', md: 'left' },
+            ml: 3,
+            color: 'common.black',
+            textAlign: { xs: 'center', md: 'center' },
           }}
         >
-          <Typography variant="h4">{user?.displayName}</Typography>
-          <Typography sx={{ opacity: 0.72 }}>{position}</Typography>
+        <MyAvatar
+          sx={{
+            borderWidth: 2,
+            borderStyle: 'solid',
+            borderColor: 'primary.main',
+            width: 80,
+            height:80,
+            mt:2,
+          }}
+        />
+          <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}강민순</Typography>
+          {/* <Typography sx={{ opacity: 0.72 }}>{position}</Typography> */}
         </Box>
-      </InfoStyle>
-      <Image alt="profile cover" src={cover} sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
-    </RootStyle>
+        </Stack>
+        <div>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          sx={{mr:5}}
+          >
+
+        <Box >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+        >
+        <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}게시글</Typography>
+        <Typography variant="body2" >{user?.name}14</Typography>
+        </Stack>
+        </Box>
+
+        <Box >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+        >
+        <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}좋아요</Typography>
+        <Typography variant="body2" >{user?.name}14</Typography>
+        </Stack>
+        </Box>
+        <Box >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+        >
+          <FavoriteIcon color='error' sx={{mt:2}}/>
+        </Stack>
+        </Box>
+        </Stack>
+        </div>
+   </Stack>
+   </>
   );
 }

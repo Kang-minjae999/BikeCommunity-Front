@@ -15,6 +15,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import MyAvatar from '../../../components/MyAvatar';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import SettingMode from '../../../components/settings/SettingMode';
 
 // ----------------------------------------------------------------------
 
@@ -32,12 +33,12 @@ const MENU_OPTIONS = [
     linkTo: PATH_DASHBOARD.user.profile,
   },
   {
-    label: '고객센터',
-    linkTo: PATH_PAGE.faqs,
+    label: '공지사항',
+    linkTo: PATH_DASHBOARD.blog.notices,
   },
   {
-    label: '공지사항',
-    linkTo: PATH_DASHBOARD.blog.notice,
+    label: '고객센터',
+    linkTo: PATH_PAGE.faqs,
   },
 ];
 
@@ -173,6 +174,11 @@ export default function AccountPopover({ onOpenSidebar }) {
             로그인
           </MenuItem>
         )}
+{/*              <Divider sx={{ borderStyle: 'dashed' }} />
+
+          <MenuItem sx={{mb:2}}>
+            &nbsp;<SettingMode />
+          </MenuItem> */}
       </MenuPopover>
     </>
   );

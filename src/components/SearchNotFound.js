@@ -10,12 +10,8 @@ SearchNotFound.propTypes = {
 export default function SearchNotFound({ searchQuery = '', ...other }) {
   return searchQuery ? (
     <Paper {...other}>
-      <Typography gutterBottom align="center" variant="subtitle1">
-        찾을수가 없어요.
-      </Typography>
       <Typography variant="body2" align="center">
-        입력하신 &nbsp;
-        <strong>&quot;{searchQuery}&quot;</strong>에 대한 <br/>내용이 없어요. 
+        <strong>&quot;{searchQuery}&quot;</strong>에 대한 내용을 검색할까요?
       </Typography>
     </Paper>
   ) : (

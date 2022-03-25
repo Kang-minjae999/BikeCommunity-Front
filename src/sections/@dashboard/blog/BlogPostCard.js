@@ -40,6 +40,23 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post }) {
   const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags } = post;
 
+  const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
+  const { pathname } = useLocation();
+
+  const [api, setapi] = useState();
+
+  useEffect(() => {
+    if (pathname.includes('notices')) {
+      setapi('notice');
+    }
+    if (pathname.includes('posts')) {
+      setapi('post');
+    }
+    if (pathname.includes('dingstas')) {
+      setapi('dingsta');
+    }
+  }, [pathname]);
+
   return (
     <Card>
       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
@@ -56,7 +73,9 @@ export default function BlogPostCard({ post }) {
         <MoreHorizIcon sx={{ mr: 1 }} />
       </Stack>
       <Box sx={{ position: 'relative' }}>
+      <Link to={linkTo} color="inherit" component={RouterLink}>
         <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
+        </Link>
       </Box>
       <PostContent content={content} createdDate={createdDate} id={id} tags={tags} />
     </Card>

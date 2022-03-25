@@ -37,7 +37,7 @@ const TabsWrapperStyle = styled('div')(({ theme }) => ({
     justifyContent: 'center',
   },
   [theme.breakpoints.up('md')]: {
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     paddingRight: theme.spacing(3),
   },
 }));
@@ -63,10 +63,11 @@ export default function UserProfile() {
   const PROFILE_TABS = [
     {
       value: 'profile',
+      label: '프로필',
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
       component: <Profile myProfile={_userAbout} posts={_userFeeds} />,
     },
-    {
+/*     {
       value: 'followers',
       icon: <Iconify icon={'eva:heart-fill'} width={20} height={20} />,
       component: <ProfileFollowers followers={_userFollowers} />,
@@ -80,28 +81,28 @@ export default function UserProfile() {
       value: 'gallery',
       icon: <Iconify icon={'ic:round-perm-media'} width={20} height={20} />,
       component: <ProfileGallery gallery={_userGallery} />,
-    },
+    }, */
   ];
 
   return (
-    <Page title="User: Profile">
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
-        <HeaderBreadcrumbs
-          heading="Profile"
+    <Page title="프로필">
+      <Container maxWidth={themeStretch ? false : 'md'} sx={{mt:2}}>
+        {isDesktop && <HeaderBreadcrumbs
+          heading="프로필"
           links={[
             { name: '' },
           ]}
-        />
-        <Card
+        />}
+        <Box
           sx={{
             mb: 3, mt: 2,
-            height: 280,
+            height: 150,
             position: 'relative',
           }}
         >
           <ProfileCover myProfile={_userAbout} />
 
-          <TabsWrapperStyle>
+         {/*  <TabsWrapperStyle>
             <Tabs
               value={currentTab}
               scrollButtons="auto"
@@ -109,12 +110,12 @@ export default function UserProfile() {
               allowScrollButtonsMobile
               onChange={(e, value) => handleChangeTab(value)}
             >
-              {PROFILE_TABS.map((tab) => (
-                <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={capitalCase(tab.value)} />
-              ))}
+               {PROFILE_TABS.map((tab) => (
+                <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
+              ))} 
             </Tabs>
-          </TabsWrapperStyle>
-        </Card>
+          </TabsWrapperStyle> */}
+        </Box>
 
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;

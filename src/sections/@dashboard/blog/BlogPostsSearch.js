@@ -5,7 +5,8 @@ import match from 'autosuggest-highlight/match';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
+import { Link, Typography, Autocomplete, InputAdornment, Popper, Box, Stack, Button, Menu, MenuItem } from '@mui/material';
+import ListIcon from '@mui/icons-material/List';
 // hooks
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // utils
@@ -26,7 +27,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function BlogPostsSearch() {
+export default function BlogPostsSearch({setparam}) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -35,7 +36,7 @@ export default function BlogPostsSearch() {
 
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleChangeSearch = async (value) => {
+/*   const handleChangeSearch = async (value) => {
     try {
       setSearchQuery(value);
       if (value) {
@@ -50,19 +51,75 @@ export default function BlogPostsSearch() {
     } catch (error) {
       console.error(error);
     }
+  }; */
+
+  const handleChangeSearch = (value) => {
+      setSearchQuery(value);
   };
 
+
   const handleClick = (title) => {
-    navigate(`${PATH_DASHBOARD.blog.root}/post/${paramCase(title)}`);
+    navigate(`${PATH_DASHBOARD.blog.root}/dingstas/${paramCase(title)}`);
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      handleClick(searchQuery);
+      setparam(searchQuery)
+    navigate(`${PATH_DASHBOARD.blog.root}/dingstas?${value}=${searchQuery}`);
     }
   };
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const [value, setvalue] = useState('content')
+
+  const handleClickButton = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+    setvalue('content')
+  };
+  const handleClose2 = () => {
+    setAnchorEl(null);
+    setvalue('tag')
+  };
+  const handleClose3 = () => {
+    setAnchorEl(null);
+    setvalue('nickname')
+  };
+
+
   return (
+    <Stack
+    direction="row"
+    justifyContent="center"
+    alignItems="center"
+    spacing={1}
+    >
+      <Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClickButton}
+      >
+        <ListIcon/>
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>글</MenuItem>
+        <MenuItem onClick={handleClose2}>태그</MenuItem>
+        <MenuItem onClick={handleClose3}>작성자</MenuItem>
+      </Menu>
     <Autocomplete
       size="small"
       autoHighlight
@@ -95,6 +152,8 @@ export default function BlogPostsSearch() {
         const parts = parse(title, matches);
 
         return (
+          <>
+          <Typography>{inputValue}로 검색하기</Typography>
           <li {...props}>
             <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} />
             <Link underline="none" onClick={() => handleClick(title)}>
@@ -110,8 +169,10 @@ export default function BlogPostsSearch() {
               ))}
             </Link>
           </li>
+          </>
         );
       }}
     />
+    </Stack>
   );
 }

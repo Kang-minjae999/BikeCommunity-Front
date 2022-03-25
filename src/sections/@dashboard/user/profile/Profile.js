@@ -18,17 +18,17 @@ Profile.propTypes = {
 export default function Profile({ myProfile, posts }) {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={4}>
+{/*       <Grid item xs={12} md={4}>
         <Stack spacing={3}>
           <ProfileFollowInfo profile={myProfile} />
           <ProfileAbout profile={myProfile} />
           <ProfileSocialInfo profile={myProfile} />
         </Stack>
-      </Grid>
+      </Grid> */}
 
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12} md={12}>
         <Stack spacing={3}>
-          <ProfilePostInput />
+         {/*  <ProfilePostInput /> */}
           {posts.map((post) => (
             <ProfilePostCard key={post.id} post={post} />
           ))}

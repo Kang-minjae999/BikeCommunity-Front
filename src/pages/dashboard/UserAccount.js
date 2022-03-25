@@ -40,7 +40,7 @@ export default function UserAccount() {
       icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
       component: <AccountSocialLinks myProfile={_userAbout} />,
     },
-    {
+/*     {
       value: '알림',
       icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
       component: <AccountNotifications />,
@@ -49,7 +49,7 @@ export default function UserAccount() {
       value: '지불방법',
       icon: <Iconify icon={'ic:round-receipt'} width={20} height={20} />,
       component: <AccountBilling cards={_userPayment} addressBook={_userAddressBook} invoices={_userInvoices} />,
-    },
+    }, */
     {
       value: '비밀번호 변경',
       icon: <Iconify icon={'ic:round-vpn-key'} width={20} height={20} />,
@@ -58,14 +58,12 @@ export default function UserAccount() {
   ];
 
   return (
-    <Page title="프로필">
+    <Page title="설정">
       <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
         <HeaderBreadcrumbs
-          heading="프로필"
+          heading="설정"
           links={[
-            { name: '홈', href: PATH_DASHBOARD.root },
-            { name: '유저', href: PATH_DASHBOARD.user.root },
-            { name: '프로필' },
+            { name: ''}
           ]}
         />
 
