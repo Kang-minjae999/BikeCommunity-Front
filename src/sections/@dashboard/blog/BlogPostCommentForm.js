@@ -1,13 +1,18 @@
 import * as Yup from 'yup';
+import PropTypes from 'prop-types';
+import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Typography, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import axios from '../../../utils/axiospost';
 
 // ----------------------------------------------------------------------
 
@@ -18,15 +23,21 @@ const RootStyles = styled('div')(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+BlogPostCommentForm.propTypes = {
+  post: PropTypes.object.isRequired,
+};
 
-export default function BlogPostCommentForm() {
+export default function BlogPostCommentForm({post}) {
+  const {id} = post
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const CommentSchema = Yup.object().shape({
-    comment: Yup.string().required('덧글을 입력해주세요!'),
+    content: Yup.string().required('덧글을 입력해주세요!'),
   });
 
   const defaultValues = {
-    comment: '',
-    email: '',
+    content: '',
   };
 
   const methods = useForm({
@@ -40,14 +51,22 @@ export default function BlogPostCommentForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
+      await axios.post(`/dingsta/${id}/comment`, {commentReq:data.content} ,
+      {
+        headers: {
+          authorization: accessToken,
+        },
+      });
+      reset()
+      enqueueSnackbar('덧글 추가 완료!');
+      navigate(`${PATH_DASHBOARD.blog.dingsta}/${id}`);
     } catch (error) {
       console.error(error);
     }
-  };
+  }; 
 
   return (
     <RootStyles>

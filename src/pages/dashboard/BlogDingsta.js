@@ -121,7 +121,7 @@ export default function BlogDingsta() {
 
           <BlogPostCommentList post={post} />  
 
-           <BlogPostCommentForm /> 
+           <BlogPostCommentForm post={post}/> 
           </Box>
         </Card>
       )}
