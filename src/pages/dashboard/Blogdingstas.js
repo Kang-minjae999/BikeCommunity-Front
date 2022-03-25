@@ -135,7 +135,7 @@ export default function Blogdingstas() {
 
         <Stack mb={3} direction="row" alignItems="center" justifyContent="space-between">
            <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
-           <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> 
+          {/*  <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />  */}
         </Stack>
 
         <Grid container spacing={3}>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
@@ -70,6 +70,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
   };
 
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
 
   const [value, setvalue] = useState('content')
@@ -89,6 +90,21 @@ export default function BlogPostsSearch({setparam , setapi}) {
     setAnchorEl(null);
     setvalue('nickname')
   };
+  const [label, setlabel] = useState('내용')
+
+  useEffect(() => {
+    if(value === 'content'){
+      setlabel('내용')
+    }
+    if(value === 'tag'){
+      setlabel('태그')
+    }
+    if(value === 'nickname'){
+      setlabel('닉네임')
+    }
+    
+  }, [value])
+  
 
 
   return (
@@ -107,8 +123,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
       >
         <ListIcon/>
         <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                ({value})
-              </Typography>
+        ({label})
+        </Typography>
       </Button>
       <Menu
         id="basic-menu"
@@ -119,7 +135,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>글</MenuItem>
+        <MenuItem onClick={handleClose}>내용</MenuItem>
         <MenuItem onClick={handleClose2}>태그</MenuItem>
         <MenuItem onClick={handleClose3}>작성자</MenuItem>
       </Menu>
