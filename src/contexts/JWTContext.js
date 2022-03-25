@@ -77,8 +77,7 @@ function AuthProvider({ children }) {
               authorization: accessToken,
             },
           });
-          const user = response.data;
-          console.log('데이터',user)
+          const user = response.data.data;
 
           dispatch({
             type: 'INITIALIZE',
