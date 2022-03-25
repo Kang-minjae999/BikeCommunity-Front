@@ -40,10 +40,10 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post }) {
   const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags } = post;
 
+  const [api, setapi] = useState('');
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
   const { pathname } = useLocation();
 
-  const [api, setapi] = useState();
 
   useEffect(() => {
     if (pathname.includes('notices')) {
