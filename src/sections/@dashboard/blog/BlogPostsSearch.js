@@ -27,7 +27,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 // ----------------------------------------------------------------------
 
-export default function BlogPostsSearch({setparam ,setisapi, setapi}) {
+export default function BlogPostsSearch({setparam , setapi}) {
   const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
@@ -65,7 +65,6 @@ export default function BlogPostsSearch({setparam ,setisapi, setapi}) {
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
       setparam(searchQuery)
-      setisapi(true)
       setapi(value)
     }
   };

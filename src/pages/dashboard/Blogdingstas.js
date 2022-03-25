@@ -71,7 +71,6 @@ export default function Blogdingstas() {
 
   // ---------------------------------------------
   const [api, setapi] = useState('');
-  const [isapi, setisapi] = useState(false);
   const [param, setparam] = useState('')
 
   const getAllPosts2 = useCallback(async () => {
@@ -87,13 +86,13 @@ export default function Blogdingstas() {
   }, [isMountedRef,page,api,param]);
 
   useEffect(() => {
-    if(!isapi){
+    if(!param){
       getAllPosts();
     }
-    if(isapi){
+    if(param){
       getAllPosts2();
     }
-  }, [getAllPosts,getAllPosts2,isapi]);
+  }, [getAllPosts,getAllPosts2,param]);
 
   // --------------------------------------------------------------
 
@@ -134,7 +133,7 @@ export default function Blogdingstas() {
         />
 
         <Stack mb={3} direction="row" alignItems="center" justifyContent="space-between">
-           <BlogPostsSearch setparam={setparam} setisapi={setisapi} setapi={setapi}/> 
+           <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
            <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> 
         </Stack>
 
