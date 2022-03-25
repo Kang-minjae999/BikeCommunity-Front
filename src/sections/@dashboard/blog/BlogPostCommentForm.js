@@ -76,7 +76,7 @@ export default function BlogPostCommentForm({post}) {
 
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3} alignItems="flex-end">
-          <RHFTextField name="comment" label="덧글" multiline rows={3} />
+          <RHFTextField name="content" label="덧글" multiline rows={3} />
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
             덧글 달기
           </LoadingButton>
