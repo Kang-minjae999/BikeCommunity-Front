@@ -17,6 +17,7 @@ export default function BlogPostCommentList({ post }) {
     <List disablePadding>
       {comments.map((comment) => {
         const { nicknameOfComment, avatarImageURL, createAt ,content} = comment;
+        console.log(createAt)
         /* const hasReply = replyComment.length > 0; */
 
         return (

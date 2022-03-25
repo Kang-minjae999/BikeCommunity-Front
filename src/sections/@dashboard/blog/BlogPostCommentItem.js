@@ -21,12 +21,10 @@ BlogPostCommentItem.propTypes = {
   name: PropTypes.string,
   avatarUrl: PropTypes.string,
   message: PropTypes.string,
-  tagUser: PropTypes.string,
   postedAt: PropTypes.string,
-  hasReply: PropTypes.bool,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser, postedAt, hasReply }) {
+export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt }) {
   const [openReply, setOpenReply] = useState(false);
 
   const handleOpenReply = () => {
@@ -40,10 +38,10 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
         sx={{
           alignItems: 'flex-start',
           py: 3,
-          ...(hasReply && {
+          /* ...(hasReply && {
             ml: 'auto',
             width: (theme) => `calc(100% - ${theme.spacing(7)})`,
-          }),
+          }), */
         }}
       >
         <ListItemAvatar>
@@ -65,21 +63,21 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
               >
                 {fyeardateTime(postedAt)}
               </Typography>
-              <Typography component="span" variant="body2">
+              {/* <Typography component="span" variant="body2">
                 <strong>{tagUser}</strong> {message}
-              </Typography>
+              </Typography> */}
             </>
           }
         />
 
-        {!hasReply && (
+        {/* {!hasReply && (
           <Button size="small" onClick={handleOpenReply} sx={{ position: 'absolute', right: 0 }}>
             답글달기
           </Button>
-        )}
+        )} */}
       </ListItem>
 
-      {!hasReply && openReply && (
+    {/*   {!hasReply && openReply && (
         <Box
           sx={{
             mb: 3,
@@ -99,7 +97,7 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser,
             }}
           />
         </Box>
-      )}
+      )} */}
 
       <Divider
         sx={{
