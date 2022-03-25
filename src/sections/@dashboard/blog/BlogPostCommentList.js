@@ -20,7 +20,7 @@ export default function BlogPostCommentList({ post }) {
         /* const hasReply = replyComment.length > 0; */
 
         return (
-          <Box key={createAt} sx={{}}>
+          <Box key={avatarImageURL} sx={{}}>
             <BlogPostCommentItem
               name={nicknameOfComment}
               avatarUrl={avatarImageURL}
