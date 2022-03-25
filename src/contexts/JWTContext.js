@@ -78,6 +78,7 @@ function AuthProvider({ children }) {
             },
           });
           const user = response.data;
+          console.log('데이터',user)
 
           dispatch({
             type: 'INITIALIZE',

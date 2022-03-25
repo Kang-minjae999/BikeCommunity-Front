@@ -144,7 +144,7 @@ export default function AccountGeneral() {
                 </Typography>
               }
             />
-          {(defaultValues.avatar || watch('avatar')) && <Button onClick={deleteavatar} variant='outlined' color='error' sx={{mt:1, mr:1}}>아바타 삭제</Button>}
+          {(defaultValues.avatar || watch('avatar')) && <Button onClick={deleteavatar} variant='outlined' color='inherit' sx={{mt:1, mr:1}}>아바타 삭제</Button>}
           {avataron && <Button onClick={onClickavatar} variant='outlined' sx={{mt:1}}>아바타 업로드</Button>}
 
          {/*    <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
