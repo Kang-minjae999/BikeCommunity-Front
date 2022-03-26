@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -10,10 +11,9 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospost';
-
+import axios from '../../../utils/axiospostadmin';
 // ----------------------------------------------------------------------
 
 export default function BlogNewNoticeForm() {
@@ -29,6 +29,7 @@ export default function BlogNewNoticeForm() {
   const defaultValues = {
     title: '',
     content: '',
+    Images: [],
   };
 
   const methods = useForm({
@@ -37,16 +38,25 @@ export default function BlogNewNoticeForm() {
   });
 
   const {
+    watch,
+    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-
-  const onSubmit = async () => {
+  const values = watch();
+  
+  const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
+    const formData = new FormData()
+    data.Images.map((file) => formData.append('imageFiles', file));
+    formData.append('title', data.title)
+    formData.append('content', data.content)
+
     try {
-      await axios.post('/notices', {
+      await axios.post('/notice', formData ,{
         headers: {
+        'content-type': 'multipart/form-data',
           Authorization: accessToken,
         },
       });
@@ -55,6 +65,29 @@ export default function BlogNewNoticeForm() {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleDrops = useCallback(
+    (acceptedFiles) => {
+      setValue(
+        'Images',
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+    [setValue]
+  );
+  
+  const handleRemoveAll = () => {
+    setValue('Images', []);
+  };
+
+  const handleRemove = (file) => {
+    const filteredItems = values.Images?.filter((_file) => _file !== file);
+    setValue('Images', filteredItems);
   };
 
   return (
@@ -67,6 +100,15 @@ export default function BlogNewNoticeForm() {
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" />
                 <RHFTextField name="content" label="내용" multiline minRows={8}/>
+                <RHFUploadMultiFile
+                  name="Images"
+                  showPreview
+                  accept="image/*"
+                  maxSize={3145728}
+                  onDrop={handleDrops}
+                  onRemove={handleRemove}
+                  onRemoveAll={handleRemoveAll}
+                />
               </Stack>
             </Card>
               <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting}>
