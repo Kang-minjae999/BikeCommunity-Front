@@ -57,7 +57,7 @@ export default function BlogNewDingstaForm() {
   const values = watch();
 
    const onSubmit = async (data) => {
-    if(Array.isArray(watch('tags'))){
+    if(!Array.isArray(watch('tags'))){
       enqueueSnackbar('엔터나 추가 버튼을 눌러 태그를 추가해주세요!');
       return ;
     } 
