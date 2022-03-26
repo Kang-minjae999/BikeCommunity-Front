@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { useState, React } from 'react';
 import { useNavigate } from 'react-router';
+import { useSnackbar } from 'notistack';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -38,6 +39,8 @@ import Phonecheck from './Phonecheck';
 export default function RegisterForm() {
   const { register } = useAuth();
   const navigate = useNavigate();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const isMountedRef = useIsMountedRef();
 
@@ -166,7 +169,8 @@ export default function RegisterForm() {
         data.phoneNumber,
         data.address
       );
-      navigate(`/login`);
+      enqueueSnackbar('회원가입 완료!');
+      navigate('/auth/login');
     } catch (error) {
       console.error(error);
       reset();
