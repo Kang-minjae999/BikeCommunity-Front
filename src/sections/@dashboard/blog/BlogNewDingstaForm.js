@@ -31,7 +31,7 @@ export default function BlogNewDingstaForm() {
   const {user} = useAuth()
 
   const NewBlogSchema = Yup.object().shape({
-    Images: Yup.array().min(1,"사진을 한가지이상 정해주세요!").required('태그를 적어주세요!'),
+    Images: Yup.array().min(1,"사진을 한가지이상 정해주세요!").required('사진을 올려주세요!'),
   });
 
   const defaultValues = {
@@ -57,6 +57,14 @@ export default function BlogNewDingstaForm() {
   const values = watch();
 
    const onSubmit = async (data) => {
+    if(Array.isArray(watch('tags'))){
+      enqueueSnackbar('엔터나 추가 버튼을 눌러 태그를 추가해주세요!');
+      return ;
+    } 
+    if((watch('tags') === [])){
+      enqueueSnackbar('태그를 추가해주세요!');
+      return ;
+    } 
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     data.tags.map((tag)=> formData.append('tags', tag))
