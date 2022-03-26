@@ -61,9 +61,9 @@ export default function BlogPostCommentForm({post}) {
         },
       });
       reset()
-      enqueueSnackbar('덧글 추가 완료!');
-      navigate(`/dashboard/blog/dingsta/${id}`);
-      window.location.replace("/");
+      enqueueSnackbar('덧글 추가 완료!');/* 
+      navigate(`/dashboard/blog/dingsta/${id}`); */
+      window.location.replace(`/dashboard/blog/dingsta/${id}`);
     } catch (error) {
       console.error(error);
     }

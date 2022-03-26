@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { useState, React } from 'react';
+import { useNavigate } from 'react-router';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -36,6 +37,7 @@ import Phonecheck from './Phonecheck';
 
 export default function RegisterForm() {
   const { register } = useAuth();
+  const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
 
@@ -164,6 +166,7 @@ export default function RegisterForm() {
         data.phoneNumber,
         data.address
       );
+      navigate(`/login`);
     } catch (error) {
       console.error(error);
       reset();
