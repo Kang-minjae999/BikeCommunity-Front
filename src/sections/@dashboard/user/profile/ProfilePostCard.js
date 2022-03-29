@@ -100,7 +100,7 @@ export default function ProfilePostCard({ post }) {
       {fyeardateTime(post?.createdDate)}
     </Typography>
   }
-  action={<><DotdotdotPost/>
+  action={<><DotdotdotPost nicknameOfPost={post?.nicknameOfPost}/>
   </>
   }
 />
