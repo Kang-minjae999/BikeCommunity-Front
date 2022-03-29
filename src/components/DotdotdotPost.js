@@ -12,7 +12,7 @@ import Iconify from './Iconify';
 // 프로필이랑 채팅 링크 수정
 
 DotdotdotPost.propTypes = {
-  nicknameOfPost: PropTypes.object.isRequired,
+  nicknameOfPost: PropTypes.string.isRequired,
 };
 
 export default function DotdotdotPost({nicknameOfPost}) {
@@ -30,7 +30,7 @@ export default function DotdotdotPost({nicknameOfPost}) {
   };
   const handleClose0 = () => {
     setAnchorEl(null);
-    navigate(`/user/profile/${nicknameOfPost}`);
+    navigate(`/dashboard/user/profile/${nicknameOfPost}`);
   };
   const handleClose1 = () => {
     setAnchorEl(null);

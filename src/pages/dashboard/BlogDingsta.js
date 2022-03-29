@@ -23,6 +23,7 @@ import {
   BlogPostCommentForm,
   Blogfeature,
 } from '../../sections/@dashboard/blog';
+import DotdotdotPost from '../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------
 
@@ -99,7 +100,7 @@ export default function BlogDingsta() {
             {post.nicknameOfPost}
           </Typography>
           </Stack>
-          <MoreHorizIcon sx={{mr:1}}/>
+          <DotdotdotPost nicknameOfPost={post.nicknameOfPost} />
           </Stack>
           <Blogfeature post={post}/>
           <Divider />
