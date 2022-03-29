@@ -131,7 +131,8 @@ export default function BlogPostHero({ post }) {
         </SpeedDial> */}
       </FooterStyle>
 
-      <OverlayStyle />
+     {/*  <OverlayStyle /> */}
+     
     </Box>
   );
 }
