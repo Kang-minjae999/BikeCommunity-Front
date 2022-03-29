@@ -110,7 +110,7 @@ PostContent.propTypes = {
 
 export function PostContent({ title, id}) {
   
-  const linkTo = `${PATH_DASHBOARD.blog.root}/notices/${id}`;
+  const linkTo = `${PATH_DASHBOARD.blog.root}/notice/${id}`;
 
 
   return (
