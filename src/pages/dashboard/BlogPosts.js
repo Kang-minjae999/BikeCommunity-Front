@@ -137,7 +137,7 @@ export default function BlogPosts() {
         <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
             post ? (
-              <Grid key={post.id} item xs={12} sm={6} md={(index === 0 && 6) || 3}>
+              <Grid key={post.id} item xs={12} sm={6} md={3}>
                 <BlogPostCard post={post} index={index} />
               </Grid>
             ) : (
