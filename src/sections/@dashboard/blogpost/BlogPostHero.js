@@ -113,42 +113,5 @@ export default function BlogPostHero({ post }) {
     </Box>
     </Stack>
     </Stack>
-/*     <Box sx={{ position: 'relative' }}>
-     <TitleStyle>{title}</TitleStyle> 
-
-      <FooterStyle>
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-         <Avatar alt='RIDERTOWN' src='https://mblogthumb-phinf.pstatic.net/MjAyMDAxMjlfMTM1/MDAxNTgwMjczNzQ0NjM3.o6Fk0PSmpz0KPLJM70MVySVyPieGn6BdP6fMvEhxpGgg.Q9xDDds9VOO78rp4fvGlDZGyfBt1B9lrAPekSE6EO4sg.JPEG.bikebaksa/imageView_%282%29.jpg?type=w2' sx={{ width: 48, height: 48 }} /> 
-          <Box sx={{ ml: 2 }}>
-            <Typography variant="subtitle1" sx={{ color: 'common.white' }}>
-              라이더타운
-            </Typography>
-             <Typography variant="body2" sx={{ color: 'grey.500' }}>
-              {fDate(createdDate)}
-            </Typography> 
-          </Box>
-        </Box>
-
-         <SpeedDial
-          direction={isDesktop ? 'left' : 'up'}
-          ariaLabel="Share post"
-          icon={<Iconify icon="eva:share-fill" sx={{ width: 20, height: 20 }} />}
-          sx={{ '& .MuiSpeedDial-fab': { width: 48, height: 48 } }}
-        >
-          {SOCIALS.map((action) => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              tooltipPlacement="top"
-              FabProps={{ color: 'default' }}
-            />
-          ))}
-        </SpeedDial> 
-      </FooterStyle>
-
-      <OverlayStyle />
-      <Image alt="post cover" src={thumbnailImageURL} ratio="1/1" />
-    </Box> */
   );
 }

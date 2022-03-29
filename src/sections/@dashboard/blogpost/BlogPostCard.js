@@ -71,7 +71,6 @@ export default function BlogPostCard({ post }) {
             라이더타운
           </Typography>
         </Stack>
-        <DotdotdotPost />
       </Stack>
       <Box sx={{ position: 'relative' }}>
       <Link to={linkTo} color="inherit" component={RouterLink}>
