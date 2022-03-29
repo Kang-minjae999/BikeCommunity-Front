@@ -39,7 +39,7 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post }) {
-  const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags ,view , heart, numOfComment} = post;
+  const { id, thumbnailImageURL, content, createdDate, tags ,view , heart, numOfComment} = post;
 
   const [api, setapi] = useState('');
   const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
@@ -75,7 +75,7 @@ export default function BlogPostCard({ post }) {
       </Stack>
       <Box sx={{ position: 'relative' }}>
       <Link to={linkTo} color="inherit" component={RouterLink}>
-        <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
+        <Image alt="cover" src={thumbnailImageURL} ratio="1/1" />
         </Link>
       </Box>
       <PostContent content={content} createdDate={createdDate} id={id} tags={tags} view={view} heart={heart} numOfComment={numOfComment}/>
