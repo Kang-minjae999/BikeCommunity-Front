@@ -40,7 +40,7 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post, index }) {
   const isDesktop = useResponsive('up', 'md');
 
-  const { cover, title, view, comment, share, author, createdAt, id } = post;
+  const { cover, title, view, comment, share, author, createdDate, id } = post;
 
   const latestPost = index === 0 || index === 1 || index === 2;
 
@@ -59,7 +59,7 @@ export default function BlogPostCard({ post, index }) {
             position: 'absolute',
           }}
         />
-        <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} index={index} />
+        <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdDate} index={index} />
         <OverlayStyle />
         <Image alt="cover" src={cover} sx={{ height: 360 }} />
       </Card>
@@ -95,7 +95,7 @@ export default function BlogPostCard({ post, index }) {
         <Image alt="cover" src={cover} ratio="4/3" />
       </Box>
 
-      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdAt} id={id} />
+      <PostContent title={title} view={view} comment={comment} share={share} createdAt={createdDate} id={id} />
     </Card>
   );
 }
@@ -104,7 +104,7 @@ export default function BlogPostCard({ post, index }) {
 
 PostContent.propTypes = {
   comment: PropTypes.number,
-  createdAt: PropTypes.string,
+  createdDate: PropTypes.string,
   index: PropTypes.number,
   share: PropTypes.number,
   title: PropTypes.string,
@@ -112,7 +112,7 @@ PostContent.propTypes = {
   id: PropTypes.number,
 };
 
-export function PostContent({ title, view, comment, share, createdAt, index, id }) {
+export function PostContent({ title, view, comment, share, createdDate, index, id }) {
   const isDesktop = useResponsive('up', 'md');
 
   const { pathname } = useLocation();
@@ -168,7 +168,7 @@ export function PostContent({ title, view, comment, share, createdAt, index, id 
           }),
         }}
       >
-        {fDate(createdAt)}
+        {fDate(createdDate)}
       </Typography>
 
       <Link to={linkTo} color="inherit" component={RouterLink}>
