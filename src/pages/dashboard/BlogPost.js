@@ -43,7 +43,7 @@ export default function BlogPost() {
       const response = await axios.get(`/posts/${id}`);
 
       if (isMountedRef.current) {
-        setPost(response.data);
+        setPost(response.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -92,8 +92,8 @@ export default function BlogPost() {
               <Typography variant="body2" sx={{ mb: 5 }}>
                {post.content}
               </Typography> 
-                <Divider sx={{mb:2}}/>
-             {post?.imageURLs.map((file,index)=>(<Image ratio='16/9' key={file} alt={index} src={file}/>))} 
+              <Divider sx={{mb:2}}/>
+                {post?.imageURLs.map((file,index)=>(<Image ratio='16/9' key={file} alt={index} src={file}/>))} 
               <Box sx={{ my: 5 }}>
                 <Divider />
               </Box>
