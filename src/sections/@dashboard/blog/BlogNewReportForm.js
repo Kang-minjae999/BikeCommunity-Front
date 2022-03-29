@@ -95,11 +95,11 @@ export default function BlogNewReportForm() {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
-           <CardHeader title='신고하기' sx={{mb:2}}/>
+           <CardHeader title='신고하기/문의하기/건의하기' sx={{mb:2}}/>
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
-                <RHFTextField name="title" label="신고 제목" />
-                <RHFTextField name="content" label="신고 내용" multiline minRows={8}/>
+                <RHFTextField name="title" label="제목" />
+                <RHFTextField name="content" label="내용" multiline minRows={8}/>
                 <RHFUploadMultiFileReport
                   name="Images"
                   showPreview

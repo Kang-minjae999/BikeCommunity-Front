@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
@@ -43,13 +44,13 @@ const InfoStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 ProfileCover.propTypes = {
-  myProfile: PropTypes.object,
+  nickname: PropTypes.string,
 };
 
-export default function ProfileCover({ myProfile }) {
+export default function ProfileCover({ nickname }) {
   const { user } = useAuth();
+  const navigate = useNavigate()
 
-  const { position, cover } = myProfile;
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -59,6 +60,14 @@ export default function ProfileCover({ myProfile }) {
   
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClose1 = () => {
+    setAnchorEl(null);
+    navigate('/dashboard/app')
+  };
+  const handleClose2 = () => {
+    setAnchorEl(null);
+    navigate('/dashboard/blog/new-report')
   };
 
   return (
@@ -92,8 +101,7 @@ export default function ProfileCover({ myProfile }) {
             mt:2,
           }}
         />
-          <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}강민순</Typography>
-          {/* <Typography sx={{ opacity: 0.72 }}>{position}</Typography> */}
+        {nickname && <Typography variant="subtitle2" sx={{mt:2}}>{nickname}</Typography>}
         </Box>
         </Stack>
         <div>
@@ -112,8 +120,8 @@ export default function ProfileCover({ myProfile }) {
           alignItems="center"
           spacing={0}
         >
-        <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}게시글</Typography>
-        <Typography variant="body2" >{user?.name}14</Typography>
+        <Typography variant="subtitle2" sx={{mt:2}}>게시글</Typography>
+        <Typography variant="body2" >141</Typography>
         </Stack>
         </Box>
 
@@ -125,7 +133,7 @@ export default function ProfileCover({ myProfile }) {
           spacing={0}
         >
         <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}판매글</Typography>
-        <Typography variant="body2" >{user?.name}14</Typography>
+        <Typography variant="body2" >{user?.name}50</Typography>
         </Stack>
         </Box>
         <Box >
@@ -135,8 +143,8 @@ export default function ProfileCover({ myProfile }) {
           alignItems="center"
           spacing={0}
         >
-        <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}좋아요</Typography>
-        <Typography variant="body2" >{user?.name}14</Typography>
+        <Typography variant="subtitle2" sx={{mt:2}}>좋아요</Typography>
+        <Typography variant="body2" >1645</Typography>
         </Stack>
         </Box>
         <Box >
@@ -147,7 +155,7 @@ export default function ProfileCover({ myProfile }) {
           spacing={0}
         >
           <IconButton onClick={handleClick} sx={{mt:2}}>
-            <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+            <Iconify icon={'eva:more-horizontal-fill'} width={20} height={20} />
           </IconButton>
           <Menu
           id="basic-menu"
@@ -158,8 +166,8 @@ export default function ProfileCover({ myProfile }) {
             'aria-labelledby': 'basic-button',
           }}
         >
-          <MenuItem onClick={handleClose}>채팅하기</MenuItem>
-          <MenuItem onClick={handleClose}>신고하기</MenuItem>
+          <MenuItem onClick={handleClose1}>채팅하기</MenuItem>
+          <MenuItem onClick={handleClose2}>신고하기</MenuItem>
         </Menu>
         </Stack>
         </Box>

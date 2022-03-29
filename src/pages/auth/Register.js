@@ -1,11 +1,8 @@
-import { capitalCase } from 'change-case';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Container, Typography, Tooltip, Stack } from '@mui/material';
-import SportsMotorsportsTwoToneIcon from '@mui/icons-material/SportsMotorsportsTwoTone';
+import { Box, Link, Container, Typography,  Stack } from '@mui/material';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
@@ -14,7 +11,6 @@ import Page from '../../components/Page';
 import Logo from '../../components/Logo';
 // sections
 import { RegisterForm } from '../../sections/auth/register';
-import Label from '../../components/Label';
 
 // ----------------------------------------------------------------------
 
@@ -54,7 +50,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Register() {
-  const { method } = useAuth();
 
   const smUp = useResponsive('up', 'sm');
 
@@ -112,33 +107,3 @@ export default function Register() {
     </Page>
   );
 }
-
-
-/*  \
-
-const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
-  maxWidth: 464,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
-}));
-
-
-  const mdUp = useResponsive('up', 'md');
-
-
-
-{mdUp && (
-          <SectionStyle>
-            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              라이더타운과 함께 <br/>라이딩에 빠져보아요.
-            </Typography>
-            <Image
-              alt="register"
-              src="http://www.ridemag.co.kr/news/photo/201911/14159_88631_5447.jpg"
-            />
-          </SectionStyle>
-        )}
-*/ 

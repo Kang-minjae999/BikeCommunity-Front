@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 // @mui
-import { Box, Card, Divider, Container, Typography, Pagination } from '@mui/material';
+import { Box, Card, Divider, Container, Typography } from '@mui/material';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -10,16 +10,11 @@ import useIsMountedRef from '../../hooks/useIsMountedRef';
 import axios from '../../utils/axiospostadmin';
 // components
 import Page from '../../components/Page';
-import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { SkeletonPost } from '../../components/skeleton';
 // sections
 import {
   BlogPostHero,
-  BlogPostTags,
-  BlogPostRecent,
-  BlogPostCommentList,
-  BlogPostCommentForm,
 } from '../../sections/@dashboard/blogpost';
 import Image from '../../components/Image';
 
@@ -32,7 +27,6 @@ export default function BlogPost() {
 
   const { id = '' } = useParams();
 
-  const [recentPosts, setRecentPosts] = useState([]);
 
   const [post, setPost] = useState(null);
 
@@ -50,24 +44,6 @@ export default function BlogPost() {
       setError(error.message);
     }
   }, [isMountedRef, id]);
-
-/*   const getRecentPosts = useCallback(async () => {
-    try {
-      const response = await axios.get('/posts', {
-        params: { id },
-      });
-
-      if (isMountedRef.current) {
-        setRecentPosts(response.data.recentPosts);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef, id]);
-   useEffect(() => {
-    getPost();
-    getRecentPosts();
-  }, [getRecentPosts, getPost]); */
 
   useEffect(() => {
     getPost();
@@ -105,7 +81,6 @@ export default function BlogPost() {
 
         {error && <Typography variant="h6">{error}!</Typography>}
 
-       {/*  <BlogPostRecent posts={recentPosts} /> */}
       </Container>
     </Page>
   );

@@ -1,24 +1,19 @@
 import orderBy from 'lodash/orderBy';
-import { Link as RouterLink,useLocation } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack, Pagination, Box } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
 import axios from '../../utils/axiospost';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Page from '../../components/Page';
-
-import Iconify from '../../components/Iconify';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch, BlogPostsSearchbar, BlogPostSearchsort } from '../../sections/@dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch, } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
@@ -117,7 +112,7 @@ export default function Blogdingstas() {
     <Page title="Posts">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading="Dingsta"
+          heading="딩스타그램"
           links={[{ name: '' }]}
           action={
             <>

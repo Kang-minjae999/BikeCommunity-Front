@@ -3,7 +3,7 @@ import { useState, React } from 'react';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import {
@@ -15,8 +15,6 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Autocomplete,
-  Chip,
   Checkbox,
   Button,
 } from '@mui/material';
@@ -78,8 +76,6 @@ export default function RegisterForm() {
     resisteragree3: Yup.boolean().oneOf([true], '체크해주세요.').required('체크해주세요.'),
   });
 
-  const SEX_OPTION = ['남', '여'];
-
   const defaultValues = {
     email: '',
     password: '',
@@ -104,11 +100,9 @@ export default function RegisterForm() {
   });
 
   const {
-    reset,
     setError,
     handleSubmit,
     setValue,
-    control,
     formState: { errors, isSubmitting },
   } = methods;
 
@@ -172,8 +166,7 @@ export default function RegisterForm() {
       enqueueSnackbar('회원가입 완료!');
       navigate('/auth/login');
     } catch (error) {
-      console.error(error);
-      reset();
+      enqueueSnackbar(error);
       if (isMountedRef.current) {
         setError('afterSubmit', error);
       }

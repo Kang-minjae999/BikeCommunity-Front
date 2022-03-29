@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 // @mui
-import { Box, Card, Divider, Container, Typography, Pagination } from '@mui/material';
+import { Box, Card, Divider, Container, Typography } from '@mui/material';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -10,7 +10,6 @@ import useIsMountedRef from '../../hooks/useIsMountedRef';
 import axios from '../../utils/axiospostadmin';
 // components
 import Page from '../../components/Page';
-import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { SkeletonPost } from '../../components/skeleton';
 // sections

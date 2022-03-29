@@ -44,8 +44,6 @@ const applySort = (posts, sortBy) => {
 
 export default function BlogPosts() {
   const { user } = useAuth()
-  // 유저 role 이 admin 일때만 글쓰기 가능
-  // 비로그인시에? role 어케함
   const { themeStretch } = useSettings();
 
   const isMountedRef = useIsMountedRef();

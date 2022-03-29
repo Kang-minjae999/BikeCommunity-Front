@@ -13,7 +13,7 @@ import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sections
-import Blogdingstas from './Blogdingstas';
+import Blogdingstas from './BlogDingstas';
 
 import MainFooter from '../../layouts/main/MainFooter';
 import {

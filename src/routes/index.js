@@ -183,21 +183,6 @@ export default function Router() {
           ],
         },
         {
-          path: 'board',
-          children: [
-            { element: <Navigate to="/dashboard/board/posts" replace />, index: true },
-            { path: 'list', element: <Boardlist /> },
-            { path: 'motocycle', element: <BoardMotocycle /> },
-            { path: 'motocyclefix', element: <BoardMotocyclefix /> },            
-            { path: 'motocyclepicture', element: <BoardMotocyclepicture /> },            
-            { path: 'free', element: <Boardfree /> },
-            { path: 'new-post', element: <BlogNewPost /> },
-            { path: 'post/:title', element: <Boardpost /> },
-            { path: 'Newpostmotocycle', element: <NewpostBoardmotocycle /> },
-            { path: 'NewpostMotocyclefix', element: <NewpostBoardMotocyclefix /> },
-            { path: 'NewpostMotocyclepicture', element: <NewpostBoardMotocyclepicture /> },
-          ],
-        },         {
           path: 'club',
           children: [
             { element: <Navigate to="/dashboard/club/club" replace />, index: true },
@@ -329,23 +314,10 @@ const UEcommerceProductCreategear = Loadable(lazy(() => import('../pages/dashboa
 const UEcommerceProductCreateparts = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreateparts')));
 
 
-// 모토사이클 게시글
-const Boardlist = Loadable(lazy(() => import('../pages/dashboard/Boardlist')));
-const BoardMotocycle = Loadable(lazy(() => import('../pages/dashboard/Boardinsta')));
-const BoardMotocyclefix = Loadable(lazy(() => import('../pages/dashboard/Boardmotocyclefix')));
-const BoardMotocyclepicture = Loadable(lazy(() => import('../pages/dashboard/Boardmotocyclepicture')));
-const Boardfree = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
-const Boardpost = Loadable(lazy(() => import('../pages/dashboard/Boardpost')));
-const NewpostBoardmotocycle = Loadable(lazy(() => import('../pages/dashboard/NewpostBoardmotocycle')));
-const NewpostBoardMotocyclefix = Loadable(lazy(() => import('../pages/dashboard/NewpostBoardmotocyclefix')));
-const NewpostBoardMotocyclepicture = Loadable(lazy(() => import('../pages/dashboard/NewpostBoardmotocyclepicture')));
-
-
-
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
 const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
-const Blogdingstas = Loadable(lazy(() => import('../pages/dashboard/Blogdingstas')));
+const Blogdingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
 const BlogReports = Loadable(lazy(() => import('../pages/dashboard/BlogReports')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
 const BlogNotice = Loadable(lazy(() => import('../pages/dashboard/BlogNotice')));

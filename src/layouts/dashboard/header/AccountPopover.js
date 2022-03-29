@@ -12,35 +12,9 @@ import { PATH_DASHBOARD, PATH_AUTH, PATH_PAGE } from '../../../routes/paths';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
-import MyAvatar from '../../../components/MyAvatar';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
-import SettingMode from '../../../components/settings/SettingMode';
 
-// ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-  {
-    label: '홈',
-    linkTo: '/dashboard/app',
-  },
-  {
-    label: '설정',
-    linkTo: PATH_DASHBOARD.user.account,
-  },
-  {
-    label: '프로필',
-    linkTo: PATH_DASHBOARD.user.profile,
-  },
-  {
-    label: '공지사항',
-    linkTo: PATH_DASHBOARD.blog.notices,
-  },
-  {
-    label: '고객센터',
-    linkTo: PATH_PAGE.faqs,
-  },
-];
 
 // ----------------------------------------------------------------------
 AccountPopover.propTypes = {
@@ -93,6 +67,31 @@ export default function AccountPopover({ onOpenSidebar }) {
     }
   };
 
+// ----------------------------------------------------------------------
+
+const MENU_OPTIONS = [
+  {
+    label: '홈',
+    linkTo: '/dashboard/app',
+  },
+  {
+    label: '설정',
+    linkTo: PATH_DASHBOARD.user.account,
+  },
+  {
+    label: '프로필',
+    linkTo: `${PATH_DASHBOARD.user.profile}/${user?.nickname}`,
+  },
+  {
+    label: '공지사항',
+    linkTo: PATH_DASHBOARD.blog.notices,
+  },
+  {
+    label: '고객센터',
+    linkTo: PATH_PAGE.faqs,
+  },
+];
+
   return (
     <>
       <IconButtonAnimate
@@ -112,7 +111,6 @@ export default function AccountPopover({ onOpenSidebar }) {
           }),
         }}
       >
-        {/*     <MyAvatar /> */}
         <PersonIcon color="primary" />
       </IconButtonAnimate>
 
@@ -174,11 +172,6 @@ export default function AccountPopover({ onOpenSidebar }) {
             로그인
           </MenuItem>
         )}
-{/*              <Divider sx={{ borderStyle: 'dashed' }} />
-
-          <MenuItem sx={{mb:2}}>
-            &nbsp;<SettingMode />
-          </MenuItem> */}
       </MenuPopover>
     </>
   );

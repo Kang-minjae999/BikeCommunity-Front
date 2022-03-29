@@ -1,20 +1,16 @@
-import { capitalCase } from 'change-case';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, Link, Tooltip, Container, Typography } from '@mui/material';
-import SportsMotorsportsTwoToneIcon from '@mui/icons-material/SportsMotorsportsTwoTone';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 import Logo from '../../components/Logo';
 // sections
 import { LoginForm } from '../../sections/auth/login';
-import Label from '../../components/Label';
 
 
 // ----------------------------------------------------------------------
@@ -54,9 +50,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
-  const { method } = useAuth();
-
-  const smUp = useResponsive('up', 'sm');
 
   const isDesktop = useResponsive('up', 'lg')
 

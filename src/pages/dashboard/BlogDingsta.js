@@ -1,24 +1,20 @@
 import { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link as RouterLink, useParams } from 'react-router-dom';
 // @mui
-import { Box, Card, Divider, Container, Typography, Pagination, Stack, Avatar } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Box, Card, Divider, Container, Typography, Stack, Avatar,Link } from '@mui/material';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
+import { PATH_DASHBOARD } from '../../routes/paths';
 // utils
 import axios from '../../utils/axiospost';
 // components
 import Page from '../../components/Page';
-import Markdown from '../../components/Markdown';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { SkeletonPost } from '../../components/skeleton';
 // sections
 import {
-  BlogPostHero,
   BlogPostTags,
-  BlogPostRecent,
   BlogPostCommentList,
   BlogPostCommentForm,
   Blogfeature,
@@ -33,8 +29,6 @@ export default function BlogDingsta() {
   const isMountedRef = useIsMountedRef();
 
   const { id = '' } = useParams();
-
-  const [recentPosts, setRecentPosts] = useState([]);
 
   const [post, setPost] = useState(null);
 
@@ -53,30 +47,12 @@ export default function BlogDingsta() {
     }
   }, [isMountedRef, id]);
 
-  /*   const getRecentPosts = useCallback(async () => {
-    try {
-      const response = await axios.get('/posts', {
-        params: { id },
-      });
-
-      if (isMountedRef.current) {
-        setRecentPosts(response.data.recentPosts);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef, id]);
-   useEffect(() => {
-    getPost();
-    getRecentPosts();
-  }, [getRecentPosts, getPost]); */
-
   useEffect(() => {
     getPost();
   }, [getPost]);
 
-  console.log(post)
-
+  const linkToProfile = `${PATH_DASHBOARD.user.profile}/${post?.nicknameOfPost}`;
+  
   return (
     <Page title="포스트">
     <Container maxWidth={themeStretch ? false : 'md'}>
@@ -95,10 +71,12 @@ export default function BlogDingsta() {
             alignItems="center"
             spacing={0}
           >
+          <Link to={linkToProfile} color="inherit" component={RouterLink}>
           <Avatar alt={post.avatarImageURL} src={post.avatarImageURL} sx={{ width: 48, height: 48, mt:1,mb:1,ml:1,mr:1 }} />
           <Typography variant="subtitle1" sx={{ color: 'common.black' }}>
             {post.nicknameOfPost}
           </Typography>
+          </Link>
           </Stack>
           <DotdotdotPost nicknameOfPost={post.nicknameOfPost} />
           </Stack>
@@ -110,7 +88,7 @@ export default function BlogDingsta() {
             </Typography>
             <Box sx={{ my: 5 }}>
               <Divider />
-              <BlogPostTags post={post} />
+              <BlogPostTags tags={post.tags} />
               <Divider />
             </Box>
 
@@ -132,8 +110,6 @@ export default function BlogDingsta() {
       {!post && !error && <SkeletonPost />}
 
       {error && <Typography variant="h6">404 {error}!</Typography>}
-
-      {/*  <BlogPostRecent posts={recentPosts} /> */}
 
       </Container>
     </Page>

@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -24,6 +25,8 @@ import { KAKAO_AUTH_API } from '../../../config';
 // ----------------------------------------------------------------------
 export default function LoginForm() {
   const { login } = useAuth();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const isMountedRef = useIsMountedRef();
 
@@ -58,7 +61,7 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password);
     } catch (error) {
-      console.error(error);
+      enqueueSnackbar(error)
       reset();
       if (isMountedRef.current) {
         setError('afterSubmit', error);
