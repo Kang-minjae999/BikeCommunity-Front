@@ -97,7 +97,7 @@ export default function ProfilePostCard({ post }) {
   }
   subheader={
     <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary' }}>
-      {fyeardateTime(post.createdAt)}
+      {fyeardateTime(post?.createdDate)}
     </Typography>
   }
   action={<><DotdotdotPost/>
