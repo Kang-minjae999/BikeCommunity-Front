@@ -110,7 +110,7 @@ export default function UserProfile() {
       value: 'profile',
       label: '게시글',
       icon: <TocIcon icon={'ic:round-perm-media'} width={20} height={20} />,
-      component: <Profile myProfile={_userAbout} posts={_userFeeds} post={post}/>,
+      component: <Profile post={post}/>,
     },
     {
       value: 'sell',

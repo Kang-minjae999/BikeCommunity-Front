@@ -11,12 +11,10 @@ import ProfileSocialInfo from './ProfileSocialInfo';
 // ----------------------------------------------------------------------
 
 Profile.propTypes = {
-  myProfile: PropTypes.object,
-  post: PropTypes.object,
-  posts: PropTypes.array,
+  post: PropTypes.array,
 };
 
-export default function Profile({ myProfile, posts, post }) {
+export default function Profile({ post }) {
   return (
     <Grid container spacing={3}>
 {/*       <Grid item xs={12} md={4}>
