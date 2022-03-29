@@ -72,7 +72,7 @@ export default function BlogPost() {
                {post.content}
               </Typography> 
                 <Divider sx={{mb:2}}/>
-             {post?.imageURLs.map((file,index)=>(<Image ratio='9/16' key={file} alt={index} src={file}/>))} 
+             {post?.imageURLs.map((file,index)=>(<Image ratio='16/9' key={file} alt={index} src={file}/>))} 
               <Box sx={{ my: 5 }}>
                 <Divider />
               </Box>
