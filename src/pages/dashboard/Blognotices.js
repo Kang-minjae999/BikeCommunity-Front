@@ -7,7 +7,7 @@ import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axiospostadmin';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
