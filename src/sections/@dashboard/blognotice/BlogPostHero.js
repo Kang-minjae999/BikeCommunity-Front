@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Avatar, SpeedDial, Typography, SpeedDialAction, Link } from '@mui/material';
+import { Box, Avatar, SpeedDial, Typography, SpeedDialAction, Link, Stack } from '@mui/material';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
 // utils
-import { fDate } from '../../../utils/formatTime';
+import { fyeardateTime } from '../../../utils/formatTime';
 // components
 import Image from '../../../components/Image';
 import Iconify from '../../../components/Iconify';
@@ -93,7 +93,35 @@ export default function BlogPostHero({ post }) {
   const isDesktop = useResponsive('up', 'sm');
 
   return (
-    <Box sx={{ position: 'relative' }}>
+      <Stack
+        direction="column"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+      >
+      <Typography variant="h3" sx={{ color: 'primary', mt:2 , ml:2, mr:2} }>
+      {title}
+      </Typography>
+      <Stack
+            direction="row-reverse"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+          >
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', mt:2 , ml:2, mr:2 , mb:2}}>
+          <Avatar alt='라이더타운' src='https://en.pimg.jp/068/513/753/1/68513753.jpg' sx={{ width: 48, height: 48 }} />
+          <Box>
+            <Typography variant="subtitle1" sx={{ color: 'secondary' }}>
+             라이더타운
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'secondary' }}>
+            {fyeardateTime(createdDate)}
+            </Typography>
+          </Box>
+        </Box>
+        </Stack>
+        </Stack>
+/*     <Box sx={{ position: 'relative' }}>
       
       <TitleStyle>{title}</TitleStyle>
 
@@ -106,33 +134,33 @@ export default function BlogPostHero({ post }) {
             </Typography>
             <SocialsButton />
              <Typography variant="body2" sx={{ color: 'grey.500' }}>
-              {createdDate}
+            {fyeardateTime(createdDate)}
             </Typography> 
           </Box>
-        </Box>
+        </Box> */
           
-{/*         <SpeedDial
-          direction={isDesktop ? 'left' : 'up'}
-          ariaLabel="Share post"
-          icon={<Iconify icon="eva:share-fill" sx={{ width: 20, height: 20 }} />}
-          sx={{ '& .MuiSpeedDial-fab': { width: 48, height: 48 } }}
-        >
-          {SOCIALS.map((action) => (
-            <Link key={action.name} target="_blank" rel="noopener" href={action.link}>
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              tooltipPlacement="top"
-              FabProps={{ color: 'default' }}
-            /> 
-            </Link>
-          ))}
-        </SpeedDial> */}
-      </FooterStyle>
+    /*         <SpeedDial
+              direction={isDesktop ? 'left' : 'up'}
+              ariaLabel="Share post"
+              icon={<Iconify icon="eva:share-fill" sx={{ width: 20, height: 20 }} />}
+              sx={{ '& .MuiSpeedDial-fab': { width: 48, height: 48 } }}
+            >
+              {SOCIALS.map((action) => (
+                <Link key={action.name} target="_blank" rel="noopener" href={action.link}>
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                  tooltipPlacement="top"
+                  FabProps={{ color: 'default' }}
+                /> 
+                </Link>
+              ))}
+            </SpeedDial> */
+          /*       </FooterStyle>
 
-     {/*  <OverlayStyle /> */}
-     
-    </Box>
+                <OverlayStyle /> 
+
+              </Box> */
   );
 }
