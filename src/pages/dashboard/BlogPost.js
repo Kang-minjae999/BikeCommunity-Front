@@ -7,7 +7,7 @@ import { Box, Card, Divider, Container, Typography, Pagination } from '@mui/mate
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axiospostadmin';
 // components
 import Page from '../../components/Page';
 import Markdown from '../../components/Markdown';

@@ -15,7 +15,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile,RHFUploadMultiFile } from '../../../components/hook-form';
 //
 import BlogNewPostPreview from './BlogNewPostPreview';
-import axios from '../../../utils/axiospost';
+import axios from '../../../utils/axiospostadmin';
 
 // ----------------------------------------------------------------------
 
