@@ -1,10 +1,16 @@
+// import PropTypes from 'prop-types';
 import React , { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { IconButton, Menu, MenuItem} from '@mui/material';
+import Iconify from './Iconify';
 
-export default function BasicMenu() {
+/* Dotdotdot.propTypes = {
+  children: PropTypes.node,
+  sx: PropTypes.object,
+  color: PropTypes.oneOf(['default', 'primary', 'secondary', 'info', 'success', 'warning', 'error']),
+}; */
+// 프로필이랑 채팅 링크 수정
+export default function DotdotdotPost() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -17,6 +23,10 @@ export default function BasicMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleClose0 = () => {
+    setAnchorEl(null);
+    navigate('/dashboard/chat');
+  };
   const handleClose1 = () => {
     setAnchorEl(null);
     navigate('/dashboard/chat');
@@ -28,15 +38,9 @@ export default function BasicMenu() {
 
   return (
     <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Dashboard
-      </Button>
+    <IconButton onClick={handleClick}>
+      <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+    </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -46,9 +50,12 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuItem onClick={handleClose0}>프로필가기</MenuItem>
         <MenuItem onClick={handleClose1}>채팅하기</MenuItem>
         <MenuItem onClick={handleClose2}>신고하기</MenuItem>
       </Menu>
     </div>
   );
 }
+
+

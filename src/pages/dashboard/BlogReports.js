@@ -1,9 +1,8 @@
 import orderBy from 'lodash/orderBy';
-import { Link as RouterLink,useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useEffect, useCallback, useState } from 'react';
 // @mui
-import { Grid, Button, Container, Stack, Pagination, Box } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -13,29 +12,29 @@ import axios from '../../utils/axiospost';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Page from '../../components/Page';
-
 import Iconify from '../../components/Iconify';
-import { SkeletonPostItem } from '../../components/skeleton';
+import { SkeletonboardItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch, BlogPostsSearchbar, BlogPostSearchsort } from '../../sections/@dashboard/blog';
+import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blognotice';
+import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
-  { value: 'latest', label: '최신' },
-  { value: 'popular', label: '인기' },
-  { value: 'oldest', label: '과거' },
+  { value: 'latest', label: 'Latest' },
+  { value: 'popular', label: 'Popular' },
+  { value: 'oldest', label: 'Oldest' },
 ];
 
 // ----------------------------------------------------------------------
 
 const applySort = (posts, sortBy) => {
   if (sortBy === 'latest') {
-    return orderBy(posts, ['createdDate'], ['desc']);
+    return orderBy(posts, ['createdAt'], ['desc']);
   }
   if (sortBy === 'oldest') {
-    return orderBy(posts, ['createdDate'], ['asc']);
+    return orderBy(posts, ['createdAt'], ['asc']);
   }
   if (sortBy === 'popular') {
     return orderBy(posts, ['view'], ['desc']);
@@ -43,16 +42,18 @@ const applySort = (posts, sortBy) => {
   return posts;
 };
 
-export default function Blogdingstas() {
+export default function Blogreports() {
   const { themeStretch } = useSettings();
 
-  const isMountedRef = useIsMountedRef();
+  const { user } = useAuth() 
 
-  const [posts, setPosts] = useState([]);
+  const isMountedRef = useIsMountedRef();
 
   const [page, setpage] = useState(0);
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
+
+  const [posts, setPosts] = useState([]);
 
   const [filters, setFilters] = useState('latest');
 
@@ -60,7 +61,7 @@ export default function Blogdingstas() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/notices?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -69,34 +70,11 @@ export default function Blogdingstas() {
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef,page]);
-
-  // ---------------------------------------------
-  const [api, setapi] = useState('');
-  const [param, setparam] = useState('')
-
-  const getAllPosts2 = useCallback(async () => {
-    try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
-      if (isMountedRef.current) {
-        setPosts(response.data.data.content);
-        settotalpage(response.data.data.totalPages);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef,page,api,param]);
+  }, [isMountedRef, page]);
 
   useEffect(() => {
-    if(!param){
-      getAllPosts();
-    }
-    if(param){
-      getAllPosts2();
-    }
-  }, [getAllPosts,getAllPosts2,param]);
-
-  // --------------------------------------------------------------
+    getAllPosts();
+  }, [getAllPosts]);
 
   const handleChangeSort = (value) => {
     if (value) {
@@ -113,30 +91,56 @@ export default function Blogdingstas() {
     [getAllPosts, page]
   );
 
+  const [admin , setadmin] = useState(false)
+  
+  useEffect(() => {
+    if(user){
+      if(user?.role === 'admin'){
+        setadmin(true)
+      }
+    } else{
+    setadmin(false)
+    }
+  
+  }, [user])
+  
+
+
   return (
-    <Page title="Posts">
+    <Page title="공지사항">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading="Dingsta"
-          links={[{ name: '' }]}
-          action={
-            <>
-            <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />  
-            </>
-          }
-          sx={{ mt: 2 }}
+          heading="Notice"
+          links={[
+            { name: '' },
+          ]}
+            action={
+            (admin) && <Button
+              variant="outlined"
+              component={RouterLink}
+              to={PATH_DASHBOARD.blog.newPost}
+              startIcon={<Iconify icon={'eva:plus-fill'} />}
+            >
+              글쓰기
+            </Button>
+          } 
+        sx={{mt:2}}
         />
-        <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
 
+        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+          <BlogPostsSearch />
+          <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
+        </Stack>
 
-        <Grid container spacing={3} >
-          {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
+        <Grid container spacing={1}>
+        {(!posts.length ? [...Array(12)] 
+            : sortedPosts).map((post, index) =>
             post ? (
-              <Grid key={post.id} item xs={12} sm={6} md={3}>
-                <BlogPostCard post={post} />
+              <Grid key={post.id} item xs={12} sm={12} md={12}>
+                <BlogPostlist post={post}/>
               </Grid>
             ) : (
-              <SkeletonPostItem key={index} />
+              <SkeletonboardItem key={index} />
             )
           )}
         </Grid>

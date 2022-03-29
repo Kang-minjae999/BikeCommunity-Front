@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
   Box,
@@ -19,6 +19,8 @@ import {
   FormControlLabel,
   ImageList,
   ImageListItem,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
@@ -30,6 +32,7 @@ import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
 import MyAvatar from '../../../../components/MyAvatar';
 import EmojiPicker from '../../../../components/EmojiPicker';
+import DotdotdotPost from '../../../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +43,7 @@ ProfilePostCard.propTypes = {
 export default function ProfilePostCard({ post }) {
   const { user } = useAuth();
 
-  console.log(post)
+  const navigate = useNavigate();
 
   const commentInputRef = useRef(null);
 
@@ -76,6 +79,8 @@ export default function ProfilePostCard({ post }) {
     commentInputRef.current?.focus();
   };
 
+
+
   return (
 <Card>
 <CardHeader
@@ -91,10 +96,8 @@ export default function ProfilePostCard({ post }) {
       {fyeardateTime(post.createdAt)}
     </Typography>
   }
-  action={
-    <IconButton>
-      <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
-    </IconButton>
+  action={<><DotdotdotPost/>
+  </>
   }
 />
 

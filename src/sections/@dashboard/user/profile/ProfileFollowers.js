@@ -14,9 +14,9 @@ ProfileFollowers.propTypes = {
 export default function ProfileFollowers({ followers }) {
   return (
     <Box sx={{ mt: 5 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+{/*       <Typography variant="h4" sx={{ mb: 3 }}>
         Followers
-      </Typography>
+      </Typography> */}
 
       <Grid container spacing={3}>
         {followers.map((follower) => (

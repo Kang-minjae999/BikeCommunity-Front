@@ -19,6 +19,7 @@ import Iconify from '../../../components/Iconify';
 import TextMaxLine from '../../../components/TextMaxLine';
 import TextIconLabel from '../../../components/TextIconLabel';
 import SvgIconStyle from '../../../components/SvgIconStyle';
+import DotdotdotPost from '../../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------
 
@@ -70,7 +71,7 @@ export default function BlogPostCard({ post }) {
             {nicknameOfPost}
           </Typography>
         </Stack>
-        <MoreHorizIcon sx={{ mr: 1 }} />
+        <DotdotdotPost />
       </Stack>
       <Box sx={{ position: 'relative' }}>
       <Link to={linkTo} color="inherit" component={RouterLink}>

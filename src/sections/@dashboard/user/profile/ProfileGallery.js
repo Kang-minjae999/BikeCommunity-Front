@@ -44,10 +44,10 @@ export default function ProfileGallery({ gallery }) {
   };
   return (
     <Box sx={{ mt: 5 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
+{/*       <Typography variant="h4" sx={{ mb: 3 }}>
         Gallery
       </Typography>
-
+ */}
       <Card sx={{ p: 3 }}>
         <Box
           sx={{

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 // utils
 import cssStyles from '../../../../utils/cssStyles';
@@ -10,6 +11,7 @@ import useAuth from '../../../../hooks/useAuth';
 // components
 import MyAvatar from '../../../../components/MyAvatar';
 import Image from '../../../../components/Image';
+import Iconify from '../../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -49,6 +51,16 @@ export default function ProfileCover({ myProfile }) {
 
   const { position, cover } = myProfile;
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
     <Stack
@@ -75,8 +87,8 @@ export default function ProfileCover({ myProfile }) {
             borderWidth: 2,
             borderStyle: 'solid',
             borderColor: 'primary.main',
-            width: 80,
-            height:80,
+            width: 64,
+            height:64,
             mt:2,
           }}
         />
@@ -112,6 +124,17 @@ export default function ProfileCover({ myProfile }) {
           alignItems="center"
           spacing={0}
         >
+        <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}판매글</Typography>
+        <Typography variant="body2" >{user?.name}14</Typography>
+        </Stack>
+        </Box>
+        <Box >
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={0}
+        >
         <Typography variant="subtitle2" sx={{mt:2}}>{user?.name}좋아요</Typography>
         <Typography variant="body2" >{user?.name}14</Typography>
         </Stack>
@@ -123,7 +146,21 @@ export default function ProfileCover({ myProfile }) {
           alignItems="center"
           spacing={0}
         >
-          <FavoriteIcon color='error' sx={{mt:2}}/>
+          <IconButton onClick={handleClick} sx={{mt:2}}>
+            <Iconify icon={'eva:more-vertical-fill'} width={20} height={20} />
+          </IconButton>
+          <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem onClick={handleClose}>채팅하기</MenuItem>
+          <MenuItem onClick={handleClose}>신고하기</MenuItem>
+        </Menu>
         </Stack>
         </Box>
         </Stack>

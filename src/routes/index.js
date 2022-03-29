@@ -139,6 +139,7 @@ export default function Router() {
           children: [
             { element: <Navigate to="/dashboard/user/profile" replace />, index: true },
             { path: 'profile', element: <UserProfile /> },
+            { path: 'profile/:id', element: <UserProfile /> },
             { path: 'cards', element: <UserCards /> },
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
@@ -169,13 +170,16 @@ export default function Router() {
             { element: <Navigate to="/dashboard/blog/posts" replace />, index: true },
             { path: 'notices', element: <Blognotices /> },   // ok                   
             { path: 'posts', element: <BlogPosts /> },     // ok                  
-            { path: 'dingstas', element: <Blogdingstas /> },     // ok
+            { path: 'dingstas', element: <Blogdingstas /> },     // ok       
+            { path: 'reports', element: <BlogReports /> },     // ok
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
+            { path: 'report/:id', element: <BlogReport /> },
             { path: 'new-post', element: <AuthGuard><BlogNewPost /></AuthGuard> },
             { path: 'new-notice', element: <AuthGuard><BlogNewPost /></AuthGuard> },
             { path: 'new-dingsta', element: <AuthGuard><BlogNewPost /></AuthGuard> },
+            { path: 'new-report', element: <BlogNewPost />},
           ],
         },
         {
@@ -224,6 +228,15 @@ export default function Router() {
             { element: <Chat />, index: true },
             { path: 'new', element: <Chat /> },
             { path: ':conversationKey', element: <Chat /> },
+          ],
+        },
+        {
+          path: 'chatting',
+          children: [
+            { element: <Navigate to="/dashboard/chatting/list" replace />, index: true },
+            { path: 'new', element: <ChatIo /> },
+            { path: 'room/:conversationKey', element: <ChatIo /> },
+            { path: 'list', element: <ChatList /> },
           ],
         },
         { path: 'calendar', element: <Calendar /> },
@@ -333,9 +346,11 @@ const NewpostBoardMotocyclepicture = Loadable(lazy(() => import('../pages/dashbo
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
 const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
 const Blogdingstas = Loadable(lazy(() => import('../pages/dashboard/Blogdingstas')));
+const BlogReports = Loadable(lazy(() => import('../pages/dashboard/BlogReports')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
 const BlogNotice = Loadable(lazy(() => import('../pages/dashboard/BlogNotice')));
 const BlogDingsta = Loadable(lazy(() => import('../pages/dashboard/BlogDingsta')));
+const BlogReport = Loadable(lazy(() => import('../pages/dashboard/BlogReport')));
 const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 // 유저
 const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
@@ -356,6 +371,8 @@ const GarageCreate = Loadable(lazy(() => import('../pages/dashboard/GarageCreate
 
 
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
+const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));
+const ChatList = Loadable(lazy(() => import('../pages/dashboard/ChatList')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
 const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));

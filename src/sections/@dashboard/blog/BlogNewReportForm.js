@@ -11,12 +11,12 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { FormProvider, RHFSwitch, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFUploadMultiFileReport } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospostadmin';
 // ----------------------------------------------------------------------
 
-export default function BlogNewNoticeForm() {
+export default function BlogNewReportForm() {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -29,8 +29,7 @@ export default function BlogNewNoticeForm() {
   const defaultValues = {
     title: '',
     content: '',
-    images: [],
-    isPublic: true,
+    Images: [],
   };
 
   const methods = useForm({
@@ -50,13 +49,12 @@ export default function BlogNewNoticeForm() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    data.images.map((file) => formData.append('imageFiles', file));
+    data.Images.map((file) => formData.append('imageFiles', file));
     formData.append('title', data.title)
     formData.append('content', data.content)
-    formData.append('isPublic', data.isPublic)
 
     try {
-      await axios.post('/notices', formData ,{
+      await axios.post('/notice', formData ,{
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
@@ -72,7 +70,7 @@ export default function BlogNewNoticeForm() {
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
-        'images',
+        'Images',
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
@@ -84,12 +82,12 @@ export default function BlogNewNoticeForm() {
   );
   
   const handleRemoveAll = () => {
-    setValue('images', []);
+    setValue('Images', []);
   };
 
   const handleRemove = (file) => {
     const filteredItems = values.Images?.filter((_file) => _file !== file);
-    setValue('images', filteredItems);
+    setValue('Images', filteredItems);
   };
 
   return (
@@ -97,13 +95,13 @@ export default function BlogNewNoticeForm() {
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
-           <CardHeader title='공지사항 글쓰기' sx={{mb:2}}/>
+           <CardHeader title='신고하기' sx={{mb:2}}/>
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
-                <RHFTextField name="title" label="제목" />
-                <RHFTextField name="content" label="내용" multiline minRows={8}/>
-                <RHFUploadMultiFile
-                  name="images"
+                <RHFTextField name="title" label="신고 제목" />
+                <RHFTextField name="content" label="신고 내용" multiline minRows={8}/>
+                <RHFUploadMultiFileReport
+                  name="Images"
                   showPreview
                   accept="image/*"
                   maxSize={3145728}
@@ -113,12 +111,6 @@ export default function BlogNewNoticeForm() {
                 />
               </Stack>
             </Card>
-            <RHFSwitch
-                    name="isPublic"
-                    label="공개"
-                    labelPlacement="start"
-                    sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
-                  /> 
               <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting}>
                 올리기
               </LoadingButton>

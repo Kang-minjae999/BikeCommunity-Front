@@ -19,6 +19,7 @@ import Naverloginimg from './naverloginimg.png';
 import Kakaologinimg from './kakaologinimg.png';
 import Kakaologincallback from './Kakaologincallback';
 import useResponsive from '../../../hooks/useResponsive';
+import { KAKAO_AUTH_API } from '../../../config';
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
@@ -64,10 +65,6 @@ export default function LoginForm() {
       }
     }
   };
-
-  const REST_API_KEY = '1e48d31601f5f560eb6da4b6ea35a32b';
-  const REDIRECT_URI = 'http://localhost:3000/auth/login';
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -118,7 +115,7 @@ export default function LoginForm() {
           alignItems="center"
           spacing={2}
         > */}
-        <a href={KAKAO_AUTH_URL} target="_blank" rel="noopener noreferrer">
+        <a href={KAKAO_AUTH_API} target="_blank" rel="noopener noreferrer">
           <img style={{ width: '100%', height: isDesktop ? 65 : 55 }} src={Kakaologinimg} alt="Naverloginimg" />
         </a>
         <a href="https://naver.com" target="_blank" rel="noopener noreferrer">
