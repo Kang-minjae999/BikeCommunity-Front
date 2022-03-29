@@ -21,6 +21,7 @@ import {
   BlogPostCommentList,
   BlogPostCommentForm,
 } from '../../sections/@dashboard/blogpost';
+import Image from '../../components/Image';
 
 // ----------------------------------------------------------------------
 
@@ -88,33 +89,14 @@ export default function BlogPost() {
               <BlogPostHero post={post} />
                 <Divider/>
               <Box sx={{ p: { xs: 3, md: 5 }}}>
-              {/* <Typography variant="h6" sx={{ mb: 5 }}>
-                {post.description}
-              </Typography> */}
-
-              <Markdown children={post.content} />
-              
-
-            {/*   <Box sx={{ my: 5 }}>
+              <Typography variant="body2" sx={{ mb: 5 }}>
+               {post.content}
+              </Typography> 
+                <Divider sx={{mb:2}}/>
+             {post?.imageURLs.map((file,index)=>(<Image ratio='16/9' key={file} alt={index} src={file}/>))} 
+              <Box sx={{ my: 5 }}>
                 <Divider />
-                <BlogPostTags post={post} />
-                <Divider />
-              </Box> */}
-
-            {/*  <Box sx={{ display: 'flex', mb: 2 }}>
-                <Typography variant="h4">Comments</Typography>
-                <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                  ({post.comments.length})
-                </Typography>
               </Box>
-              */}
-            {/*   <BlogPostCommentList post={post} /> */}
-
-            {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
-                <Pagination count={8} color="primary" />
-              </Box> */}
-
-            {/*   <BlogPostCommentForm /> */}
             </Box>
           </Card>
         )}

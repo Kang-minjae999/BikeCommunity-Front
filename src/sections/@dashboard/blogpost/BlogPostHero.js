@@ -80,7 +80,7 @@ BlogPostHero.propTypes = {
 };
 
 export default function BlogPostHero({ post }) {
-  const { nicknameOfPost ,postImageURLs } = post;
+  const { thumbnailImageURL, createdDate } = post;
 
   const isDesktop = useResponsive('up', 'sm');
 
@@ -90,14 +90,14 @@ export default function BlogPostHero({ post }) {
 
       <FooterStyle>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-         {/*  <Avatar alt={nicknameOfPost} src={author.avatarUrl} sx={{ width: 48, height: 48 }} /> */}
+         <Avatar alt='RIDERTOWN' src='https://mblogthumb-phinf.pstatic.net/MjAyMDAxMjlfMTM1/MDAxNTgwMjczNzQ0NjM3.o6Fk0PSmpz0KPLJM70MVySVyPieGn6BdP6fMvEhxpGgg.Q9xDDds9VOO78rp4fvGlDZGyfBt1B9lrAPekSE6EO4sg.JPEG.bikebaksa/imageView_%282%29.jpg?type=w2' sx={{ width: 48, height: 48 }} /> 
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle1" sx={{ color: 'common.white' }}>
-              {nicknameOfPost}
+              라이더타운
             </Typography>
-         {/*    <Typography variant="body2" sx={{ color: 'grey.500' }}>
-              {fDate(createdAt)}
-            </Typography> */}
+             <Typography variant="body2" sx={{ color: 'grey.500' }}>
+              {fDate(createdDate)}
+            </Typography> 
           </Box>
         </Box>
 
@@ -120,7 +120,7 @@ export default function BlogPostHero({ post }) {
       </FooterStyle>
 
       <OverlayStyle />
-      <Image alt="post cover" src={postImageURLs[0]} ratio="1/1" />
+      <Image alt="post cover" src={thumbnailImageURL} ratio="1/1" />
     </Box>
   );
 }
