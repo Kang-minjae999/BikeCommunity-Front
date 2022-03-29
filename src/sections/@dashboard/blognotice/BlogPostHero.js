@@ -94,6 +94,7 @@ export default function BlogPostHero({ post }) {
 
   return (
     <Box sx={{ position: 'relative' }}>
+      
       <TitleStyle>{title}</TitleStyle>
 
       <FooterStyle>

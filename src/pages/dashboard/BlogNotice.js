@@ -17,6 +17,7 @@ import { SkeletonPost } from '../../components/skeleton';
 import {
   BlogPostHero,
 } from '../../sections/@dashboard/blognotice';
+import Image from '../../components/Image';
 
 // ----------------------------------------------------------------------
 
@@ -49,6 +50,8 @@ export default function BlogPost() {
     getPost();
   }, [getPost]);
 
+  console.log(post)
+
   return (
     <Page title="공지사항">
       <Container maxWidth={themeStretch ? false : 'lx'}>
@@ -68,6 +71,8 @@ export default function BlogPost() {
               <Typography variant="body2" sx={{ mb: 5 }}>
                {post.content}
               </Typography> 
+                <Divider />
+             {/*  {post?.imageURLs.map((file,index)=>(<Image key={file} alt={index} />))} */}
               <Box sx={{ my: 5 }}>
                 <Divider />
               </Box>
