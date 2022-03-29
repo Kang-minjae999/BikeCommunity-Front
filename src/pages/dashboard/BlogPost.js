@@ -88,39 +88,40 @@ export default function BlogPost() {
               <BlogPostHero post={post} />
                 <Divider/>
               <Box sx={{ p: { xs: 3, md: 5 }}}>
-              <Typography variant="h6" sx={{ mb: 5 }}>
+              {/* <Typography variant="h6" sx={{ mb: 5 }}>
                 {post.description}
-              </Typography>
+              </Typography> */}
 
               <Markdown children={post.content} />
+              
 
-              <Box sx={{ my: 5 }}>
+            {/*   <Box sx={{ my: 5 }}>
                 <Divider />
                 <BlogPostTags post={post} />
                 <Divider />
-              </Box>
+              </Box> */}
 
-              <Box sx={{ display: 'flex', mb: 2 }}>
+            {/*  <Box sx={{ display: 'flex', mb: 2 }}>
                 <Typography variant="h4">Comments</Typography>
                 <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
                   ({post.comments.length})
                 </Typography>
               </Box>
+              */}
+            {/*   <BlogPostCommentList post={post} /> */}
 
-              <BlogPostCommentList post={post} />
-
-          {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+            {/*  <Box sx={{ mb: 5, mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                 <Pagination count={8} color="primary" />
               </Box> */}
 
-              <BlogPostCommentForm />
+            {/*   <BlogPostCommentForm /> */}
             </Box>
           </Card>
         )}
 
         {!post && !error && <SkeletonPost />}
 
-        {error && <Typography variant="h6">404 {error}!</Typography>}
+        {error && <Typography variant="h6">{error}!</Typography>}
 
        {/*  <BlogPostRecent posts={recentPosts} /> */}
       </Container>
