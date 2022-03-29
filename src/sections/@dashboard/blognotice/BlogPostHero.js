@@ -109,7 +109,7 @@ export default function BlogPostHero({ post }) {
             spacing={2}
           >
         <Box sx={{ display: 'flex', flexWrap: 'wrap', mt:2 , ml:2, mr:2 , mb:2}}>
-          <Avatar alt='라이더타운' src='https://en.pimg.jp/068/513/753/1/68513753.jpg' sx={{ width: 48, height: 48 }} />
+          <Avatar alt='라이더타운' src='https://en.pimg.jp/068/513/753/1/68513753.jpg' sx={{ width: 48, height: 48 , mr:2}} />
           <Box>
             <Typography variant="subtitle1" sx={{ color: 'secondary' }}>
              라이더타운
