@@ -95,7 +95,10 @@ export default function Blognotice() {
 
   useEffect(() => {
     if(user){
-      if(user?.role === 'admin'){
+      if(user?.role === 'ROLE_ADMIN_L1'){
+        setadmin(true)
+      }
+      if(user?.role === 'ROLE_ADMIN_L2'){
         setadmin(true)
       }
     } else{
