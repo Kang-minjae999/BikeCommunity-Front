@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Tabs, Container, Typography, Divider } from '@mui/material';
+import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 // routes
@@ -32,7 +32,7 @@ const TabsWrapperStyle = styled('div')(({ theme }) => ({
   bottom: 0,
   width: '100%',
   display: 'flex',
-  position: 'relative',
+  position: 'absolute',
   justifyContent: 'center',
   backgroundColor: theme.palette.background.paper,
 }));
@@ -105,19 +105,24 @@ export default function UserProfile() {
           links={[
             { name: '' },
           ]}
-        />}
+        />}   
         <Box
           sx={{
-            mb: 6, mt: 2,
-            height: 150,
+            mb: 2, mt: 2,
+            height: (isDesktop ? '55vh' : '35vh'),
             position: 'relative',
           }}
         >
           <ProfileCover nickname={nickname} />
-          <Divider sx={{my:2}}/>
-
-           <TabsWrapperStyle>
-            <Tabs
+          <TabsWrapperStyle>
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0}
+          >
+          <Box>sdfsdfsf</Box>
+          <Tabs
               value={currentTab}
               scrollButtons="auto"
               variant="scrollable"
@@ -126,14 +131,15 @@ export default function UserProfile() {
                {PROFILE_TABS.map((tab) => (
                 <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
               ))} 
-            </Tabs>
-          </TabsWrapperStyle> 
-        </Box>
+          </Tabs>
+          </Stack>
+          </TabsWrapperStyle>
+          </Box>
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value} >{tab.component}</Box>;
         })}
-        {error && <Typography sx={{mt:20}}>{error}</Typography>}
+        {error && <Typography sx={{mt:10}}>{error}</Typography>}
       </Container>
     </Page>
   );

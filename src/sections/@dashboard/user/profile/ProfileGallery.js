@@ -18,6 +18,7 @@ export default function ProfileGallery({ post }) {
   return (
     <Box sx={{ mt: 1 }}>
       <Card sx={{ p: 1 }}>
+        {post && 
         <Box
           sx={{
             display: 'grid',
@@ -32,7 +33,7 @@ export default function ProfileGallery({ post }) {
           {post.map((post) => (
             <GalleryItem key={post.id} post={post}/>
           ))}
-        </Box>
+        </Box>}
       </Card>
     </Box>
   );
