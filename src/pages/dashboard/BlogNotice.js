@@ -37,7 +37,7 @@ export default function BlogPost() {
       const response = await axios.get(`/notices/${id}`);
 
       if (isMountedRef.current) {
-        setPost(response.data.data.content);
+        setPost(response.data.data);
       }
     } catch (error) {
       console.error(error);

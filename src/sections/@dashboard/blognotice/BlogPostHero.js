@@ -88,7 +88,7 @@ BlogPostHero.propTypes = {
 const { title, author, createdAt } = post; */
 
 export default function BlogPostHero({ post }) {
-  const { title } = post;
+  const { title, createdDate } = post;
 
   const isDesktop = useResponsive('up', 'sm');
 
@@ -104,9 +104,9 @@ export default function BlogPostHero({ post }) {
               라이더타운
             </Typography>
             <SocialsButton />
-            {/* <Typography variant="body2" sx={{ color: 'grey.500' }}>
-              {fDate(createdAt)}
-            </Typography> */}
+             <Typography variant="body2" sx={{ color: 'grey.500' }}>
+              {createdDate}
+            </Typography> 
           </Box>
         </Box>
           
