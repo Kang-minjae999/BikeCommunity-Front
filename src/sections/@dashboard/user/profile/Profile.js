@@ -12,10 +12,11 @@ import ProfileSocialInfo from './ProfileSocialInfo';
 
 Profile.propTypes = {
   myProfile: PropTypes.object,
+  post: PropTypes.object,
   posts: PropTypes.array,
 };
 
-export default function Profile({ myProfile, posts }) {
+export default function Profile({ myProfile, posts, post }) {
   return (
     <Grid container spacing={3}>
 {/*       <Grid item xs={12} md={4}>
@@ -27,12 +28,15 @@ export default function Profile({ myProfile, posts }) {
       </Grid> */}
 
       <Grid item xs={12} md={12}>
-        <Stack spacing={3}>
+        {post && <Stack spacing={3}>
          {/*  <ProfilePostInput /> */}
-          {posts.map((post) => (
+         {post.map((post) => (
             <ProfilePostCard key={post.id} post={post} />
           ))}
-        </Stack>
+         {/*  {posts.map((post) => (
+            <ProfilePostCard key={post.id} post={post} />
+          ))} */}
+        </Stack>}
       </Grid>
     </Grid>
   );

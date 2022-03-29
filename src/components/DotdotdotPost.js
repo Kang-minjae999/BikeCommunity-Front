@@ -1,4 +1,4 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React , { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Menu, MenuItem} from '@mui/material';
@@ -10,7 +10,12 @@ import Iconify from './Iconify';
   color: PropTypes.oneOf(['default', 'primary', 'secondary', 'info', 'success', 'warning', 'error']),
 }; */
 // 프로필이랑 채팅 링크 수정
-export default function DotdotdotPost() {
+
+DotdotdotPost.propTypes = {
+  nicknameOfPost: PropTypes.object.isRequired,
+};
+
+export default function DotdotdotPost({nicknameOfPost}) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -25,7 +30,7 @@ export default function DotdotdotPost() {
   };
   const handleClose0 = () => {
     setAnchorEl(null);
-    navigate('/dashboard/chat');
+    navigate(`/user/profile/${nicknameOfPost}`);
   };
   const handleClose1 = () => {
     setAnchorEl(null);

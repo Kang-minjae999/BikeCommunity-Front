@@ -22,6 +22,7 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
+import { PATH_DASHBOARD } from '../../../../routes/paths';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 // utils
@@ -79,6 +80,9 @@ export default function ProfilePostCard({ post }) {
     commentInputRef.current?.focus();
   };
 
+  
+  const linkTo = `${PATH_DASHBOARD.blog.root}/dingsta/${post.id}`;
+
 
 
   return (
@@ -88,7 +92,7 @@ export default function ProfilePostCard({ post }) {
   avatar={<MyAvatar />}
   title={
     <Link to="#" variant="subtitle2" color="text.primary" component={RouterLink}>
-      {user?.displayName}
+      {post?.nicknameOfPost}
     </Link>
   }
   subheader={
@@ -102,11 +106,12 @@ export default function ProfilePostCard({ post }) {
 />
 
 <Stack spacing={3} sx={{ p: 3 }}>
-  <Typography>{post.message}</Typography>
+  <Link to={linkTo} color="inherit" component={RouterLink}>
+  <Typography>{post?.content}</Typography>
 
-  <Image alt="post media" src={post.media} ratio="16/9" sx={{ borderRadius: 1 }} />
-
-  <Stack direction="row" alignItems="center">
+  <Image alt="post media" src={post?.thumbnailImageUrl} ratio="16/9" sx={{ borderRadius: 1 }} />
+  </Link>
+ {/*  <Stack direction="row" alignItems="center">
     <FormControlLabel
       control={
         <Checkbox
@@ -133,9 +138,9 @@ export default function ProfilePostCard({ post }) {
     <IconButton>
       <Iconify icon={'eva:share-fill'} width={20} height={20} />
     </IconButton>
-  </Stack>
+  </Stack> */}
 
-  {hasComments && (
+  {/* {hasComments && (
     <Stack spacing={1.5}>
       {post.comments.map((comment) => (
         <Stack key={comment.id} direction="row" spacing={2}>
@@ -159,9 +164,9 @@ export default function ProfilePostCard({ post }) {
         </Stack>
       ))}
     </Stack>
-  )}
+  )} */}
 
-  <Stack direction="row" alignItems="center">
+  {/* <Stack direction="row" alignItems="center">
     <MyAvatar />
     <TextField
       fullWidth
@@ -193,7 +198,7 @@ export default function ProfilePostCard({ post }) {
       <Iconify icon={'ic:round-send'} width={24} height={24} />
     </IconButton>
     <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
-  </Stack>
+  </Stack> */}
 </Stack>
 </Card>
   );

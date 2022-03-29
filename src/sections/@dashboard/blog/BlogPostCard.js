@@ -71,7 +71,7 @@ export default function BlogPostCard({ post }) {
             {nicknameOfPost}
           </Typography>
         </Stack>
-        <DotdotdotPost />
+        <DotdotdotPost nicknameOfPost={nicknameOfPost}/>
       </Stack>
       <Box sx={{ position: 'relative' }}>
       <Link to={linkTo} color="inherit" component={RouterLink}>

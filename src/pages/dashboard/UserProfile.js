@@ -51,7 +51,7 @@ export default function UserProfile() {
 
   const isMountedRef = useIsMountedRef();
 
-  const { id = '' } = useParams();
+  const { nickname = '' } = useParams();
 
   const [recentPosts, setRecentPosts] = useState([]);
 
@@ -61,7 +61,7 @@ export default function UserProfile() {
 
   const isDesktop = useResponsive('up','lg')
 
-  const [currentTab, setCurrentTab] = useState('gallery');
+  const [currentTab, setCurrentTab] = useState('profile');
 
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
@@ -69,7 +69,7 @@ export default function UserProfile() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/${id}`);
+      const response = await axios.get(`/dingsta/${nickname}/${user.nickname}`);
 
       if (isMountedRef.current) {
         setPost(response.data.data);
@@ -78,7 +78,7 @@ export default function UserProfile() {
       console.error(error);
       setError('서버와의 연결이 이상해요!');
     }
-  }, [isMountedRef, id]);
+  }, [isMountedRef, nickname, user]);
 
 /*   const getAllPosts = useCallback(async () => {
     try {
@@ -110,7 +110,7 @@ export default function UserProfile() {
       value: 'profile',
       label: '게시글',
       icon: <TocIcon icon={'ic:round-perm-media'} width={20} height={20} />,
-      component: <Profile myProfile={_userAbout} posts={_userFeeds} />,
+      component: <Profile myProfile={_userAbout} posts={_userFeeds} post={post}/>,
     },
     {
       value: 'sell',
