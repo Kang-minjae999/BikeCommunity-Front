@@ -42,11 +42,11 @@ ProfilePostCard.propTypes = {
 };
 
 export default function ProfilePostCard({ post }) {
-  const { user } = useAuth();
+/*   const { user } = useAuth();
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); */
 
-  const commentInputRef = useRef(null);
+/*   const commentInputRef = useRef(null);
 
   const fileInputRef = useRef(null);
 
@@ -79,7 +79,7 @@ export default function ProfilePostCard({ post }) {
   const handleClickComment = () => {
     commentInputRef.current?.focus();
   };
-
+ */
   
   const linkTo = `${PATH_DASHBOARD.blog.root}/dingsta/${post.id}`;
 
@@ -89,7 +89,7 @@ export default function ProfilePostCard({ post }) {
 <Card>
 <CardHeader
   disableTypography
-  avatar={<MyAvatar />}
+  avatar={<Avatar alt='avatar' src={post?.avatarImageURL}/>} 
   title={
     <Link to="#" variant="subtitle2" color="text.primary" component={RouterLink}>
       {post?.nicknameOfPost}
