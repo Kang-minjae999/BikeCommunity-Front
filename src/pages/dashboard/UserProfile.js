@@ -69,16 +69,16 @@ export default function UserProfile() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/${nickname}/${user.nickname}`);
+      const response = await axios.get(`/dingsta/nickname/${nickname}`);
 
       if (isMountedRef.current) {
-        setPost(response.data.data);
+        setPost(response.data.data.content);
       }
     } catch (error) {
       console.error(error);
       setError('서버와의 연결이 이상해요!');
     }
-  }, [isMountedRef, nickname, user]);
+  }, [isMountedRef, nickname]);
 
 /*   const getAllPosts = useCallback(async () => {
     try {
