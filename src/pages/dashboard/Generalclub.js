@@ -32,8 +32,6 @@ import {
   Appweather,
   AppTopInstalledCountries,
 } from '../../sections/@dashboard/general/app';
-import BlogPosts from './BlogPosts';
-import BlogPostsgeneral from './BlogPostsgeneral';
 import Club from './Club';
 
 // ----------------------------------------------------------------------
