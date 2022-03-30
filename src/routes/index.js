@@ -170,7 +170,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/blog/posts" replace />, index: true },
             { path: 'notices', element: <Blognotices /> },   // ok                   
             { path: 'posts', element: <BlogPosts /> },     // ok                  
-            { path: 'dingstas', element: <Blogdingstas /> },     // ok       
+            { path: 'dingstas', element: <BlogDingstas /> },          
             { path: 'reports', element: <BlogReports /> },     // ok
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
@@ -316,7 +316,7 @@ const UEcommerceProductCreateparts = Loadable(lazy(() => import('../pages/dashbo
 
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
-const Blogdingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
+const BlogDingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
 const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
 const BlogReports = Loadable(lazy(() => import('../pages/dashboard/BlogReports')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
