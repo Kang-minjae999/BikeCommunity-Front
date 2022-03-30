@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack } from '@mui/material';
+import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack, TextField, InputAdornment } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 // routes
@@ -44,6 +47,8 @@ export default function UserProfile() {
 
   const isMountedRef = useIsMountedRef();
 
+  const navigate = useNavigate()
+
   const { nickname = '' } = useParams();
 
   const [post, setPost] = useState(null);
@@ -57,6 +62,13 @@ export default function UserProfile() {
   const handleChangeTab = (newValue) => {
     setCurrentTab(newValue);
   };
+
+  useEffect(() => {  
+    if(nickname === undefined || nickname === 'undefined'){
+      navigate('/auth/login')
+    }
+  }, [nickname])
+  
 
   const getPost = useCallback(async () => {
     try {
@@ -121,7 +133,26 @@ export default function UserProfile() {
             alignItems="center"
             spacing={0}
           >
-          <Box>sdfsdfsf</Box>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={7}
+            sx={{mt:2}}
+          >            
+            <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
+              <AccountCircle sx={{ color: 'action.active', mx: 1, my: 0.5 }} />
+              <TextField id="input-with-sx" label="게시글" variant="standard" value={12} disabled sx={{width:40}}/>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <ShoppingCartIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+              <TextField id="input-with-sx" label="판매글" variant="standard"  value={12} disabled sx={{width:40}}/>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <FavoriteIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+              <TextField id="input-with-sx" label="좋아요" variant="standard" value={12} disabled sx={{width:40}}/>
+            </Box>
+          </Stack>
           <Tabs
               value={currentTab}
               scrollButtons="auto"

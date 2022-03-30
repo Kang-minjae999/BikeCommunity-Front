@@ -98,8 +98,8 @@ export default function ProfileCover({ nickname }) {
         sx={{
           ml: { md: 3 },
           mt: { xs: 1, md: 0 },
-          color: 'common.white',
-          backgroundColor: 'primary.main',
+          color: 'primary.main',
+          backgroundColor: 'common.white',
           borderRadius:1,
           textAlign: { xs: 'center', md: 'center' },
         }}
