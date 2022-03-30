@@ -171,7 +171,7 @@ export default function Router() {
             { path: 'notices', element: <Blognotices /> },   // ok                   
             { path: 'posts', element: <BlogPosts /> },     // ok                  
             { path: 'dingstas', element: <BlogDingstas /> },          
-            { path: 'reports', element: <BlogReports /> },     // ok
+            { path: 'reports', element: <BlogReports /> },    
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
