@@ -12,8 +12,7 @@ import useSettings from '../../hooks/useSettings';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
-// sections
-import Blogdingstas from './BlogDingstas';
+// sectionss
 
 import MainFooter from '../../layouts/main/MainFooter';
 import {
