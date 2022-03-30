@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack, TextField, InputAdornment } from '@mui/material';
+import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack, TextField, InputAdornment, Avatar } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -27,6 +27,7 @@ import {
   ProfileGallery,
   ProfileFollowers,
 } from '../../sections/@dashboard/user/profile';
+import { AppWelcomefirst } from '../../sections/@dashboard/general/app';
 
 // ----------------------------------------------------------------------
 
@@ -135,23 +136,35 @@ export default function UserProfile() {
           >
           <Stack
             direction="row"
-            justifyContent="center"
+            justifyContent="space-between"
             alignItems="center"
-            spacing={7}
-            sx={{mt:2}}
-          >            
+            spacing={2}
+            sx={{mt:2, width:'100%'}}
+          >                     
+          <Avatar sx={{width:48,height:48}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
+          <Typography variant="h4">일론머스크&nbsp;</Typography> 
+          <div>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="flex-end"
+            spacing={2}
+            sx={{width:'100%'}}
+          >    
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
-              <AccountCircle sx={{ color: 'action.active', mx: 1, my: 0.5 }} />
+            {/*  <AccountCircle sx={{ color: 'action.active', mx: 1, my: 0.5 }} /> */}
               <TextField id="input-with-sx" label="게시글" variant="standard" value={12} disabled sx={{width:40}}/>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <ShoppingCartIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            {/*  <ShoppingCartIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
               <TextField id="input-with-sx" label="판매글" variant="standard"  value={12} disabled sx={{width:40}}/>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <FavoriteIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} />
+            {/*  <FavoriteIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
               <TextField id="input-with-sx" label="좋아요" variant="standard" value={12} disabled sx={{width:40}}/>
             </Box>
+          </Stack>
+          </div>
           </Stack>
           <Tabs
               value={currentTab}
