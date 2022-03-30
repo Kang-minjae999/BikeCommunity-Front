@@ -43,8 +43,8 @@ export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/ap
 // ----------------------------------------------------------------------
 
 export const HEADER = {
-  MOBILE_HEIGHT: 88,
-  MAIN_DESKTOP_HEIGHT: 88,
+  MOBILE_HEIGHT: 92,
+  MAIN_DESKTOP_HEIGHT: 92,
   DASHBOARD_DESKTOP_HEIGHT: 92,
   DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
 };
@@ -53,7 +53,7 @@ export const NAVBAR = {
   BASE_WIDTH: 260,
   DASHBOARD_WIDTH: 240,
   MOBILE_DASHBOARD_WIDTH: "70%",
-  DASHBOARD_COLLAPSE_WIDTH: 88,
+  DASHBOARD_COLLAPSE_WIDTH: 92,
   //
   DASHBOARD_ITEM_ROOT_HEIGHT: 48,
   DASHBOARD_ITEM_SUB_HEIGHT: 40,

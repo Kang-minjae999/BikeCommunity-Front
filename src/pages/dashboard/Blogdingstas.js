@@ -38,7 +38,7 @@ const applySort = (posts, sortBy) => {
   return posts;
 };
 
-export default function Blogdingstas() {
+export default function BlogDingstas() {
   const { themeStretch } = useSettings();
 
   const isMountedRef = useIsMountedRef();

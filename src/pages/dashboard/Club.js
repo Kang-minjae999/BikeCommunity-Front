@@ -25,7 +25,6 @@ import {
 } from '../../sections/@dashboard/club/shop';
 import CartWidget from '../../sections/@dashboard/club/CartWidget';
 import useResponsive from '../../hooks/useResponsive';
-import { AppWelcomefirst } from '../../sections/@dashboard/general/app';
 
 // ----------------------------------------------------------------------
 
@@ -118,7 +117,6 @@ export default function Club() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-             <><ShopProductSearch /> <AppWelcomefirst /> </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
             <FormProvider methods={methods}>
               <ShopFilterSidebar

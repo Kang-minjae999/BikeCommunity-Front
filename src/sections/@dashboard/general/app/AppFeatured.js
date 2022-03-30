@@ -8,6 +8,7 @@ import { alpha, useTheme, styled } from '@mui/material/styles';
 import { CardContent, Box, Card, Typography, Link } from '@mui/material';
 // _mock_
 import { _appFeatured } from '../../../../_mock';
+import useResponsive from '../../../../hooks/useResponsive';
 // components
 import Image from '../../../../components/Image';
 import { MotionContainer, varFade } from '../../../../components/animate';
@@ -22,7 +23,7 @@ const OverlayStyle = styled('div')(({ theme }) => ({
   bottom: 0,
   zIndex: 8,
   position: 'absolute',
-  backgroundColor: alpha(theme.palette.grey[900], 0),
+  backgroundColor: alpha(theme.palette.grey[900], 0.32),
 }));
 
 // ----------------------------------------------------------------------
@@ -33,18 +34,20 @@ export default function AppFeatured() {
   const [currentIndex, setCurrentIndex] = useState(theme.direction === 'rtl' ? _appFeatured.length - 1 : 0);
 
   const settings = {
-    speed: 800,
+    speed: 1000,
     dots: true,
-    arrows: false,
+    arrows: true,
     autoplay: true,
+    autoplaySpeed:4000,
     slidesToShow: 1,
     slidesToScroll: 1,
     rtl: Boolean(theme.direction === 'rtl'),
     beforeChange: (current, next) => setCurrentIndex(next),
     ...CarouselDots({
       zIndex: 9,
-      top: 24,
-      left: 24,
+      left:0,
+      right:0,  
+      bottom: 14,
       position: 'absolute',
     }),
   };
@@ -57,10 +60,24 @@ export default function AppFeatured() {
     carouselRef.current.slickNext();
   };
 
+  const SliderItem = [{
+    id: '1',
+    title: 'RIDERTOWN',
+    description: 'RIDERTOWN',
+    image: 'https://cdn.imweb.me/upload/S2020112077da751d9e507/725fca31db204.jpg',
+    },
+    {
+      id: '2',
+      title: 'RIDERTOWN',
+      description: 'RIDERTOWN',
+      image: 'https://pictures.topspeed.com/IMG/crop/201904/2020-bmw-s-1000-rr-16_1600x0w.jpg',
+    }
+  ];
+
   return (
     <Box>
       <Slider ref={carouselRef} {...settings}>
-        {_appFeatured.map((app, index) => (
+        {SliderItem.map((app, index) => (
           <CarouselItem key={app.id} item={app} isActive={index === currentIndex} />
         ))}
       </Slider>
@@ -95,12 +112,12 @@ CarouselItem.propTypes = {
     description: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
-    type: PropTypes.string,
   }),
 };
 
 function CarouselItem({ item, isActive }) {
-  const { image, title, description, type } = item;
+  const { image, title, description } = item;
+  const isDesktop = useResponsive('up', 'lg')
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -117,26 +134,22 @@ function CarouselItem({ item, isActive }) {
           color: 'common.white',
         }}
       >
-        <m.div variants={varFade().inRight}>
-          <Typography variant="overline" component="div" sx={{ mb: 1, opacity: 0.48 }}>
-            {type}
-          </Typography>
-        </m.div>
+        {isDesktop && 
         <m.div variants={varFade().inRight}>
           <Link component={RouterLink} to="#" color="inherit" underline="none">
             <Typography variant="h5" gutterBottom noWrap>
-              {title}
+             {title}
             </Typography>
           </Link>
-        </m.div>
+        </m.div>}
         <m.div variants={varFade().inRight}>
           <Typography variant="body2" noWrap>
-            {description}
+           {description}
           </Typography>
         </m.div>
       </CardContent>
       <OverlayStyle />
-      <Image  ratio='4/3' alt={title} src={image} sx={{ height: {  xl: '50vh' } }} />
+      <Image  ratio='21/9' alt={title} src={image}/>
     </Box>
   );
 }

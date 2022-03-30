@@ -85,7 +85,7 @@ export default function Aecheckouthead() {
         <BottomNavigationAction
           label={
             <Typography variant="h6" color="black">
-              결제목록
+              결제
             </Typography>
           }
           value="check"

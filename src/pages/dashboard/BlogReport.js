@@ -49,10 +49,10 @@ export default function BlogReport() {
   }, [getPost]);
 
   return (
-    <Page title="공지사항">
+    <Page title="신고/문의/건의">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading="공지사항"
+          heading="신고/문의/건의"
           links={[
             { name: '' },
           ]}

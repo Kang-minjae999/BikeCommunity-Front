@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 // components
 import Page from '../components/Page';
-import { FaqsHero, FaqsCategory, FaqsList, FaqsForm, Faqsqna } from '../sections/faqs';
+import { FaqsHero, FaqsCategory, FaqsList, FaqsForm } from '../sections/faqs';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +31,6 @@ export default function Faqs() {
             </Grid>
             <Grid item xs={12} md={6}>
               <FaqsForm />
-              <Faqsqna />
             </Grid>
           </Grid>
           <FaqsCategory />

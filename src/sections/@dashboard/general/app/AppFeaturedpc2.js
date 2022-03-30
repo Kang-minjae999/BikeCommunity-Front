@@ -21,12 +21,12 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 const item = {
-  image: 'https://cdn.wadiz.kr/ft/images/green001/2020/0630/20200630163145474_70.jpg/wadiz/format/jpg/quality/80/optimize',
+  image: 'https://cdn.wadiz.kr/ft/images/green001/2020/0702/20200702111526553_69.jpg/wadiz/format/jpg/quality/80/optimize',
   title: '',
   description: '',
   type: '',
 }
-export default function AppFeaturedpc() {
+export default function AppFeaturedpc2() {
   const { image, title, description, type } = item;
 
   return (
@@ -60,8 +60,9 @@ export default function AppFeaturedpc() {
         </m.div>
       </CardContent>
       <OverlayStyle />
-      <Image ratio='16/9' alt={title} src={image} />
+      <Image ratio='9/16' alt={title} src={image} />
     </Box>
   )
 }
+// ----------------------------------------------------------------------
 

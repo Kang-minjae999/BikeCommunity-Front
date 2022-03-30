@@ -69,7 +69,6 @@ export default function EcommerceShop() {
     dispatch(filterProducts(values));
   }, [dispatch, values]);
   
-  console.log(products)
 
   const handleOpenFilter = () => {
     setOpenFilter(true);

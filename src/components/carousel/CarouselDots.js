@@ -65,7 +65,7 @@ export default function CarouselDots(props) {
         <DotStyle
           className="dotActive"
           sx={{
-            bgcolor: color || 'primary.main',
+            bgcolor: color || 'common.white',
           }}
         />
       </DotWrapStyle>

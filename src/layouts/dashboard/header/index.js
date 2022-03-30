@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, Link, Divider, Typography, Paper } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, Link, Typography, Button } from '@mui/material';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive'; 
@@ -14,13 +13,7 @@ import cssStyles from '../../../utils/cssStyles';
 // config
 import { HEADER, NAVBAR } from '../../../config';
 // components
-import Logo from '../../../components/Logo';
-import Iconify from '../../../components/Iconify';
-import { IconButtonAnimate } from '../../../components/animate';
-//
-import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
-import Appmobileheader from '../../../sections/@dashboard/general/app/Appmobileheader';
 
 
 
@@ -64,29 +57,33 @@ DashboardHeader.propTypes = {
 };
 
 export default function DashboardHeader({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
-  const [valuetrue,setvaluetrue] = useState(false)
-
-  const clicker = () => {
-    setvaluetrue(true);
-  }
-
-
-
-
-
-// -------------------------------------------------------
-   
   const link = useNavigate();
+
+  const [valuetrue,setvaluetrue] = useState(false)
+  const [valuetrue2,setvaluetrue2] = useState(false)
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     if(valuetrue === true )
     {
-    link(`/dashboard/all-e-commerce/checkout`)
+    link(`/dashboard/${value}`)
     } 
     return () => {
       setvaluetrue(false)
         };
     }, [valuetrue]); 
+
+  useEffect(() => {
+    if(valuetrue2 === true )
+    {
+    link(`/dashboard/all-e-commerce/checkout`)
+    } 
+    return () => {
+      setvaluetrue2(false)
+        };
+    }, [valuetrue2]); 
+
+// -------------------------------------------------------
 
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
@@ -96,39 +93,41 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout} >
       <Toolbar
         sx={{
-          px: { lg: 5 },
+          px: { lg: 5 }, 
           border:"1px",
         }}
       >
-        {isDesktop && verticalLayout && <Logo sx={{mb: 0.5}} /> }
-        {isDesktop && verticalLayout &&   <Searchbar />}
-
-  {/*       {!isDesktop && (
-          
-          <IconButtonAnimate onClick={onOpenSidebar} sx={{ mr: 1, color: 'text.primary' }}>
-          <Iconify icon="eva:menu-2-fill" />
-          </IconButtonAnimate> 
-            )}  */}
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+          <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
-            </Typography>
-            </Link>
-            
-            
+          </Typography>
+          </Link>
         <Box sx={{ flexGrow: 1 }} />
-        
-
         <Stack direction="row" alignItems="center" spacing={{ xs: 2, sm: 1.5 }}>
-         <Searchbar />
-          <LocalGroceryStoreIcon color='primary' onClick={clicker}/>
+        <Link component={RouterLink} to="/dashboard/all-e-commerce/checkout"underline="none" sx={{mt:1}}>     
+          <LocalGroceryStoreIcon color='primary'/>
+        </Link>
           <AccountPopover color='primary' onOpenSidebar={onOpenSidebar}/>
         </Stack>
-        {!isDesktop && 
-        <Paper sx={{ position: 'fixed', top: 50, left: 0, right: 0 }} elevation={1}>
-        <Appmobileheader/>
-          </Paper>}
-      </Toolbar>    
+        </Toolbar>  
+        {!isDesktop &&
+        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={0} sx={{mx:1}}>
+          <Button variant='text' onClick={()=> setValue('app')+ setvaluetrue(true)}>
+          <Typography variant='body2' color='black' fontWeight='bold'>홈</Typography>
+          </Button>
+          <Button variant='text' onClick={()=> setValue('market/all')+ setvaluetrue(true)}>
+          <Typography variant='body2' color='black' fontWeight='bold'>쇼핑</Typography>
+          </Button>
+          <Button variant='text' onClick={()=> setValue('marketu/all')+ setvaluetrue(true)}>
+          <Typography variant='body2' color='black' fontWeight='bold'>중고</Typography>
+          </Button>
+          <Button variant='text' onClick={()=> setValue('garages')+ setvaluetrue(true)}>
+          <Typography variant='body2' color='black' fontWeight='bold'>정비</Typography>
+          </Button>
+          <Button variant='text' onClick={()=> setValue('clubs')+ setvaluetrue(true)}>
+          <Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>
+          </Button>
+        </Stack>}
     </RootStyle>  
   );
 }

@@ -29,7 +29,7 @@ import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceShop() {
+export default function GeneralAppMarket() {
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up','lg')
 
@@ -52,6 +52,7 @@ export default function EcommerceShop() {
   const methods = useForm({
     defaultValues,
   });
+
 
   const { reset, watch, setValue } = methods;
 
@@ -108,16 +109,16 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="SHOP">
-          <Container maxWidth={themeStretch ? false : 'lx'}>
-          {isDesktop && <HeaderBreadcrumbs
-          heading='Market'
+    <Container maxWidth={themeStretch ? false : 'xl'}>
+         <HeaderBreadcrumbs
+          heading='BEST'
           links={[
             { name: '' },
 
           ]}
-        />}
-       {isDesktop && <Stack
+          sx={{mb:1}}
+        />
+      {/* {isDesktop && <Stack
           spacing={2}
           direction={{ xs: 'column', sm: 'row' }}
           alignItems={{ sm: 'center' }}
@@ -161,9 +162,9 @@ export default function EcommerceShop() {
           <ShopProductSearch />
         </Stack>}
 
-        <Appmarketcategory/>
+        <Appmarketcategory/> */}
 
-        <Stack sx={{ mb: 3 }}>
+        {/* <Stack sx={{ mb: 3 }}>
           {!isDefault && (
             <>
               <Typography variant="body2" gutterBottom>
@@ -183,12 +184,10 @@ export default function EcommerceShop() {
               />
             </>
           )}
-        </Stack>
+        </Stack> */}
 
         <ShopProductList products={filteredProducts} loading={!products.length && isDefault} />
-     {/*    <CartWidget /> */}
       </Container>
-    </Page>
   );
 }
 

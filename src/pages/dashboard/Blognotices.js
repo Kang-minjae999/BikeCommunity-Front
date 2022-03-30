@@ -113,7 +113,7 @@ export default function Blognotice() {
     <Page title="공지사항">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading="Notice"
+          heading="공지사항"
           links={[
             { name: '' },
           ]}

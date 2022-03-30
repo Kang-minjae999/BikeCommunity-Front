@@ -131,6 +131,7 @@ export const PATH_DASHBOARD = {
     newPost: path(ROOTS_DASHBOARD, '/blog/new-post'),
     newNotice: path(ROOTS_DASHBOARD, '/blog/new-notice'),
     newDingsta: path(ROOTS_DASHBOARD, '/blog/new-dingsta'),
+    newReport: path(ROOTS_DASHBOARD, '/blog/new-report'),
   },
 
   board: {

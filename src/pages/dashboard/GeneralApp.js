@@ -1,93 +1,47 @@
 // @mui
-import { useTheme } from '@mui/material/styles';
-import { Box, CardContent, Container, Grid, Link, Stack, Typography, Alert ,Button, Divider, Card, CardHeader} from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import { common } from '@mui/material/colors';
-// icons
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import { Box,  Container, Divider, Grid} from '@mui/material';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
-import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sections
 
 import MainFooter from '../../layouts/main/MainFooter';
 import {
-  Appmobilefirst,
-  AppWelcome,
-  AppWelcomefirst,
   AppFeatured,
   AppFeaturedpc,
-  AppWelcomesecond,
-  Appmobilesecond,
-  AppTopRelated,
-  AppAreaInstalled,
-  AppWidgetSummary,
-  AppCurrentDownload,
-  Appcompany,
-  Apppic,
-  Appweather,
-  AppTopInstalledCountries,
+  AppFeaturedpc2,
+  AppFeaturedpc3,
 } from '../../sections/@dashboard/general/app';
+import GeneralAppMarket from './GeneralAppMarket';
 
 // ----------------------------------------------------------------------
 
 export default function GeneralApp() {
-  const theme = useTheme();
   const { themeStretch } = useSettings();
-  const isDesktop = useResponsive('up', 'lg');
 
   return (
     <Page title="General: App">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
-        {/* 데스크탑 */}
-      {isDesktop && (
-          <Grid container spacing={1}>
-           <Grid item xs={12} md={12}>
-           <AppWelcomefirst />
-           </Grid> 
-
-         <Grid item xs={12} xl={12}>
-           <AppFeaturedpc  />
+        <Grid container spacing={1}>
+{/*          <Grid item xs={8} xl={8} sx={{mt:{xs:1, lg:8}}}>
+          <AppFeaturedpc  />
+           <Box sx={{mb:1}}/> 
+          <AppFeaturedpc3  />
+         </Grid>
+         <Grid item xs={4} xl={4} sx={{mt:{xs:1, lg:8}}}>
+         <AppFeaturedpc2  />
+         </Grid> */}
+         <Grid item xs={12} xl={12} >
+         <AppFeatured  />
          </Grid>
          <Grid item xs={12} md={12} lg={12}>
-           <Apppic />
+          <Divider sx={{my:3}}/>
+          <GeneralAppMarket />
          </Grid>
-
-         <Grid item xs={12} md={12} lg={12}>
-           <Apppic />
-         </Grid>
-
-         <Grid item xs={12} md={12} lg={12}>
-           <Apppic />
-         </Grid>
-
          <Grid item xs={12} md={12} lg={12}>
           <MainFooter />
          </Grid>
-         </Grid>)}
-
-          {/* 모바일 */}
-          {!isDesktop && (
-          <Grid container spacing={1}>
-          <Grid item xs={12} md={12} sx={{mt:2}}>
-          <AppWelcomefirst /> 
-           </Grid> 
-           <Grid item xs={12} md={12}>
-           <AppFeatured/>
-           </Grid> 
-           <Grid item xs={12} md={12} lg={12}>
-           <Apppic />
          </Grid>
-
-           <Grid item xs={12} md={12}>
-           <MainFooter />
-           </Grid>
-           </Grid>)}
-       
-      </Container>
     </Page>
   );
 }

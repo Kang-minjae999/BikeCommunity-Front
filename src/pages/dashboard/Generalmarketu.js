@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Container, Typography, Stack, Button } from '@mui/material';
-import { Appmarketcategory2, AppWelcomefirst } from '../../sections/@dashboard/general/app';
+import { Appmarketcategory2 } from '../../sections/@dashboard/general/app';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts, filterProducts } from '../../redux/slices/product';
@@ -25,7 +25,6 @@ import {
   ShopFilterSidebar,
   ShopProductSearch,
 } from '../../sections/@dashboard/used-e-commerce/shop';
-import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 import useResponsive from '../../hooks/useResponsive';
 import Iconify from '../../components/Iconify';
 
@@ -127,8 +126,7 @@ export default function EcommerceShop() {
           sx={{ mb: 2 }}
         >
              <>
-             <ShopProductSearch /> 
-            <AppWelcomefirst />           
+             <ShopProductSearch />          
              <Button
               variant="outlined"
               component={RouterLink}

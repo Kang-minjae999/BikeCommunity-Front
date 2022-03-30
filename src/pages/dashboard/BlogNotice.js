@@ -49,7 +49,6 @@ export default function BlogPost() {
     getPost();
   }, [getPost]);
 
-  console.log(post)
 
   return (
     <Page title="공지사항">

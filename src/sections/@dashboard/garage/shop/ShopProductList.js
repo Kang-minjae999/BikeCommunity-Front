@@ -53,7 +53,8 @@ export default function ShopProductList({ products, loading }) {
     >
       <Grid container spacing={1}>
       {(loading ? [...Array(12)] : products).map((product, index) =>
-        product ? <Grid item xs={6} key={product.id}><ShopProductCard key={product.id} product={product} /></Grid>: <SkeletonProductItem key={index} />
+        product ? <Grid item xs={6} key={product.id}><ShopProductCard key={product.id} product={product} /></Grid>
+        : <Grid item xs={6} key={index}> <SkeletonProductItem key={index} /></Grid>
       )}
       </Grid> 
     </Box>)}

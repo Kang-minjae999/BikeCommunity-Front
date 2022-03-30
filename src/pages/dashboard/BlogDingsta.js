@@ -54,7 +54,7 @@ export default function BlogDingsta() {
   const linkToProfile = `${PATH_DASHBOARD.user.profile}/${post?.nicknameOfPost}`;
   
   return (
-    <Page title="포스트">
+    <Page title="딩스타그램">
     <Container maxWidth={themeStretch ? false : 'md'}>
 
       {post && (

@@ -149,7 +149,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
       >
         <MenuItem onClick={handleClose}>내용</MenuItem>
         <MenuItem onClick={handleClose2}>태그</MenuItem>
-        <MenuItem onClick={handleClose3}>작성자</MenuItem>
+        <MenuItem onClick={handleClose3}>닉네임</MenuItem>
       </Menu>
     <Autocomplete
       size="small"
@@ -217,7 +217,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
     >
     <AddIcon sx={{ml:1, mr:1}}/>
     <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-    글쓰기
+    추가
     </Typography> 
     </Stack>
     </Link>

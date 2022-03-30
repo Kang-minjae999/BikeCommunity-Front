@@ -53,7 +53,7 @@ export default function BlogPost() {
     <Page title="포스트">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading="Post Details"
+          heading="포스트"
           links={[
             { name: '' },
           ]}

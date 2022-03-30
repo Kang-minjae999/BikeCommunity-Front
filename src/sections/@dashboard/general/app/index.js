@@ -14,6 +14,8 @@ export { default as AppWelcomesecond } from './AppWelcomesecond';
 export { default as Appmobilesecond } from './Appmobilesecond';
 export { default as AppFeatured } from './AppFeatured';
 export { default as AppFeaturedpc } from './AppFeaturedpc';
+export { default as AppFeaturedpc2 } from './AppFeaturedpc2';
+export { default as AppFeaturedpc3 } from './AppFeaturedpc3';
 export { default as AppNewInvoice } from './AppNewInvoice';
 export { default as Appmarketcategory } from './Appmarketcategory';
 export { default as Appmarketcategory2 } from './Appmarketcategory2';

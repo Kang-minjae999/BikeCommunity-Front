@@ -6,7 +6,6 @@ import { CardContent, Box, Typography, Link } from '@mui/material';
 // components
 import Image from '../../../../components/Image';
 import { varFade } from '../../../../components/animate';
-
 // ----------------------------------------------------------------------
 
 const OverlayStyle = styled('div')(({ theme }) => ({
@@ -21,12 +20,12 @@ const OverlayStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 const item = {
-  image: 'https://cdn.wadiz.kr/ft/images/green001/2020/0630/20200630163145474_70.jpg/wadiz/format/jpg/quality/80/optimize',
+  image: 'https://www.hqv.co.kr/uploads/1/2/3/8/123866708/001-01-pho-bike-det_4.jpg',
   title: '',
   description: '',
   type: '',
 }
-export default function AppFeaturedpc() {
+export default function AppFeaturedpc3() {
   const { image, title, description, type } = item;
 
   return (
@@ -60,8 +59,9 @@ export default function AppFeaturedpc() {
         </m.div>
       </CardContent>
       <OverlayStyle />
-      <Image ratio='16/9' alt={title} src={image} />
+      <Image ratio='21/9' alt={title} src={image} />
     </Box>
   )
 }
+// ----------------------------------------------------------------------
 
