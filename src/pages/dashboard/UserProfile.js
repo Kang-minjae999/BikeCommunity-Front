@@ -140,14 +140,22 @@ export default function UserProfile() {
             alignItems="center"
             spacing={2}
             sx={{mt:2, width:'100%'}}
-          >                     
-          <Avatar sx={{width:48,height:48}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
-          <Typography variant="h4">일론머스크&nbsp;</Typography> 
-          <div>
+          > 
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="center"
+            spacing={0}
+            sx={{width:'100%'}}
+          >
+          <Avatar sx={{width:48,height:48,mr:1,ml:2}} alt='avatar' 
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
+          <Typography variant="subtitle2">일론머스크&nbsp;</Typography> 
+          </Stack>
           <Stack
             direction="row"
             justifyContent="space-between"
-            alignItems="flex-end"
+            alignItems="center"
             spacing={2}
             sx={{width:'100%'}}
           >    
@@ -164,7 +172,6 @@ export default function UserProfile() {
               <TextField id="input-with-sx" label="좋아요" variant="standard" value={12} disabled sx={{width:40}}/>
             </Box>
           </Stack>
-          </div>
           </Stack>
           <Tabs
               value={currentTab}

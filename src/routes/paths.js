@@ -45,9 +45,6 @@ export const PATH_DASHBOARD = {
     marketu: path(ROOTS_DASHBOARD, '/marketu/all'),
     garage: path(ROOTS_DASHBOARD, '/garages'),
     club: path(ROOTS_DASHBOARD, '/clubs'),
-
-
-
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
     banking: path(ROOTS_DASHBOARD, '/banking'),
