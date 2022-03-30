@@ -316,8 +316,8 @@ const UEcommerceProductCreateparts = Loadable(lazy(() => import('../pages/dashbo
 
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
-const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
 const Blogdingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
+const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
 const BlogReports = Loadable(lazy(() => import('../pages/dashboard/BlogReports')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
 const BlogNotice = Loadable(lazy(() => import('../pages/dashboard/BlogNotice')));
