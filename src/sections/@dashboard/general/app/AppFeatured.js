@@ -36,7 +36,7 @@ export default function AppFeatured() {
   const settings = {
     speed: 1000,
     dots: true,
-    arrows: true,
+    arrows: false,
     autoplay: true,
     autoplaySpeed:4000,
     slidesToShow: 1,
@@ -51,15 +51,6 @@ export default function AppFeatured() {
       position: 'absolute',
     }),
   };
-
-  const handlePrevious = () => {
-    carouselRef.current.slickPrev();
-  };
-
-  const handleNext = () => {
-    carouselRef.current.slickNext();
-  };
-
   const SliderItem = [{
     id: '1',
     title: 'RIDERTOWN',
@@ -81,25 +72,6 @@ export default function AppFeatured() {
           <CarouselItem key={app.id} item={app} isActive={index === currentIndex} />
         ))}
       </Slider>
-
-      <CarouselArrows
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        spacing={0}
-        sx={{
-          top: 16,
-          right: 16,
-          position: 'absolute',
-          '& .arrow': {
-            p: 0,
-            width: 32,
-            height: 32,
-            opacity: 0.48,
-            color: 'common.white',
-            '&:hover': { color: 'common.white', opacity: 1 },
-          },
-        }}
-      />
     </Box>
   );
 }
@@ -149,7 +121,7 @@ function CarouselItem({ item, isActive }) {
         </m.div>
       </CardContent>
       <OverlayStyle />
-      <Image  ratio='21/9' alt={title} src={image}/>
+      <Image ratio='21/9' alt={title} src={image}/>
     </Box>
   );
 }
