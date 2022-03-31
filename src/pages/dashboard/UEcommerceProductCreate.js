@@ -13,7 +13,9 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import UProductNewForm from '../../sections/@dashboard/e-commerce/UProductNewForm';
+import UProductNewForm from '../../sections/@dashboard/used-e-commerce/UProductNewForm';
+import UProductNewFormgear from '../../sections/@dashboard/used-e-commerce/UProductNewFormgear';
+import UProductNewFormparts from '../../sections/@dashboard/used-e-commerce/UProductNewFormparts';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +28,10 @@ export default function EcommerceProductCreate() {
   const isEdit = pathname.includes('edit');
   const currentProduct = products.find((product) => paramCase(product.name) === name);
 
+  const ismoto = pathname.includes('moto');
+  const isgear = pathname.includes('gear');
+  const isparts = pathname.includes('parts');
+
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -34,18 +40,16 @@ export default function EcommerceProductCreate() {
     <Page title="중고거래 / 새 상품 올리기">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
-          heading={!isEdit ? '상품 올리기' : '상품 수정하기'}
+          heading={!isEdit ? '중고 상품 올리기' : '상품 수정하기'}
           links={[
-            { name: '거래', href: PATH_DASHBOARD.root },
-            {
-              name: '중고거래',
-              href: PATH_DASHBOARD.usedeCommerce.root,
-            },
-            { name: !isEdit ? '새 상품' : name },
+            { name: ''}
           ]}
+          sx={{mt:2}}
         />
 
-        <UProductNewForm isEdit={isEdit} currentProduct={currentProduct} />
+        {ismoto && <UProductNewForm isEdit={isEdit} currentProduct={currentProduct} />}
+        {isgear && <UProductNewFormgear isEdit={isEdit} currentProduct={currentProduct} />}
+        {isparts && <UProductNewFormparts isEdit={isEdit} currentProduct={currentProduct} />}
       </Container>
     </Page>
   );

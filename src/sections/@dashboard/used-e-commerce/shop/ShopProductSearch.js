@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
+import { Link, Typography, Autocomplete, InputAdornment, Popper, Box, Stack, Button, Menu, MenuItem } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 // hooks
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 // utils
@@ -22,46 +25,35 @@ import useResponsive from '../../../../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
 const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props} />)({
-  width: '280px !important',
+  width: '300px !important',
 });
 
 // ----------------------------------------------------------------------
+ShopProductSearch.propTypes = {
+  setparam: PropTypes.func.isRequired,
+};
 
-export default function ShopProductSearch() {
+export default function ShopProductSearch({setparam}) {
   const navigate = useNavigate();
 
-  const isMountedRef = useIsMountedRef();
-
-  const isDesktop = useResponsive('up','lg')
+  const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchResults, setSearchResults] = useState([]);
+  const searchResults = [];
 
-  const handleChangeSearch = async (value) => {
-    try {
+  const handleChangeSearch = (value) => {
       setSearchQuery(value);
-      if (value) {
-        const response = await axios.get('/api/products/search', {
-          params: { query: value },
-        });
-
-        if (isMountedRef.current) {
-          setSearchResults(response.data.results);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
-  const handleClick = (name) => {
-    navigate(`${PATH_DASHBOARD.eCommerce.root}/product/${paramCase(name)}`);
+
+  const handleClick = (title) => {
+    navigate(`${PATH_DASHBOARD.general.root}/dingstas/${paramCase(title)}`);
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      handleClick(searchQuery);
+      setparam(searchQuery)
     }
   };
 
@@ -73,14 +65,13 @@ export default function ShopProductSearch() {
       PopperComponent={PopperStyle}
       options={searchResults}
       onInputChange={(event, value) => handleChangeSearch(value)}
-      getOptionLabel={(product) => product.name}
+      getOptionLabel={(post) => post.title}
       noOptionsText={<SearchNotFound searchQuery={searchQuery} />}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={(params) => (
         <InputStyle
           {...params}
-          stretchStart={!isDesktop ? '100%' : 200}
-          placeholder=""
+          stretchStart={isDeskTop ? 400 : '100%'}
           onKeyUp={handleKeyUp}
           InputProps={{
             ...params.InputProps,
@@ -92,15 +83,17 @@ export default function ShopProductSearch() {
           }}
         />
       )}
-      renderOption={(props, product, { inputValue }) => {
-        const { name, cover } = product;
-        const matches = match(name, inputValue);
-        const parts = parse(name, matches);
+      renderOption={(props, post, { inputValue }) => {
+        const { title, cover } = post;
+        const matches = match(title, inputValue);
+        const parts = parse(title, matches);
 
         return (
+          <>
+          <Typography>{inputValue}로 검색하기</Typography>
           <li {...props}>
             <Image alt={cover} src={cover} sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0, mr: 1.5 }} />
-            <Link underline="none" onClick={() => handleClick(name)}>
+            <Link underline="none" onClick={() => handleClick(title)}>
               {parts.map((part, index) => (
                 <Typography
                   key={index}
@@ -113,6 +106,7 @@ export default function ShopProductSearch() {
               ))}
             </Link>
           </li>
+          </>
         );
       }}
     />

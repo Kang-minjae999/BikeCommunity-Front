@@ -73,6 +73,8 @@ export default function BlogDingsta() {
           >
           <Link to={linkToProfile} color="inherit" component={RouterLink}>
           <Avatar alt={post.avatarImageURL} src={post.avatarImageURL} sx={{ width: 48, height: 48, mt:1,mb:1,ml:1,mr:1 }} />
+          </Link>
+          <Link to={linkToProfile} color="inherit" component={RouterLink}>
           <Typography variant="subtitle1" sx={{ color: 'common.black' }}>
             {post.nicknameOfPost}
           </Typography>

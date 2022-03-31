@@ -53,10 +53,12 @@ export default function BlogPostCard({ post }) {
             src={avatarImageURL}
             sx={{ width: 32, height: 32, mt: 1, mb: 1, ml: 1, mr: 1 }}
           />
+        </Link>
+        <Link to={linkToProfile} color="inherit" component={RouterLink}>
           <Typography variant="subtitle2" sx={{ color: 'common.black' }}>
             {nicknameOfPost}
           </Typography> 
-        </Link>
+          </Link>
         </Stack>
         <DotdotdotPost nicknameOfPost={nicknameOfPost}/>
       </Stack>

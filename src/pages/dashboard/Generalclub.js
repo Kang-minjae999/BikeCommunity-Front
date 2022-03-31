@@ -13,7 +13,6 @@ import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sectionss
-
 import MainFooter from '../../layouts/main/MainFooter';
 import {
   Appmobilefirst,
@@ -32,11 +31,14 @@ import {
   Appweather,
   AppTopInstalledCountries,
 } from '../../sections/@dashboard/general/app';
+import BlogPosts from './BlogPosts';
+import BlogPostsgeneral from './BlogPostsgeneral';
 import Club from './Club';
 
 // ----------------------------------------------------------------------
 
-export default function Generalpost() {
+
+export default function Generalclub() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up', 'lg');

@@ -209,6 +209,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
       padding: '7px',
     };
     // 다음 주소 끝
+    const city = watch('city')
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -251,7 +252,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   지역찾기
                 </Button>
                 {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-                <RHFTextField name="city" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />
+                {city && <RHFTextField name="city" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />}
                 </div>
                 <Controller
                   name="age"

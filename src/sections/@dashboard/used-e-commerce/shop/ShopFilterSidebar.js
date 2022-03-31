@@ -22,7 +22,7 @@ import { NAVBAR } from '../../../../config';
 import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
 import { ColorManyPicker } from '../../../../components/color-utils';
-import { RHFMultiCheckbox, RHFRadioGroup } from '../../../../components/hook-form';
+import { RHFMultiCheckbox, RHFRadioGroup, RHFTextField } from '../../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -33,17 +33,28 @@ export const SORT_BY_OPTIONS = [
   { value: 'priceAsc', label: 'Price: Low-High' },
 ];
 
+export const FILTER_GEARBOX_OPTIONS = ['메뉴얼', '스쿠터'];
+
+export const FILTER_DISPLACEMENT_OPTIONS = ['50~250', '250~500', '500~900', '900~'];
+
+export const FILTER_MILEAGE_OPTIONS = ['0~5000', '5000~10000', '10000~15000', '15000~20000', '20000~25000', '25000~'];
+
+export const FILTER_PRICE_OPTIONS = ['~300', '300~600','600~900','900~1200','1200~1500','1500~'];
+
+export const FILTER_NEGO_OPTIONS = ['가능', '불가능'];
+
+export const FILTER_TRADE_OPTIONS = ['가능', '불가능'];
+
+export const FILTER_CRASH_OPTIONS = ['가능', '불가능'];
+
+
 export const FILTER_GENDER_OPTIONS = ['Men', 'Women', 'Kids'];
 
 export const FILTER_CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories'];
 
 export const FILTER_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
 
-export const FILTER_PRICE_OPTIONS = [
-  { value: 'below', label: 'Below $25' },
-  { value: 'between', label: 'Between $25 - $75' },
-  { value: 'above', label: 'Above $75' },
-];
+
 
 export const FILTER_COLOR_OPTIONS = [
   '#00AB55',
@@ -80,16 +91,16 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
       </Button>
 
       <Drawer
-        anchor="right"
+        anchor="top"
         open={isOpen}
         onClose={onClose}
         PaperProps={{
-          sx: { width: NAVBAR.BASE_WIDTH },
+          sx: { width: '100%', height:'85vh'},
         }}
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ px: 1, py: 2 }}>
           <Typography variant="subtitle1" sx={{ ml: 1 }}>
-            Filters
+            상세검색
           </Typography>
           <IconButton onClick={onClose}>
             <Iconify icon={'eva:close-fill'} width={20} height={20} />
@@ -99,84 +110,73 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
         <Divider />
 
         <Scrollbar>
-          <Stack spacing={3} sx={{ p: 3 }}>
-            <Stack spacing={1}>
-              <Typography variant="subtitle1">Gender</Typography>
-              <RHFMultiCheckbox name="gender" options={FILTER_GENDER_OPTIONS} sx={{ width: 1 }} />
+          <Stack spacing={2} sx={{ p: 3 }}>
+            <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ px: 1 }} spacing={2}>
+            <Stack direction="column" alignItems="flex-start" justifyContent="flex-start" sx={{ px: 1 }} spacing={2}>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">종류</Typography>
+                <RHFRadioGroup name="gearbox" options={FILTER_GEARBOX_OPTIONS} sx={{ width: 1 }}  row />
+              </Stack>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">배기량</Typography>
+                <RHFRadioGroup name="displacement" options={FILTER_DISPLACEMENT_OPTIONS} />
+              </Stack>
+              <Stack spacing={1}>
+                  <Typography variant="subtitle1">사고</Typography>
+                  <RHFRadioGroup name="isCrash" options={FILTER_CRASH_OPTIONS} row />
+                </Stack>
+            </Stack>  
+            <Stack direction="column" alignItems="flex-start" justifyContent="flex-start" sx={{ px: 1 }} spacing={2}>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">지역</Typography>
+                <RHFTextField name='address' size='small'/>
+                </Stack>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">모델명</Typography>
+                <RHFTextField name='modelName' size='small'/>
+              </Stack>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">연식</Typography>
+                <RHFTextField name='year' size='small'/>
+              </Stack>
+              </Stack>
             </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle1">Category</Typography>
-              <RHFRadioGroup name="category" options={FILTER_CATEGORY_OPTIONS} row={false} />
+            
+            <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ px: 1, py: 2 }} spacing={2}>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">키로수</Typography>
+                <RHFRadioGroup name="mileage" options={FILTER_MILEAGE_OPTIONS} row={false} />
+              </Stack>
+              <Stack spacing={1}>
+                <Typography variant="subtitle1">가격</Typography>
+                <RHFRadioGroup name="price" options={FILTER_PRICE_OPTIONS} sx={{ width: 1 }}  row={false} />
+              </Stack>
+              <Stack direction="column" alignItems="flex-start" justifyContent="flex-start" sx={{ px: 1 }} spacing={2}>
+                <Stack spacing={1}>
+                  <Typography variant="subtitle1">네고</Typography>
+                  <RHFRadioGroup name="nego" options={FILTER_NEGO_OPTIONS} sx={{ width: 1 }} row={false}/>
+                </Stack>
+                <Stack spacing={1}>
+                  <Typography variant="subtitle1">대차</Typography>
+                  <RHFRadioGroup name="trade" options={FILTER_TRADE_OPTIONS} row={false} />
+                </Stack>
+              </Stack>
             </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle1">Colour</Typography>
-
-              <Controller
-                name="colors"
-                control={control}
-                render={({ field }) => (
-                  <ColorManyPicker
-                    colors={FILTER_COLOR_OPTIONS}
-                    onChangeColor={(color) => field.onChange(onSelected(field.value, color))}
-                    sx={{ maxWidth: 36 * 4 }}
-                  />
-                )}
-              />
-            </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle1">Price</Typography>
-              <RHFRadioGroup
-                name="priceRange"
-                options={FILTER_PRICE_OPTIONS.map((item) => item.value)}
-                getOptionLabel={FILTER_PRICE_OPTIONS.map((item) => item.label)}
-              />
-            </Stack>
-
-            <Stack spacing={1}>
-              <Typography variant="subtitle1">Rating</Typography>
-
-              <Controller
-                name="rating"
-                control={control}
-                render={({ field }) => (
-                  <RadioGroup {...field}>
-                    {FILTER_RATING_OPTIONS.map((item, index) => (
-                      <FormControlLabel
-                        key={item}
-                        value={item}
-                        control={
-                          <Radio
-                            disableRipple
-                            color="default"
-                            icon={<Rating readOnly value={4 - index} />}
-                            checkedIcon={<Rating readOnly value={4 - index} />}
-                            sx={{
-                              '&:hover': { bgcolor: 'transparent' },
-                            }}
-                          />
-                        }
-                        label="& Up"
-                        sx={{
-                          my: 0.5,
-                          borderRadius: 1,
-                          '&:hover': { opacity: 0.48 },
-                          ...(field.value.includes(item) && {
-                            bgcolor: 'action.selected',
-                          }),
-                        }}
-                      />
-                    ))}
-                  </RadioGroup>
-                )}
-              />
-            </Stack>
-          </Stack>
+            <Stack direction="row" alignItems="flex-start" justifyContent="space-between" sx={{ px: 1 }} spacing={2}>
+                <Stack spacing={1}>
+                  <Typography variant="subtitle1">대차 가능 모델</Typography>
+                  <RHFTextField name='tradeModel' size='small'/>
+                </Stack>
+                <Stack spacing={1}>
+                  <Typography variant="subtitle1">검색 저장</Typography>
+                <Button variant='outlined'>상세검색 설정 저장하기</Button>
+                </Stack>
+              </Stack>
+          </Stack>    
         </Scrollbar>
 
         <Box sx={{ p: 3 }}>
+            <Stack direction="row" spacing={1}>
           <Button
             fullWidth
             size="large"
@@ -186,8 +186,20 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
             onClick={onResetAll}
             startIcon={<Iconify icon={'ic:round-clear-all'} />}
           >
-            Clear All
+            초기화
           </Button>
+          <Button
+            fullWidth
+            size="large"
+            type="submit"
+            color="inherit"
+            variant="outlined"
+            onClick={onResetAll}
+            startIcon={<Iconify icon={'ic:search'} />}
+          >
+            검색
+          </Button>
+          </Stack>    
         </Box>
       </Drawer>
     </>

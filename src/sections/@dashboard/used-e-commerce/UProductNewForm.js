@@ -9,8 +9,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import { Card, Chip, Grid, Stack, Typography, Autocomplete, InputAdornment, FormControlLabel, Checkbox, TextField } from '@mui/material';
+import { Card, Chip, Grid, Stack, Typography, Autocomplete, InputAdornment, FormControlLabel, Checkbox, TextField, Button } from '@mui/material';
 // routes
+import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import {
@@ -24,25 +25,16 @@ import {
 
 // 바이크 중고거래 기준
 // ----------------------------------------------------------------------
-const CATEGORY_OPTION = 
-[ 
-  '중고바이크', 
-  '중고안전장비', 
-  '중고부품/튜닝용품'
-  ];
 
 const GEARBOX_OPTION = 
 [
-  '','메뉴얼', '스쿠터'
+  '메뉴얼', '스쿠터',
 ];
 
 const BRAND_OPTION = [
-  { group: '', classify: ['브랜드를 선택해주세요.'] },
-  { group: '일제', classify: ['혼다', '야마하', '스즈키', '가와사키'] },
-  { group: '미제', classify: ['할리데이비슨', '인디안'] },
-  { group: '유럽제', classify: ['허스크바나', 'z', 'zz', 'zzz'] },
-  { group: '인도/대만', classify: ['베넬리', 'z', 'zz', 'zzz'] },
-  { group: '국산', classify: ['대림','KR모터스'] },
+'혼다', '야마하', '스즈키', '가와사키',
+'할리데이비슨', '인디안','허스크바나','베넬리', 'z', 'zz', 'zzz',
+'대림','KR모터스', '기타',
 ];
 
 
@@ -76,6 +68,16 @@ const YEAR_OPTION = [
   '2002',
   '2001',
   '2000',
+  '1999',
+  '1998',
+  '1997',
+  '1996',
+  '1995',
+  '1994',
+  '1993',
+  '1992',
+  '1991',
+  '1990',
 ];
 
 const TRADEMODEL_OPTION = [
@@ -86,25 +88,15 @@ const TRADEMODEL_OPTION = [
 ];
 
 
-
-
-const LabelStyle = styled(Typography)(({ theme }) => ({
-  ...theme.typography.subtitle2,
-  color: theme.palette.text.secondary,
-  marginBottom: theme.spacing(1),
-}));
-
 // ----------------------------------------------------------------------
 
-ProductNewForm.propTypes = {
+UProductNewForm.propTypes = {
   isEdit: PropTypes.bool,
   currentProduct: PropTypes.object,
 };
 
 
-export default function ProductNewForm({ isEdit, currentProduct }) {
-
-
+export default function UProductNewForm({ isEdit, currentProduct }) {
   const [tradechecked, settradeChecked] = useState(false);
 
   const navigate = useNavigate();
@@ -112,35 +104,40 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
-    name: Yup.string().required('상품명이 필요합니다.'),
-    description: Yup.string().required('설명이 필요합니다.'),
-    images: Yup.array().min(1, '사진을 한 개 이상 올려주세요.'),
-    price: Yup.number().moreThan(0, '가격은 0원 이상입니다.'),
+    title: Yup.string().required('상품명이 필요합니다.'),
+    content: Yup.string().required('상품설명이 필요합니다.'),
+    images: Yup.array().min(1, '사진을 한 장 이상 올려주세요.'),
+    address: Yup.string().required('주소가 필요합니다.'),
+    gearbox: Yup.string().required('종류를 선택해주세요.'),
+    brand: Yup.string().required('설명이 필요합니다.'),
+    modelName: Yup.string().required('모델명이 필요합니다.'),
+    displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000,'배기량을 알맞게 입력해주세요.').nullable(),
     mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.'),
     year: Yup.string().min(4, '년식을 입력해주세요.').max(4, '년식을 입력해주세요.').nullable(),
-    brand: Yup.string().max(8, '브랜드를 선택해 주세요.').nullable(),
-    model: Yup.string().min(2, '모델명을 선택해주세요.').nullable(),
-    category: Yup.string().min(2, '카테고리를 선택해주세요.').nullable(),
-    gearbox: Yup.string().min(2, '종류를 선택해주세요.').nullable(),
-    displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000,'배기량을 알맞게 입력해주세요.').nullable(),
+    price: Yup.number().moreThan(0, '가격은 0원 이상입니다.'),
+    negoable: Yup.boolean(),
+    tradeable: Yup.boolean(),
+    isCrashed: Yup.boolean(),
+    trademodel: Yup.array().min(1, '사진을 한 개 이상 올려주세요.'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      name: currentProduct?.name || '',
-      description: currentProduct?.description || '',
+      title: currentProduct?.name || '',
+      content: currentProduct?.content || '',
       images: currentProduct?.images || [],
-      category: currentProduct?.category || CATEGORY_OPTION[0],
-      gearbox: currentProduct?.gearbox || '',
-      brand: currentProduct?.brand || BRAND_OPTION[0].classify[0],
-      model: currentProduct?.model || '',    
-      year: currentProduct?.year || '',
-      mileage: currentProduct?.mileage || 0,      
-      price: currentProduct?.price || 0,
-      nego: currentProduct?.nego || false, 
-      trade: currentProduct?.trade || false,
-      trademodel: currentProduct?.trademodel || [],
+      address: currentProduct?.address || '',
+      gearbox: currentProduct?.gearbox || null,
+      brand: currentProduct?.brand || null,
+      modelName: currentProduct?.modelName || null,  
+      year: currentProduct?.year || null,     
       displacement: currentProduct?.displacement || 0,
+      mileage: currentProduct?.mileage || 0,   
+      price: currentProduct?.price || 0,
+      negoable: currentProduct?.negoable || false, 
+      tradeable: currentProduct?.tradeable || false,
+      isCrashed: currentProduct?.isCrashed || false,
+      trademodel: currentProduct?.trademodel || [],
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -199,12 +196,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     [setValue]
   );
 
-
-  
-  const handleChange = () => {
-    settradeChecked((prev) => !prev);
-};
-
   const handleRemoveAll = () => {
     setValue('images', []);
   };
@@ -213,25 +204,53 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     const filteredItems = values.images?.filter((_file) => _file !== file);
     setValue('images', filteredItems);
   };
+  
+  const trade = watch('tradeable')
+
+  useEffect(() => {
+    if(trade){
+      settradeChecked(true)
+    } else {
+      settradeChecked(false)
+    }
+  }, [trade])
+
+  // 다음 주소
+      const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
+      const onChangeOpenPost = () => {
+        setIsOpenPost(!isOpenPost);
+      };
+    
+      const onCompletePost = (data) => {
+        const sido1 = data.sido;
+        const sigungu1 = data.sigungu;
+        const city = `${sido1} ${sigungu1}`
+    
+        setIsOpenPost(false);
+        setValue('address', city);
+      };
+    
+      const postCodeStyle = {
+        display: 'block',
+        position: 'relative',
+        top: '0%',
+        width: '480px',
+        height: '490px',
+        padding: '7px',
+      };
+      const address = watch('address')
+  // 다음 주소 끝
+  
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>        
-              <div>
-              <LabelStyle>상품명</LabelStyle>
-              <RHFTextField name="name" label="상품명" autoComplete="false"/>
-              </div>
-              <div>
-                <LabelStyle>내용</LabelStyle>
-                <RHFEditor simple name="description" />
-              </div>
-
-              <div>
-                <LabelStyle>상품 사진</LabelStyle>
-                <RHFUploadMultiFile
+              <RHFTextField name="title" label="상품명" autoComplete="false"/>
+              <RHFTextField  name="content" label="상품설명" autoComplete="false" multiline minRows={5}/>
+              <RHFUploadMultiFile
                   name="images"
                   showPreview
                   accept="image/*"
@@ -239,38 +258,19 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   onDrop={handleDrop}
                   onRemove={handleRemove}
                   onRemoveAll={handleRemoveAll}
-                />
-              </div>
+              />
             </Stack>
           </Card>
         </Grid>
-
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
-
-              <Stack spacing={3} mt={2}>
-              <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                    {...field}
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={CATEGORY_OPTION.map((option) => option)}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => (
-                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                        ))
-                      }
-                      renderInput={(params) => <RHFTextField 
-                        name="category"
-                        label="카테고리" {...params}
-                        placeholder='카테고리' />}
-                    />
-                  )}
-                />              
-                
+              <Stack spacing={3} mt={1} mb={1}>   
+              <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%' ,mb:1}}>
+                  지역찾기
+                </Button> 
+              {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
+               {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />}
                 <Controller
                   name="gearbox"
                   control={control}
@@ -291,20 +291,29 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   )}
                 />  
 
-                <RHFSelect name="brand" label="브랜드">
-                  {BRAND_OPTION.map((brand) => (
-                    <optgroup key={brand.group} label={brand.group}>
-                      {brand.classify.map((classify) => (
-                        <option key={classify} value={classify}>
-                          {classify}
-                        </option>
-                      ))}
-                    </optgroup>
-                  ))}
-                </RHFSelect>
+                <Controller
+                  name="brand"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                    {...field}
+                      onChange={(event, newValue) => field.onChange(newValue)}
+                      options={BRAND_OPTION.map((option) => option)}
+                      renderTags={(value, getTagProps) =>
+                        value.map((option, index) => (
+                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                        ))
+                      }
+                      renderInput={(params) => <RHFTextField 
+                        name="brand"
+                        label="브랜드" {...params}
+                        placeholder='브랜드' />}
+                    />
+                  )}
+                />        
 
                 <Controller
-                  name="model"
+                  name="modelName"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
@@ -316,25 +325,11 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                         ))
                       }
                       renderInput={(params) => <RHFTextField 
-                        name="model"
+                        name="modelName"
                         label="모델명" {...params}
                         placeholder='모델명' />}
                     />
                   )}
-                />
-
-                  <RHFTextField
-                  name="displacement"
-                  label="배기량"
-                  placeholder="0"
-                  onWheel={(e) => e.target.blur()}
-                  value={getValues('displacement') === 0 ? '' : getValues('displacement')}
-                  onChange={(event) => setValue('displacement', Number(event.target.value))}
-                  InputLabelProps={{ shrink: true }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position='end'>cc</InputAdornment>,
-                    type: 'number',
-                  }}
                 />
                   <Controller
                   name="year"
@@ -350,13 +345,25 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       }
                       renderInput={(params) => <RHFTextField 
                         name="year"
-                        label="년식" {...params}
-                        placeholder='년식' />}
+                        label="연식" {...params}
+                        placeholder='연식' />}
                     />
                   )}
                 />
-
-                  <RHFTextField
+                <RHFTextField
+                  name="displacement"
+                  label="배기량"
+                  placeholder="0"
+                  onWheel={(e) => e.target.blur()}
+                  value={getValues('displacement') === 0 ? '' : getValues('displacement')}
+                  onChange={(event) => setValue('displacement', Number(event.target.value))}
+                  InputLabelProps={{ shrink: true }}
+                  InputProps={{
+                    endAdornment: <InputAdornment position='end'>cc</InputAdornment>,
+                    type: 'number',
+                  }}
+                />
+                <RHFTextField
                   name="mileage"
                   label="키로수"
                   placeholder="0"
@@ -369,11 +376,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     type: 'number',
                   }}
                 />
-              </Stack>
-            </Card>
-
-            <Card sx={{ p: 3 }}>
-              <Stack spacing={3} mb={2}>
                 <RHFTextField
                   name="price"
                   label="가격"
@@ -389,18 +391,13 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                 />
               </Stack>
 
-              <RHFSwitch name='nego' label='네고' labelPlacement='start'/> 
-              <RHFSwitch name='trade' label='대차' labelPlacement='start'/> 
+              <RHFSwitch name='isCrashed' label='사고유무' labelPlacement='start'/> 
+              <RHFSwitch name='negoable' label='네고' labelPlacement='start'/> 
+              <RHFSwitch name='tradeable' label='대차' labelPlacement='start'/> 
 
-              &nbsp;&nbsp;
-              <FormControlLabel
-               control={<Checkbox checked={tradechecked} onChange={handleChange} />}
-               label="대차 가능한 기종 선택하기"
-              />
-              <br/>
                 {!tradechecked
                 ? '' :  <Controller
-                 name="trademodel"
+                 name="tradeModel"
                  control={control}
                  render={({ field }) => (
                    <Autocomplete
@@ -413,14 +410,14 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                        ))
                      }
                      renderInput={(params) => <TextField 
-                      name="trademodel" label="모델명" helperText='모델명을 검색해주세요.'{...params} />}
+                      name="tradeModel" label="모델명" helperText='모델명을 검색해주세요.'{...params} />}
                    />
                  )}
                />}
 
             </Card>
 
-            <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
+            <LoadingButton type="submit" variant="outlined" size="large" loading={isSubmitting}>
               {!isEdit ? '상품 올리기' : '상품 수정하기'}
             </LoadingButton>
           </Stack>

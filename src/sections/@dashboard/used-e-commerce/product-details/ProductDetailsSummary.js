@@ -29,7 +29,6 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 ProductDetailsSummary.propTypes = {
-  cart: PropTypes.array,
   onAddCart: PropTypes.func,
   onGotoStep: PropTypes.func,
   product: PropTypes.shape({
@@ -48,39 +47,39 @@ ProductDetailsSummary.propTypes = {
   }),
 };
 
-export default function ProductDetailsSummary({ cart, product, onAddCart, onGotoStep, ...other }) {
+export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, ...other }) {
   const theme = useTheme();
 
   const navigate = useNavigate();
 
   const {
     id,
-    name,
-    sizes,
+    title,
+    gearbox,
+    brand,
+    modelName,
     price,
-    cover,
+    year,
+    mileage,
+    displacement,
     status,
-    colors,
-    available,
-    priceSale,
-    totalRating,
-    totalReview,
-    inventoryType,
+    negoable,
+    tradeable,
+    nicknameOfSeller,
+    avatarURLOfSeller,
+    tradeableModels,
+    imageURLs
   } = product;
 
-  const alreadyProduct = cart.map((item) => item.id).includes(id);
-
-  const isMaxQuantity = cart.filter((item) => item.id === id).map((item) => item.quantity)[0] >= available;
 
   const defaultValues = {
-    id,
-    name,
-    cover,
-    available,
-    price,
-    color: colors[0],
-    size: sizes[4],
-    quantity: available < 1 ? 0 : 1,
+    did: id,
+    dtitle: title,
+    dimageURLs: imageURLs[0],
+    dbrand: brand,
+    dmodelName: modelName,
+    dyear: year,
+    dmileage: mileage,
   };
 
   const methods = useForm({
@@ -93,12 +92,6 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
 
   const onSubmit = async (data) => {
     try {
-      if (!alreadyProduct) {
-        onAddCart({
-          ...data,
-          subtotal: data.price * data.quantity,
-        });
-      }
       onGotoStep(0);
       navigate(PATH_DASHBOARD.eCommerce.checkout);
     } catch (error) {
@@ -120,13 +113,13 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
   return (
     <RootStyle {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Label
+        {/* <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
           color={inventoryType === 'in_stock' ? 'success' : 'error'}
           sx={{ textTransform: 'uppercase' }}
         >
           {sentenceCase(inventoryType || '')}
-        </Label>
+        </Label> */}
 
         <Typography
           variant="overline"
@@ -141,21 +134,21 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
         </Typography>
 
         <Typography variant="h5" paragraph>
-          {name}
+          {title}
         </Typography>
 
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-          <Rating value={totalRating} precision={0.1} readOnly />
+        {/* <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
+           <Rating value={totalRating} precision={0.1} readOnly /> 
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             ({fShortenNumber(totalReview)}
             reviews)
           </Typography>
-        </Stack>
+        </Stack> */}
 
         <Typography variant="h4" sx={{ mb: 3 }}>
-          <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
+          {/* <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
             {priceSale && fCurrency(priceSale)}
-          </Box>
+          </Box> */}
           &nbsp;{fCurrency(price)}
         </Typography>
 
@@ -166,7 +159,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
             Color
           </Typography>
 
-          <Controller
+         {/*  <Controller
             name="color"
             control={control}
             render={({ field }) => (
@@ -182,11 +175,11 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
                 }}
               />
             )}
-          />
+          /> */}
         </Stack>
 
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
-          <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
+          {/* <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
             Size
           </Typography>
 
@@ -208,7 +201,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
                 {size}
               </option>
             ))}
-          </RHFSelect>
+          </RHFSelect> */}
         </Stack>
 
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
@@ -216,7 +209,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
             Quantity
           </Typography>
 
-          <div>
+          {/* <div>
             <Incrementer
               name="quantity"
               quantity={values.quantity}
@@ -227,7 +220,7 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
             <Typography variant="caption" component="div" sx={{ mt: 1, textAlign: 'right', color: 'text.secondary' }}>
               Available: {available}
             </Typography>
-          </div>
+          </div> */}
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -235,7 +228,6 @@ export default function ProductDetailsSummary({ cart, product, onAddCart, onGoto
         <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
           <Button
             fullWidth
-            disabled={isMaxQuantity}
             size="large"
             color="warning"
             variant="contained"

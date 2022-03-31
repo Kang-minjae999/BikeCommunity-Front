@@ -109,7 +109,7 @@ export const PATH_DASHBOARD = {
     motocyclegear: path(ROOTS_DASHBOARD, '/used-e-commerce/motocyclegear'),  
     motocycleparts: path(ROOTS_DASHBOARD, '/used-e-commerce/motocycleparts'),
     motocyclesupplies: path(ROOTS_DASHBOARD, '/used-e-commerce/motocyclesupplies'),
-    product: path(ROOTS_DASHBOARD, '/used-e-commerce/product/:name'),
+    product: path(ROOTS_DASHBOARD, '/used-e-commerce/product/detail/:id'),
     productById: path(ROOTS_DASHBOARD, '/used-e-commerce/product/nike-air-force-1-ndestrukt'),
     list: path(ROOTS_DASHBOARD, '/used-e-commerce/list'),
     newProduct: path(ROOTS_DASHBOARD, '/used-e-commerce/product/new'),

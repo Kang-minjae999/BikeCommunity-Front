@@ -11,23 +11,23 @@ import MenuPopover from '../../../../components/MenuPopover';
 // ----------------------------------------------------------------------
 
 const SORT_BY_OPTIONS = [
-  { value: 'featured', label: 'Featured' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'priceDesc', label: 'Price: High-Low' },
-  { value: 'priceAsc', label: 'Price: Low-High' },
+  { value: 'featured', label: '인기' },
+  { value: 'newest', label: '최신' },
+  { value: 'priceDesc', label: '가격↑' },
+  { value: 'priceAsc', label: '가격↓' },
 ];
 
 function renderLabel(label) {
   if (label === 'featured') {
-    return 'Featured';
+    return '인기';
   }
   if (label === 'newest') {
-    return 'Newest';
+    return '최신';
   }
   if (label === 'priceDesc') {
-    return 'Price: High-Low';
+    return '가격↑';
   }
-  return 'Price: Low-High';
+  return '가격↓';
 }
 
 // ----------------------------------------------------------------------
@@ -60,7 +60,6 @@ export default function ShopProductSort() {
         onClick={(event) => handleOpen(event.currentTarget)}
         endIcon={<Iconify icon={open ? 'eva:chevron-up-fill' : 'eva:chevron-down-fill'} />}
       >
-        분류:&nbsp;
         <Typography component="span" variant="subtitle2" sx={{ color: 'text.secondary' }}>
           {renderLabel(sortBy)}
         </Typography>

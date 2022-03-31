@@ -124,12 +124,12 @@ export default function Router() {
             { path: 'motocyclegear', element: <UEmotocyclegear /> },          
             { path: 'motocycleparts', element: <UEmotocycleparts /> },          
             { path: 'motocyclesupplies', element: <UEmotocyclesupplies /> },
-            { path: 'product/:name', element: <EcommerceProductDetails /> },
+            { path: 'product/detail/:id', element: <UEcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
-            { path: 'product/new', element: <UEcommerceProductCreate /> },
-            { path: 'product/newgear', element: <UEcommerceProductCreategear /> },
-            { path: 'product/newparts', element: <UEcommerceProductCreateparts /> },
-            { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
+            { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
+            { path: 'product/newgear', element: <UEcommerceProductCreate /> },
+            { path: 'product/newparts', element: <UEcommerceProductCreate /> },
+            { path: 'product/:id/edit', element: <EcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },
             { path: 'invoice', element: <EcommerceInvoice /> },
           ],
@@ -310,8 +310,7 @@ const UEmotocyclegear = Loadable(lazy(() => import('../pages/dashboard/UEmotocyc
 const UEmotocycleparts = Loadable(lazy(() => import('../pages/dashboard/UEmotocycleparts')));
 const UEmotocyclesupplies = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclesupplies')));
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
-const UEcommerceProductCreategear = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreategear')));
-const UEcommerceProductCreateparts = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreateparts')));
+const UEcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetails')));
 
 
 // 읽기전용 게시글

@@ -75,13 +75,13 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProductNewForm.propTypes = {
+UProductNewFormparts.propTypes = {
   isEdit: PropTypes.bool,
   currentProduct: PropTypes.object,
 };
 
 
-export default function ProductNewForm({ isEdit, currentProduct }) {
+export default function UProductNewFormparts({ isEdit, currentProduct }) {
 
 
   const [tradechecked, settradeChecked] = useState(false);

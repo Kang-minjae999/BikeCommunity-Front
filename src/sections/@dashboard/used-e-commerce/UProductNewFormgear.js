@@ -83,13 +83,13 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProductNewForm.propTypes = {
+UProductNewFormgear.propTypes = {
   isEdit: PropTypes.bool,
   currentProduct: PropTypes.object,
 };
 
 
-export default function ProductNewForm({ isEdit, currentProduct }) {
+export default function UProductNewFormgear({ isEdit, currentProduct }) {
 
   const navigate = useNavigate();
 

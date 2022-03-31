@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import orderBy from 'lodash/orderBy';
 // form
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Container, Typography, Stack, Button } from '@mui/material';
+import { Container, Typography, Stack, Button, Pagination, Divider } from '@mui/material';
 import { Appmarketcategory2 } from '../../sections/@dashboard/general/app';
+import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
+import axios from '../../utils/axiossecondhand';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts, filterProducts } from '../../redux/slices/product';
 // routes
@@ -27,27 +29,89 @@ import {
 } from '../../sections/@dashboard/used-e-commerce/shop';
 import useResponsive from '../../hooks/useResponsive';
 import Iconify from '../../components/Iconify';
+import SimpleDialogDemo from './Generalmarketunewbutton';
 
-// ----------------------------------------------------------------------
+// ------------------------------------------------------------
 
-export default function EcommerceShop() {
+export default function Generalmarketu() {
   const { themeStretch } = useSettings();
+  
   const isDesktop = useResponsive('up','lg')
 
-  const dispatch = useDispatch();
+  const isMountedRef = useIsMountedRef();
 
-  const [openFilter, setOpenFilter] = useState(false);
+const [products, setProducts] = useState([]);
 
-  const { products, sortBy, filters } = useSelector((state) => state.product);
 
-  const filteredProducts = applyFilter(products, sortBy, filters);
+const [page, setpage] = useState(0);
+const [totalpage, settotalpage] = useState(0);
+const [pagenation, setpagenation] = useState(1);
+
+
+const getAllProducts = useCallback(async () => {
+  try {
+    const response = await axios.get(`/biketrade?page=${page}&size=12`);
+
+    if (isMountedRef.current) {
+      setProducts(response.data.data.content);
+      settotalpage(response.data.data.totalPages);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}, [isMountedRef,page]);
+
+
+const [param, setparam] = useState('')
+
+
+  const getAllProducts2 = useCallback(async () => {
+    try {
+      const response = await axios.get(`/dingsta/search?page=${page}&size=12&title=${param}`);
+      if (isMountedRef.current) {
+        setProducts(response.data.data.content);
+        settotalpage(response.data.data.totalPages);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef,page,param]);
+
+  useEffect(() => {
+    if(!param){
+      getAllProducts();
+    }
+    if(param){
+      getAllProducts2();
+    }
+  }, [getAllProducts, getAllProducts2, param]);
+
+  
+
+  const handleChange = useCallback(
+    (event, value) => {
+      setpagenation(value);
+      setpage(value - 1);
+      getAllProducts(page);
+    },
+    [getAllProducts, page]
+  );
+
+
+  // -----------------------------------------------------------
 
   const defaultValues = {
-    gender: filters.gender,
-    category: filters.category,
-    colors: filters.colors,
-    priceRange: filters.priceRange,
-    rating: filters.rating,
+    gearbox: null,
+    displacement: null,
+    isCrash: null,
+    address: undefined,
+    modelName: undefined,
+    year: undefined,
+    mileage: null,
+    price: null,
+    nego: null,
+    trade: null,
+    tradeModel: undefined,
   };
 
   const methods = useForm({
@@ -58,20 +122,8 @@ export default function EcommerceShop() {
 
   const values = watch();
 
-  const isDefault =
-    !values.priceRange &&
-    !values.rating &&
-    values.gender.length === 0 &&
-    values.colors.length === 0 &&
-    values.category === 'All';
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(filterProducts(values));
-  }, [dispatch, values]);
+  
+  const [openFilter, setOpenFilter] = useState(false);
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -85,28 +137,17 @@ export default function EcommerceShop() {
     reset();
     handleCloseFilter();
   };
+  
+  const [loading, setloading] = useState(false)
 
-  const handleRemoveGender = (value) => {
-    const newValue = filters.gender.filter((item) => item !== value);
-    setValue('gender', newValue);
-  };
+  useEffect(() => {
+    if(products){
+      setloading(true)
+    } else {
+      setloading(false)
+    }
+  }, [products])
 
-  const handleRemoveCategory = () => {
-    setValue('category', 'All');
-  };
-
-  const handleRemoveColor = (value) => {
-    const newValue = filters.colors.filter((item) => item !== value);
-    setValue('colors', newValue);
-  };
-
-  const handleRemovePrice = () => {
-    setValue('priceRange', '');
-  };
-
-  const handleRemoveRating = () => {
-    setValue('rating', '');
-  };
 
   return (
     <Page title="중고마켓">
@@ -126,18 +167,11 @@ export default function EcommerceShop() {
           sx={{ mb: 2 }}
         >
              <>
-             <ShopProductSearch />          
-             <Button
-              variant="outlined"
-              component={RouterLink}
-              to={PATH_DASHBOARD.blog.newPost}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}>
-              내 물건 팔기
-            </Button>
-            {/* 버튼으로 어떤물건 팔것인지 선택해서 그쪽 게시판으로 이동 */}
+            <ShopProductSearch setparam={setparam} />          
+            <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <FormProvider methods={methods}>
+            <FormProvider  methods={methods} >
               <ShopFilterSidebar
                 onResetAll={handleResetFilter}
                 isOpen={openFilter}
@@ -157,111 +191,35 @@ export default function EcommerceShop() {
           justifyContent="space-between"
           sx={{ mb: 2 }}
         >
-          <Stack direction="row" spacing={1} flexShrink={0}
-          justifyContent="space-between" sx={{ my: 1 }}>
-            <FormProvider methods={methods}>
-              <ShopFilterSidebar
-                onResetAll={handleResetFilter}
-                isOpen={openFilter}
-                onOpen={handleOpenFilter}
-                onClose={handleCloseFilter}
-              />
-            </FormProvider>
-            <ShopProductSort />
-          </Stack>
-          <ShopProductSearch />
-          <Button
-              variant="outlined"
-              component={RouterLink}
-              to={PATH_DASHBOARD.blog.newPost}
-              startIcon={<Iconify icon={'eva:plus-fill'} />}>
-              내 물건 팔기
-            </Button>
+            <Stack direction="row" spacing={1} flexShrink={0}
+            justifyContent="space-between" sx={{ my: 1 }}>
+              <FormProvider methods={methods}>
+                <ShopFilterSidebar
+                  onResetAll={handleResetFilter}
+                  isOpen={openFilter}
+                  onOpen={handleOpenFilter}
+                  onClose={handleCloseFilter}
+                />
+              </FormProvider> 
+              <ShopProductSort />
+            </Stack>
+          <ShopProductSearch setparam={setparam} />
+          <SimpleDialogDemo />
         </Stack>}
 
         <Appmarketcategory2/>
-
-
-
-        <Stack sx={{ mb: 3 }}>
-          {!isDefault && (
-            <>
-              <Typography variant="body2" gutterBottom>
-                <strong>{filteredProducts.length}</strong>
-                &nbsp;Products found
-              </Typography>
-
-              <ShopTagFiltered
-                filters={filters}
-                isShowReset={!isDefault && !openFilter}
-                onRemoveGender={handleRemoveGender}
-                onRemoveCategory={handleRemoveCategory}
-                onRemoveColor={handleRemoveColor}
-                onRemovePrice={handleRemovePrice}
-                onRemoveRating={handleRemoveRating}
-                onResetAll={handleResetFilter}
-              />
-            </>
-          )}
-        </Stack>
-
-        <ShopProductList products={filteredProducts} loading={!products.length && isDefault} />
-     {/*    <CartWidget /> */}
-      </Container>
+          <Divider sx={{mt:1, mb:2}} />
+        <ShopProductList products={products} loading={loading} />
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          >
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        </Stack>      
+        </Container>
     </Page>
   );
 }
-
-// ----------------------------------------------------------------------
-
-function applyFilter(products, sortBy, filters) {
-  // SORT BY
-  if (sortBy === 'featured') {
-    products = orderBy(products, ['sold'], ['desc']);
-  }
-  if (sortBy === 'newest') {
-    products = orderBy(products, ['createdAt'], ['desc']);
-  }
-  if (sortBy === 'priceDesc') {
-    products = orderBy(products, ['price'], ['desc']);
-  }
-  if (sortBy === 'priceAsc') {
-    products = orderBy(products, ['price'], ['asc']);
-  }
-  // FILTER PRODUCTS
-  if (filters.gender.length > 0) {
-    products = products.filter((product) => filters.gender.includes(product.gender));
-  }
-  if (filters.category !== 'All') {
-    products = products.filter((product) => product.category === filters.category);
-  }
-  if (filters.colors.length > 0) {
-    products = products.filter((product) => product.colors.some((color) => filters.colors.includes(color)));
-  }
-  if (filters.priceRange) {
-    products = products.filter((product) => {
-      if (filters.priceRange === 'below') {
-        return product.price < 25;
-      }
-      if (filters.priceRange === 'between') {
-        return product.price >= 25 && product.price <= 75;
-      }
-      return product.price > 75;
-    });
-  }
-  if (filters.rating) {
-    products = products.filter((product) => {
-      const convertRating = (value) => {
-        if (value === 'up4Star') return 4;
-        if (value === 'up3Star') return 3;
-        if (value === 'up2Star') return 2;
-        return 1;
-      };
-      return product.totalRating > convertRating(filters.rating);
-    });
-  }
-  return products;
-}
-
-
 

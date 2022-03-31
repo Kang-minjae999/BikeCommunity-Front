@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
@@ -5,13 +6,10 @@ import match from 'autosuggest-highlight/match';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper, Box, Stack, Button, Menu, MenuItem } from '@mui/material';
+import { Link, Typography, Autocomplete, InputAdornment, Popper, Stack, Button, Menu, MenuItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-// hooks
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
-// utils
-import axios from '../../../utils/axios';
+
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
@@ -28,34 +26,19 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 });
 
 // ----------------------------------------------------------------------
+BlogPostsSearch.propTypes = {
+  setparam: PropTypes.func.isRequired,
+  setapi: PropTypes.func,
+};
 
 export default function BlogPostsSearch({setparam , setapi}) {
   const navigate = useNavigate();
-
-  const isMountedRef = useIsMountedRef();
 
   const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchResults, setSearchResults] = useState([]);
-
-/*   const handleChangeSearch = async (value) => {
-    try {
-      setSearchQuery(value);
-      if (value) {
-        const response = await axios.get('/api/blog/posts/search', {
-          params: { query: value },
-        });
-
-        if (isMountedRef.current) {
-          setSearchResults(response.data.results);
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }; */
+  const searchResults = [];
 
   const handleChangeSearch = (value) => {
       setSearchQuery(value);
