@@ -44,20 +44,21 @@ export default function Appweather() {
       window.ReactNativeWebView.postMessage(JSON.stringify({type:'onWeather'}))}
   }, []);
 
-  const [data , setdata] =useState(undefined);
+  const [data , setdata] = useState(undefined);
 
   const listner = (event) => {
-    setdata(JSON.parse(event.data))
-    }
-
-    // 안드
-    if(document.addEventListener){
-      document.addEventListener('message', listner)
-    }
-    if(window.addEventListener){
-      window.addEventListener('message', listner)
-    }
-
+  setdata(JSON.parse(event.data))
+  }
+  // android
+  useEffect(() => {
+    document.addEventListener('message', listner)
+    return () => {document.removeEventListener('message', listner);}
+  }, []);
+  // ios
+  useEffect(() => {
+    window.addEventListener('message', listner)
+    return () => {window.removeEventListener('message', listner);}
+    }, []);
 
   useEffect(() => {
     if(data !== undefined) {

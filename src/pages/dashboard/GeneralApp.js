@@ -1,3 +1,5 @@
+import react, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import { Box,  Container, Divider, Grid} from '@mui/material';
 // hooks
@@ -19,6 +21,7 @@ import GeneralAppMarket from './GeneralAppMarket';
 
 export default function GeneralApp() {
   const { themeStretch } = useSettings();
+
 
   return (
     <Page title="라이더타운">
