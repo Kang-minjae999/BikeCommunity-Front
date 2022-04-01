@@ -213,6 +213,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
     data.images.map((file) => formData.append('images', file)) + formData */
 
+/*     데이터칸을 객체로 {images:formData2, shBikeRequest:formData} */
+
     try {
       await axios.post('/biketrade', formData3, {
         headers: {
