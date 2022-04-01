@@ -222,11 +222,11 @@ function jsonToFormData(data) {
   return formData;
 } 
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
 
   
     const accessToken = window.localStorage.getItem('accessToken');
-   /*  const formData = new FormData()  */
+     const formData = new FormData()  
 
 /*     data.images.map((file) => formData.append('imagesFiles', {
       name:file.filename,
@@ -237,7 +237,7 @@ function jsonToFormData(data) {
      /*  // ex
       formData.append('shBikeRequest', JSON.stringify(values)) */
 
-   /*  data.images.map((file) => formData.append('imagesFiles', file))  
+    data.images.map((file) => formData.append('imagesFiles', file))  
 
     formData.append('shBikeRequest', {title:titlePost})
     formData.append('shBikeRequest', {content:data.content})
@@ -252,14 +252,13 @@ function jsonToFormData(data) {
     formData.append('shBikeRequest', {negoable:data.negoable})
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
-    data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('imageFiles', file))   */
+    data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model})) 
 
-    const data = getFormData(values) 
+   /*  const data = getFormData(values)  */
   
 
     try {
-      await axios.post('/biketrade', data , {
+      await axios.post('/biketrade', formData , {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
