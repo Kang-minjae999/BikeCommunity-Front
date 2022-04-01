@@ -187,7 +187,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setTitlePost(`[${values.modelName}] ${values.title}`)
   }, [values.title, values.modelName]);
 
-   const getFormData = object => Object.keys(object).reduce((formData, key) => {
+/*    const getFormData = object => Object.keys(object).reduce((formData, key) => {
     formData.append(key, object[key]);
     return formData;
 }, new FormData()); 
@@ -211,16 +211,16 @@ function jsonToFormData(data) {
   
   return formData;
 }
+ */
 
-
-/* function getFormData(object) {
+ function getFormData(object) {
   const formData = new FormData();
   Object.keys(object).forEach(key => {
     if (typeof object[key] !== 'object') formData.append(key, object[key])
     else formData.append(key, JSON.stringify(object[key]))
   })
   return formData;
-} */
+} 
 
   const onSubmit = async () => {
 
@@ -255,7 +255,7 @@ function jsonToFormData(data) {
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
     data.images.map((file) => formData.append('imageFiles', file))   */
 
-    const data = jsonToFormData(values) 
+    const data = getFormData(values) 
   
 
     try {
