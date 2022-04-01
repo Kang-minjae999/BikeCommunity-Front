@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, Link, Typography, Button } from '@mui/material';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import MenuIcon from '@mui/icons-material/Menu';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive'; 
@@ -97,6 +98,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           border:"1px",
         }}
       >
+         {!isDesktop && <MenuIcon color='primary' onClick={onOpenSidebar} />}
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
           <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN

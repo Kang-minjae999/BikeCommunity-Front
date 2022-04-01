@@ -63,7 +63,6 @@ export default function CheckoutCart() {
     dispatch(applyDiscount(value));
   };
 
-  console.log(cart)
 
   return (
     <Grid container spacing={3}>

@@ -118,74 +118,28 @@ export default function UserProfile() {
           links={[
             { name: '' },
           ]}
-        />}   
-        <Box
-          sx={{
-            mb: 2, mt: 2,
-            height: (isDesktop ? '55vh' : '35vh'),
-            position: 'relative',
-          }}
-        >
+        />} 
+        <Stack
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        spacing={0}
+      >
+          <Card sx={{width:'100%', height:300}}>
           <ProfileCover nickname={nickname} />
-          <TabsWrapperStyle>
-          <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={0}
-          >
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-            sx={{mt:2, width:'100%'}}
-          > 
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={0}
-            sx={{width:'100%'}}
-          >
-          <Avatar sx={{width:48,height:48,mr:1,ml:2}} alt='avatar' 
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
-          <Typography variant="subtitle2">일론머스크&nbsp;</Typography> 
-          </Stack>
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-            sx={{width:'100%'}}
-          >    
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
-            {/*  <AccountCircle sx={{ color: 'action.active', mx: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="게시글" variant="standard" value={12} disabled sx={{width:40}}/>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            {/*  <ShoppingCartIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="판매글" variant="standard"  value={12} disabled sx={{width:40}}/>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            {/*  <FavoriteIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="좋아요" variant="standard" value={12} disabled sx={{width:40}}/>
-            </Box>
-          </Stack>
-          </Stack>
           <Tabs
               value={currentTab}
               scrollButtons="auto"
               variant="scrollable"
               onChange={(e, value) => handleChangeTab(value)}
+              sx={{bottom:0}}
             >
                {PROFILE_TABS.map((tab) => (
                 <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
               ))} 
           </Tabs>
+          </Card>
           </Stack>
-          </TabsWrapperStyle>
-          </Box>
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value} >{tab.component}</Box>;
