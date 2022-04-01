@@ -176,28 +176,28 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    const formData2 = new FormData()
-    formData.append('shBikeRequest', values)
+/*     const formData2 = new FormData()
+    formData.append('shBikeRequest.title', values) */
   /*   data.images.map((file) => formData.append('imagesFiles', file)) */
-/*      const formData2 = new FormData()
-    formData.append('title', data.title)
-    formData.append('content', data.content)
-    formData.append('address', data.address)
-    formData.append('gearbox', data.gearbox)
-    formData.append('brand', data.brand)
-    formData.append('modelName', data.modelName)
-    formData.append('year', data.year)
-    formData.append('displacement', data.displacement)
-    formData.append('mileage', data.mileage)
-    formData.append('price', data.price)
-    formData.append('negoable', data.negoable)
-    formData.append('tradeable', data.tradeable)
-    formData.append('isCrashed', data.isCrashed)
-    data.tradeableModel.map((model) => formData.append('tradeableModel', model))
-    data.images.map((file) => formData2.append('imagesFiles', file))  
+     
+    formData.append('shBikeRequest[0].title', data.title)
+    formData.append('shBikeRequest[0].content', data.content)
+    formData.append('shBikeRequest[0].address', data.address)
+    formData.append('shBikeRequest[0].gearbox', data.gearbox)
+    formData.append('shBikeRequest[0].brand', data.brand)
+    formData.append('shBikeRequest[0].modelName', data.modelName)
+    formData.append('shBikeRequest[0].year', data.year)
+    formData.append('shBikeRequest[0].displacement', data.displacement)
+    formData.append('shBikeRequest[0].mileage', data.mileage)
+    formData.append('shBikeRequest[0].price', data.price)
+    formData.append('shBikeRequest[0].negoable', data.negoable)
+    formData.append('shBikeRequest[0].tradeable', data.tradeable)
+    formData.append('shBikeRequest[0].isCrashed', data.isCrashed)
+    data.tradeableModel.map((model) => formData.append('shBikeRequest[0].tradeableModel', model))
+    data.images.map((file) => formData.append('imagesFiles', file))  
 
 
-    formData.append('shBikeRequest', {title:data.title})
+/*     formData.append('shBikeRequest', {title:data.title})
     formData.append('shBikeRequest', {content:data.content})
     formData.append('shBikeRequest', {address:data.address})
     formData.append('shBikeRequest', {gearbox:data.gearbox})
@@ -211,8 +211,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('imageFiles', file))  */ 
- 
+    data.images.map((file) => formData.append('imageFiles', file))  
+  */
 
     try {
       await axios.post('/biketrade', formData , {
