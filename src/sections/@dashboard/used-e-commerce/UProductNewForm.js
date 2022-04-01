@@ -175,9 +175,10 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   const onSubmit = async (data) => {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-    formData.append('shBikeRequest', JSON.stringify(values))
-    data.images.map((file) => formData.append('imagesFiles', file))
+    const shBikeRequest = new FormData()
+    const imagesFiles = new FormData()
+    shBikeRequest.append('shBikeRequest', JSON.stringify(values))
+    data.images.map((file) => imagesFiles.append('imagesFiles', file))
 /*      const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
@@ -214,7 +215,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
  
 
     try {
-      await axios.post('/biketrade', formData , {
+      await axios.post('/biketrade', {shBikeRequest,imagesFiles} , {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
