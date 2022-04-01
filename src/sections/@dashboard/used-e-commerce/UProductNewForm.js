@@ -176,7 +176,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-    const formData2 = new FormData()
+   /*  const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
     formData.append('address', data.address)
@@ -192,10 +192,10 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('isCrashed', data.isCrashed)
     data.tradeableModel.map((model) => formData.append('tradeableModel', model))
     data.images.map((file) => formData2.append('images', file)) 
-    // 합치기
+    // 합치기 */
 
 
-/*     formData.append('shBikeRequest', {title:data.title})
+     formData.append('shBikeRequest', {title:data.title})
     formData.append('shBikeRequest', {content:data.content})
     formData.append('shBikeRequest', {address:data.address})
     formData.append('shBikeRequest', {gearbox:data.gearbox})
@@ -209,11 +209,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('images', file)) + formData */
+    data.images.map((file) => formData.append('images', file))
  
 
     try {
-      await axios.post('/biketrade', {images:formData2, shBikeRequest:formData}, {
+      await axios.post('/biketrade', formData, {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
@@ -317,8 +317,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
               {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
                {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />}
                
-              <RHFSwitch name='gearbox' label='사고유무' labelPlacement='start'/> 
-{/*                 <Controller
+              <RHFSwitch name='gearbox' label='기어박스' labelPlacement='start'/> 
+                {/*  <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Card, IconButton, Menu, MenuItem, Stack, Typography, Avatar, TextField } from '@mui/material';
+import { Box, Card, IconButton, Menu, MenuItem, Stack, Typography, Avatar } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 // utils
 import cssStyles from '../../../../utils/cssStyles';
@@ -93,26 +93,28 @@ export default function ProfileCover({ nickname }) {
   return (
   <Box>
   <RootStyle>
-    <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}
-            sx={{width:'100%'}}
-          >    
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }} >
-            {/*  <AccountCircle sx={{ color: 'action.active', mx: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="게시글" variant="standard" value={12} disabled sx={{width:40}}/>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            {/*  <ShoppingCartIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="판매글" variant="standard"  value={12} disabled sx={{width:40}}/>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-            {/*  <FavoriteIcon sx={{ color: 'action.active', mr: 1, my: 0.5 }} /> */}
-              <TextField id="input-with-sx" label="좋아요" variant="standard" value={12} disabled sx={{width:40}}/>
-            </Box>
-          </Stack>
+    <InfoStyle>
+      <Box
+        sx={{
+          ml: { md: 3 },
+          mt: { xs: 1, md: 0 },
+          color: 'primary.main',
+          backgroundColor: 'common.white',
+          borderRadius:1,
+          textAlign: { xs: 'center', md: 'center' },
+        }}
+      >
+        <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={0}
+      >
+        <Avatar sx={{width:40,height:40}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
+        <Typography variant="h4">&nbsp;일론머스크&nbsp;</Typography> 
+        </Stack>
+      </Box> 
+    </InfoStyle>
     <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
   </RootStyle>
   </Box>
