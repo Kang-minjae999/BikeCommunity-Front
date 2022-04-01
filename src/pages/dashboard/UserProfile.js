@@ -60,9 +60,6 @@ export default function UserProfile() {
 
   const [currentTab, setCurrentTab] = useState('profile');
 
-  const handleChangeTab = (newValue) => {
-    setCurrentTab(newValue);
-  };
 
   useEffect(() => {  
     if(nickname === undefined || nickname === 'undefined'){
@@ -88,7 +85,7 @@ export default function UserProfile() {
     getPost();
   }, [getPost]);
 
-  const [value, setValue] = useState('home');
+  const [value, setValue] = useState('gallery');
   const [chvalue, setchvalue] = useState('');
   const [istrue ,setistrue] = useState(false);
 
@@ -143,43 +140,31 @@ export default function UserProfile() {
         alignItems="center"
         spacing={0}
       >
-
-
           <Card sx={{width:'100%', height:300}}>
           <ProfileCover nickname={nickname} />
-          <Tabs
-              value={currentTab}
-              scrollButtons="auto"
-              variant="scrollable"
-              onChange={(e, value) => handleChangeTab(value)}
-              sx={{bottom:0}}
-            >
-               {PROFILE_TABS.map((tab) => (
-                <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
-              ))} 
-          </Tabs>
           </Card>
           </Stack>
 
           <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>라이딩홈</Typography>}
-              value="home"
+              value="gallery"
               icon={<Iconify icon={'ic:round-perm-media'} width={20} height={20} />}
             />
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>기록</Typography>}
-              value="record"
+              value="profile"
               icon={<TocIcon icon={'ic:round-perm-media'} width={20} height={20} />}
             />
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>}
-              value="clubrecord"
+              value="sell"
               icon={<ProfileFollowers followers={_userFollowers} />}
             />
           </BottomNavigation>
+
         {PROFILE_TABS.map((tab) => {
-          const isMatched = tab.value === currentTab;
+          const isMatched = tab.value === value;
           return isMatched && <Box key={tab.value} >{tab.component}</Box>;
         })}
         {error && <Typography sx={{mt:10}}>{error}</Typography>}
