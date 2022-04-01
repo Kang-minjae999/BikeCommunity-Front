@@ -174,27 +174,26 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const onSubmit = async (data) => {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
-    console.log(watch('title'))
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
 /*     const formData2 = new FormData()
     formData.append('shBikeRequest.title', values) */
   /*   data.images.map((file) => formData.append('imagesFiles', file)) */
      
-    formData.append('shBikeRequest.title', data.title)
-    formData.append('shBikeRequest.content', data.content)
-    formData.append('shBikeRequest.address', data.address)
-    formData.append('shBikeRequest.gearbox', data.gearbox)
-    formData.append('shBikeRequest.brand', data.brand)
-    formData.append('shBikeRequest.modelName', data.modelName)
-    formData.append('shBikeRequest.year', data.year)
-    formData.append('shBikeRequest.displacement', data.displacement)
-    formData.append('shBikeRequest.mileage', data.mileage)
-    formData.append('shBikeRequest.price', data.price)
-    formData.append('shBikeRequest.negoable', data.negoable)
-    formData.append('shBikeRequest.tradeable', data.tradeable)
-    formData.append('shBikeRequest.isCrashed', data.isCrashed)
-    data.tradeableModel.map((model) => formData.append('shBikeRequest.tradeableModel', model))
+    formData.append('title', data.title)
+    formData.append('content', data.content)
+    formData.append('address', data.address)
+    formData.append('gearbox', data.gearbox)
+    formData.append('brand', data.brand)
+    formData.append('modelName', data.modelName)
+    formData.append('year', data.year)
+    formData.append('displacement', data.displacement)
+    formData.append('mileage', data.mileage)
+    formData.append('price', data.price)
+    formData.append('negoable', data.negoable)
+    formData.append('tradeable', data.tradeable)
+    formData.append('isCrashed', data.isCrashed)
+    data.tradeableModel.map((model) => formData.append('tradeableModel', model))
     data.images.map((file) => formData.append('imagesFiles', file))  
 
 
