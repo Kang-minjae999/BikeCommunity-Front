@@ -216,7 +216,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   */
 
     try {
-      await axios.post('/biketrade', {shBikeRequestTwo:formData} , {
+      await axios.post('/biketrade', formData , {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
