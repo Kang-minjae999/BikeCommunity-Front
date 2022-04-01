@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack, TextField, InputAdornment, Avatar } from '@mui/material';
+import { Tab, Box, Tabs, Container, Typography, Divider, Card, Stack, TextField, InputAdornment, Avatar, BottomNavigation, BottomNavigationAction } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -88,6 +88,24 @@ export default function UserProfile() {
     getPost();
   }, [getPost]);
 
+  const [value, setValue] = useState('home');
+  const [chvalue, setchvalue] = useState('');
+  const [istrue ,setistrue] = useState(false);
+
+  const handleChange = (event, newValue) => {
+    setchvalue(newValue);
+    setistrue(true)
+  };
+
+  useEffect(() => {
+    if(istrue){
+      setValue(chvalue)
+      };
+    return () => {
+      setistrue(false)
+    };
+  }, [istrue]);
+
 
   const PROFILE_TABS = [
     {
@@ -125,6 +143,8 @@ export default function UserProfile() {
         alignItems="center"
         spacing={0}
       >
+
+
           <Card sx={{width:'100%', height:300}}>
           <ProfileCover nickname={nickname} />
           <Tabs
@@ -140,6 +160,24 @@ export default function UserProfile() {
           </Tabs>
           </Card>
           </Stack>
+
+          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+            <BottomNavigationAction
+              label={<Typography variant='body2' color='black' fontWeight='bold'>라이딩홈</Typography>}
+              value="home"
+              icon={<Iconify icon={'ic:round-perm-media'} width={20} height={20} />}
+            />
+            <BottomNavigationAction
+              label={<Typography variant='body2' color='black' fontWeight='bold'>기록</Typography>}
+              value="record"
+              icon={<TocIcon icon={'ic:round-perm-media'} width={20} height={20} />}
+            />
+            <BottomNavigationAction
+              label={<Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>}
+              value="clubrecord"
+              icon={<ProfileFollowers followers={_userFollowers} />}
+            />
+          </BottomNavigation>
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value} >{tab.component}</Box>;
