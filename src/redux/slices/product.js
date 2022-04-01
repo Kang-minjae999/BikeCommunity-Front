@@ -14,6 +14,8 @@ const initialState = {
   products: [],
   product: null,
   sortBy: null,
+  search:[],
+  heart:[],
   filters: {
     gender: [],
     category: 'All',
@@ -71,7 +73,34 @@ const slice = createSlice({
       state.filters.priceRange = action.payload.priceRange;
       state.filters.rating = action.payload.rating;
     },
+    // HEART
+   /*  getHeartUsed(state, action) {
+      const cart = action.payload;
 
+      const subtotal = sum(cart.map((cartItem) => cartItem.price * cartItem.quantity));
+      const discount = cart.length === 0 ? 0 : state.checkout.discount;
+      const shipping = cart.length === 0 ? 0 : state.checkout.shipping;
+      const billing = cart.length === 0 ? null : state.checkout.billing;
+
+      state.checkout.cart = cart;
+      state.checkout.discount = discount;
+      state.checkout.shipping = shipping;
+      state.checkout.billing = billing;
+      state.checkout.subtotal = subtotal;
+      state.checkout.total = subtotal - discount;
+    }, */
+
+    addHeartUsed(state, action) {
+      const product = action.payload;
+      if(state.heart.length >= 10){
+        state.heart.pop();
+        state.heart = uniqBy([product, ...state.search]);
+      } else {
+        state.heart = uniqBy([product, ...state.search]);
+      }
+      console.log(state.heart)
+    },
+    
     // CHECKOUT
     getCart(state, action) {
       const cart = action.payload;
@@ -124,6 +153,21 @@ const slice = createSlice({
       state.checkout.discount = 0;
       state.checkout.shipping = 0;
       state.checkout.billing = null;
+    },
+
+    addSearch(state, action) {
+      const newsearch = action.payload;
+      if(state.search.length >= 10){
+        state.search.pop();
+        state.search = uniqBy([newsearch, ...state.search]);
+      } else {
+        state.search = uniqBy([newsearch, ...state.search]);
+      }
+    },
+
+    deleteSearch(state, action) {
+      const updateSearch = state.search.filter((item) => item !== action.payload);
+      state.search = updateSearch;
     },
 
     onBackStep(state) {
@@ -192,6 +236,9 @@ export default slice.reducer;
 
 // Actions
 export const {
+  addHeartUsed,
+  addSearch,
+  deleteSearch,
   getCart,
   addCart,
   resetCart,

@@ -14,6 +14,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import MyAvatar from '../../../components/MyAvatar';
 
 
 // ----------------------------------------------------------------------
@@ -111,7 +112,8 @@ const MENU_OPTIONS = [
           }),
         }}
       >
-        <PersonIcon color="primary" />
+       {user && <MyAvatar />}
+       {!user && <PersonIcon color="primary" />}
       </IconButtonAnimate>
 
       <MenuPopover

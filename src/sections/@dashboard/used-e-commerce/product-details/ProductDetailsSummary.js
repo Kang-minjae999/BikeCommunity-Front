@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 // @mui
 import { useTheme, styled } from '@mui/material/styles';
-import { Box, Link, Stack, Button, Rating, Divider, IconButton, Typography } from '@mui/material';
+import { Box, Link, Stack, Button, Rating, Divider, IconButton, Typography, Avatar, Chip } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
@@ -29,27 +29,31 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 ProductDetailsSummary.propTypes = {
-  onAddCart: PropTypes.func,
+  onAddHeart: PropTypes.func,
   onGotoStep: PropTypes.func,
   product: PropTypes.shape({
-    available: PropTypes.number,
-    colors: PropTypes.arrayOf(PropTypes.string),
-    cover: PropTypes.string,
-    id: PropTypes.string,
-    inventoryType: PropTypes.string,
-    name: PropTypes.string,
+    id: PropTypes.number,
+    title: PropTypes.string,
+    gearbox: PropTypes.bool,
+    brand: PropTypes.string,
+    modelName: PropTypes.string,
     price: PropTypes.number,
-    priceSale: PropTypes.number,
-    sizes: PropTypes.arrayOf(PropTypes.string),
+    year: PropTypes.number,
+    mileage: PropTypes.number,
+    displacement: PropTypes.number,
     status: PropTypes.string,
-    totalRating: PropTypes.number,
-    totalReview: PropTypes.number,
-  }),
-};
+    negoable: PropTypes.bool,
+    tradeable: PropTypes.bool,
+    isCrashed: PropTypes.bool,
+    nicknameOfSeller: PropTypes.number,
+    avatarURLOfSeller: PropTypes.number,
+    tradeableModels: PropTypes.arrayOf(PropTypes.string),
+    imageURLs: PropTypes.arrayOf(PropTypes.string),
+})}
 
-export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, ...other }) {
-  const theme = useTheme();
 
+
+export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep, ...other }) {
   const navigate = useNavigate();
 
   const {
@@ -65,6 +69,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
     status,
     negoable,
     tradeable,
+    isCrashed,
     nicknameOfSeller,
     avatarURLOfSeller,
     tradeableModels,
@@ -73,13 +78,13 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
 
 
   const defaultValues = {
-    did: id,
-    dtitle: title,
-    dimageURLs: imageURLs[0],
-    dbrand: brand,
-    dmodelName: modelName,
-    dyear: year,
-    dmileage: mileage,
+    heartId: id,
+    heartTitle: title,
+    heartImageURLs: imageURLs[0],
+    heartBrand: brand,
+    heartModelName: modelName,
+    heartYear: year,
+    heartmileage: mileage,
   };
 
   const methods = useForm({
@@ -99,12 +104,9 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
     }
   };
 
-  const handleAddCart = async () => {
+  const handleAddHeart = async () => {
     try {
-      onAddCart({
-        ...values,
-        subtotal: values.price * values.quantity,
-      });
+      onAddHeart(values);
     } catch (error) {
       console.error(error);
     }
@@ -113,7 +115,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
   return (
     <RootStyle {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        {/* <Label
+       {/* <Label
           variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
           color={inventoryType === 'in_stock' ? 'success' : 'error'}
           sx={{ textTransform: 'uppercase' }}
@@ -127,7 +129,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
             mt: 2,
             mb: 1,
             display: 'block',
-            color: status === 'sale' ? 'error.main' : 'info.main',
+            color: status === '판매중' ? 'error.main' : 'info.main',
           }}
         >
           {status}
@@ -136,30 +138,63 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
         <Typography variant="h5" paragraph>
           {title}
         </Typography>
-
-        {/* <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-           <Rating value={totalRating} precision={0.1} readOnly /> 
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            ({fShortenNumber(totalReview)}
-            reviews)
+        <Typography variant='h6'>  <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller}/>
+         {nicknameOfSeller}
+         </Typography>
+        <Divider sx={{ borderStyle: 'dashed' }} /><br/>
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
+        <Typography variant="body2" sx={{ mt: 0.5 }} >
+          {gearbox}
+        </Typography>
+        <Typography variant="body2" sx={{ mt: 0.5 }} >
+          {brand}
           </Typography>
-        </Stack> */}
+          <Typography variant="subtitle2" sx={{ mt: 0.5}} color='text.secondary'>
+          {modelName}
+          </Typography>
+        </Stack>  
+
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
+        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
+            {year}년식
+        </Typography>
+        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
+            {mileage}km
+          </Typography>
+          <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
+          {displacement}cc
+          </Typography>
+        </Stack>  
+
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
+        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
+            {negoable}
+        </Typography>
+        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
+            {tradeable}
+          </Typography>
+          <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
+          {isCrashed}
+          </Typography>
+        </Stack>  
+        <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
+        {tradeableModels.map((model)=> (<Chip key={model}>{model}</Chip>))}
+          </Typography>
+
 
         <Typography variant="h4" sx={{ mb: 3 }}>
-          {/* <Box component="span" sx={{ color: 'text.disabled', textDecoration: 'line-through' }}>
-            {priceSale && fCurrency(priceSale)}
-          </Box> */}
-          &nbsp;{fCurrency(price)}
+
+          &nbsp;{fCurrency(price)}원
         </Typography>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
+      {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
           <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
             Color
           </Typography>
 
-         {/*  <Controller
+           <Controller
             name="color"
             control={control}
             render={({ field }) => (
@@ -175,11 +210,11 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
                 }}
               />
             )}
-          /> */}
-        </Stack>
+          /> 
+        </Stack> */}
 
-        <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
-          {/* <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
+          {/*  <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
+        <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
             Size
           </Typography>
 
@@ -201,7 +236,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
                 {size}
               </option>
             ))}
-          </RHFSelect> */}
+          </RHFSelect> 
         </Stack>
 
         <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
@@ -209,7 +244,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
             Quantity
           </Typography>
 
-          {/* <div>
+           <div>
             <Incrementer
               name="quantity"
               quantity={values.quantity}
@@ -220,8 +255,8 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
             <Typography variant="caption" component="div" sx={{ mt: 1, textAlign: 'right', color: 'text.secondary' }}>
               Available: {available}
             </Typography>
-          </div> */}
-        </Stack>
+          </div> 
+        </Stack> */}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -232,14 +267,14 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
             color="warning"
             variant="contained"
             startIcon={<Iconify icon={'ic:round-add-shopping-cart'} />}
-            onClick={handleAddCart}
+            onClick={handleAddHeart}
             sx={{ whiteSpace: 'nowrap' }}
           >
-            Add to Cart
+            찜하기
           </Button>
 
           <Button fullWidth size="large" type="submit" variant="contained">
-            Buy Now
+            채팅하기
           </Button>
         </Stack>
 
@@ -253,7 +288,7 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
 
 // ----------------------------------------------------------------------
 
-Incrementer.propTypes = {
+/* Incrementer.propTypes = {
   available: PropTypes.number,
   quantity: PropTypes.number,
   onIncrementQuantity: PropTypes.func,
@@ -288,3 +323,4 @@ function Incrementer({ available, quantity, onIncrementQuantity, onDecrementQuan
     </Box>
   );
 }
+ */

@@ -8,7 +8,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import axios from '../../utils/axiossecondhand';
 import { useDispatch, useSelector } from '../../redux/store';
-import { getProduct, addCart, onGotoStep } from '../../redux/slices/product';
+import { addHeartUsed, addCart, onGotoStep } from '../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -76,6 +76,8 @@ export default function UEcommerceProductDetails() {
 
   const [error, setError] =useState()
 
+  const [value, setValue] = useState('1')
+
   const getAllProduct = useCallback(async () => {
     try {
       const response = await axios.get(`/biketrade/${id}`);
@@ -93,8 +95,8 @@ export default function UEcommerceProductDetails() {
   }, [getAllProduct]);
 
 
-  const handleAddCart = (product) => {
-    dispatch(addCart(product));
+  const handleAddHeart = (product) => {
+    dispatch(addHeartUsed(product));
   };
 
   const handleGotoStep = (step) => {
@@ -122,7 +124,7 @@ export default function UEcommerceProductDetails() {
                 <Grid item xs={12} md={6} lg={5}>
                    <ProductDetailsSummary
                     product={product}
-                    onAddCart={handleAddCart}
+                    onAddHeart={handleAddHeart}
                     onGotoStep={handleGotoStep}
                   /> 
                 </Grid>
@@ -145,7 +147,7 @@ export default function UEcommerceProductDetails() {
               ))}
             </Grid>
 
-           {/*  <Card>
+            <Card>
               <TabContext value={value}>
                 <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
                   <TabList onChange={(e, value) => setValue(value)}>
@@ -163,14 +165,14 @@ export default function UEcommerceProductDetails() {
 
                 <TabPanel value="1">
                   <Box sx={{ p: 3 }}>
-                    <Markdown children={product.description} />
+                    <Markdown children={product.content} />
                   </Box>
                 </TabPanel>
                 <TabPanel value="2">
-                  <ProductDetailsReview product={product} />
+                 {/*  <ProductDetailsReview product={product} /> */} 뭐 넣을게 있나
                 </TabPanel>
               </TabContext>
-            </Card> */}
+            </Card> 
           </>
         )}
 

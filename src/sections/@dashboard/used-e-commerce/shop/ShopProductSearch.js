@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as  useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Typography, Autocomplete, InputAdornment, Popper, Box, Stack, Button, Menu, MenuItem } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
-// hooks
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-// utils
-import axios from '../../../../utils/axios';
+import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
+import { useDispatch } from '../../../../redux/store';
+import { addSearch } from '../../../../redux/slices/product';
 // components
 import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
@@ -34,7 +30,8 @@ ShopProductSearch.propTypes = {
 };
 
 export default function ShopProductSearch({setparam}) {
-  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const isDeskTop = useResponsive('up','lg')
 
@@ -47,12 +44,13 @@ export default function ShopProductSearch({setparam}) {
   };
 
 
-  const handleClick = (title) => {
-    navigate(`${PATH_DASHBOARD.general.root}/dingstas/${paramCase(title)}`);
+  const handleClick = () => {
+    
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
+      dispatch(addSearch(searchQuery))
       setparam(searchQuery)
     }
   };

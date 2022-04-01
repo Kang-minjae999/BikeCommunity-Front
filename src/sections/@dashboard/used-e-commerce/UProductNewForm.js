@@ -13,6 +13,7 @@ import { Card, Chip, Grid, Stack, Typography, Autocomplete, InputAdornment, Form
 // routes
 import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
+import axios from '../../../utils/axiossecondhand';
 // components
 import {
   FormProvider,
@@ -28,7 +29,7 @@ import {
 
 const GEARBOX_OPTION = 
 [
-  '메뉴얼', '스쿠터',
+  true, false,
 ];
 
 const BRAND_OPTION = [
@@ -105,7 +106,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const NewProductSchema = Yup.object().shape({
     title: Yup.string().required('상품명이 필요합니다.'),
-    content: Yup.string().required('상품설명이 필요합니다.'),
+/*     content: Yup.string().required('상품설명이 필요합니다.'),
     images: Yup.array().min(1, '사진을 한 장 이상 올려주세요.'),
     address: Yup.string().required('주소가 필요합니다.'),
     gearbox: Yup.string().required('종류를 선택해주세요.'),
@@ -117,8 +118,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     price: Yup.number().moreThan(0, '가격은 0원 이상입니다.'),
     negoable: Yup.boolean(),
     tradeable: Yup.boolean(),
-    isCrashed: Yup.boolean(),
-    trademodel: Yup.array().min(1, '사진을 한 개 이상 올려주세요.'),
+    isCrashed: Yup.boolean(), */
   });
 
   const defaultValues = useMemo(
@@ -127,7 +127,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       content: currentProduct?.content || '',
       images: currentProduct?.images || [],
       address: currentProduct?.address || '',
-      gearbox: currentProduct?.gearbox || null,
+      gearbox: currentProduct?.gearbox || false,
       brand: currentProduct?.brand || null,
       modelName: currentProduct?.modelName || null,  
       year: currentProduct?.year || null,     
@@ -137,7 +137,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       negoable: currentProduct?.negoable || false, 
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
-      trademodel: currentProduct?.trademodel || [],
+      tradeableModel: currentProduct?.trademodel || [],
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -171,9 +171,36 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const formData = new FormData()
+    const formData2 = new FormData()
+    const formData3 = new FormData()
+    formData.append('title', data.title)
+    formData.append('content', data.content)
+    formData.append('address', data.address)
+    formData.append('gearbox', data.gearbox)
+    formData.append('brand', data.brand)
+    formData.append('modelName', data.modelName)
+    formData.append('year', data.year)
+    formData.append('displacement', data.displacement)
+    formData.append('mileage', data.mileage)
+    formData.append('price', data.price)
+    formData.append('negoable', data.negoable)
+    formData.append('tradeable', data.tradeable)
+    formData.append('isCrashed', data.isCrashed)
+    data.tradeableModel.map((model) => formData.append('trademodel', model))
+    data.images.map((file) => formData2.append('images', file)) 
+    // 합치기
+    formData3.append('shBikeRequest', formData)
+    formData3.append('images', formData2)
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await axios.post('/biketrade', formData3, {
+        headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: accessToken,
+        },
+      });
       reset();
       enqueueSnackbar(!isEdit ? '성공적으로 업로드 되었습니다!' : '성공적으로 업로드 되었습니다!');
       navigate(PATH_DASHBOARD.eCommerce.list);
@@ -410,7 +437,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                        ))
                      }
                      renderInput={(params) => <TextField 
-                      name="tradeModel" label="모델명" helperText='모델명을 검색해주세요.'{...params} />}
+                      name="tradeableModel" label="모델명" helperText='모델명을 검색해주세요.'{...params} />}
                    />
                  )}
                />}

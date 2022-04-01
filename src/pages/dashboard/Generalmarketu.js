@@ -4,13 +4,13 @@ import orderBy from 'lodash/orderBy';
 import { useForm } from 'react-hook-form';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Container, Typography, Stack, Button, Pagination, Divider } from '@mui/material';
+import { Container, Typography, Stack, Button, Pagination, Divider, Box, Chip } from '@mui/material';
 import { Appmarketcategory2 } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
 import axios from '../../utils/axiossecondhand';
 import { useDispatch, useSelector } from '../../redux/store';
-import { getProducts, filterProducts } from '../../redux/slices/product';
+import { deleteSearch, filterProducts } from '../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -40,6 +40,10 @@ export default function Generalmarketu() {
 
   const isMountedRef = useIsMountedRef();
 
+  const dispatch = useDispatch();
+
+  const { search } = useSelector((state) => state.product);
+
 const [products, setProducts] = useState([]);
 
 
@@ -67,7 +71,7 @@ const [param, setparam] = useState('')
 
   const getAllProducts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&title=${param}`);
+      const response = await axios.get(`/biketrade/search/?title=${param}`);
       if (isMountedRef.current) {
         setProducts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -75,7 +79,7 @@ const [param, setparam] = useState('')
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef,page,param]);
+  }, [isMountedRef,param]);
 
   useEffect(() => {
     if(!param){
@@ -137,6 +141,11 @@ const [param, setparam] = useState('')
     reset();
     handleCloseFilter();
   };
+
+  const handleRemoveSearch = (item) => {
+    dispatch(deleteSearch(item));
+  };
+  
   
   const [loading, setloading] = useState(false)
 
@@ -167,7 +176,9 @@ const [param, setparam] = useState('')
           sx={{ mb: 2 }}
         >
              <>
-            <ShopProductSearch setparam={setparam} />          
+            <ShopProductSearch setparam={setparam} />
+            <Box sx={{whiteSpace: 'nowrap',
+          overflowX: 'auto', width:300}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}</Box>        
             <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
@@ -204,11 +215,16 @@ const [param, setparam] = useState('')
               <ShopProductSort />
             </Stack>
           <ShopProductSearch setparam={setparam} />
+          <Box sx={{  whiteSpace: 'nowrap',
+          overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
           <SimpleDialogDemo />
         </Stack>}
 
+        <Divider sx={{mt:1, mb:1}} />
         <Appmarketcategory2/>
           <Divider sx={{mt:1, mb:2}} />
+
+
         <ShopProductList products={products} loading={loading} />
         <Stack
           direction="row"

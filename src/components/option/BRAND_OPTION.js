@@ -70,7 +70,7 @@ const BRAND_OPTION = [
     { 
     label:'이탈젯/부캐너/cg/엘로이',
     value:'125classic',
-    }, //           here
+    }, 
     { 
     label:'아프릴리아',
     value:'aprilia',

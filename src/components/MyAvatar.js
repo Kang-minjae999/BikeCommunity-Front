@@ -9,15 +9,15 @@ import Avatar from './Avatar';
 
 export default function MyAvatar({ ...other }) {
   const { user } = useAuth();
+  //  {createAvatar(user?.avatar).name}
+  //   </Avatar> 
 
   return (
     <Avatar
-      src={user?.photoURL}
-      alt={user?.displayName}
-      color={user?.photoURL ? 'default' : createAvatar(user?.displayName).color}
+      src={user?.avatar}
+      alt={user?.nickname}
+      color={user?.avatar ? 'default' : createAvatar(user?.avatar).color}
       {...other}
-    >
-      {createAvatar(user?.displayName).name}
-    </Avatar>
+    />
   );
 }
