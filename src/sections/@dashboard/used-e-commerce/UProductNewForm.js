@@ -176,7 +176,9 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-     const formData2 = new FormData()
+    formData.append('shBikeRequest', JSON.stringify(values))
+    formData.append('imagefiles', values.images)
+/*      const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
     formData.append('address', data.address)
@@ -208,7 +210,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('imageFiles', file))  
+    data.images.map((file) => formData.append('imageFiles', file))  */ 
  
 
     try {
