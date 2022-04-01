@@ -174,26 +174,27 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const onSubmit = async (data) => {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
+    console.log(watch('title'))
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
 /*     const formData2 = new FormData()
     formData.append('shBikeRequest.title', values) */
   /*   data.images.map((file) => formData.append('imagesFiles', file)) */
      
-    formData.append('shBikeRequest[0].title', data.title)
-    formData.append('shBikeRequest[0].content', data.content)
-    formData.append('shBikeRequest[0].address', data.address)
-    formData.append('shBikeRequest[0].gearbox', data.gearbox)
-    formData.append('shBikeRequest[0].brand', data.brand)
-    formData.append('shBikeRequest[0].modelName', data.modelName)
-    formData.append('shBikeRequest[0].year', data.year)
-    formData.append('shBikeRequest[0].displacement', data.displacement)
-    formData.append('shBikeRequest[0].mileage', data.mileage)
-    formData.append('shBikeRequest[0].price', data.price)
-    formData.append('shBikeRequest[0].negoable', data.negoable)
-    formData.append('shBikeRequest[0].tradeable', data.tradeable)
-    formData.append('shBikeRequest[0].isCrashed', data.isCrashed)
-    data.tradeableModel.map((model) => formData.append('shBikeRequest[0].tradeableModel', model))
+    formData.append('shBikeRequest.title', data.title)
+    formData.append('shBikeRequest.content', data.content)
+    formData.append('shBikeRequest.address', data.address)
+    formData.append('shBikeRequest.gearbox', data.gearbox)
+    formData.append('shBikeRequest.brand', data.brand)
+    formData.append('shBikeRequest.modelName', data.modelName)
+    formData.append('shBikeRequest.year', data.year)
+    formData.append('shBikeRequest.displacement', data.displacement)
+    formData.append('shBikeRequest.mileage', data.mileage)
+    formData.append('shBikeRequest.price', data.price)
+    formData.append('shBikeRequest.negoable', data.negoable)
+    formData.append('shBikeRequest.tradeable', data.tradeable)
+    formData.append('shBikeRequest.isCrashed', data.isCrashed)
+    data.tradeableModel.map((model) => formData.append('shBikeRequest.tradeableModel', model))
     data.images.map((file) => formData.append('imagesFiles', file))  
 
 
