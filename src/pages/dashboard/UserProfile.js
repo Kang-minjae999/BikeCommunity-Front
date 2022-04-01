@@ -149,9 +149,9 @@ export default function UserProfile() {
           <Avatar sx={{width:40,height:40}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
         <Typography variant="h4">&nbsp;일론머스크&nbsp;</Typography> 
           <Card>
-          <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
+          <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' />
           </Card>
-          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , mt:2}} value={value} onChange={handleChange}>
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>갤러리</Typography>}
               value="gallery"

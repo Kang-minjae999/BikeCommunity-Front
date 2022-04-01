@@ -123,21 +123,21 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      title: currentProduct?.name || '',
-      content: currentProduct?.content || '',
+      title: currentProduct?.name || 'asfasdf',
+      content: currentProduct?.content || 'asdfasf',
       images: currentProduct?.images || [],
-      address: currentProduct?.address || '',
+      address: currentProduct?.address || 'fasdfasf',
       gearbox: currentProduct?.gearbox || false,
-      brand: currentProduct?.brand || null,
-      modelName: currentProduct?.modelName || null,  
-      year: currentProduct?.year || null,     
-      displacement: currentProduct?.displacement || 0,
-      mileage: currentProduct?.mileage || 0,   
-      price: currentProduct?.price || 0,
+      brand: currentProduct?.brand || 'asdfsfa',
+      modelName: currentProduct?.modelName || 'asdf',  
+      year: currentProduct?.year || 2000,     
+      displacement: currentProduct?.displacement || 100000,
+      mileage: currentProduct?.mileage || 10000,   
+      price: currentProduct?.price || 1000000,
       negoable: currentProduct?.negoable || false, 
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
-      tradeableModel: currentProduct?.trademodel || [],
+      tradeableModel: currentProduct?.trademodel || ['abs'],
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -178,7 +178,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     const formData = new FormData()
     const formData2 = new FormData()
     formData.append('shBikeRequest', values)
-    data.images.map((file) => formData.append('imagesFiles', file))
+  /*   data.images.map((file) => formData.append('imagesFiles', file)) */
 /*      const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
