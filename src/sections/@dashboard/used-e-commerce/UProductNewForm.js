@@ -9,7 +9,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import { Card, Chip, Grid, Stack, Typography, Autocomplete, InputAdornment, FormControlLabel, Checkbox, TextField, Button } from '@mui/material';
+import {
+  Card,
+  Chip,
+  Grid,
+  Stack,
+  Typography,
+  Autocomplete,
+  InputAdornment,
+  FormControlLabel,
+  Checkbox,
+  TextField,
+  Button,
+} from '@mui/material';
 // routes
 import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -21,30 +33,32 @@ import {
   RHFEditor,
   RHFTextField,
   RHFUploadMultiFile,
-  RHFSwitch
+  RHFSwitch,
 } from '../../../components/hook-form';
 
 // 바이크 중고거래 기준
 // ----------------------------------------------------------------------
 
-const GEARBOX_OPTION = 
-[
-  '메뉴얼', '스쿠터',
-];
+const GEARBOX_OPTION = ['메뉴얼', '스쿠터'];
 
 const BRAND_OPTION = [
-'혼다', '야마하', '스즈키', '가와사키',
-'할리데이비슨', '인디안','허스크바나','베넬리', 'z', 'zz', 'zzz',
-'대림','KR모터스', '기타',
+  '혼다',
+  '야마하',
+  '스즈키',
+  '가와사키',
+  '할리데이비슨',
+  '인디안',
+  '허스크바나',
+  '베넬리',
+  'z',
+  'zz',
+  'zzz',
+  '대림',
+  'KR모터스',
+  '기타',
 ];
 
-
-const MODEL_OPTION = [
-  'cbr125r',
-  'cbr250rr',
-  'cbr500r',
-  'cbr600rr',
-];
+const MODEL_OPTION = ['cbr125r', 'cbr250rr', 'cbr500r', 'cbr600rr'];
 
 const YEAR_OPTION = [
   '2021',
@@ -81,13 +95,7 @@ const YEAR_OPTION = [
   '1990',
 ];
 
-const TRADEMODEL_OPTION = [
-  'cbr125r',
-  'cbr250rr',
-  'cbr500r',
-  'cbr600rr',
-];
-
+const TRADEMODEL_OPTION = ['cbr125r', 'cbr250rr', 'cbr500r', 'cbr600rr'];
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +103,6 @@ UProductNewForm.propTypes = {
   isEdit: PropTypes.bool,
   currentProduct: PropTypes.object,
 };
-
 
 export default function UProductNewForm({ isEdit, currentProduct }) {
   const [tradechecked, settradeChecked] = useState(false);
@@ -112,13 +119,16 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     gearbox: Yup.boolean(),
     brand: Yup.string().required('설명이 필요해요.'),
     modelName: Yup.string().required('모델명이 필요해요.'),
-    displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000,'배기량을 알맞게 입력해주세요.').nullable(),
+    displacement: Yup.number()
+      .moreThan(1, '배기량을 입력해주세요.')
+      .lessThan(10000, '배기량을 알맞게 입력해주세요.')
+      .nullable(),
     mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.'),
     year: Yup.string().min(4, '년식을 입력해주세요.').max(4, '년식을 입력해주세요.').nullable(),
     price: Yup.number().moreThan(0, '가격은 0원 이상이에요.'),
     negoable: Yup.boolean(),
     tradeable: Yup.boolean(),
-    isCrashed: Yup.boolean(), 
+    isCrashed: Yup.boolean(),
   });
 
   const defaultValues = useMemo(
@@ -129,12 +139,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       address: currentProduct?.address || 'fasdfasf',
       gearbox: currentProduct?.gearbox || false,
       brand: currentProduct?.brand || 'asdfsfa',
-      modelName: currentProduct?.modelName || 'asdf',  
-      year: currentProduct?.year || 2000,     
+      modelName: currentProduct?.modelName || 'asdf',
+      year: currentProduct?.year || 2000,
       displacement: currentProduct?.displacement || 100,
-      mileage: currentProduct?.mileage || 10000,   
+      mileage: currentProduct?.mileage || 10000,
       price: currentProduct?.price || 1000000,
-      negoable: currentProduct?.negoable || false, 
+      negoable: currentProduct?.negoable || false,
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
       tradeableModel: currentProduct?.trademodel || ['abs'],
@@ -146,7 +156,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
     defaultValues,
-    
   });
 
   const {
@@ -170,11 +179,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     }
   }, [isEdit, currentProduct, defaultValues, reset]);
 
-  const [gearboxPost, setGearboxPost] = useState()
-  
-  const [titlePost, setTitlePost] = useState()
+  const [gearboxPost, setGearboxPost] = useState();
 
-/*   useEffect(() => {
+  const [titlePost, setTitlePost] = useState();
+
+  /*   useEffect(() => {
     if (values.gearbox === '메뉴얼') {
       setGearboxPost(true);
     }
@@ -184,10 +193,10 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   }, [values]); */
 
   useEffect(() => {
-    setTitlePost(`[${values.modelName}] ${values.title}`)
+    setTitlePost(`[${values.modelName}] ${values.title}`);
   }, [values.title, values.modelName]);
 
-/*    const getFormData = object => Object.keys(object).reduce((formData, key) => {
+  /*    const getFormData = object => Object.keys(object).reduce((formData, key) => {
     formData.append(key, object[key]);
     return formData;
 }, new FormData()); 
@@ -213,55 +222,52 @@ function jsonToFormData(data) {
 }
  */
 
- function getFormData(object) {
-  const formData = new FormData();
-  Object.keys(object).forEach(key => {
-    if (typeof object[key] !== 'object') formData.append(key, object[key])
-    else formData.append(key, JSON.stringify(object[key]))
-  })
-  return formData;
-} 
+  function getFormData(object) {
+    const formData = new FormData();
+    Object.keys(object).forEach((key) => {
+      if (typeof object[key] !== 'object') formData.append(key, object[key]);
+      else formData.append(key, JSON.stringify(object[key]));
+    });
+    return formData;
+  }
 
   const onSubmit = async (data) => {
-
-  
     const accessToken = window.localStorage.getItem('accessToken');
-     const formData = new FormData()  
+    const formData = new FormData();
 
-/*     data.images.map((file) => formData.append('imagesFiles', {
+    /*     data.images.map((file) => formData.append('imagesFiles', {
       name:file.filename,
       type:'image/jpeg',
       uri: file.uri
       }))  */
 
-     /*  // ex
+    /*  // ex
       formData.append('shBikeRequest', JSON.stringify(values)) */
 
-    data.images.map((file) => formData.append('imagesFiles', file))  
+    data.images.map((file) => formData.append('imageFiles', file));
 
-    formData.append('shBikeRequest', {title:titlePost})
-    formData.append('shBikeRequest', {content:data.content})
-    formData.append('shBikeRequest', {address:data.address})
-    formData.append('shBikeRequest', {gearbox:gearboxPost})
-    formData.append('shBikeRequest', {brand:data.brand})
-    formData.append('shBikeRequest', {modelName:data.modelName})
-    formData.append('shBikeRequest', {year:data.year})
-    formData.append('shBikeRequest', {displacement:data.displacement})
-    formData.append('shBikeRequest', {mileage:data.mileage})
-    formData.append('shBikeRequest', {price:data.price})
-    formData.append('shBikeRequest', {negoable:data.negoable})
-    formData.append('shBikeRequest', {tradeable:data.tradeable})
-    formData.append('shBikeRequest', {isCrashed:data.isCrashed})
-    data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model})) 
+    formData.append('title', 'title입니다.');
+    formData.append('content', '컨텐트입니다.');
+    formData.append('address', '주소구요');
+    formData.append('gearbox', true);
+    formData.append('brand', '브랜드에요');
+    formData.append('modelName', '모델이름');
+    formData.append('year', 10);
+    formData.append('displacement', 20);
+    formData.append('mileage', 100);
+    formData.append('price', 1000);
+    formData.append('negoable', true);
+    formData.append('tradeable', true);
+    formData.append('isCrashed', true);
+    // data.tradeableModel.map((model) => formData.append('shBikeRequest', { tradeableModel: model }));
 
-   /*  const data = getFormData(values)  */
-  
+    /*  const data = getFormData(values)  */
 
     try {
-      await axios.post('/biketrade', formData , {
+      await axios.post('/biketrade', formData, {
         headers: {
-        'content-type': 'multipart/form-data',
-        Authorization: accessToken,
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
         },
       });
       reset();
@@ -294,60 +300,59 @@ function jsonToFormData(data) {
     const filteredItems = values.images?.filter((_file) => _file !== file);
     setValue('images', filteredItems);
   };
-  
-  const trade = watch('tradeable')
+
+  const trade = watch('tradeable');
 
   useEffect(() => {
-    if(trade){
-      settradeChecked(true)
+    if (trade) {
+      settradeChecked(true);
     } else {
-      settradeChecked(false)
+      settradeChecked(false);
     }
-  }, [trade])
+  }, [trade]);
 
   // 다음 주소
-      const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
-      const onChangeOpenPost = () => {
-        setIsOpenPost(!isOpenPost);
-      };
-    
-      const onCompletePost = (data) => {
-        const sido1 = data.sido;
-        const sigungu1 = data.sigungu;
-        const city = `${sido1} ${sigungu1}`
-    
-        setIsOpenPost(false);
-        setValue('address', city);
-      };
-    
-      const postCodeStyle = {
-        display: 'block',
-        position: 'relative',
-        top: '0%',
-        width: '480px',
-        height: '490px',
-        padding: '7px',
-      };
-      const address = watch('address')
+  const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
+  const onChangeOpenPost = () => {
+    setIsOpenPost(!isOpenPost);
+  };
+
+  const onCompletePost = (data) => {
+    const sido1 = data.sido;
+    const sigungu1 = data.sigungu;
+    const city = `${sido1} ${sigungu1}`;
+
+    setIsOpenPost(false);
+    setValue('address', city);
+  };
+
+  const postCodeStyle = {
+    display: 'block',
+    position: 'relative',
+    top: '0%',
+    width: '480px',
+    height: '490px',
+    padding: '7px',
+  };
+  const address = watch('address');
   // 다음 주소 끝
-  
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
-            <Stack spacing={3}>        
-              <RHFTextField name="title" label="상품명" autoComplete="false"/>
-              <RHFTextField  name="content" label="상품설명" autoComplete="false" multiline minRows={5}/>
+            <Stack spacing={3}>
+              <RHFTextField name="title" label="상품명" autoComplete="false" />
+              <RHFTextField name="content" label="상품설명" autoComplete="false" multiline minRows={5} />
               <RHFUploadMultiFile
-                  name="images"
-                  showPreview
-                  accept="image/*"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                  onRemove={handleRemove}
-                  onRemoveAll={handleRemoveAll}
+                name="images"
+                showPreview
+                accept="image/*"
+                maxSize={3145728}
+                onDrop={handleDrop}
+                onRemove={handleRemove}
+                onRemoveAll={handleRemoveAll}
               />
             </Stack>
           </Card>
@@ -355,14 +360,21 @@ function jsonToFormData(data) {
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
-              <Stack spacing={3} mt={1} mb={1}>   
-              <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%' ,mb:1}}>
+              <Stack spacing={3} mt={1} mb={1}>
+                <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%', mb: 1 }}>
                   지역찾기
-                </Button> 
-              {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-               {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!' label='지역' autoComplete="false" />}
-               
-              <RHFSwitch name='gearbox' label='사고유무' labelPlacement='start'/> 
+                </Button>
+                {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
+                {address && (
+                  <RHFTextField
+                    name="address"
+                    placeholder="지역은 (도/시/군/구)만 남아요!"
+                    label="지역"
+                    autoComplete="false"
+                  />
+                )}
+
+                <RHFSwitch name="gearbox" label="사고유무" labelPlacement="start" />
                 {/* <Controller
                   name="gearbox"
                   control={control}
@@ -388,7 +400,7 @@ function jsonToFormData(data) {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
-                    {...field}
+                      {...field}
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={BRAND_OPTION.map((option) => option)}
                       renderTags={(value, getTagProps) =>
@@ -396,13 +408,12 @@ function jsonToFormData(data) {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField 
-                        name="brand"
-                        label="브랜드" {...params}
-                        placeholder='브랜드' />}
+                      renderInput={(params) => (
+                        <RHFTextField name="brand" label="브랜드" {...params} placeholder="브랜드" />
+                      )}
                     />
                   )}
-                />        
+                />
 
                 <Controller
                   name="modelName"
@@ -416,14 +427,13 @@ function jsonToFormData(data) {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField 
-                        name="modelName"
-                        label="모델명" {...params}
-                        placeholder='모델명' />}
+                      renderInput={(params) => (
+                        <RHFTextField name="modelName" label="모델명" {...params} placeholder="모델명" />
+                      )}
                     />
                   )}
                 />
-                  <Controller
+                <Controller
                   name="year"
                   control={control}
                   render={({ field }) => (
@@ -435,10 +445,7 @@ function jsonToFormData(data) {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField 
-                        name="year"
-                        label="연식" {...params}
-                        placeholder='연식' />}
+                      renderInput={(params) => <RHFTextField name="year" label="연식" {...params} placeholder="연식" />}
                     />
                   )}
                 />
@@ -451,7 +458,7 @@ function jsonToFormData(data) {
                   onChange={(event) => setValue('displacement', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
-                    endAdornment: <InputAdornment position='end'>cc</InputAdornment>,
+                    endAdornment: <InputAdornment position="end">cc</InputAdornment>,
                     type: 'number',
                   }}
                 />
@@ -464,7 +471,7 @@ function jsonToFormData(data) {
                   onChange={(event) => setValue('mileage', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
-                    endAdornment: <InputAdornment position='end'>km</InputAdornment>,
+                    endAdornment: <InputAdornment position="end">km</InputAdornment>,
                     type: 'number',
                   }}
                 />
@@ -477,36 +484,44 @@ function jsonToFormData(data) {
                   onChange={(event) => setValue('price', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
-                    endAdornment: <InputAdornment position='end'>원</InputAdornment>,
+                    endAdornment: <InputAdornment position="end">원</InputAdornment>,
                     type: 'number',
                   }}
                 />
               </Stack>
 
-              <RHFSwitch name='isCrashed' label='사고유무' labelPlacement='start'/> 
-              <RHFSwitch name='negoable' label='네고' labelPlacement='start'/> 
-              <RHFSwitch name='tradeable' label='대차' labelPlacement='start'/> 
+              <RHFSwitch name="isCrashed" label="사고유무" labelPlacement="start" />
+              <RHFSwitch name="negoable" label="네고" labelPlacement="start" />
+              <RHFSwitch name="tradeable" label="대차" labelPlacement="start" />
 
-                {!tradechecked
-                ? '' :  <Controller
-                 name="tradeModel"
-                 control={control}
-                 render={({ field }) => (
-                   <Autocomplete
-                     multiple
-                     onChange={(event, newValue) => field.onChange(newValue)}
-                     options={TRADEMODEL_OPTION.map((option) => option)}
-                     renderTags={(value, getTagProps) =>
-                       value.map((option, index) => (
-                         <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                       ))
-                     }
-                     renderInput={(params) => <TextField 
-                      name="tradeableModel" label="모델명" helperText='모델명을 검색해주세요.'{...params} />}
-                   />
-                 )}
-               />}
-
+              {!tradechecked ? (
+                ''
+              ) : (
+                <Controller
+                  name="tradeModel"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      multiple
+                      onChange={(event, newValue) => field.onChange(newValue)}
+                      options={TRADEMODEL_OPTION.map((option) => option)}
+                      renderTags={(value, getTagProps) =>
+                        value.map((option, index) => (
+                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                        ))
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          name="tradeableModel"
+                          label="모델명"
+                          helperText="모델명을 검색해주세요."
+                          {...params}
+                        />
+                      )}
+                    />
+                  )}
+                />
+              )}
             </Card>
 
             <LoadingButton type="submit" variant="outlined" size="large" loading={isSubmitting}>
@@ -518,4 +533,3 @@ function jsonToFormData(data) {
     </FormProvider>
   );
 }
-

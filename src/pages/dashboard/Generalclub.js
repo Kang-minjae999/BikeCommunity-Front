@@ -1,6 +1,19 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box, CardContent, Container, Grid, Link, Stack, Typography, Alert ,Button, Divider, Card, CardHeader} from '@mui/material';
+import {
+  Box,
+  CardContent,
+  Container,
+  Grid,
+  Link,
+  Stack,
+  Typography,
+  Alert,
+  Button,
+  Divider,
+  Card,
+  CardHeader,
+} from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { common } from '@mui/material/colors';
 // icons
@@ -37,7 +50,6 @@ import Club from './Club';
 
 // ----------------------------------------------------------------------
 
-
 export default function Generalclub() {
   const theme = useTheme();
   const { themeStretch } = useSettings();
@@ -47,34 +59,32 @@ export default function Generalclub() {
     <Page title="General: App">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         {/* 데스크탑 */}
-      {isDesktop && (
+        {isDesktop && (
           <Grid container spacing={1}>
-           <Grid item xs={12} md={12}>
-          <Appclub/>
-          <Club />
-           </Grid> 
-         <Grid item xs={12} md={12} lg={12}>
-          <MainFooter />
-         </Grid>
-         </Grid>)}
+            <Grid item xs={12} md={12}>
+              <Appclub />
+              <Club />
+            </Grid>
+            <Grid item xs={12} md={12} lg={12}>
+              <MainFooter />
+            </Grid>
+          </Grid>
+        )}
 
-          {/* 모바일 */}
-          {!isDesktop && (
+        {/* 모바일 */}
+        {!isDesktop && (
           <Grid container spacing={1}>
-           <Grid item xs={12} md={12}>
-           <Appclub/>
-           
-          <Club />
-           </Grid>
-           <Grid item xs={12} md={12}>
-           <MainFooter />
-           </Grid>
-          </Grid>)}
+            <Grid item xs={12} md={12}>
+              <Appclub />
 
+              <Club />
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <MainFooter />
+            </Grid>
+          </Grid>
+        )}
       </Container>
     </Page>
   );
 }
-
-
-

@@ -13,7 +13,7 @@ import Page from '../../components/Page';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch, } from '../../sections/@dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
@@ -64,11 +64,11 @@ export default function BlogDingstas() {
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef,page]);
+  }, [isMountedRef, page]);
 
   // ---------------------------------------------
   const [api, setapi] = useState('');
-  const [param, setparam] = useState('')
+  const [param, setparam] = useState('');
 
   const getAllPosts2 = useCallback(async () => {
     try {
@@ -80,16 +80,16 @@ export default function BlogDingstas() {
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef,page,api,param]);
+  }, [isMountedRef, page, api, param]);
 
   useEffect(() => {
-    if(!param){
+    if (!param) {
       getAllPosts();
     }
-    if(param){
+    if (param) {
       getAllPosts2();
     }
-  }, [getAllPosts,getAllPosts2,param]);
+  }, [getAllPosts, getAllPosts2, param]);
 
   // --------------------------------------------------------------
 
@@ -116,15 +116,14 @@ export default function BlogDingstas() {
           links={[{ name: '' }]}
           action={
             <>
-            <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />  
+              <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
             </>
           }
           sx={{ mt: 2 }}
         />
-        <BlogPostsSearch setparam={setparam} setapi={setapi}/> 
+        <BlogPostsSearch setparam={setparam} setapi={setapi} />
 
-
-        <Grid container spacing={3} >
+        <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
             post ? (
               <Grid key={post.id} item xs={12} sm={6} md={3}>
@@ -135,13 +134,16 @@ export default function BlogDingstas() {
             )
           )}
         </Grid>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-          >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+          <Pagination
+            count={totalpage}
+            page={pagenation}
+            onChange={handleChange}
+            shape="rounded"
+            color="primary"
+            size="large"
+            sx={{ mt: 2 }}
+          />
         </Stack>
       </Container>
     </Page>

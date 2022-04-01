@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback, useState,useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate, useLocation } from 'react-router-dom';
 // form
@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { styled } from '@mui/material/styles';
-import { Grid, Chip, Stack,  Typography, Autocomplete, Button } from '@mui/material';
+import { Grid, Chip, Stack, Typography, Autocomplete, Button } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
@@ -18,9 +18,7 @@ import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
-const TAGS_OPTION = [
-  '모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'
-];
+const TAGS_OPTION = ['모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'];
 // ----------------------------------------------------------------------
 
 export default function BlogNewDingstaForm() {
@@ -28,10 +26,10 @@ export default function BlogNewDingstaForm() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   const NewBlogSchema = Yup.object().shape({
-    Images: Yup.array().min(1,"사진을 한가지이상 정해주세요!").required('사진을 올려주세요!'),
+    Images: Yup.array().min(1, '사진을 한가지이상 정해주세요!').required('사진을 올려주세요!'),
   });
 
   const defaultValues = {
@@ -56,24 +54,23 @@ export default function BlogNewDingstaForm() {
 
   const values = watch();
 
-   const onSubmit = async (data) => {
-    if(!Array.isArray(watch('tags'))){
+  const onSubmit = async (data) => {
+    if (!Array.isArray(watch('tags'))) {
       enqueueSnackbar('엔터나 추가 버튼을 눌러 태그를 추가해주세요!');
-      return ;
-    } 
-    if((watch('tags') === [])){
+      return;
+    }
+    if (watch('tags') === []) {
       enqueueSnackbar('태그를 추가해주세요!');
-      return ;
-    } 
+      return;
+    }
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-    data.tags.map((tag)=> formData.append('tags', tag))
+    const formData = new FormData();
+    data.tags.map((tag) => formData.append('tags', tag));
     data.Images.map((file) => formData.append('imageFiles', file));
-    formData.append('isPublic', data.isPublic)
-    formData.append('content', data.content)
+    formData.append('isPublic', data.isPublic);
+    formData.append('content', data.content);
     try {
-      await axios.post(`/dingsta/${user.nickname}`, formData ,
-      {
+      await axios.post(`/dingsta/${user.nickname}`, formData, {
         headers: {
           'content-type': 'multipart/form-data',
           authorization: accessToken,
@@ -84,8 +81,8 @@ export default function BlogNewDingstaForm() {
     } catch (error) {
       console.error(error);
     }
-  }; 
-  
+  };
+
   const handleDrops = useCallback(
     (acceptedFiles) => {
       setValue(
@@ -99,7 +96,7 @@ export default function BlogNewDingstaForm() {
     },
     [setValue]
   );
-  
+
   const handleRemoveAll = () => {
     setValue('Images', []);
   };
@@ -111,65 +108,59 @@ export default function BlogNewDingstaForm() {
 
   return (
     <>
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} >
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={10}>
-              <Stack spacing={2}>
-                <RHFUploadMultiFile
-                  name="Images"
-                  showPreview
-                  accept="image/*"
-                  maxSize={3145728}
-                  onDrop={handleDrops}
-                  onRemove={handleRemove}
-                  onRemoveAll={handleRemoveAll}
-                />
-                <RHFTextField name="content" label="내용" multiline minRows={5}/>
-                <Stack
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  spacing={2}
-                >
+            <Stack spacing={2}>
+              <RHFUploadMultiFile
+                name="Images"
+                showPreview
+                accept="image/*"
+                maxSize={3145728}
+                onDrop={handleDrops}
+                onRemove={handleRemove}
+                onRemoveAll={handleRemoveAll}
+              />
+              <RHFTextField name="content" label="내용" multiline minRows={5} />
+              <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
                 <Grid container spacing={1}>
                   <Grid item xs={9} md={9}>
-                <Controller
-                  name="tags"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      multiple
-                      freeSolo
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={TAGS_OPTION.map((option) => option)}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => (
-                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                        ))
-                      }
-                      renderInput={(params) => <RHFTextField name="tags" label="태그" {...params}/>}
+                    <Controller
+                      name="tags"
+                      control={control}
+                      render={({ field }) => (
+                        <Autocomplete
+                          multiple
+                          freeSolo
+                          onChange={(event, newValue) => field.onChange(newValue)}
+                          options={TAGS_OPTION.map((option) => option)}
+                          renderTags={(value, getTagProps) =>
+                            value.map((option, index) => (
+                              <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                            ))
+                          }
+                          renderInput={(params) => <RHFTextField name="tags" label="태그" {...params} />}
+                        />
+                      )}
                     />
-                  )}
-                />
-                </Grid>
-                <Grid item xs={3} md={3}>
-                  <RHFSwitch
-                    name="isPublic"
-                    label="공개"
-                    labelPlacement="start"
-                    sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
-                  /> 
-                </Grid>
+                  </Grid>
+                  <Grid item xs={3} md={3}>
+                    <RHFSwitch
+                      name="isPublic"
+                      label="공개"
+                      labelPlacement="start"
+                      sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
+                    />
+                  </Grid>
                 </Grid>
               </Stack>
-              <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting} >
+              <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting}>
                 올리기
               </LoadingButton>
-              </Stack>
+            </Stack>
           </Grid>
         </Grid>
       </FormProvider>
     </>
   );
 }
-
