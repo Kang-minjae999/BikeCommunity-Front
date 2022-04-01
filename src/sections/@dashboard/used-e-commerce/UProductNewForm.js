@@ -194,7 +194,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     data.images.map((file) => formData2.append('imagesFiles', file))  
 
 
-/*     formData.append('shBikeRequest', {title:data.title})
+    formData.append('shBikeRequest', {title:data.title})
     formData.append('shBikeRequest', {content:data.content})
     formData.append('shBikeRequest', {address:data.address})
     formData.append('shBikeRequest', {gearbox:data.gearbox})
@@ -208,14 +208,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('imageFiles', file))  */
+    data.images.map((file) => formData.append('imageFiles', file))  
  
 
     try {
-      await axios.post('/biketrade', {data:{
-        shBikeRequest:formData,
-        imagesFiles:formData2
-      }}, {
+      await axios.post('/biketrade', formData , {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
