@@ -147,17 +147,17 @@ export default function UserProfile() {
 
           <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>라이딩홈</Typography>}
+              label={<Typography variant='body2' color='black' fontWeight='bold'>갤러리</Typography>}
               value="gallery"
               icon={<Iconify icon={'ic:round-perm-media'} width={20} height={20} />}
             />
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>기록</Typography>}
+              label={<Typography variant='body2' color='black' fontWeight='bold'>게시글</Typography>}
               value="profile"
               icon={<TocIcon icon={'ic:round-perm-media'} width={20} height={20} />}
             />
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>}
+              label={<Typography variant='body2' color='black' fontWeight='bold'>판매글</Typography>}
               value="sell"
               icon={<LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />}
             />

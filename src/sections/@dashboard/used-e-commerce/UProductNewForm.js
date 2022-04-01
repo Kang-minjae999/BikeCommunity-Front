@@ -177,7 +177,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     formData.append('shBikeRequest', JSON.stringify(values))
-    formData.append('imagefiles', values.images)
+    data.images.map((file) => formData.append('imagesFiles', file))
 /*      const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
