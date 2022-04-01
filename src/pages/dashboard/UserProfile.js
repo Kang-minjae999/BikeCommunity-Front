@@ -159,7 +159,7 @@ export default function UserProfile() {
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>}
               value="sell"
-              icon={<ProfileFollowers followers={_userFollowers} />}
+              icon={<LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />}
             />
           </BottomNavigation>
 
