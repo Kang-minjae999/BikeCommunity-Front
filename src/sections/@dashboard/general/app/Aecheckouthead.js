@@ -16,6 +16,7 @@ import Apppost from '../../user/appmobile/Apppost';
 import Generalmarket from '../../../../pages/dashboard/Generalmarket';
 import Generalmarketu from '../../../../pages/dashboard/Generalmarketu';
 import EcommerceCheckout from '../../../../pages/dashboard/EcommerceCheckout';
+import UEcommerceCheckout from '../../../../pages/dashboard/UEcommerceCheckout';
 
 export default function Aecheckouthead() {
   const [value, setValue] = useState('new');
@@ -43,7 +44,7 @@ export default function Aecheckouthead() {
     },
     {
       value: 'used',
-      component: <Generalmarket />,
+      component: <UEcommerceCheckout />,
     },
     {
       value: 'like',
@@ -60,7 +61,7 @@ export default function Aecheckouthead() {
       <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
           label={
-            <Typography variant="h6" color="black">
+            <Typography variant="subtitle2" color="black">
               신품
             </Typography>
           }
@@ -68,7 +69,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="h6" color="black">
+            <Typography variant="subtitle2" color="black">
               중고
             </Typography>
           }
@@ -76,7 +77,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="h6" color="black">
+            <Typography variant="subtitle2" color="black">
               찜
             </Typography>
           }
@@ -84,7 +85,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="h6" color="black">
+            <Typography variant="subtitle2" color="black">
               결제
             </Typography>
           }
