@@ -174,6 +174,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const onSubmit = async (data) => {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
+    console.log(watch('title'))
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
 /*     const formData2 = new FormData()
