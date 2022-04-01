@@ -176,7 +176,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setValue('title', `[${watch('modelName')}] ${watch('title')}`)
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
-   /*  const formData2 = new FormData()
+     const formData2 = new FormData()
     formData.append('title', data.title)
     formData.append('content', data.content)
     formData.append('address', data.address)
@@ -192,10 +192,9 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('isCrashed', data.isCrashed)
     data.tradeableModel.map((model) => formData.append('tradeableModel', model))
     data.images.map((file) => formData2.append('images', file)) 
-    // 합치기 */
 
 
-     formData.append('shBikeRequest', {title:data.title})
+    /* formData.append('shBikeRequest', {title:data.title})
     formData.append('shBikeRequest', {content:data.content})
     formData.append('shBikeRequest', {address:data.address})
     formData.append('shBikeRequest', {gearbox:data.gearbox})
@@ -209,11 +208,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('images', file))
+    data.images.map((file) => formData.append('images', file)) */
  
 
     try {
-      await axios.post('/biketrade', formData, {
+      await axios.post('/biketrade', {shBikeRequest:formData,images:formData2}, {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
