@@ -171,6 +171,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentProduct]);
 
+
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
@@ -189,11 +190,29 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('negoable', data.negoable)
     formData.append('tradeable', data.tradeable)
     formData.append('isCrashed', data.isCrashed)
-    data.tradeableModel.map((model) => formData.append('trademodel', model))
+    data.tradeableModel.map((model) => formData.append('tradeableModel', model))
     data.images.map((file) => formData2.append('images', file)) 
     // 합치기
     formData3.append('shBikeRequest', formData)
     formData3.append('images', formData2)
+
+
+/*     formData.append('shBikeRequest', {title:data.title})
+    formData.append('shBikeRequest', {content:data.content})
+    formData.append('shBikeRequest', {address:data.address})
+    formData.append('shBikeRequest', {gearbox:data.gearbox})
+    formData.append('shBikeRequest', {brand:data.brand})
+    formData.append('shBikeRequest', {modelName:data.modelName})
+    formData.append('shBikeRequest', {year:data.year})
+    formData.append('shBikeRequest', {displacement:data.displacement})
+    formData.append('shBikeRequest', {mileage:data.mileage})
+    formData.append('shBikeRequest', {price:data.price})
+    formData.append('shBikeRequest', {negoable:data.negoable})
+    formData.append('shBikeRequest', {tradeable:data.tradeable})
+    formData.append('shBikeRequest', {isCrashed:data.isCrashed})
+    data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
+    data.images.map((file) => formData.append('images', file)) + formData */
+
     try {
       await axios.post('/biketrade', formData3, {
         headers: {
@@ -298,7 +317,9 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                 </Button> 
               {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
                {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />}
-                <Controller
+               
+              <RHFSwitch name='gearbox' label='사고유무' labelPlacement='start'/> 
+{/*                 <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (
@@ -316,7 +337,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                         placeholder='종류' />}
                     />
                   )}
-                />  
+                />  */} 
 
                 <Controller
                   name="brand"
