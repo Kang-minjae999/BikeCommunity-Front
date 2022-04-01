@@ -2,21 +2,12 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useNavigate } from 'react-router-dom';
-import { Card, Paper, Typography, Box, Stack, Divider, CardHeader } from '@mui/material';
-import Apphome from '../../user/appmobile/Apphome';
-import Appecommerce from '../../user/appmobile/Appecommerce';
-import Appusedecommerce from '../../user/appmobile/Appusedecommerce';
-import Appgarage from '../../user/appmobile/Appgarage';
-import Apppost from '../../user/appmobile/Apppost';
-import Generalmarket from '../../../../pages/dashboard/Generalmarket';
-import Generalmarketu from '../../../../pages/dashboard/Generalmarketu';
+import {  Typography,  Stack, Divider,  } from '@mui/material';
 import EcommerceCheckout from '../../../../pages/dashboard/EcommerceCheckout';
 import UEcommerceCheckout from '../../../../pages/dashboard/UEcommerceCheckout';
+import EcommerceHeart from '../../../../pages/dashboard/EcommerceHeart';
+import EcommercePaymentList from '../../../../pages/dashboard/EcommercePaymentList';
 
 export default function Aecheckouthead() {
   const [value, setValue] = useState('new');
@@ -48,11 +39,11 @@ export default function Aecheckouthead() {
     },
     {
       value: 'like',
-      component: <Generalmarketu />,
+      component: <EcommerceHeart />,
     },
     {
       value: 'check',
-      component: <Appgarage />,
+      component: <EcommercePaymentList />,
     },
   ];
 
@@ -61,7 +52,7 @@ export default function Aecheckouthead() {
       <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
           label={
-            <Typography variant="subtitle2" color="black">
+            <Typography variant="subtitle2" color="common.black">
               신품
             </Typography>
           }

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
@@ -33,11 +33,14 @@ export default function ShopProductSearch({setparam}) {
 
   const dispatch = useDispatch();
 
+  const ref = useRef()
+
   const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
 
   const searchResults = [];
+
 
   const handleChangeSearch = (value) => {
       setSearchQuery(value);
@@ -52,11 +55,14 @@ export default function ShopProductSearch({setparam}) {
     if (event.key === 'Enter') {
       dispatch(addSearch(searchQuery))
       setparam(searchQuery)
+      document.activeElement.blur()
     }
   };
 
+
   return (
     <Autocomplete
+      closeText='close'
       size="small"
       autoHighlight
       popupIcon={null}

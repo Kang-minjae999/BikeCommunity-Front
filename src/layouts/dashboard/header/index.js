@@ -109,7 +109,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
         <Link component={RouterLink} to="/dashboard/all-e-commerce/checkout"underline="none" sx={{mt:1}}>     
           <LocalGroceryStoreIcon color='primary'/>
         </Link>
-          <AccountPopover color='primary' onOpenSidebar={onOpenSidebar}/>
+          <AccountPopover color='primary'/>
         </Stack>
         </Toolbar>  
         {!isDesktop &&

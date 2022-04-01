@@ -29,7 +29,7 @@ import {
 
 const GEARBOX_OPTION = 
 [
-  true, false,
+  '메뉴얼', '스쿠터',
 ];
 
 const BRAND_OPTION = [
@@ -105,20 +105,20 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const NewProductSchema = Yup.object().shape({
-    title: Yup.string().required('상품명이 필요합니다.'),
-/*     content: Yup.string().required('상품설명이 필요합니다.'),
+    title: Yup.string().required('상품명이 필요해요.'),
+    content: Yup.string().required('상품설명이 필요해요.'),
     images: Yup.array().min(1, '사진을 한 장 이상 올려주세요.'),
-    address: Yup.string().required('주소가 필요합니다.'),
+    address: Yup.string().required('주소가 필요해요.'),
     gearbox: Yup.string().required('종류를 선택해주세요.'),
-    brand: Yup.string().required('설명이 필요합니다.'),
-    modelName: Yup.string().required('모델명이 필요합니다.'),
+    brand: Yup.string().required('설명이 필요해요.'),
+    modelName: Yup.string().required('모델명이 필요해요.'),
     displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000,'배기량을 알맞게 입력해주세요.').nullable(),
     mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.'),
     year: Yup.string().min(4, '년식을 입력해주세요.').max(4, '년식을 입력해주세요.').nullable(),
-    price: Yup.number().moreThan(0, '가격은 0원 이상입니다.'),
+    price: Yup.number().moreThan(0, '가격은 0원 이상이에요.'),
     negoable: Yup.boolean(),
     tradeable: Yup.boolean(),
-    isCrashed: Yup.boolean(), */
+    isCrashed: Yup.boolean(), 
   });
 
   const defaultValues = useMemo(
@@ -127,11 +127,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       content: currentProduct?.content || 'asdfasf',
       images: currentProduct?.images || [],
       address: currentProduct?.address || 'fasdfasf',
-      gearbox: currentProduct?.gearbox || false,
+      gearbox: currentProduct?.gearbox || '메뉴얼',
       brand: currentProduct?.brand || 'asdfsfa',
       modelName: currentProduct?.modelName || 'asdf',  
       year: currentProduct?.year || 2000,     
-      displacement: currentProduct?.displacement || 100000,
+      displacement: currentProduct?.displacement || 100,
       mileage: currentProduct?.mileage || 10000,   
       price: currentProduct?.price || 1000000,
       negoable: currentProduct?.negoable || false, 
@@ -168,44 +168,82 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     if (!isEdit) {
       reset(defaultValues);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentProduct]);
+  }, [isEdit, currentProduct, defaultValues, reset]);
+
+  const [gearboxPost, setGearboxPost] = useState()
+  
+  const [titlePost, setTitlePost] = useState()
+
+  useEffect(() => {
+    if (values.gearbox === '메뉴얼') {
+      setGearboxPost(true);
+    }
+    if (values.gearbox === '스쿠터') {
+      setGearboxPost(false);
+    }
+  }, [values]);
+
+  useEffect(() => {
+    setTitlePost(`[${values.modelName}] ${values.title}`)
+  }, [values.title, values.modelName]);
+
+   const getFormData = object => Object.keys(object).reduce((formData, key) => {
+    formData.append(key, object[key]);
+    return formData;
+}, new FormData()); 
+ getFormData(values) 
+ function buildFormData(formData, data, parentKey) {
+  if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File) && !(Array.isArray(data) && !data.length)) {
+    Object.keys(data).forEach(key => {
+      buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+    });
+  } else {
+    const value = data === null ? '' : data;
+
+    formData.append(parentKey, value);
+  }
+}
+
+function jsonToFormData(data) {
+  const formData = new FormData();
+  
+  buildFormData(formData, data);
+  
+  return formData;
+}
 
 
-  const onSubmit = async (data) => {
-    setValue('title', `[${watch('modelName')}] ${watch('title')}`)
-    console.log(watch('title'))
+
+/* function getFormData(object) {
+  const formData = new FormData();
+  Object.keys(object).forEach(key => {
+    if (typeof object[key] !== 'object') formData.append(key, object[key])
+    else formData.append(key, JSON.stringify(object[key]))
+  })
+  return formData;
+} */
+
+  const onSubmit = async () => {
+
+  
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-/*     const formData2 = new FormData()
-    formData.append('shBikeRequest.title', values) */
-  /*   data.images.map((file) => formData.append('imagesFiles', file)) */
-     
-/*     formData.append('shBikeRequestTwo.title', title:data.title)
-    formData.append('shBikeRequestTwo.content', data.content)
-    formData.append('shBikeRequestTwo.address', data.address)
-    formData.append('shBikeRequestTwo.gearbox', data.gearbox)
-    formData.append('shBikeRequestTwo.brand', data.brand)
-    formData.append('shBikeRequestTwo.modelName', data.modelName)
-    formData.append('shBikeRequestTwo.year', data.year)
-    formData.append('shBikeRequestTwo.displacement', data.displacement)
-    formData.append('shBikeRequestTwo.mileage', data.mileage)
-    formData.append('shBikeRequestTwo.price', data.price)
-    formData.append('shBikeRequestTwo.negoable', data.negoable)
-    formData.append('shBikeRequestTwo.tradeable', data.tradeable)
-    formData.append('shBikeRequestTwo.isCrashed', data.isCrashed)
-    data.tradeableModel.map((model) => formData.append('shBikeRequestTwo.tradeableModel', model))
- */    
-    data.images.map((file) => formData.append('imagesFiles', {
+   /*  const formData = new FormData()  */
+
+/*     data.images.map((file) => formData.append('imagesFiles', {
       name:file.filename,
       type:'image/jpeg',
       uri: file.uri
-      })) 
-       
-    formData.append('shBikeRequest', {title:data.title})
+      }))  */
+
+     /*  // ex
+      formData.append('shBikeRequest', JSON.stringify(values)) */
+
+   /*  data.images.map((file) => formData.append('imagesFiles', file))  
+
+    formData.append('shBikeRequest', {title:titlePost})
     formData.append('shBikeRequest', {content:data.content})
     formData.append('shBikeRequest', {address:data.address})
-    formData.append('shBikeRequest', {gearbox:data.gearbox})
+    formData.append('shBikeRequest', {gearbox:gearboxPost})
     formData.append('shBikeRequest', {brand:data.brand})
     formData.append('shBikeRequest', {modelName:data.modelName})
     formData.append('shBikeRequest', {year:data.year})
@@ -216,11 +254,13 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     formData.append('shBikeRequest', {tradeable:data.tradeable})
     formData.append('shBikeRequest', {isCrashed:data.isCrashed})
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
-    data.images.map((file) => formData.append('imageFiles', file))  
+    data.images.map((file) => formData.append('imageFiles', file))   */
+
+    const data= jsonToFormData(values) 
   
 
     try {
-      await axios.post('/biketrade', formData , {
+      await axios.post('/biketrade', data , {
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
@@ -322,10 +362,9 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   지역찾기
                 </Button> 
               {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-               {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!'  autoComplete="false" />}
+               {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!' label='지역' autoComplete="false" />}
                
-              <RHFSwitch name='gearbox' label='기어박스' labelPlacement='start'/> 
-                {/*  <Controller
+                <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (
@@ -343,7 +382,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                         placeholder='종류' />}
                     />
                   )}
-                />  */} 
+                />  
 
                 <Controller
                   name="brand"

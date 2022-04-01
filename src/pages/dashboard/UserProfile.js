@@ -136,21 +136,71 @@ export default function UserProfile() {
             { name: '' },
           ]}
         />} 
-{/*         <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={0}
-      >
-          <Card sx={{width:'100%', height:300}}>
-          <ProfileCover nickname={nickname} />
+          <Card >
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={0}
+              >
+            <Box>
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              spacing={0}
+            >
+            <Avatar sx={{width:40,height:40, mx:1 ,my:1}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
+            <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;일론머스크&nbsp;</Typography> 
+            </Stack>
+            </Box>
+            <Stack
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={2}
+                sx={{mr:2}}
+                >
+                <Box >
+                  <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0}
+                  >
+                    <Typography variant="subtitle2" >게시글</Typography>
+                    <Typography variant="body2" >141</Typography>
+                  </Stack>
+                </Box>
+
+              <Box >
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={0}
+                >
+                  <Typography variant="subtitle2" >판매글</Typography>
+                  <Typography variant="body2" >50</Typography>
+                </Stack>
+              </Box>
+              <Box >
+                <Stack
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={0}
+                >
+                  <Typography variant="subtitle2" >좋아요</Typography>
+                  <Typography variant="body2" >1645</Typography>
+                </Stack>
+              </Box>
+              </Stack>
+            </Stack>
+            <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' />
           </Card>
-          </Stack> */}
-          <Avatar sx={{width:40,height:40}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
-        <Typography variant="h4">&nbsp;일론머스크&nbsp;</Typography> 
-          <Card>
-          <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' />
-          </Card>
+            
+            
           <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , mt:2}} value={value} onChange={handleChange}>
             <BottomNavigationAction
               label={<Typography variant='body2' color='black' fontWeight='bold'>갤러리</Typography>}

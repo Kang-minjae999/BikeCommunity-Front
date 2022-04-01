@@ -18,11 +18,8 @@ import MyAvatar from '../../../components/MyAvatar';
 
 
 // ----------------------------------------------------------------------
-AccountPopover.propTypes = {
-  onOpenSidebar: PropTypes.func,
-};
 
-export default function AccountPopover({ onOpenSidebar }) {
+export default function AccountPopover() {
   const navigate = useNavigate();
 
   const { user, logout } = useAuth();
@@ -151,14 +148,6 @@ const MENU_OPTIONS = [
               {option.label}
             </MenuItem>
           ))}
-          <MenuItem
-            onClick={() => {
-              onOpenSidebar();
-              handleClose();
-            }}
-          >
-            메뉴로보기
-          </MenuItem>
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
