@@ -109,7 +109,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     content: Yup.string().required('상품설명이 필요해요.'),
     images: Yup.array().min(1, '사진을 한 장 이상 올려주세요.'),
     address: Yup.string().required('주소가 필요해요.'),
-    gearbox: Yup.string().required('종류를 선택해주세요.'),
+    gearbox: Yup.boolean(),
     brand: Yup.string().required('설명이 필요해요.'),
     modelName: Yup.string().required('모델명이 필요해요.'),
     displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000,'배기량을 알맞게 입력해주세요.').nullable(),
@@ -213,7 +213,6 @@ function jsonToFormData(data) {
 }
 
 
-
 /* function getFormData(object) {
   const formData = new FormData();
   Object.keys(object).forEach(key => {
@@ -256,7 +255,7 @@ function jsonToFormData(data) {
     data.tradeableModel.map((model) => formData.append('shBikeRequest', {tradeableModel:model}))
     data.images.map((file) => formData.append('imageFiles', file))   */
 
-    const data= jsonToFormData(values) 
+    const data = jsonToFormData(values) 
   
 
     try {
@@ -364,7 +363,8 @@ function jsonToFormData(data) {
               {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
                {address && <RHFTextField name="address" placeholder='지역은 (도/시/군/구)만 남아요!' label='지역' autoComplete="false" />}
                
-                <Controller
+              <RHFSwitch name='gearbox' label='사고유무' labelPlacement='start'/> 
+                {/* <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (
@@ -382,7 +382,7 @@ function jsonToFormData(data) {
                         placeholder='종류' />}
                     />
                   )}
-                />  
+                />   */}
 
                 <Controller
                   name="brand"
