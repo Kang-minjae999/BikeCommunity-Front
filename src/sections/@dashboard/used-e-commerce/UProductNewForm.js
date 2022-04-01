@@ -127,7 +127,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       content: currentProduct?.content || 'asdfasf',
       images: currentProduct?.images || [],
       address: currentProduct?.address || 'fasdfasf',
-      gearbox: currentProduct?.gearbox || '메뉴얼',
+      gearbox: currentProduct?.gearbox || false,
       brand: currentProduct?.brand || 'asdfsfa',
       modelName: currentProduct?.modelName || 'asdf',  
       year: currentProduct?.year || 2000,     
@@ -174,14 +174,14 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   
   const [titlePost, setTitlePost] = useState()
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (values.gearbox === '메뉴얼') {
       setGearboxPost(true);
     }
     if (values.gearbox === '스쿠터') {
       setGearboxPost(false);
     }
-  }, [values]);
+  }, [values]); */
 
   useEffect(() => {
     setTitlePost(`[${values.modelName}] ${values.title}`)
