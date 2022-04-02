@@ -83,7 +83,7 @@ export default function UEcommerceProductDetails() {
       const response = await axios.get(`/biketrade/${id}`);
   
       if (isMountedRef.current) {
-        setProduct(response.data.data);
+        setProduct(response.data);
       }
     } catch (error) {
       setError(error)

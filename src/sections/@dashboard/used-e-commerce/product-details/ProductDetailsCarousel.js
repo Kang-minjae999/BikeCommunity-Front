@@ -41,7 +41,7 @@ export default function ProductDetailsCarousel({ images }) {
 
   const slider2 = useRef(null);
 
-  const imagesLightbox = images.map((image) => image);
+  const imagesLightbox = images?.map((image) => image);
 
   const handleOpenLightbox = (url) => {
     const selectedImage = imagesLightbox.findIndex((index) => index === url);
@@ -67,7 +67,7 @@ export default function ProductDetailsCarousel({ images }) {
     focusOnSelect: true,
     variableWidth: true,
     centerPadding: '0px',
-    slidesToShow: images.length > 3 ? 3 : images.length,
+    slidesToShow: images?.length > 3 ? 3 : images?.length,
   };
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export default function ProductDetailsCarousel({ images }) {
       <Box sx={{ p: 1 }}>
         <Box sx={{ zIndex: 0, borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
           <Slider {...settings1} asNavFor={nav2} ref={slider1}>
-            {images.map((img) => (
+            {images?.map((img) => (
               <Image
                 key={img}
                 alt="large image"
@@ -105,7 +105,7 @@ export default function ProductDetailsCarousel({ images }) {
           </Slider>
           <CarouselArrowIndex
             index={currentIndex}
-            total={images.length}
+            total={images?.length}
             onNext={handleNext}
             onPrevious={handlePrevious}
           />
@@ -117,12 +117,12 @@ export default function ProductDetailsCarousel({ images }) {
           my: 3,
           mx: 'auto',
           '& .slick-current .isActive': { opacity: 1 },
-          ...(images.length === 1 && { maxWidth: THUMB_SIZE * 1 + 16 }),
-          ...(images.length === 2 && { maxWidth: THUMB_SIZE * 2 + 32 }),
-          ...(images.length === 3 && { maxWidth: THUMB_SIZE * 3 + 48 }),
-          ...(images.length === 4 && { maxWidth: THUMB_SIZE * 3 + 48 }),
-          ...(images.length >= 5 && { maxWidth: THUMB_SIZE * 6 }),
-          ...(images.length > 2 && {
+          ...(images?.length === 1 && { maxWidth: THUMB_SIZE * 1 + 16 }),
+          ...(images?.length === 2 && { maxWidth: THUMB_SIZE * 2 + 32 }),
+          ...(images?.length === 3 && { maxWidth: THUMB_SIZE * 3 + 48 }),
+          ...(images?.length === 4 && { maxWidth: THUMB_SIZE * 3 + 48 }),
+          ...(images?.length >= 5 && { maxWidth: THUMB_SIZE * 6 }),
+          ...(images?.length > 2 && {
             position: 'relative',
             '&:before, &:after': {
               top: 0,
@@ -141,7 +141,7 @@ export default function ProductDetailsCarousel({ images }) {
         }}
       >
         <Slider {...settings2} asNavFor={nav1} ref={slider2}>
-          {images.map((img, index) => (
+          {images?.map((img, index) => (
             <Box key={img} sx={{ px: 0.75 }}>
               <Image
                 disabledEffect
