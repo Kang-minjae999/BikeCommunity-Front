@@ -1,9 +1,9 @@
-import react, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types';
+import {useEffect, useState} from 'react'
 import axios from 'axios';
-import { Alert, Box, Card, Grid, Typography } from '@mui/material';
+import { Alert, Box,  Grid } from '@mui/material';
 // -----------------------------------------
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import AlarmIcon from '@mui/icons-material/Alarm';
 import BoltIcon from '@mui/icons-material/Bolt';
 import UmbrellaIcon from '@mui/icons-material/Umbrella';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
@@ -13,14 +13,16 @@ import AirIcon from '@mui/icons-material/Air';
 // ----------------------------------------
 import Appweathercontentride from '../../sections/@dashboard/general/app/Appweathercontentride';
 import Appweathercontent2ride from '../../sections/@dashboard/general/app/Appweathercontent2ride';
-
-
-
-
-
 // ----------------------------------------------------------------------
+GeneralMapweather.propTypes = {
+  wealat: PropTypes.number,
+  wealng: PropTypes.number,
+  weatherok: PropTypes.bool,
+  name: PropTypes.string,
+};
 
-export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok , name}) {
+
+export default function GeneralMapweather({wealat,wealng,weatherok, name}) {
   const API = 'ac90d9bee65995d552b23505a49fb30a'
   const [lat, setlat] = useState('');
   const [lng, setlng] = useState('');
@@ -28,8 +30,6 @@ export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok 
   const [weathername, setweathername] = useState('');
   const [weathericon2, setweathericon2] = useState('');
   const [weathername2, setweathername2] = useState('');
-  const [weatheralert, setweatheralert] = useState(0);
-  const [weatheralert2, setweatheralert2] = useState(0);
   const [weatheralert3, setweatheralert3] = useState(null);
   const [weather, setweather] = useState('');
   const [weather2, setweather2] = useState('');
@@ -56,14 +56,14 @@ export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok 
     if(lat !== '' && lng !== ''){
       axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=Kr&appid=${API}`)
       .then((responseData) => {
-        const data = responseData.data;
+        const datas = responseData.data
         setweather({
-          id: data.weather[0].id,
-          temperature: `${(data.main.temp-273.15).toFixed(1)}℃`,
-          main: data.weather[0].main,
-          description: data.weather[0].description,
+          id: datas.weather[0].id,
+          temperature: `${(datas.main.temp-273.15).toFixed(1)}℃`,
+          main: datas.weather[0].main,
+          description: datas.weather[0].description,
           loading: false,
-          name: data.name,
+          name: datas.name,
         });
       });
      }} 
@@ -72,7 +72,7 @@ export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok 
       setlat('');
       setlng('');
      }
- }, [lat ,lng]);
+ }, [lat ,lng, istrue]);
 
 
   
@@ -80,15 +80,15 @@ export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok 
   componentDidMount()
   if(istrue && lat !== '' && lng !== ''){
   if(lat !== '' && lng !== ''){
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&lang=Kr&cnt=2&appid=${API}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&lang=Kr&cnt=1&appid=${API}`)
     .then((responseData) => {
-      const data = responseData.data.list[1]; 
       const datas = responseData.data; 
+      console.log(datas)
       setweather2({
-        id: data.weather[0].id,
-        temperature: `${(data.main.temp-273.15).toFixed(1)}℃`,
-        main: data.weather[0].main,
-        description: data.weather[0].description,
+        id: datas.list[0].weather[0].id,
+        temperature: `${(datas.list[0].main.temp-273.15).toFixed(1)}℃`,
+        main: datas.list[0].weather[0].main,
+        description: datas.list[0].weather[0].description,
         loading: false,
         name: datas.city.name,
       });
@@ -99,33 +99,28 @@ export default function GeneralMapweather({wealat,wealng,weatherok,setweatherok 
     setlat('');
     setlng('');
    }
-}, [lat,lng]);
+}, [lat,lng, istrue]);
 
 useEffect(() => {
   if ((weather.id >= 200) && (weather.id <= 250)){
     setweathericon(<BoltIcon/>) 
     setweathername('천둥번개')
-    setweatheralert(1)
   }
   if ((weather.id >= 300) && (weather.id <= 350)){
     setweathericon(<UmbrellaIcon/>) 
     setweathername('이슬비')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if ((weather.id >= 500) && (weather.id <= 550)){
     setweathericon(<UmbrellaIcon/>) 
     setweathername('비')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if ((weather.id >= 600) && (weather.id <= 650)){
     setweathericon(<AcUnitIcon/>) 
     setweathername('눈')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if ((weather.id >= 700) && (weather.id <= 750)){
     setweathericon(<WaterIcon/>) 
     setweathername('안개')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if (weather.id === 800){
     setweathericon(<WbSunnyIcon/>) 
@@ -138,7 +133,6 @@ useEffect(() => {
   if ((weather.id >= 900) && (weather.id <= 910)){
     setweathericon(<DangerousIcon/>) 
     setweathername('위험')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if ((weather.id >= 951) && (weather.id <= 955)){
     setweathericon(<AirIcon/>) 
@@ -147,12 +141,10 @@ useEffect(() => {
   if ((weather.id >= 956) && (weather.id <= 959)){
     setweathericon(<AirIcon/>) 
     setweathername('강풍')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
   if ((weather.id >= 957) && (weather.id <= 1000)){
     setweathericon(<DangerousIcon/>) 
     setweathername('위험')
-    setweatheralert('라이딩이 위험할 수 있어요!')
   }
 }, [weather]);
 
@@ -160,27 +152,22 @@ useEffect(() => {
   if ((weather2.id >= 200) && (weather2.id <= 250)){
     setweathericon2(<BoltIcon/>) 
     setweathername2('천둥번개')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 300) && (weather2.id <= 350)){
     setweathericon2(<UmbrellaIcon/>) 
     setweathername2('이슬비')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 500) && (weather2.id <= 550)){
     setweathericon2(<UmbrellaIcon/>) 
     setweathername2('비')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 600) && (weather2.id <= 650)){
     setweathericon2(<AcUnitIcon/>) 
     setweathername2('눈')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 700) && (weather2.id <= 750)){
     setweathericon2(<WaterIcon/>) 
     setweathername2('안개')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if (weather2.id === 800){
     setweathericon2(<WbSunnyIcon/>) 
@@ -193,7 +180,6 @@ useEffect(() => {
   if ((weather2.id >= 900) && (weather2.id <= 910)){
     setweathericon2(<DangerousIcon/>) 
     setweathername2('위험')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 951) && (weather2.id <= 955)){
     setweathericon2(<AirIcon/>) 
@@ -202,18 +188,16 @@ useEffect(() => {
   if ((weather2.id >= 956) && (weather2.id <= 959)){
     setweathericon2(<AirIcon/>) 
     setweathername2('강풍')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
   if ((weather2.id >= 957) && (weather2.id <= 1000)){
     setweathericon2(<DangerousIcon/>) 
     setweathername2('위험')
-    setweatheralert2('라이딩이 위험할 수 있어요!')
   }
 }, [weather2]);
 
 useEffect(() => {
   if(weathername !== '' || weathername2 !== ''){
-  if (weathername !== '맑음' || weathername2 !== '맑음' ){
+  if (weathername !== '맑음' || weathername2 !== '맑음' || weathername !== '구름' || weathername2 !== '구름' ){
     setweatheralert3('라이딩이 위험할 수 있어요!')
   }else{
     setweatheralert3(null)

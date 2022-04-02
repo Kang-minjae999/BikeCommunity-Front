@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // @mui
-import { Box, Container, Typography, Card, Stack, Avatar, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { Box,  Container, Typography, Card, Stack, Avatar, BottomNavigation, BottomNavigationAction } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 // routes
@@ -15,25 +15,26 @@ import { _userFollowers } from '../../_mock';
 // components
 
 import Image from '../../components/Image';
-import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import {
   Profile,
   ProfileGallery,
   ProfileFollowers,
 } from '../../sections/@dashboard/user/profile';
+import useAuth from '../../hooks/useAuth';
+
 // ----------------------------------------------------------------------
 
-export default function UserProfile() {
+
+export default function RidingProfile() {
   const { themeStretch } = useSettings();
+
+  const {user} = useAuth()
 
   const isMountedRef = useIsMountedRef();
 
   const navigate = useNavigate()
-
-  const { nickname = '' } = useParams();
 
   const [post, setPost] = useState(null);
 
@@ -43,15 +44,15 @@ export default function UserProfile() {
 
 
   useEffect(() => {  
-    if(nickname === undefined || nickname === 'undefined'){
+    if(user?.nickname === undefined || user?.nickname === 'undefined'){
       navigate('/auth/login')
     }
-  }, [nickname, navigate])
+  }, [user, navigate])
   
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/nickname/${nickname}`);
+      const response = await axios.get(`/dingsta/nickname/${user?.nickname}`);
 
       if (isMountedRef.current) {
         setPost(response.data.data.content);
@@ -60,7 +61,7 @@ export default function UserProfile() {
       console.error(error);
       setError('서버와의 연결이 이상해요!');
     }
-  }, [isMountedRef, nickname]);
+  }, [isMountedRef, user]);
   
   useEffect(() => {
     getPost();
@@ -107,14 +108,7 @@ export default function UserProfile() {
   ];
 
   return (
-    <Page title="프로필">
       <Container maxWidth={themeStretch ? false : 'md'} sx={{mt:2}}>
-        {isDesktop && <HeaderBreadcrumbs
-          heading="프로필"
-          links={[
-            { name: '' },
-          ]}
-        />} 
           <Card >
             <Stack
               direction="row"
@@ -204,6 +198,5 @@ export default function UserProfile() {
         })}
         {error && <Typography sx={{mt:10}}>{error}</Typography>}
       </Container>
-    </Page>
   );
 }

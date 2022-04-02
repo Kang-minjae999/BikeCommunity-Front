@@ -30,10 +30,7 @@ ShopProductSearch.propTypes = {
 };
 
 export default function ShopProductSearch({setparam}) {
-
   const dispatch = useDispatch();
-
-  const ref = useRef()
 
   const isDeskTop = useResponsive('up','lg')
 

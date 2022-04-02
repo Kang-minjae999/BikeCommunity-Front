@@ -8,7 +8,7 @@ const BRAND_OPTION = [
     value:'yamaha',
     },
     { 
-    label:'스즈끼',
+    label:'스즈키',
     value:'suzuki',
     },
     { 

@@ -1,7 +1,7 @@
 const ROYALALLOY_OPTION = 
-[{value:'GP 125 AC'},
-{value:'GP 125 LC'},
-{value:'GP 200 LC'},
-{value:'GT 125 I'},]
+[{value:'GP125AC'},
+{value:'GP125LC'},
+{value:'GP200LC'},
+{value:'GT125I'},]
 
 export default ROYALALLOY_OPTION

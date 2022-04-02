@@ -1,1173 +1,1173 @@
-const YAMAHA_OPTION = [
+const YAMAHA_OPTION=[
 {
-value:' AEROX 155 ABS'
+value:'AEROX155ABS'
 },
 {
-value:' AEROX R'
+value:'AEROXR'
 },
 {
-value:' BW 80S'
+value:'BW80S'
 },
 {
-value:' CA 50'
+value:'CA50'
 },
 {
-value:' CE 50'
+value:'CE50'
 },
 {
-value:' CH 50'
+value:'CH50'
 },
 {
-value:' CR 50 Z'
+value:'CR50Z'
 },
 {
-value:' CT 50 S'
+value:'CT50S'
 },
 {
-value:' CV 50'
+value:'CV50'
 },
 {
-value:' CV 80'
+value:'CV80'
 },
 {
-value:' CW 50'
+value:'CW50'
 },
 {
-value:' CY 50 F'
+value:'CY50F'
 },
 {
-value:' DT 125 R'
+value:'DT125R'
 },
 {
-value:' DT 200 WR'
+value:'DT200WR'
 },
 {
-value:' DT 230'
+value:'DT230'
 },
 {
-value:' DT 50'
+value:'DT50'
 },
 {
-value:' DT 50 LC'
+value:'DT50LC'
 },
 {
-value:' DT 600'
+value:'DT600'
 },
 {
-value:' DT M 900'
+value:'DTM900'
 },
 {
-value:' EC 02'
+value:'EC02'
 },
 {
-value:' EZ 400'
+value:'EZ400'
 },
 {
-value:' FJ 1100'
+value:'FJ1100'
 },
 {
-value:' FJ 1200'
+value:'FJ1200'
 },
 {
-value:' FJR 1300'
+value:'FJR1300'
 },
 {
-value:' FJR 1300 A'
+value:'FJR1300A'
 },
 {
-value:' FJR 1300 AS'
+value:'FJR1300AS'
 },
 {
-value:' FZ 1 N'
+value:'FZ1N'
 },
 {
-value:' FZ 1 S'
+value:'FZ1S'
 },
 {
-value:' FZ 16'
+value:'FZ16'
 },
 {
-value:' FZ 400'
+value:'FZ400'
 },
 {
-value:' FZ 6'
+value:'FZ6'
 },
 {
-value:' FZ 6 N'
+value:'FZ6N'
 },
 {
-value:' FZ 6 R'
+value:'FZ6R'
 },
 {
-value:' FZ 6 S'
+value:'FZ6S'
 },
 {
-value:' FZ 8 N'
+value:'FZ8N'
 },
 {
-value:' FZ 8 S'
+value:'FZ8S'
 },
 {
-value:' FZ S'
+value:'FZS'
 },
 {
-value:' FZR 1000'
+value:'FZR1000'
 },
 {
-value:' FZR 1300 A'
+value:'FZR1300A'
 },
 {
-value:' FZR 250 R'
+value:'FZR250R'
 },
 {
-value:' FZR 400'
+value:'FZR400'
 },
 {
-value:' FZR 400 RR'
+value:'FZR400RR'
 },
 {
-value:' FZR 600'
+value:'FZR600'
 },
 {
-value:' FZR 750'
+value:'FZR750'
 },
 {
-value:' FZS 2.0'
+value:'FZS2.0'
 },
 {
-value:' FZX 750'
+value:'FZX750'
 },
 {
-value:' GS 500 E'
+value:'GS500E'
 },
 {
-value:' GT 125'
+value:'GT125'
 },
 {
-value:' GTR 125'
+value:'GTR125'
 },
 {
-value:' GTS 1000 A'
+value:'GTS1000A'
 },
 {
-value:' GX 400'
+value:'GX400'
 },
 {
-value:' GX 750'
+value:'GX750'
 },
 {
-value:' LB 2 50'
+value:'LB250'
 },
 {
-value:' LB 80'
+value:'LB80'
 },
 {
-value:' LC 50'
+value:'LC50'
 },
 {
-value:' MA 50'
+value:'MA50'
 },
 {
-value:' MT 01'
+value:'MT01'
 },
 {
-value:' MT 03'
+value:'MT03'
 },
 {
-value:' MT 07'
+value:'MT07'
 },
 {
-value:' MT 09'
+value:'MT09'
 },
 {
-value:' MT 09 SP'
+value:'MT09SP'
 },
 {
-value:' MT 09 TRACER'
+value:'MT09TRACER'
 },
 {
-value:' MT 10'
+value:'MT10'
 },
 {
-value:' MT 10 SP'
+value:'MT10SP'
 },
 {
-value:' MT 25'
+value:'MT25'
 },
 {
-value:' MX 100'
+value:'MX100'
 },
 {
-value:' MX 175'
+value:'MX175'
 },
 {
-value:' MX 250'
+value:'MX250'
 },
 {
-value:' MX 500'
+value:'MX500'
 },
 {
-value:' N 맥스 125'
+value:'N맥스125'
 },
 {
-value:' N 맥스 155'
+value:'N맥스155'
 },
 {
-value:' N 맥스 155 ABS'
+value:'N맥스155ABS'
 },
 {
-value:' NVX 125'
+value:'NVX125'
 },
 {
-value:' POCKE 50'
+value:'POCKE50'
 },
 {
-value:' PW 50'
+value:'PW50'
 },
 {
-value:' PW 80'
+value:'PW80'
 },
 {
-value:' QT 50'
+value:'QT50'
 },
 {
-value:' R 250'
+value:'R250'
 },
 {
-value:' R1 Z 250'
+value:'R1Z250'
 },
 {
-value:' RD 500'
+value:'RD500'
 },
 {
-value:' RS 100'
+value:'RS100'
 },
 {
-value:' RX Z 135'
+value:'RXZ135'
 },
 {
-value:' RZ 125'
+value:'RZ125'
 },
 {
-value:' RZ 50'
+value:'RZ50'
 },
 {
-value:' RZ 500'
+value:'RZ500'
 },
 {
-value:' SA 50'
+value:'SA50'
 },
 {
-value:' SC 500'
+value:'SC500'
 },
 {
-value:' SCR 950'
+value:'SCR950'
 },
 {
-value:' SDR 200'
+value:'SDR200'
 },
 {
-value:' SE 250'
+value:'SE250'
 },
 {
-value:' SE 50'
+value:'SE50'
 },
 {
-value:' SG 50'
+value:'SG50'
 },
 {
-value:' SMAX 125'
+value:'SMAX125'
 },
 {
-value:' SMAX 155'
+value:'SMAX155'
 },
 {
-value:' SMAX 155 ABS'
+value:'SMAX155ABS'
 },
 {
-value:' SR 125 SP'
+value:'SR125SP'
 },
 {
-value:' SR 250'
+value:'SR250'
 },
 {
-value:' SR 400'
+value:'SR400'
 },
 {
-value:' SR 500'
+value:'SR500'
 },
 {
-value:' SRV 250'
+value:'SRV250'
 },
 {
-value:' SRX 400'
+value:'SRX400'
 },
 {
-value:' SRX 600'
+value:'SRX600'
 },
 {
-value:' SUD 50'
+value:'SUD50'
 },
 {
-value:' SZR 660'
+value:'SZR660'
 },
 {
-value:' TDM 850'
+value:'TDM850'
 },
 {
-value:' TDM 900'
+value:'TDM900'
 },
 {
-value:' TDR 50'
+value:'TDR50'
 },
 {
-value:' TDR 80'
+value:'TDR80'
 },
 {
-value:' TFX 150'
+value:'TFX150'
 },
 {
-value:' TR 1 1000'
+value:'TR11000'
 },
 {
-value:' TRX 850'
+value:'TRX850'
 },
 {
-value:' TT 250'
+value:'TT250'
 },
 {
-value:' TT 250 R'
+value:'TT250R'
 },
 {
-value:' TT 600'
+value:'TT600'
 },
 {
-value:' TT R 110 E'
+value:'TTR110E'
 },
 {
-value:' TT R 125'
+value:'TTR125'
 },
 {
-value:' TT R 225'
+value:'TTR225'
 },
 {
-value:' TT R 250'
+value:'TTR250'
 },
 {
-value:' TT R 600'
+value:'TTR600'
 },
 {
-value:' TT R 90'
+value:'TTR90'
 },
 {
-value:' TT R125 L'
+value:'TTR125L'
 },
 {
-value:' TW 125'
+value:'TW125'
 },
 {
-value:' TW 200'
+value:'TW200'
 },
 {
-value:' TW 225'
+value:'TW225'
 },
 {
-value:' TY 250 R'
+value:'TY250R'
 },
 {
-value:' TZ125'
+value:'TZ125'
 },
 {
-value:' TZM 50 R'
+value:'TZM50R'
 },
 {
-value:' TZR 125'
+value:'TZR125'
 },
 {
-value:' TZR 250 R'
+value:'TZR250R'
 },
 {
-value:' TZR 250 R SP'
+value:'TZR250RSP'
 },
 {
-value:' TZR 250 RS'
+value:'TZR250RS'
 },
 {
-value:' TZR 250 SP R'
+value:'TZR250SPR'
 },
 {
-value:' TZR 50 R'
+value:'TZR50R'
 },
 {
-value:' V 120 JR'
+value:'V120JR'
 },
 {
-value:' V 70'
+value:'V70'
 },
 {
-value:' V 스타 1300 디럭스'
+value:'V스타1300디럭스'
 },
 {
-value:' V 스타 650 실버라도'
+value:'V스타650실버라도'
 },
 {
-value:' V 스타 650 커스텀'
+value:'V스타650커스텀'
 },
 {
-value:' V 스타 650 클래식'
+value:'V스타650클래식'
 },
 {
-value:' V 스타 950'
+value:'V스타950'
 },
 {
-value:' V 스타 950 투어러'
+value:'V스타950투어러'
 },
 {
-value:' WR 155 R'
+value:'WR155R'
 },
 {
-value:' WR 200'
+value:'WR200'
 },
 {
-value:' WR 250 F'
+value:'WR250F'
 },
 {
-value:' WR 250 R'
+value:'WR250R'
 },
 {
-value:' WR 250 X'
+value:'WR250X'
 },
 {
-value:' WR 250 Z'
+value:'WR250Z'
 },
 {
-value:' WR 400 F'
+value:'WR400F'
 },
 {
-value:' WR 450 F'
+value:'WR450F'
 },
 {
-value:' X 맥스 250 ABS'
+value:'X맥스250ABS'
 },
 {
-value:' X 맥스 300 ABS'
+value:'X맥스300ABS'
 },
 {
-value:' X 맥스 400 ABS'
+value:'X맥스400ABS'
 },
 {
-value:' XC 125'
+value:'XC125'
 },
 {
-value:' XC 125 T'
+value:'XC125T'
 },
 {
-value:' XC 200'
+value:'XC200'
 },
 {
-value:' XJ 1100'
+value:'XJ1100'
 },
 {
-value:' XJ 400'
+value:'XJ400'
 },
 {
-value:' XJ 6 N'
+value:'XJ6N'
 },
 {
-value:' XJ 6 S'
+value:'XJ6S'
 },
 {
-value:' XJ 6 디버전'
+value:'XJ6디버전'
 },
 {
-value:' XJ 6 디버전 F'
+value:'XJ6디버전F'
 },
 {
-value:' XJ 650'
+value:'XJ650'
 },
 {
-value:' XJ 750 E'
+value:'XJ750E'
 },
 {
-value:' XJR 1200'
+value:'XJR1200'
 },
 {
-value:' XJR 1300'
+value:'XJR1300'
 },
 {
-value:' XJR 1300 SP'
+value:'XJR1300SP'
 },
 {
-value:' XJR 400'
+value:'XJR400'
 },
 {
-value:' XJR 400 R'
+value:'XJR400R'
 },
 {
-value:' XS 1100'
+value:'XS1100'
 },
 {
-value:' XS 250'
+value:'XS250'
 },
 {
-value:' XS 360'
+value:'XS360'
 },
 {
-value:' XS 400'
+value:'XS400'
 },
 {
-value:' XS 650'
+value:'XS650'
 },
 {
-value:' XS 850'
+value:'XS850'
 },
 {
-value:' XSR 700'
+value:'XSR700'
 },
 {
-value:' XSR 900'
+value:'XSR900'
 },
 {
-value:' XT 1200 Z 슈퍼테네레'
+value:'XT1200Z슈퍼테네레'
 },
 {
-value:' XT 250 X'
+value:'XT250X'
 },
 {
-value:' XT 660 R'
+value:'XT660R'
 },
 {
-value:' XT 660 X'
+value:'XT660X'
 },
 {
-value:' XT 660 Z 테네레'
+value:'XT660Z테네레'
 },
 {
-value:' XTZ 125 E'
+value:'XTZ125E'
 },
 {
-value:' XTZ 660'
+value:'XTZ660'
 },
 {
-value:' XTZ 750 S TENERE'
+value:'XTZ750STENERE'
 },
 {
-value:' XV 1900A 로드라이너'
+value:'XV1900A로드라이너'
 },
 {
-value:' XVS 1300 커스텀'
+value:'XVS1300커스텀'
 },
 {
-value:' XVS 950 A'
+value:'XVS950A'
 },
 {
-value:' XVS 950 CR'
+value:'XVS950CR'
 },
 {
-value:' YB 1 50'
+value:'YB150'
 },
 {
-value:' YB 1 FOUR 50'
+value:'YB1FOUR50'
 },
 {
-value:' YB 100'
+value:'YB100'
 },
 {
-value:' YB 125 SP'
+value:'YB125SP'
 },
 {
-value:' YB 125 커스텀'
+value:'YB125커스텀'
 },
 {
-value:' YB 50'
+value:'YB50'
 },
 {
-value:' YBR 125 G'
+value:'YBR125G'
 },
 {
-value:' YF 200'
+value:'YF200'
 },
 {
-value:' YF 60'
+value:'YF60'
 },
 {
-value:' YFA 1 125'
+value:'YFA1125'
 },
 {
-value:' YFA 125'
+value:'YFA125'
 },
 {
-value:' YFM 100'
+value:'YFM100'
 },
 {
-value:' YFM 350'
+value:'YFM350'
 },
 {
-value:' YFM 80'
+value:'YFM80'
 },
 {
-value:' YFZ 450'
+value:'YFZ450'
 },
 {
-value:' YFZ 450 R SE'
+value:'YFZ450RSE'
 },
 {
-value:' YN 50 NEO S'
+value:'YN50NEOS'
 },
 {
-value:' YSR 50'
+value:'YSR50'
 },
 {
-value:' YSR 80'
+value:'YSR80'
 },
 {
-value:' YT 125'
+value:'YT125'
 },
 {
-value:' YXZ1000R'
+value:'YXZ1000R'
 },
 {
-value:' YZ 125'
+value:'YZ125'
 },
 {
-value:' YZ 250'
+value:'YZ250'
 },
 {
-value:' YZ 250 F'
+value:'YZ250F'
 },
 {
-value:' YZ 250 FX'
+value:'YZ250FX'
 },
 {
-value:' YZ 250 X'
+value:'YZ250X'
 },
 {
-value:' YZ 360'
+value:'YZ360'
 },
 {
-value:' YZ 425'
+value:'YZ425'
 },
 {
-value:' YZ 450 F'
+value:'YZ450F'
 },
 {
-value:' YZ 50'
+value:'YZ50'
 },
 {
-value:' YZ 65'
+value:'YZ65'
 },
 {
-value:' YZ 80'
+value:'YZ80'
 },
 {
-value:' YZ 85'
+value:'YZ85'
 },
 {
-value:' YZF 1000 R'
+value:'YZF1000R'
 },
 {
-value:' YZF 250'
+value:'YZF250'
 },
 {
-value:' YZF 450'
+value:'YZF450'
 },
 {
-value:' YZF 600 R'
+value:'YZF600R'
 },
 {
-value:' YZF 750 R'
+value:'YZF750R'
 },
 {
-value:' YZF 750 SP'
+value:'YZF750SP'
 },
 {
-value:' YZF R 125'
+value:'YZFR125'
 },
 {
-value:' YZF R 15'
+value:'YZFR15'
 },
 {
-value:' YZF R1'
+value:'YZFR1'
 },
 {
-value:' YZF R1 LE'
+value:'YZFR1LE'
 },
 {
-value:' YZF R1 M'
+value:'YZFR1M'
 },
 {
-value:' YZF R1 S'
+value:'YZFR1S'
 },
 {
-value:' YZF R1 SP'
+value:'YZFR1SP'
 },
 {
-value:' YZF R3'
+value:'YZFR3'
 },
 {
-value:' YZF R6'
+value:'YZFR6'
 },
 {
-value:' YZF R7'
+value:'YZFR7'
 },
 {
-value:' 골프카'
+value:'골프카'
 },
 {
-value:' 그랜드 필라노 125'
+value:'그랜드필라노125'
 },
 {
-value:' 그리즐리 125'
+value:'그리즐리125'
 },
 {
-value:' 그리즐리 450'
+value:'그리즐리450'
 },
 {
-value:' 그리즐리 600'
+value:'그리즐리600'
 },
 {
-value:' 그리즐리 660'
+value:'그리즐리660'
 },
 {
-value:' 그리즐리 700'
+value:'그리즐리700'
 },
 {
-value:' 기어 125'
+value:'기어125'
 },
 {
-value:' 기어 50'
+value:'기어50'
 },
 {
-value:' 기타'
+value:'기타'
 },
 {
-value:' 나이켄'
+value:'나이켄'
 },
 {
-value:' 뉴 씨그너스'
+value:'뉴씨그너스'
 },
 {
-value:' 뉴마제스티 250'
+value:'뉴마제스티250'
 },
 {
-value:' 뉴스 메이트 T 90 N'
+value:'뉴스메이트T90N'
 },
 {
-value:' 뉴스 메이트 V 50 N'
+value:'뉴스메이트V50N'
 },
 {
-value:' 드랙스타 1100'
+value:'드랙스타1100'
 },
 {
-value:' 드랙스타 1100A 클래식'
+value:'드랙스타1100A클래식'
 },
 {
-value:' 드랙스타 1300'
+value:'드랙스타1300'
 },
 {
-value:' 드랙스타 400'
+value:'드랙스타400'
 },
 {
-value:' 드랙스타 400 클래식'
+value:'드랙스타400클래식'
 },
 {
-value:' 드랙스타 650'
+value:'드랙스타650'
 },
 {
-value:' 드랙스타 650 클래식'
+value:'드랙스타650클래식'
 },
 {
-value:' 드랙스타 650A 클래식'
+value:'드랙스타650A클래식'
 },
 {
-value:' 드랙스타 XVS 400'
+value:'드랙스타XVS400'
 },
 {
-value:' 드렉스타 950'
+value:'드렉스타950'
 },
 {
-value:' 라이노 660'
+value:'라이노660'
 },
 {
-value:' 라이노 700 FI'
+value:'라이노700FI'
 },
 {
-value:' 라이더'
+value:'라이더'
 },
 {
-value:' 라이더 S'
+value:'라이더S'
 },
 {
-value:' 란자 225'
+value:'란자225'
 },
 {
-value:' 랩터 250 R'
+value:'랩터250R'
 },
 {
-value:' 랩터 350'
+value:'랩터350'
 },
 {
-value:' 랩터 660 R'
+value:'랩터660R'
 },
 {
-value:' 랩터 700 R'
+value:'랩터700R'
 },
 {
-value:' 로드라이너 1900'
+value:'로드라이너1900'
 },
 {
-value:' 로드라이너 S 1900'
+value:'로드라이너S1900'
 },
 {
-value:' 로드라이너 미드나잇 1900'
+value:'로드라이너미드나잇1900'
 },
 {
-value:' 로드스타 1300'
+value:'로드스타1300'
 },
 {
-value:' 로드스타 1600'
+value:'로드스타1600'
 },
 {
-value:' 로드스타 1600A'
+value:'로드스타1600A'
 },
 {
-value:' 로드스타 1700'
+value:'로드스타1700'
 },
 {
-value:' 로드스타 1700 실버라도'
+value:'로드스타1700실버라도'
 },
 {
-value:' 로드스타 S 1600'
+value:'로드스타S1600'
 },
 {
-value:' 로드스타 미드나잇 1600'
+value:'로드스타미드나잇1600'
 },
 {
-value:' 로드스타 실버라도 1600'
+value:'로드스타실버라도1600'
 },
 {
-value:' 로드스타 실버라도 S 1600'
+value:'로드스타실버라도S1600'
 },
 {
-value:' 로드스타 워리어 1700'
+value:'로드스타워리어1700'
 },
 {
-value:' 로얄스타 1300'
+value:'로얄스타1300'
 },
 {
-value:' 로얄스타 미드나잇 벤쳐 1300'
+value:'로얄스타미드나잇벤쳐1300'
 },
 {
-value:' 로얄스타 벤쳐 1300'
+value:'로얄스타벤쳐1300'
 },
 {
-value:' 로얄스타 벤쳐 S 1300'
+value:'로얄스타벤쳐S1300'
 },
 {
-value:' 로얄스타 클래식 디럭스 1300'
+value:'로얄스타클래식디럭스1300'
 },
 {
-value:' 로얄스타 투어 디럭스 1300'
+value:'로얄스타투어디럭스1300'
 },
 {
-value:' 로얄스타 투어 클래식 1300'
+value:'로얄스타투어클래식1300'
 },
 {
-value:' 르네사 250'
+value:'르네사250'
 },
 {
-value:' 마제스티 125'
+value:'마제스티125'
 },
 {
-value:' 마제스티 250'
+value:'마제스티250'
 },
 {
-value:' 마제스티 400'
+value:'마제스티400'
 },
 {
-value:' 모르포스/막삼 250'
+value:'모르포스/막삼250'
 },
 {
-value:' 민트 50'
+value:'민트50'
 },
 {
-value:' 바이킹 700'
+value:'바이킹700'
 },
 {
-value:' 바이킹 VI'
+value:'바이킹VI'
 },
 {
-value:' 벤쳐'
+value:'벤쳐'
 },
 {
-value:' 벤츄라'
+value:'벤츄라'
 },
 {
-value:' 벨루가 50'
+value:'벨루가50'
 },
 {
-value:' 복스'
+value:'복스'
 },
 {
-value:' 볼트 950'
+value:'볼트950'
 },
 {
-value:' 볼트 C-스펙'
+value:'볼트C-스펙'
 },
 {
-value:' 볼트 R-스펙'
+value:'볼트R-스펙'
 },
 {
-value:' 브론즈 맥스'
+value:'브론즈맥스'
 },
 {
-value:' 브루윈 250'
+value:'브루윈250'
 },
 {
-value:' 브이 맥스 1200'
+value:'브이맥스1200'
 },
 {
-value:' 브이 맥스 1700'
+value:'브이맥스1700'
 },
 {
-value:' 블라스터 200'
+value:'블라스터200'
 },
 {
-value:' 비노 125'
+value:'비노125'
 },
 {
-value:' 비노 50'
+value:'비노50'
 },
 {
-value:' 비노 50 디럭스'
+value:'비노50디럭스'
 },
 {
-value:' 비노 90'
+value:'비노90'
 },
 {
-value:' 비라고 1000'
+value:'비라고1000'
 },
 {
-value:' 비라고 1100'
+value:'비라고1100'
 },
 {
-value:' 비라고 1100 S'
+value:'비라고1100S'
 },
 {
-value:' 비라고 250F'
+value:'비라고250F'
 },
 {
-value:' 비라고 250S'
+value:'비라고250S'
 },
 {
-value:' 비라고 400'
+value:'비라고400'
 },
 {
-value:' 비라고 535'
+value:'비라고535'
 },
 {
-value:' 비라고 750'
+value:'비라고750'
 },
 {
-value:' 비라고 920'
+value:'비라고920'
 },
 {
-value:' 비위즈 100'
+value:'비위즈100'
 },
 {
-value:' 비위즈 125'
+value:'비위즈125'
 },
 {
-value:' 비위즈 50'
+value:'비위즈50'
 },
 {
-value:' 비티 125'
+value:'비티125'
 },
 {
-value:' 쉐로우 225'
+value:'쉐로우225'
 },
 {
-value:' 쉐로우 250'
+value:'쉐로우250'
 },
 {
-value:' 쉐로우 350'
+value:'쉐로우350'
 },
 {
-value:' 쉐로우 600'
+value:'쉐로우600'
 },
 {
-value:' 슈퍼조그 ZR'
+value:'슈퍼조그ZR'
 },
 {
-value:' 스콜파 250'
+value:'스콜파250'
 },
 {
-value:' 스트라토라이너'
+value:'스트라토라이너'
 },
 {
-value:' 스트라토라이너 S'
+value:'스트라토라이너S'
 },
 {
-value:' 스트라토라이너 디럭스'
+value:'스트라토라이너디럭스'
 },
 {
-value:' 썬더레이스 1000 R'
+value:'썬더레이스1000R'
 },
 {
-value:' 썬더캣 600 R'
+value:'썬더캣600R'
 },
 {
-value:' 씨그너스 RS'
+value:'씨그너스RS'
 },
 {
-value:' 씨그너스 S'
+value:'씨그너스S'
 },
 {
-value:' 씨그너스 X'
+value:'씨그너스X'
 },
 {
-value:' 씨그너스 X FI'
+value:'씨그너스XFI'
 },
 {
-value:' 씨그너스 X SR'
+value:'씨그너스XSR'
 },
 {
-value:' 씨그너스 XC'
+value:'씨그너스XC'
 },
 {
-value:' 씨그너스 Z'
+value:'씨그너스Z'
 },
 {
-value:' 액티브 80'
+value:'액티브80'
 },
 {
-value:' 에어록스 125'
+value:'에어록스125'
 },
 {
-value:' 엑시스 Z 125'
+value:'엑시스Z125'
 },
 {
-value:' 엠슬레이즈 150'
+value:'엠슬레이즈150'
 },
 {
-value:' 올 뉴 씨그너스 125'
+value:'올뉴씨그너스125'
 },
 {
-value:' 올드바이크'
+value:'올드바이크'
 },
 {
-value:' 울버린 350'
+value:'울버린350'
 },
 {
-value:' 울버린 R스펙 EPS'
+value:'울버린R스펙EPS'
 },
 {
-value:' 조그 125 i'
+value:'조그125i'
 },
 {
-value:' 조그 50'
+value:'조그50'
 },
 {
-value:' 조그 CG 50 E'
+value:'조그CG50E'
 },
 {
-value:' 조그 Z2 50'
+value:'조그Z250'
 },
 {
-value:' 조그 ZR 50'
+value:'조그ZR50'
 },
 {
-value:' 조그 에볼루션 50'
+value:'조그에볼루션50'
 },
 {
-value:' 질 250'
+value:'질250'
 },
 {
-value:' 챔프 RS 50'
+value:'챔프RS50'
 },
 {
-value:' 코디악 400'
+value:'코디악400'
 },
 {
-value:' 코디악 700'
+value:'코디악700'
 },
 {
-value:' 쿡시 100'
+value:'쿡시100'
 },
 {
-value:' 큐빅스 125'
+value:'큐빅스125'
 },
 {
-value:' 크립톤 110'
+value:'크립톤110'
 },
 {
-value:' 타겟 50'
+value:'타겟50'
 },
 {
-value:' 타운 메이트 T 50'
+value:'타운메이트T50'
 },
 {
-value:' 타운 메이트 T 90 D'
+value:'타운메이트T90D'
 },
 {
-value:' 트레이서 9'
+value:'트레이서9'
 },
 {
-value:' 트리시티 125'
+value:'트리시티125'
 },
 {
-value:' 트리시티 125 S'
+value:'트리시티125S'
 },
 {
-value:' 트리시티 155 ABS'
+value:'트리시티155ABS'
 },
 {
-value:' 트리커 250'
+value:'트리커250'
 },
 {
-value:' 티맥스'
+value:'티맥스'
 },
 {
-value:' 티맥스 530'
+value:'티맥스530'
 },
 {
-value:' 티맥스 560'
+value:'티맥스560'
 },
 {
-value:' 티맥스 DX'
+value:'티맥스DX'
 },
 {
-value:' 티아라 R 125'
+value:'티아라R125'
 },
 {
-value:' 파셋타 50'
+value:'파셋타50'
 },
 {
-value:' 파쏠'
+value:'파쏠'
 },
 {
-value:' 페이저 1000'
+value:'페이저1000'
 },
 {
-value:' 페이저 25'
+value:'페이저25'
 },
 {
-value:' 페이저 600 SP'
+value:'페이저600SP'
 },
 {
-value:' 프리고 125'
+value:'프리고125'
 },
 {
-value:' 프리고 S 125'
+value:'프리고S125'
 },
 {
-value:' 피노'
+value:'피노'
 },
 {
-value:' 피오레'
+value:'피오레'
 },
 {
-value:' 필라노 125'
+value:'필라노125'
 },]
 
 export default YAMAHA_OPTION;

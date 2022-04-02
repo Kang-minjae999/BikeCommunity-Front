@@ -28,6 +28,7 @@ export default function ShopProductCard({ product }) {
     <Box>
       {product &&
         <>
+      <Link to={linkTo} component={RouterLink}>
       <Box sx={{ position: 'relative' }}>
         {address && (
           <Label
@@ -75,11 +76,9 @@ export default function ShopProductCard({ product }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link to={linkTo} color="inherit" component={RouterLink}>
           <Typography variant="subtitle2" noWrap>
             {title}
           </Typography>
-        </Link>
 
         <Stack direction="column" alignItems="center" justifyContent="center">
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
@@ -100,6 +99,7 @@ export default function ShopProductCard({ product }) {
           </Stack>
         </Stack>
       </Stack>
+        </Link>
       </>}
     </Box>
   );

@@ -1,7 +1,7 @@
 const FBMONDIAL_OPTION = 
-[{value:'파가니 125'},
-{value:'플랫 125'},
-{value:'힙스터 125'},
-{value:'힙스터 250'},]
+[{value:'파가니125'},
+{value:'플랫125'},
+{value:'힙스터125'},
+{value:'힙스터250'},]
 
 export default FBMONDIAL_OPTION

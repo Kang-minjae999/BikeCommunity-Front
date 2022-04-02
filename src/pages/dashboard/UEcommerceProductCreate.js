@@ -7,7 +7,6 @@ import { Container } from '@mui/material';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts } from '../../redux/slices/product';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -21,7 +20,7 @@ import UProductNewFormparts from '../../sections/@dashboard/used-e-commerce/UPro
 
 export default function EcommerceProductCreate() {
   const { themeStretch } = useSettings();
-  const dispatch = useDispatch();
+/*   const dispatch = useDispatch(); */
   const { pathname } = useLocation();
   const { name } = useParams();
   const { products } = useSelector((state) => state.product);
@@ -32,10 +31,10 @@ export default function EcommerceProductCreate() {
   const isgear = pathname.includes('gear');
   const isparts = pathname.includes('parts');
 
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
-
+ */
   return (
     <Page title="중고거래 / 새 상품 올리기">
       <Container maxWidth={themeStretch ? false : 'lx'}>

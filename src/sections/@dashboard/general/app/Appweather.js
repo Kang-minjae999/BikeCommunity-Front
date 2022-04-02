@@ -246,7 +246,7 @@ useEffect(() => {
   }}
 }, [weathername,weathername2]);
 
-const onClickHello = () => {
+const onClickRiding = () => {
   if(!window.ReactNativeWebView) {
     alert('어플리케이션에서만 이용 가능합니다.')
   }
@@ -258,26 +258,22 @@ const onClickHello = () => {
   return (
 <>
 <Grid container >
-  <Grid item xs={6} xl={3}>
+<Button onClick={onClickRiding} variant='outlined' sx={{mt:2, width:'100%'}}>라이딩 시작하기</Button>
+  {weather && 
+  <>
+  <Grid item xs={6} xl={6}>
   <Appweathercontent weather={weather} weathername={weathername} weathericon={weathericon}/>
   </Grid>
-  <Grid item xs={6} xl={3}>
+  <Grid item xs={6} xl={6}>
   <Appweathercontent2 weather={weather2} weathername={weathername2} weathericon={weathericon2}/>
   </Grid>
-  {isDesktop && (
-  <Grid item xs={12} xl={6}>
-  <Card> <Typography sx={{mt:2,ml:2,mb:2}}>대표 바이크 보여주기 </Typography></Card>
-  </Grid>)}
-  <Grid item xs={12} xl={6}>
+  <Grid item xs={12} xl={12}>
   {weathername !== weathername2 
   && <Alert severity="info" sx={{ml:1,mr:1,mb:1}}>3시간뒤에 날씨가 달라질 수 있어요!</Alert>}      
   {weatheralert3 !== null &&
    <Alert severity="warning" sx={{ml:1,mr:1}}>{weatheralert3}</Alert>}
-  {!isDesktop && (<Button onClick={onClickHello} variant='outlined' sx={{mt:2, width:'100%'}}>라이딩 시작하기</Button>)}
   </Grid>
-  {!isDesktop && (<Grid item xs={12} xl={6}>
-  <Card sx={{mt:2,mb:2}}> <Typography sx={{mt:2,ml:2,mb:2}}> 대표 바이크 보여주기 </Typography></Card>
-  </Grid>)}
+  </>}
 </Grid>
 </> 
 );

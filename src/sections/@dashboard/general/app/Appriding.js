@@ -3,19 +3,19 @@ import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography,  Stack, Divider, Button, Link } from '@mui/material';
+import { Typography,  Stack, Divider, Card } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import HomeIcon from '@mui/icons-material/Home';
 import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 import PhotoFilterIcon from '@mui/icons-material/PhotoFilter';
 import GroupsIcon from '@mui/icons-material/Groups';
 import Appweather from './Appweather';
-import GeneralMap from '../../../../pages/dashboard/GeneralMap';
-import { Appridingclub, Appridingmotocycle, Appridingrecord } from '../riding';
+import { Appridingclub, Appridingmotocycle } from '../riding';
+import RidingProfile from '../../../../pages/dashboard/RidingProfile';
 
 
 export default function Appriding() {
-  const link = useNavigate();
+  const navigate = useNavigate();
   const [value, setValue] = useState('home');
   const [chvalue, setchvalue] = useState('');
   const [istrue ,setistrue] = useState(false);
@@ -32,20 +32,21 @@ export default function Appriding() {
     return () => {
       setistrue(false)
     };
-  }, [istrue]);
+  }, [istrue, chvalue]);
   
   const onClick= ()=>{
-    link(`/dashboard/map`)
+    navigate(`/dashboard/map`)
   }
   
     const ACCOUNT_TABS = [
       {
         value: 'home',
-        component: <Appweather />,
+        component: 
+        <><Card><Typography sx={{mt:2,ml:2,mb:2}}>대표 바이크 보여주기 </Typography></Card><Appweather /></>,
       },
       {
         value: 'record',
-        component: <Appridingrecord />,
+        component: <RidingProfile />,
       },
       {
         value: 'clubrecord',
@@ -92,7 +93,7 @@ export default function Appriding() {
       />
     </BottomNavigation>
     <Divider />
-    {ACCOUNT_TABS.map((button) => {
+        {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value}>{button.component}</div>;
         })}

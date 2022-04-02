@@ -1,7 +1,7 @@
 import { capitalCase } from 'change-case';
 import { useState } from 'react';
 // @mui
-import { Container, Tab, Box, Tabs } from '@mui/material';
+import { Container, Tab, Box, Tabs, Stack } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -66,7 +66,7 @@ export default function UserAccount() {
             { name: ''}
           ]}
         />
-
+        <Stack direction='row' alignItems='center' justifyContent='center' spacing={0}>
         <Tabs
           value={currentTab}
           scrollButtons={false}
@@ -77,6 +77,7 @@ export default function UserAccount() {
             <Tab disableRipple key={tab.value} label={tab.value} icon={tab.icon} value={tab.value} />
           ))}
         </Tabs>
+        </Stack>
 
         <Box sx={{ mb: 5 }} />
 

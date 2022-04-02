@@ -7,96 +7,48 @@ import { useCallback, useEffect, useMemo, React, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import {
-  Card,
-  Chip,
-  Grid,
-  Stack,
-  Typography,
-  Autocomplete,
-  InputAdornment,
-  FormControlLabel,
-  Checkbox,
-  TextField,
-  Button,
-} from '@mui/material';
+import { Card, Chip, Grid, Stack, Autocomplete, InputAdornment, Button} from '@mui/material';
 // routes
 import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import axios from '../../../utils/axiossecondhand';
+// option
+import BRAND_OPTION from '../../../components/option/BRAND_OPTION'
+import HONDA_OPTION from '../../../components/option/HONDA_OPTION'
+import YAMAHA_OPTION from '../../../components/option/YAMAHA_OPTION'
+import SUZUKI_OPTION from '../../../components/option/SUZUKI_OPTION'
+import KAWASAKI_OPTION from '../../../components/option/KAWASAKI_OPTION'
+import BMW_OPTION from '../../../components/option/BMW_OPTION'
+import DUCATI_OPTION from '../../../components/option/DUCATI_OPTION'
+import HARLEY_OPTION from '../../../components/option/HARLEY_OPTION'
+import INDIAN_OPTION from '../../../components/option/INDIAN_OPTION'
+import TRIUMPH_OPTION from '../../../components/option/TRIUMPH_OPTION'
+import KTM_OPTION from '../../../components/option/KTM_OPTION'
+import HUSQVARNA_OPTION from '../../../components/option/HUSQVARNA_OPTION'
+import VESPA_OPTION from '../../../components/option/VESPA_OPTION'
+import DAELIM_OPTION from '../../../components/option/DAELIM_OPTION'
+import KRMOTORS_OPTION from '../../../components/option/KRMOTORS_OPTION'
+import KYMCO_OPTION from '../../../components/option/KYMCO_OPTION'
+import ROYALENFIELD_OPTION from '../../../components/option/ROYALENFIELD_OPTION'
+import BENELLI_OPTION from '../../../components/option/BENELLI_OPTION'
+import CLASSIC125_OPTION from '../../../components/option/CLASSIC125_OPTION'
+import APRILIA_OPTION from '../../../components/option/APRILIA_OPTION'
+import MVAGUSTA_OPTION from '../../../components/option/MVAGUSTA_OPTION'
+import ROYALALLOY_OPTION from '../../../components/option/ROYALALLOY_OPTION'
+import FBMONDIAL_OPTION from '../../../components/option/FBMONDIAL_OPTION'
+import MOTOGUZZI_OPTION from '../../../components/option/MOTOGUZZI_OPTION'
 // components
-import {
-  FormProvider,
-  RHFSelect,
-  RHFEditor,
-  RHFTextField,
-  RHFUploadMultiFile,
-  RHFSwitch,
-} from '../../../components/hook-form';
-
-// 바이크 중고거래 기준
+import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFSwitch} from '../../../components/hook-form';
 // ----------------------------------------------------------------------
 
 const GEARBOX_OPTION = ['메뉴얼', '스쿠터'];
 
-const BRAND_OPTION = [
-  '혼다',
-  '야마하',
-  '스즈키',
-  '가와사키',
-  '할리데이비슨',
-  '인디안',
-  '허스크바나',
-  '베넬리',
-  'z',
-  'zz',
-  'zzz',
-  '대림',
-  'KR모터스',
-  '기타',
+const YEAR_OPTION = [ 
+  '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', 
+  '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', 
+  '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
 ];
-
-const MODEL_OPTION = ['cbr125r', 'cbr250rr', 'cbr500r', 'cbr600rr'];
-
-const YEAR_OPTION = [
-  '2021',
-  '2020',
-  '2019',
-  '2018',
-  '2017',
-  '2016',
-  '2015',
-  '2014',
-  '2013',
-  '2012',
-  '2011',
-  '2010',
-  '2009',
-  '2008',
-  '2007',
-  '2006',
-  '2005',
-  '2004',
-  '2003',
-  '2002',
-  '2001',
-  '2000',
-  '1999',
-  '1998',
-  '1997',
-  '1996',
-  '1995',
-  '1994',
-  '1993',
-  '1992',
-  '1991',
-  '1990',
-];
-
-const TRADEMODEL_OPTION = ['cbr125r', 'cbr250rr', 'cbr500r', 'cbr600rr'];
-
 // ----------------------------------------------------------------------
 
 UProductNewForm.propTypes = {
@@ -105,6 +57,8 @@ UProductNewForm.propTypes = {
 };
 
 export default function UProductNewForm({ isEdit, currentProduct }) {
+  const [MODEL_OPTION, SETMODEL_OPTION] = useState([])
+  const TRADEMODEL_OPTION = []
   const [tradechecked, settradeChecked] = useState(false);
 
   const navigate = useNavigate();
@@ -115,15 +69,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     title: Yup.string().required('상품명이 필요해요.'),
     content: Yup.string().required('상품설명이 필요해요.'),
     images: Yup.array().min(1, '사진을 한 장 이상 올려주세요.'),
-    address: Yup.string().required('주소가 필요해요.'),
-    gearbox: Yup.boolean(),
-    brand: Yup.string().required('설명이 필요해요.'),
-    modelName: Yup.string().required('모델명이 필요해요.'),
-    displacement: Yup.number()
-      .moreThan(1, '배기량을 입력해주세요.')
-      .lessThan(10000, '배기량을 알맞게 입력해주세요.')
-      .nullable(),
-    mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.'),
+    address: Yup.string().required('주소가 필요해요.').nullable(),
+    gearbox: Yup.string().required('종류가 필요해요.').nullable(),
+    brand: Yup.string().required('설명이 필요해요.').nullable(),
+    modelName: Yup.string().required('모델명이 필요해요.').nullable(),
+    displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000, '배기량을 알맞게 입력해주세요.').nullable(),
+    mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.').nullable(),
     year: Yup.string().min(4, '년식을 입력해주세요.').max(4, '년식을 입력해주세요.').nullable(),
     price: Yup.number().moreThan(0, '가격은 0원 이상이에요.'),
     negoable: Yup.boolean(),
@@ -133,23 +84,22 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      title: currentProduct?.name || 'asfasdf',
-      content: currentProduct?.content || 'asdfasf',
+      title: currentProduct?.name || '',
+      content: currentProduct?.content || '',
       images: currentProduct?.images || [],
-      address: currentProduct?.address || 'fasdfasf',
-      gearbox: currentProduct?.gearbox || false,
-      brand: currentProduct?.brand || 'asdfsfa',
-      modelName: currentProduct?.modelName || 'asdf',
-      year: currentProduct?.year || 2000,
-      displacement: currentProduct?.displacement || 100,
-      mileage: currentProduct?.mileage || 10000,
-      price: currentProduct?.price || 1000000,
+      address: currentProduct?.address || '',
+      gearbox: currentProduct?.gearbox || null,
+      brand: currentProduct?.brand || null,
+      modelName: currentProduct?.modelName || null,
+      year: currentProduct?.year || 0,
+      displacement: currentProduct?.displacement || 0,
+      mileage: currentProduct?.mileage || 0,
+      price: currentProduct?.price || 0,
       negoable: currentProduct?.negoable || false,
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
-      tradeableModel: currentProduct?.trademodel || ['abs'],
+      tradeableModel: currentProduct?.trademodel || [],
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
   );
 
@@ -179,90 +129,131 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     }
   }, [isEdit, currentProduct, defaultValues, reset]);
 
+  // ---------------------------------------------------------------
+
   const [gearboxPost, setGearboxPost] = useState();
 
   const [titlePost, setTitlePost] = useState();
 
-  /*   useEffect(() => {
+  useEffect(() => {
     if (values.gearbox === '메뉴얼') {
-      setGearboxPost(true);
+    setGearboxPost(true);
     }
     if (values.gearbox === '스쿠터') {
-      setGearboxPost(false);
+    setGearboxPost(false);
     }
-  }, [values]); */
+  }, [values]); 
 
   useEffect(() => {
     setTitlePost(`[${values.modelName}] ${values.title}`);
   }, [values.title, values.modelName]);
 
-  /*    const getFormData = object => Object.keys(object).reduce((formData, key) => {
-    formData.append(key, object[key]);
-    return formData;
-}, new FormData()); 
- getFormData(values) 
- function buildFormData(formData, data, parentKey) {
-  if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File) && !(Array.isArray(data) && !data.length)) {
-    Object.keys(data).forEach(key => {
-      buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
-    });
-  } else {
-    const value = data === null ? '' : data;
 
-    formData.append(parentKey, value);
-  }
-}
+  useEffect(() => {
+    if (values.tradeable) {
+      settradeChecked(true);
+    } else {
+      settradeChecked(false);
+    }
+  }, [values.tradeable]);
 
-function jsonToFormData(data) {
-  const formData = new FormData();
-  
-  buildFormData(formData, data);
-  
-  return formData;
-}
- */
+  // ---------------------------------------------------------------
 
-  function getFormData(object) {
-    const formData = new FormData();
-    Object.keys(object).forEach((key) => {
-      if (typeof object[key] !== 'object') formData.append(key, object[key]);
-      else formData.append(key, JSON.stringify(object[key]));
-    });
-    return formData;
-  }
+  useEffect(() => {
+    if (values.brand === '혼다') {
+      SETMODEL_OPTION(HONDA_OPTION);
+    } 
+    if (values.brand === '야마하') {
+      SETMODEL_OPTION(YAMAHA_OPTION);
+    } 
+    if (values.brand === '스즈키') {
+      SETMODEL_OPTION(SUZUKI_OPTION);
+    } 
+    if (values.brand === '가와사키') {
+      SETMODEL_OPTION(KAWASAKI_OPTION);
+    } 
+    if (values.brand === 'BMW') {
+      SETMODEL_OPTION(BMW_OPTION);
+    } 
+    if (values.brand === '두카티') {
+      SETMODEL_OPTION(DUCATI_OPTION);
+    } 
+    if (values.brand === '할리데이비슨') {
+      SETMODEL_OPTION(HARLEY_OPTION);
+    } 
+    if (values.brand === '인디안') {
+      SETMODEL_OPTION(INDIAN_OPTION);
+    } 
+    if (values.brand === '트라이엄프') {
+      SETMODEL_OPTION(TRIUMPH_OPTION);
+    } 
+    if (values.brand === 'KTM') {
+      SETMODEL_OPTION(KTM_OPTION);
+    } 
+    if (values.brand === '허스크바나') {
+      SETMODEL_OPTION(HUSQVARNA_OPTION);
+    } 
+    if (values.brand === '베스파') {
+      SETMODEL_OPTION(VESPA_OPTION);
+    } 
+    if (values.brand === '대림') {
+      SETMODEL_OPTION(DAELIM_OPTION);
+    } 
+    if (values.brand === '효성') {
+      SETMODEL_OPTION(KRMOTORS_OPTION);
+    } 
+    if (values.brand === '킴코') {
+      SETMODEL_OPTION(KYMCO_OPTION);
+    } 
+    if (values.brand === '로얄엔필드') {
+      SETMODEL_OPTION(ROYALENFIELD_OPTION);
+    } 
+    if (values.brand === '베넬리') {
+      SETMODEL_OPTION(BENELLI_OPTION);
+    } 
+    if (values.brand === '이탈젯/부캐너/cg/엘로이') {
+      SETMODEL_OPTION(CLASSIC125_OPTION);
+    } 
+    if (values.brand === '아프릴리아') {
+      SETMODEL_OPTION(APRILIA_OPTION);
+    } 
+    if (values.brand === 'MV아구스타') {
+      SETMODEL_OPTION(MVAGUSTA_OPTION);
+    } 
+    if (values.brand === '로얄알로이') {
+      SETMODEL_OPTION(ROYALALLOY_OPTION);
+    } 
+    if (values.brand === 'FB몬디알') {
+      SETMODEL_OPTION(FBMONDIAL_OPTION);
+    } 
+    if (values.brand === '모토구찌') {
+      SETMODEL_OPTION(MOTOGUZZI_OPTION);
+    } 
+    if (values.brand === '기타') {
+      SETMODEL_OPTION([{value:'기타'}]);
+    } 
+  }, [values.brand]);
 
+
+  // ---------------------------------------------------------------
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData();
-
-    /*     data.images.map((file) => formData.append('imagesFiles', {
-      name:file.filename,
-      type:'image/jpeg',
-      uri: file.uri
-      }))  */
-
-    /*  // ex
-      formData.append('shBikeRequest', JSON.stringify(values)) */
-
     data.images.map((file) => formData.append('imageFiles', file));
-
-    formData.append('title', 'title입니다.');
-    formData.append('content', '컨텐트입니다.');
-    formData.append('address', '주소구요');
-    formData.append('gearbox', true);
-    formData.append('brand', '브랜드에요');
-    formData.append('modelName', '모델이름');
-    formData.append('year', 10);
-    formData.append('displacement', 20);
-    formData.append('mileage', 100);
-    formData.append('price', 1000);
-    formData.append('negoable', true);
-    formData.append('tradeable', true);
-    formData.append('isCrashed', true);
-    // data.tradeableModel.map((model) => formData.append('shBikeRequest', { tradeableModel: model }));
-
-    /*  const data = getFormData(values)  */
-
+    formData.append('title', titlePost);
+    formData.append('content', data.content);
+    formData.append('address', data.address);
+    formData.append('gearbox', gearboxPost);
+    formData.append('brand', data.brand);
+    formData.append('modelName', data.modelName);
+    formData.append('year', data.year);
+    formData.append('displacement', data.displacement);
+    formData.append('mileage', data.mileage);
+    formData.append('price', data.price);
+    formData.append('negoable', data.negoable);
+    formData.append('tradeable', data.tradeable);
+    formData.append('isCrashed', data.isCrashed);
+    data.tradeableModel.map((model) => formData.append('tradeableModel', model));
     try {
       await axios.post('/biketrade', formData, {
         headers: {
@@ -301,18 +292,9 @@ function jsonToFormData(data) {
     setValue('images', filteredItems);
   };
 
-  const trade = watch('tradeable');
 
-  useEffect(() => {
-    if (trade) {
-      settradeChecked(true);
-    } else {
-      settradeChecked(false);
-    }
-  }, [trade]);
-
-  // 다음 주소
-  const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
+  // 
+  const [isOpenPost, setIsOpenPost] = useState(false); 
   const onChangeOpenPost = () => {
     setIsOpenPost(!isOpenPost);
   };
@@ -335,7 +317,18 @@ function jsonToFormData(data) {
     padding: '7px',
   };
   const address = watch('address');
-  // 다음 주소 끝
+  // 
+
+  const [modelAlert, setModelAlert] = useState('브랜드를 먼저 선택해주세요!')
+
+  useEffect(() => {
+    if(values.brand){
+    setModelAlert('그런 모델명은 없어요!')
+  } if(values.brand === '기타'){
+    setModelAlert('기타를 선택해주세요.')
+  }
+  }, [values.brand])
+  
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -365,21 +358,13 @@ function jsonToFormData(data) {
                   지역찾기
                 </Button>
                 {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-                {address && (
-                  <RHFTextField
-                    name="address"
-                    placeholder="지역은 (도/시/군/구)만 남아요!"
-                    label="지역"
-                    autoComplete="false"
-                  />
-                )}
-
-                <RHFSwitch name="gearbox" label="사고유무" labelPlacement="start" />
-                {/* <Controller
+                <RHFTextField name="address" placeholder="지역은 (도/시/군/구)만 남아요!" label={address ? '지역' : "지역찾기를 눌러주세요"} autoComplete="false" disabled/>
+                 <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
+                    noOptionsText='메뉴얼, 스쿠터 중에 골라주세요'
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={GEARBOX_OPTION.map((option) => option)}
                       renderTags={(value, getTagProps) =>
@@ -393,7 +378,7 @@ function jsonToFormData(data) {
                         placeholder='종류' />}
                     />
                   )}
-                />   */}
+                />   
 
                 <Controller
                   name="brand"
@@ -401,8 +386,9 @@ function jsonToFormData(data) {
                   render={({ field }) => (
                     <Autocomplete
                       {...field}
+                      noOptionsText='그런 브랜드는 없어요!'
                       onChange={(event, newValue) => field.onChange(newValue)}
-                      options={BRAND_OPTION.map((option) => option)}
+                      options={BRAND_OPTION.map((option) => option.label)}
                       renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
@@ -420,8 +406,9 @@ function jsonToFormData(data) {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
+                    noOptionsText={modelAlert}
                       onChange={(event, newValue) => field.onChange(newValue)}
-                      options={MODEL_OPTION.map((option) => option)}
+                      options={MODEL_OPTION.map((option) => option.value)}
                       renderTags={(value, getTagProps) =>
                         value.map((option, index) => (
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
@@ -438,6 +425,7 @@ function jsonToFormData(data) {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
+                      noOptionsText='그런 년도는 없어요'
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={YEAR_OPTION.map((option) => option)}
                       renderTags={(value, getTagProps) =>
@@ -496,31 +484,27 @@ function jsonToFormData(data) {
 
               {!tradechecked ? (
                 ''
-              ) : (
+              ) : (<>
                 <Controller
-                  name="tradeModel"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      multiple
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={TRADEMODEL_OPTION.map((option) => option)}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => (
-                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                        ))
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          name="tradeableModel"
-                          label="모델명"
-                          helperText="모델명을 검색해주세요."
-                          {...params}
-                        />
-                      )}
-                    />
-                  )}
-                />
+                name="tradeableModel"
+                control={control}
+                render={({ field }) => (
+                  <Autocomplete
+                    multiple
+                    freeSolo
+                    noOptionsText='그런 모델은 없어요'
+                    limitTags={7}
+                    onChange={(event, newValue) => field.onChange(newValue)}
+                    options={TRADEMODEL_OPTION.map((option) => option.value)}
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                      ))
+                    }
+                    renderInput={(params) => <RHFTextField name="tradeableModel" label="대차가능모델" {...params} />}
+                  />
+                )}
+              /></>
               )}
             </Card>
 

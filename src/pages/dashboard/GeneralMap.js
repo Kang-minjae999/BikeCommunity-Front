@@ -1,36 +1,20 @@
-import { Map, MapMarker,MarkerClusterer,panTo ,getPosition, useMap} from "react-kakao-maps-sdk"
-import { useCallback, useEffect,useRef,useState} from "react"
+import { Map, MapMarker } from "react-kakao-maps-sdk"
+import { useEffect, useState} from "react"
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSnackbar } from 'notistack';
 // @mui
-import { Container, Button, Card, Typography, Grid, Stack,CardHeader,Link, Divider, Skeleton } from "@mui/material"
-import { styled } from '@mui/material/styles';
+import { Container, Button, Card, Typography, Grid, Stack,CardHeader,Link, Divider } from "@mui/material"
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import SmsIcon from '@mui/icons-material/Sms';
 import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
-import ArticleIcon from '@mui/icons-material/Article';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AddRoadIcon from '@mui/icons-material/AddRoad';
 // map
 import { allPositions, coffeePositions, garagePositions, roadPositions, attractionPositions} from "./GeneralMapposition"
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { PATH_DASHBOARD } from '../../routes/paths';
 import useSettings from '../../hooks/useSettings';
-import Iconify from '../../components/Iconify';
 import GeneralMapweather from "./GeneralMapweather";
 
-
-// ------------------------------------------------------------
-
-const IconStyle = styled(Iconify)(({ theme }) => ({
-  width: 20,
-  height: 20,
-  marginTop: 1,
-  flexShrink: 0,
-  marginRight: theme.spacing(2),
-}));
 
 // ------------------------------------------------------------
 
@@ -83,24 +67,6 @@ export default function GeneralMap() {
       }
     }, [])
 
-
-/*   const allImageSrc =
-    "/allicon.png"
-  const roadImageSrc =
-    "/roadicon.png"
-  const coffeeImageSrc =
-    "/coffeeicon.png"
-  const attractionImageSrc =
-    "/attractionicon.png"
-  const garageImageSrc =
-    "/garageicon.png"
-
-  const iimageSize = { width: 22, height: 22 }
-  const sspriteSize = { width: 36, height: 98 }
-  const coffeeOrigin = { x: 10, y: 0 }
-  const storeOrigin = { x: 10, y: 36 }
-  const carparkOrigin = { x: 10, y: 72 }
- */
   const all = () => {
     setSelectedCategory("all")
   }
@@ -129,28 +95,14 @@ export default function GeneralMap() {
     time: '',
   });
 
-  const [values, setvalues] = useState([{
-    value: '',
-    name: '',
-    content: '',
-    tel: '', 
-    time: '',
-  }]);
-
-  const valueon = useCallback(
-    () => {
-      setweatherok(true)
-   },[isselect] )
-
-    useEffect(() => {
-      valueon()
-    }, [valueon]);
+  const [isAbout, setIsAbout] = useState(false)
 
     useEffect(() => {
       if(isselect.content === '[정비소]'){
         setgaragetrue(true)
+        setweatherok(true)
       }else{
-        
+        setweatherok(true)
         setgaragetrue(false)
       }  
     }, [isselect]);
@@ -173,7 +125,6 @@ export default function GeneralMap() {
         
         <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-        {/* 지도 위에 표시될 마커 카테고리 */}
         <Card>
             <Button variant='outlined' color="inherit" size='small' type='button' id="allMenu"  onClick={all} sx={{mt:1, ml:1 ,mb:2}}>
               <Typography variant="body2">
@@ -216,7 +167,7 @@ export default function GeneralMap() {
                 key={`road-${position.lat},${position.lng}`}
                 position={position}
                 clickable
-                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + valueon()}
+                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + setIsAbout(true)}
               />
             ))}      
             {selectedCategory === "road" &&
@@ -225,7 +176,7 @@ export default function GeneralMap() {
                 key={`road-${position.lat},${position.lng}`}
                 position={position}
                 clickable
-                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + valueon()}
+                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + setIsAbout(true)}
               />
             ))}
           {selectedCategory === "coffee" &&
@@ -234,7 +185,7 @@ export default function GeneralMap() {
                 key={`coffee-${position.lat},${position.lng}`}
                 position={position}
                 clickable
-                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + valueon()}
+                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + setIsAbout(true)}
               />
             ))}
           {selectedCategory === "attraction" &&
@@ -243,7 +194,7 @@ export default function GeneralMap() {
                 key={`attraction-${position.lat},${position.lng}`}
                 position={position}
                 clickable
-                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + valueon()}
+                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + setIsAbout(true)}
               />
             ))}
           {selectedCategory === "garage" &&
@@ -252,32 +203,34 @@ export default function GeneralMap() {
                 key={`garage-${position.lat},${position.lng}`}
                 position={position}
                 clickable
-                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + valueon()}
+                onClick={() => setisselect(position) + setwealat(position.lat) + setwealng(position.lng) + setIsAbout(true)}
               />
             ))}
         </Map>
         </Card>
         </Grid>
         <Grid item xs={12} md={4}>
-
-        <Card>
-      <CardHeader title="About"/>
+ 
+      {isAbout && <Card>
+      <CardHeader title="About" sx={{mb:1}}/>
+      
       <Stack spacing={2} sx={{ p: 3 }}>
       <Stack direction="row">
       <AssistantPhotoIcon/>  &nbsp;
         <Typography variant="subtitle1">
        {isselect.name}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body2" sx={{mt:0.2}}>
          {isselect.content}
           </Typography>
         </Stack>
         <Divider />
+
         <Stack direction="row">
         <LocationOnIcon/>&nbsp;
         <CopyToClipboard text={isselect.position} onCopy={copy}>
         <Link component='button' variant="subtitle2" color="text.primary">
-          <Typography variant="body2" >
+          <Typography variant="body2">
           {isselect.position}
           </Typography>
           </Link>
@@ -291,32 +244,22 @@ export default function GeneralMap() {
           &nbsp;
         <Link href={isselect.ontel} variant="subtitle2" color="text.primary">
           <Typography variant="body2">
-          {isselect.tel}
+          {isselect.tel} &nbsp;&nbsp;
           </Typography>
-          </Link> &nbsp;&nbsp;
-        <Link href={isselect.onsms} variant="subtitle2" color="text.primary">
-        <SmsIcon/>
-          </Link>
-          &nbsp;
-        <Link href={isselect.onsms} variant="subtitle2" color="text.primary">
-          <Typography variant="body2">{isselect.tel}</Typography>
-          </Link>
-        </Stack>
-
-        <Stack direction="row">
-        <AccessTimeIcon/>&nbsp;
+          </Link> 
+          <AccessTimeIcon/>&nbsp;
           <Typography variant="body2">
            {isselect.time}
           </Typography>
         </Stack>
         <Divider />
+        {garagetrue ? <div>정비소 예약이나 프로필</div> : ''}
 
       <GeneralMapweather name={isselect.name} wealat={wealat} wealng={wealng} weatherok={weatherok} setweatherok={setweatherok}/>
      
       <Divider />
-        {garagetrue ? <div>정비소 예약이나 프로필 가게 해주세열</div> : ''}
       </Stack>
-    </Card>
+    </Card>}
         </Grid>
         </Grid>
         </Container>

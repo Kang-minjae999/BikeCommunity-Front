@@ -11,7 +11,7 @@ export default function SearchNotFound({ searchQuery = '', ...other }) {
   return searchQuery ? (
     <Paper {...other}>
       <Typography variant="body2" align="center">
-        <strong>&quot;{searchQuery}&quot;</strong>에 대한 내용을 검색할까요?
+        <strong>&quot;{searchQuery}&quot;</strong>를 검색할까요?
       </Typography>
     </Paper>
   ) : (

@@ -21,7 +21,7 @@ const productPersistConfig = {
   key: 'product',
   storage,
   keyPrefix: 'redux-',
-  whitelist: ['checkout', 'search', 'heart'],
+  whitelist: ['checkout', 'search', 'heart', 'usedHeart'],
 };
 
 const rootReducer = combineReducers({

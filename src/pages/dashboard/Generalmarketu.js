@@ -21,14 +21,12 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { FormProvider } from '../../components/hook-form';
 // sections
 import {
-  ShopTagFiltered,
   ShopProductSort,
   ShopProductList,
   ShopFilterSidebar,
   ShopProductSearch,
 } from '../../sections/@dashboard/used-e-commerce/shop';
 import useResponsive from '../../hooks/useResponsive';
-import Iconify from '../../components/Iconify';
 import SimpleDialogDemo from './Generalmarketunewbutton';
 
 // ------------------------------------------------------------
@@ -168,17 +166,17 @@ const [param, setparam] = useState('')
 
           ]} />}
 
-       {isDesktop && <Stack
-          spacing={2}
-          direction={{ xs: 'column', sm: 'row' }}
-          alignItems={{ sm: 'center' }}
-          justifyContent="space-between"
-          sx={{ mb: 2 }}
-        >
+       {isDesktop && 
+        <>
+        <Stack
+            spacing={2}
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ sm: 'center' }}
+            justifyContent="space-between"
+            sx={{ mb: 2 }}
+          >
              <>
-            <ShopProductSearch setparam={setparam} />
-            <Box sx={{whiteSpace: 'nowrap',
-          overflowX: 'auto', width:300}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}</Box>        
+            <ShopProductSearch setparam={setparam} />      
             <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
@@ -192,7 +190,11 @@ const [param, setparam] = useState('')
             </FormProvider>
             <ShopProductSort />
           </Stack>
-        </Stack>}
+        </Stack>
+        <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
+          {search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
+        </Box>  
+        </>}
         
         {!isDesktop && 
         <Stack

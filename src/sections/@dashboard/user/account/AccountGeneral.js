@@ -146,8 +146,6 @@ export default function AccountGeneral() {
             />
           {(defaultValues.avatar || watch('avatar')) && <Button onClick={deleteavatar} variant='outlined' color='inherit' sx={{mt:1, mr:1}}>아바타 삭제</Button>}
           {avataron && <Button onClick={onClickavatar} variant='outlined' sx={{mt:1}}>아바타 업로드</Button>}
-
-         {/*    <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
           </Card>
         </Grid>
 
@@ -163,29 +161,15 @@ export default function AccountGeneral() {
             >
               <RHFTextField name="name" label="이름" />
               <RHFTextField name="email" label="이메일" />
-
               <RHFTextField name="phoneNumber" label="번호" />
               <RHFTextField name="nickname" label="닉네임" />
-
-              {/* <RHFSelect name="country" label="Country" placeholder="Country">
-                <option value="" />
-                {countries.map((option) => (
-                  <option key={option.code} value={option.label}>
-                    {option.label}
-                  </option>
-                ))}
-              </RHFSelect> */}
-
               <RHFTextField name="address" label="주소" />
               <RHFTextField name="detailAddress" label="상세주소" />
               <RHFTextField name="zipcode" label="우편번호" />
-            </Box>
-
-            <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+              <LoadingButton type="submit" fullWidth variant="outlined" loading={isSubmitting}>
                 저장하기
               </LoadingButton>
-            </Stack>
+            </Box>
           </Card>
         </Grid>
       </Grid>

@@ -84,7 +84,8 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     heartBrand: brand,
     heartModelName: modelName,
     heartYear: year,
-    heartmileage: mileage,
+    heartMileage: mileage,
+    heartStatus: status,
   };
 
   const methods = useForm({

@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { useNavigate } from 'react-router-dom';
 import {  Typography,  Stack, Divider,  } from '@mui/material';
 import EcommerceCheckout from '../../../../pages/dashboard/EcommerceCheckout';
-import UEcommerceCheckout from '../../../../pages/dashboard/UEcommerceCheckout';
+import UEcommerceHeart from '../../../../pages/dashboard/UEcommerceHeart';
 import EcommerceHeart from '../../../../pages/dashboard/EcommerceHeart';
 import EcommercePaymentList from '../../../../pages/dashboard/EcommercePaymentList';
 
@@ -35,7 +35,7 @@ export default function Aecheckouthead() {
     },
     {
       value: 'used',
-      component: <UEcommerceCheckout />,
+      component: <UEcommerceHeart />,
     },
     {
       value: 'like',

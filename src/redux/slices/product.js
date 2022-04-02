@@ -16,6 +16,7 @@ const initialState = {
   sortBy: null,
   search:[],
   heart:[],
+  usedHeart:[],
   filters: {
     gender: [],
     category: 'All',
@@ -73,25 +74,24 @@ const slice = createSlice({
       state.filters.priceRange = action.payload.priceRange;
       state.filters.rating = action.payload.rating;
     },
-    
-    // HEART
-   /*  getHeartUsed(state, action) {
-      const cart = action.payload;
-
-      const subtotal = sum(cart.map((cartItem) => cartItem.price * cartItem.quantity));
-      const discount = cart.length === 0 ? 0 : state.checkout.discount;
-      const shipping = cart.length === 0 ? 0 : state.checkout.shipping;
-      const billing = cart.length === 0 ? null : state.checkout.billing;
-
-      state.checkout.cart = cart;
-      state.checkout.discount = discount;
-      state.checkout.shipping = shipping;
-      state.checkout.billing = billing;
-      state.checkout.subtotal = subtotal;
-      state.checkout.total = subtotal - discount;
-    }, */
 
     addHeartUsed(state, action) {
+      const product = action.payload;
+      if(state.usedHeart.length >= 10){
+        state.usedHeart.pop();
+        state.usedHeart = uniqBy([product, ...state.search]);
+      } else {
+        state.usedHeart = uniqBy([product, ...state.search]);
+      }
+      console.log(state.usedHeart)
+    },
+
+    deleteHeartUsed(state, action) {
+      const updateProduct = state.usedHeart.filter((item) => item.id !== action.payload);
+      state.usedHeart = updateProduct;
+    },
+
+    addHeart(state, action) {
       const product = action.payload;
       if(state.heart.length >= 10){
         state.heart.pop();
@@ -101,7 +101,12 @@ const slice = createSlice({
       }
       console.log(state.heart)
     },
-    
+
+    deleteHeart(state, action) {
+      const updateProduct = state.heart.filter((item) => item.id !== action.payload);
+      state.heart = updateProduct;
+    },
+
     // CHECKOUT
     getCart(state, action) {
       const cart = action.payload;
@@ -237,7 +242,10 @@ export default slice.reducer;
 
 // Actions
 export const {
+  addHeart,
+  deleteHeart,
   addHeartUsed,
+  deleteHeartUsed,
   addSearch,
   deleteSearch,
   getCart,

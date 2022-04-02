@@ -1,7 +1,5 @@
-import react, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 // @mui
-import { Box,  Container, Divider, Grid} from '@mui/material';
+import { Container, Divider, Grid} from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -27,14 +25,14 @@ export default function GeneralApp() {
     <Page title="라이더타운">
       <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={1}>
-         <Grid item xs={8} xl={8} sx={{mt:{xs:1, lg:8}}}>
+{/*          <Grid item xs={8} xl={8} sx={{mt:{xs:1, lg:8}}}>
           <AppFeaturedpc  />
            <Box sx={{mb:1}}/> 
           <AppFeaturedpc3  />
          </Grid>
          <Grid item xs={4} xl={4} sx={{mt:{xs:1, lg:8}}}>
          <AppFeaturedpc2  />
-         </Grid> 
+         </Grid>  */}
         <Grid item xs={12} lg={12} >
          <AppFeatured  />
          </Grid>  

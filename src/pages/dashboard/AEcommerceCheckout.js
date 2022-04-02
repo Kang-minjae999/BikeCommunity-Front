@@ -18,7 +18,7 @@ export default function AEcommerceCheckout() {
     <Page title="리스트">
       <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
         <HeaderBreadcrumbs
-          heading="Checkout"
+          heading="Checkout/Cart"
           links={[
             { name: '' },
           ]}

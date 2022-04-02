@@ -64,7 +64,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호", 
   tel:"01055197425", 
   ontel:"tel:01055197425" , 
-  onsms:"sms:01055197425", 
   time:'08:00~20:00'},
 
 { lat: 37.499463762912974, 
@@ -75,7 +74,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01055197425", 
   ontel:"tel:01055197425" , 
-  onsms:"sms:01055197425" , 
   time:'08:00~20:00'},
 
 { lat: 37.49896834100913, 
@@ -86,7 +84,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01055197425", 
   ontel:"tel:01055197425" ,
-  onsms:"sms:01055197425" , 
   time:'08:00~20:00'},
 
 { lat: 37.49893267508434, 
@@ -97,7 +94,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01055197425", 
   ontel:"tel:01055197425", 
-  onsms:"sms:01055197425", 
   time:'08:00~20:00'},
 
 { lat: 37.49872543597439, 
@@ -108,7 +104,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01055197425", 
   ontel:"tel:01055197425" , 
-  onsms:"sms:01055197425" , 
   time:'08:00~20:00'},
 
 { lat: 37.49813096097184, 
@@ -119,7 +114,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01055197425" , 
   ontel:"tel:01055197425" , 
-  onsms:"sms:01055197425", 
   time:'08:00~20:00'},
   
 { lat: 37.497680616783086, 
@@ -130,7 +124,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01084555463" , 
   ontel:"tel:01084555463" , 
-  onsms:"sms:01084555463", 
   time:'08:00~20:00'
 },
 { 
@@ -142,7 +135,6 @@ export const garagePositions = [
   position: "경기도 군포시 산본동 우성아파트 1311동 405호",
   tel:"01084555463" , 
   ontel:"tel:01084555463" , 
-  onsms:"sms:01084555463", 
   time:'08:00~20:00'
 },
 { 
@@ -154,7 +146,6 @@ export const garagePositions = [
   position: "응애응애",
   tel:"01084555463" , 
   ontel:"tel:01084555463" , 
-  onsms:"sms:01084555463", 
   time:'08:00~20:00'
 },
 ]
