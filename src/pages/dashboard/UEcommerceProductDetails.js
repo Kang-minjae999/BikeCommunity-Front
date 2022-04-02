@@ -84,7 +84,6 @@ export default function UEcommerceProductDetails() {
   
       if (isMountedRef.current) {
         setProduct(response.data.data);
-        console.log(product)
       }
     } catch (error) {
       setError(error)

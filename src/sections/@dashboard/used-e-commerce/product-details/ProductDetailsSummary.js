@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -39,6 +41,8 @@ ProductDetailsSummary.propTypes = {
 export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep, ...other }) {
   const navigate = useNavigate();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const {
     id,
     title,
@@ -59,7 +63,6 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     bikeImageURLs,
     createdDate
   } = product;
-
 
   const defaultValues = {
     heartId: id,
@@ -92,6 +95,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   const handleAddHeart = async () => {
     try {
       onAddHeart(values);
+      enqueueSnackbar('찜목록에 추가되었어요!')
     } catch (error) {
       console.error(error);
     }
@@ -100,151 +104,84 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   return (
     <RootStyle {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-       {/* <Label
-          variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
-          color={inventoryType === 'in_stock' ? 'success' : 'error'}
-          sx={{ textTransform: 'uppercase' }}
+        <Label
+          variant='filled'
+          color={status === 0 ? 'success' : 'error'}
+          sx={{mb:1}}
         >
-          {sentenceCase(inventoryType || '')}
-        </Label> */}
-
-        <Typography
-          variant="overline"
-          sx={{
-            mt: 2,
-            mb: 1,
-            display: 'block',
-            color: status === '판매중' ? 'error.main' : 'info.main',
-          }}
-        >
-          {status}
-        </Typography>
+        {status === 0 && '판매중'}
+        {status === 1 && '예약중'}
+        {status === 2 && '판매완료'}
+        </Label> 
 
         <Typography variant="h5" paragraph>
           {title}
         </Typography>
-        <Typography variant='h6'>  <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller}/>
-         {nicknameOfSeller} 
-         </Typography>
-        <Divider sx={{ borderStyle: 'dashed' }} /><br/>
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
-        {/* <Typography variant="body2" sx={{ mt: 0.5 }} >
-          {gearbox}
-        </Typography> */}
-        <Typography variant="body2" sx={{ mt: 0.5 }} >
+
+        <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{mb:2}}>
+          <Box>
+          <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller} sizes='small'/>
+          <Typography variant='subtitle2'>  
+          {nicknameOfSeller} 
+          </Typography>
+          </Box>
+          <Typography variant='body2'>  
+          {createdDate}
+          </Typography>
+         </Stack>
+
+        <Divider sx={{ mb: 2 }} />
+
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
+          <Typography variant="subtitle2" >
           {brand}
           </Typography>
-          <Typography variant="subtitle2" sx={{ mt: 0.5}} color='text.secondary'>
+          <Typography variant="subtitle2" >
           {modelName}
           </Typography>
-        </Stack>  
-
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
-        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
-            {year}년식
-        </Typography>
-        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
-            {mileage}km
-          </Typography>
-          <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
+          <Typography variant="subtitle2" >
           {displacement}cc
           </Typography>
         </Stack>  
 
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
-       {/*  <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
-            {negoable}
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
+        <Typography variant="subtitle2" >
+            {year}년식
         </Typography>
-        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
-            {tradeable}
+        <Typography variant="subtitle2" >
+            {mileage}km
           </Typography>
-          <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
-          {isCrashed}
-          </Typography> */}
+          <Typography variant="subtitle2" >
+          {gearbox ? '메뉴얼': '스쿠터'}
+          </Typography>
         </Stack>  
-        <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
-        {tradeableModels.map((model)=> (<Chip key={model} label={model}/>))}
+
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
+          <Label variant='filled' color={negoable ? 'success' : 'error'} sx={{mb:1}} >
+          {negoable && '네고가능'}
+          {!negoable && '네고불가능'}
+          </Label> 
+          <Label variant='filled' color={tradeable ? 'success' : 'error'} sx={{mb:1}} >
+          {tradeable && '대차가능'}
+          {!tradeable && '대차불가능'}
+          </Label> 
+          <Label variant='filled' color={isCrashed ? 'success' : 'error'} sx={{mb:1}} >
+          {isCrashed && '무사고'}
+          {!isCrashed && '사고있음'}
+          </Label> 
+        </Stack> 
+        <Typography variant='body2' color='text.secondary' sx={{mb:1}}>대차 가능 모델</Typography> 
+        {tradeableModels.map((model)=> (<Chip key={model} label={model} sx={{mb:1}}/>))}
+
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          {price}원
         </Typography>
 
-
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          &nbsp;{price}원
-        </Typography>
+        <Divider  />
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-      {/* <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-          <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-            Color
-          </Typography>
-
-           <Controller
-            name="color"
-            control={control}
-            render={({ field }) => (
-              <ColorSinglePicker
-                colors={colors}
-                value={field.value}
-                onChange={field.onChange}
-                sx={{
-                  ...(colors.length > 4 && {
-                    maxWidth: 144,
-                    justifyContent: 'flex-end',
-                  }),
-                }}
-              />
-            )}
-          /> 
-        </Stack> */}
-
-          {/*  <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
-        <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-            Size
-          </Typography>
-
-          <RHFSelect
-            name="size"
-            size="small"
-            fullWidth={false}
-            FormHelperTextProps={{
-              sx: { textAlign: 'right', margin: 0, mt: 1 },
-            }}
-            helperText={
-              <Link underline="always" color="text.secondary">
-                Size Chart
-              </Link>
-            }
-          >
-            {sizes.map((size) => (
-              <option key={size} value={size}>
-                {size}
-              </option>
-            ))}
-          </RHFSelect> 
-        </Stack>
-
-        <Stack direction="row" justifyContent="space-between" sx={{ mb: 3 }}>
-          <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-            Quantity
-          </Typography>
-
-           <div>
-            <Incrementer
-              name="quantity"
-              quantity={values.quantity}
-              available={available}
-              onIncrementQuantity={() => setValue('quantity', values.quantity + 1)}
-              onDecrementQuantity={() => setValue('quantity', values.quantity - 1)}
-            />
-            <Typography variant="caption" component="div" sx={{ mt: 1, textAlign: 'right', color: 'text.secondary' }}>
-              Available: {available}
-            </Typography>
-          </div> 
-        </Stack> */}
-
-        <Divider sx={{ borderStyle: 'dashed' }} />
-
-        <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           <Button
             fullWidth
             size="large"
@@ -261,50 +198,8 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
             채팅하기
           </Button>
         </Stack>
-
-        <Stack alignItems="center" sx={{ mt: 3 }}>
-          <SocialsButton initialColor />
-        </Stack>
       </FormProvider>
     </RootStyle>
   );
 }
 
-// ----------------------------------------------------------------------
-
-/* Incrementer.propTypes = {
-  available: PropTypes.number,
-  quantity: PropTypes.number,
-  onIncrementQuantity: PropTypes.func,
-  onDecrementQuantity: PropTypes.func,
-};
-
-function Incrementer({ available, quantity, onIncrementQuantity, onDecrementQuantity }) {
-  return (
-    <Box
-      sx={{
-        py: 0.5,
-        px: 0.75,
-        border: 1,
-        lineHeight: 0,
-        borderRadius: 1,
-        display: 'flex',
-        alignItems: 'center',
-        borderColor: 'grey.50032',
-      }}
-    >
-      <IconButton size="small" color="inherit" disabled={quantity <= 1} onClick={onDecrementQuantity}>
-        <Iconify icon={'eva:minus-fill'} width={14} height={14} />
-      </IconButton>
-
-      <Typography variant="body2" component="span" sx={{ width: 40, textAlign: 'center' }}>
-        {quantity}
-      </Typography>
-
-      <IconButton size="small" color="inherit" disabled={quantity >= available} onClick={onIncrementQuantity}>
-        <Iconify icon={'eva:plus-fill'} width={14} height={14} />
-      </IconButton>
-    </Box>
-  );
-}
- */

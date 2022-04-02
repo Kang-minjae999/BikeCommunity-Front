@@ -9,7 +9,7 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 import { fCurrency } from '../../../../utils/formatNumber';
 import { fyeardateTime } from '../../../../utils/formatTime';
 // components
-import Label from '../../../../components/Label';
+import LabelProduct from '../../../../components/LabelProduct';
 import Image from '../../../../components/Image';
 import { ColorPreview } from '../../../../components/color-utils';
 
@@ -30,73 +30,56 @@ export default function ShopProductCard({ product }) {
         <>
       <Link to={linkTo} component={RouterLink}>
       <Box sx={{ position: 'relative' }}>
-        {address && (
-          <Label
-            color='success'
+          <LabelProduct
+            color='info'
             variant="filled"
             sx={{
-              top: 16,
-              left: 16,
+              top: 8,
+              left: 8,
               zIndex: 9,
               position: 'absolute',
-              textTransform: 'uppercase',
+              
             }}
           >
             {address}
-          </Label>
-        )}
-        {year && <Label
-            color='success'
-            variant="filled"
-            sx={{
-              top: 16,
-              right: 16,
+          </LabelProduct>
+          <Box sx={{
+              top: 8,
+              right: 8,
               zIndex: 9,
               position: 'absolute',
-              textTransform: 'uppercase',
-            }}
-          >
-            {year}
-          </Label>}
-          {mileage && 
-          <Label
-            color='success'
-            variant="filled"
-            sx={{
-              top: 22,
-              right: 16,
-              zIndex: 9,
-              position: 'absolute',
-              textTransform: 'uppercase',
-            }}
-          >
-            {mileage}
-          </Label>}
+            }}>
+          <LabelProduct
+            color='info'
+            variant="filled" >
+            {year}년식
+          </LabelProduct>
+          <LabelProduct
+            color='info'
+            variant="filled">
+            {mileage}km
+          </LabelProduct>
+          </Box>
         <Image alt={title} src={thumbnailImageURLs} ratio="1/1" />
       </Box>
 
-      <Stack spacing={2} sx={{ p: 3 }}>
-          <Typography variant="subtitle2" noWrap>
+      <Stack spacing={2} sx={{ my:2 }}>
+      <Typography variant="subtitle2" noWrap>
             {title}
-          </Typography>
-
+        </Typography>
         <Stack direction="column" alignItems="center" justifyContent="center">
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
-            {brand && (
               <Typography variant="subtitle2" >
                 {brand}
               </Typography>
-            )} 
-            <Typography variant="body2"  >{modelName}</Typography>
+            <Typography variant="body2" >{modelName}</Typography>
           </Stack>
-          <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
-            {price && (
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
               <Typography variant="subtitle2" >
-                {fCurrency(price)}
+                {price}원
               </Typography>
-            )} 
             <Typography variant="body2" component="span" sx={{ color: 'text.disabled' }}>{fyeardateTime(createdDate)}</Typography>
-          </Stack>
+        </Stack>
         </Stack>
       </Stack>
         </Link>
