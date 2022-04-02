@@ -56,14 +56,15 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     nicknameOfSeller,
     avatarURLOfSeller,
     tradeableModels,
-    imageURLs
+    bikeImageURLs,
+    createdDate
   } = product;
 
 
   const defaultValues = {
     heartId: id,
     heartTitle: title,
-    heartImageURLs: imageURLs[0],
+    heartImageURLs: bikeImageURLs[0],
     heartBrand: brand,
     heartModelName: modelName,
     heartYear: year,
@@ -123,7 +124,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           {title}
         </Typography>
         <Typography variant='h6'>  <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller}/>
-         {nicknameOfSeller}
+         {nicknameOfSeller} {createdDate}
          </Typography>
         <Divider sx={{ borderStyle: 'dashed' }} /><br/>
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
@@ -163,7 +164,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
         </Stack>  
         <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
         {tradeableModels.map((model)=> (<Chip key={model}>{model}</Chip>))}
-          </Typography>
+        </Typography>
 
 
         <Typography variant="h4" sx={{ mb: 3 }}>
