@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Typography, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 import axios from '../../../utils/axiospost';
@@ -29,7 +27,6 @@ BlogPostCommentForm.propTypes = {
 
 export default function BlogPostCommentForm({post}) {
   const {id} = post
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const CommentSchema = Yup.object().shape({
@@ -61,8 +58,7 @@ export default function BlogPostCommentForm({post}) {
         },
       });
       reset()
-      enqueueSnackbar('덧글 추가 완료!');/* 
-      navigate(`/dashboard/blog/dingsta/${id}`); */
+      enqueueSnackbar('덧글 추가 완료!');
       window.location.replace(`/dashboard/blog/dingsta/${id}`);
     } catch (error) {
       console.error(error);

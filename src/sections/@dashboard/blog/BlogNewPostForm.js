@@ -1,35 +1,24 @@
 import * as Yup from 'yup';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // form
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { styled } from '@mui/material/styles';
-import { Grid, Card, Chip, Stack, Button, Typography, Autocomplete, CardHeader } from '@mui/material';
+import { Grid, Card,  Stack,  CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, RHFEditor, FormProvider, RHFTextField, RHFUploadSingleFile,RHFUploadMultiFile } from '../../../components/hook-form';
+import { RHFSwitch,  FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
-import BlogNewPostPreview from './BlogNewPostPreview';
 import axios from '../../../utils/axiospostadmin';
 
 // ----------------------------------------------------------------------
 
 export default function BlogNewPostForm() {
   const navigate = useNavigate();
-
-  const [open, setOpen] = useState(false);
-
-  const { pathname } = useLocation();
-
-  const isnotice = pathname.includes('notice');
-  const ispost = pathname.includes('post');
-
-
   const { enqueueSnackbar } = useSnackbar();
 
 
@@ -50,12 +39,10 @@ export default function BlogNewPostForm() {
   });
 
   const {
-    reset,
     watch,
-    control,
     setValue,
     handleSubmit,
-    formState: { isSubmitting, isValid },
+    formState: { isSubmitting },
   } = methods;
 
   const values = watch();

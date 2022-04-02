@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
-import { paramCase } from 'change-case';
-import { useParams, useLocation } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // redux
-import { useDispatch, useSelector } from '../../redux/store';
-import { getProducts } from '../../redux/slices/product';
+import axios from '../../utils/axiossecondhand';
+import useIsMountedRef from '../../hooks/useIsMountedRef';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -15,26 +14,70 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import UProductNewForm from '../../sections/@dashboard/used-e-commerce/UProductNewForm';
 import UProductNewFormgear from '../../sections/@dashboard/used-e-commerce/UProductNewFormgear';
 import UProductNewFormparts from '../../sections/@dashboard/used-e-commerce/UProductNewFormparts';
+import Alert from '../../theme/overrides/Alert';
+import useAuth from '../../hooks/useAuth';
+
 
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductCreate() {
   const { themeStretch } = useSettings();
-/*   const dispatch = useDispatch(); */
+  const isMountedRef = useIsMountedRef();
+  const navigate = useNavigate()
+  const { user } = useAuth()
   const { pathname } = useLocation();
-  const { name } = useParams();
-  const { products } = useSelector((state) => state.product);
+  const { id = '' } = useParams();
+
   const isEdit = pathname.includes('edit');
-  const currentProduct = products.find((product) => paramCase(product.name) === name);
 
   const ismoto = pathname.includes('moto');
   const isgear = pathname.includes('gear');
   const isparts = pathname.includes('parts');
 
-/*   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
- */
+  const [api, setApi] = useState();
+  const [currentProduct, setcurrentProduct] = useState(null);
+
+  useEffect(() => {
+    if(ismoto){
+      setApi('biketrade')
+    }
+    if(isgear){
+      setApi('biketrade')
+    }
+    if(isparts){
+      setApi('biketrade')
+    }
+  }, [ismoto, isgear, isparts])
+  
+
+  const getProduct = useCallback(async () => {
+    try {
+      const response = await axios.get(`/${api}/${id}`);
+  
+      if (isMountedRef.current) {
+        setcurrentProduct(response.data.data);
+      }
+    } catch (error) {
+      Alert.Alert(error)
+    }
+  }, [isMountedRef,id,api]);
+
+  useEffect(() => {
+    getProduct();
+  }, [getProduct])
+  
+  
+  useEffect(() => {
+    if(isEdit && currentProduct){
+      if(user?.nickname !== currentProduct?.nicknameOfSeller){
+        navigate('dashboard/app')
+      }
+    }
+  }, [isEdit, currentProduct, user, navigate]);
+
+
+
+
   return (
     <Page title="중고거래 / 새 상품 올리기">
       <Container maxWidth={themeStretch ? false : 'lx'}>

@@ -84,9 +84,9 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      title: currentProduct?.name || '',
+      title: currentProduct?.title || '',
       content: currentProduct?.content || '',
-      images: currentProduct?.images || [],
+      images: currentProduct?.bikeImageURLs || [],
       address: currentProduct?.address || '',
       gearbox: currentProduct?.gearbox || null,
       brand: currentProduct?.brand || null,
@@ -98,7 +98,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       negoable: currentProduct?.negoable || false,
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
-      tradeableModel: currentProduct?.trademodel || [],
+      tradeableModel: currentProduct?.tradeableModel || [],
     }),
     [currentProduct]
   );
@@ -237,35 +237,76 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   // ---------------------------------------------------------------
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData();
-    data.images.map((file) => formData.append('imageFiles', file));
-    formData.append('title', titlePost);
-    formData.append('content', data.content);
-    formData.append('address', data.address);
-    formData.append('gearbox', gearboxPost);
-    formData.append('brand', data.brand);
-    formData.append('modelName', data.modelName);
-    formData.append('year', data.year);
-    formData.append('displacement', data.displacement);
-    formData.append('mileage', data.mileage);
-    formData.append('price', data.price);
-    formData.append('negoable', data.negoable);
-    formData.append('tradeable', data.tradeable);
-    formData.append('isCrashed', data.isCrashed);
-    data.tradeableModel.map((model) => formData.append('tradeableModel', model));
-    try {
-      await axios.post('/biketrade', formData, {
-        headers: {
-          'content-type': 'multipart/form-data',
-          authorization: accessToken,
-        },
-      });
-      reset();
-      enqueueSnackbar(!isEdit ? '성공적으로 업로드 되었습니다!' : '성공적으로 업로드 되었습니다!');
-      navigate(PATH_DASHBOARD.general.marketu);
-    } catch (error) {
-      console.error(error);
+    if(isEdit){
+      if (!Array.isArray(watch('tradeableModel'))) {
+        enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
+        return;
+      }
+      const accessToken = window.localStorage.getItem('accessToken');
+      const formData = new FormData();
+      data.images.map((file) => formData.append('imageFiles', file));
+      formData.append('title', titlePost);
+      formData.append('content', data.content);
+      formData.append('address', data.address);
+      formData.append('gearbox', gearboxPost);
+      formData.append('brand', data.brand);
+      formData.append('modelName', data.modelName);
+      formData.append('year', data.year);
+      formData.append('displacement', data.displacement);
+      formData.append('mileage', data.mileage);
+      formData.append('price', data.price);
+      formData.append('negoable', data.negoable);
+      formData.append('tradeable', data.tradeable);
+      formData.append('isCrashed', data.isCrashed);
+      data.tradeableModel.map((model) => formData.append('tradeableModel', model));
+      try {
+        await axios.post('/biketrade', formData, {
+          headers: {
+            'content-type': 'multipart/form-data',
+            authorization: accessToken,
+          },
+        });
+        reset();
+        enqueueSnackbar(!isEdit ? '성공적으로 업로드 되었습니다!' : '성공적으로 업로드 되었습니다!');
+        navigate(PATH_DASHBOARD.general.marketu);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      if (!Array.isArray(watch('tradeableModel'))) {
+        enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
+        return;
+      }
+      const accessToken = window.localStorage.getItem('accessToken');
+      const formData = new FormData();
+      data.images.map((file) => formData.append('imageFiles', file));
+      formData.append('title', titlePost);
+      formData.append('content', data.content);
+      formData.append('address', data.address);
+      formData.append('gearbox', gearboxPost);
+      formData.append('brand', data.brand);
+      formData.append('modelName', data.modelName);
+      formData.append('year', data.year);
+      formData.append('displacement', data.displacement);
+      formData.append('mileage', data.mileage);
+      formData.append('price', data.price);
+      formData.append('negoable', data.negoable);
+      formData.append('tradeable', data.tradeable);
+      formData.append('isCrashed', data.isCrashed);
+      data.tradeableModel.map((model) => formData.append('tradeableModel', model));
+      try {
+        await axios.put('/biketrade', formData, {
+          headers: {
+            'content-type': 'multipart/form-data',
+            authorization: accessToken,
+          },
+        });
+        reset();
+        enqueueSnackbar(!isEdit ? '성공적으로 업로드 되었습니다!' : '성공적으로 업로드 되었습니다!');
+        navigate(PATH_DASHBOARD.general.marketu);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -273,7 +314,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     (acceptedFiles) => {
       setValue(
         'images',
-        acceptedFiles.map((file) =>
+        ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })

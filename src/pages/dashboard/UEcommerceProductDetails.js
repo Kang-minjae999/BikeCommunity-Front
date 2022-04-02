@@ -78,7 +78,7 @@ export default function UEcommerceProductDetails() {
 
   const [value, setValue] = useState('1')
 
-  const getAllProduct = useCallback(async () => {
+  const getProduct = useCallback(async () => {
     try {
       const response = await axios.get(`/biketrade/${id}`);
   
@@ -91,8 +91,8 @@ export default function UEcommerceProductDetails() {
   }, [isMountedRef,id]);
   
   useEffect(() => {
-      getAllProduct();
-  }, [getAllProduct]);
+    getProduct();
+  }, [getProduct]);
 
 
   const handleAddHeart = (product) => {
@@ -151,7 +151,7 @@ export default function UEcommerceProductDetails() {
               <TabContext value={value}>
                 <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
                   <TabList onChange={(e, value) => setValue(value)}>
-                    <Tab disableRipple value="1" label="Description" />
+                    <Tab disableRipple value="1" label="설명" />
                   </TabList>
                 </Box>
 
