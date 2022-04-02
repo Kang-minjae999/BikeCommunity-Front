@@ -31,7 +31,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 ProductDetailsSummary.propTypes = {
   onAddHeart: PropTypes.func,
   onGotoStep: PropTypes.func,
-  product: PropTypes.object()
+  product: PropTypes.object
 }
 
 
