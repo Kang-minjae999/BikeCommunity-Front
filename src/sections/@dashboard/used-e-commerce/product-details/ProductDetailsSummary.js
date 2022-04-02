@@ -45,8 +45,8 @@ ProductDetailsSummary.propTypes = {
     negoable: PropTypes.bool,
     tradeable: PropTypes.bool,
     isCrashed: PropTypes.bool,
-    nicknameOfSeller: PropTypes.number,
-    avatarURLOfSeller: PropTypes.number,
+    nicknameOfSeller: PropTypes.string,
+    avatarURLOfSeller: PropTypes.string,
     tradeableModels: PropTypes.arrayOf(PropTypes.string),
     imageURLs: PropTypes.arrayOf(PropTypes.string),
 })}
