@@ -18,6 +18,7 @@ import Iconify from '../../../../components/Iconify';
 import SocialsButton from '../../../../components/SocialsButton';
 import { ColorSinglePicker } from '../../../../components/color-utils';
 import { FormProvider, RHFSelect } from '../../../../components/hook-form';
+import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +41,7 @@ ProductDetailsSummary.propTypes = {
 
 export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep, ...other }) {
   const navigate = useNavigate();
-
+  const {user} = useAuth()
   const { enqueueSnackbar } = useSnackbar();
 
   const {
@@ -198,6 +199,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
             채팅하기
           </Button>
         </Stack>
+        {nicknameOfSeller === user?.nickname &&
+        <Button fullWidth size="large" type="submit" variant="contained">
+            수정하기
+        </Button>}
       </FormProvider>
     </RootStyle>
   );
