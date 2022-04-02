@@ -124,13 +124,13 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           {title}
         </Typography>
         <Typography variant='h6'>  <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller}/>
-         {nicknameOfSeller} {createdDate}
+         {nicknameOfSeller} 
          </Typography>
         <Divider sx={{ borderStyle: 'dashed' }} /><br/>
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
-        <Typography variant="body2" sx={{ mt: 0.5 }} >
+        {/* <Typography variant="body2" sx={{ mt: 0.5 }} >
           {gearbox}
-        </Typography>
+        </Typography> */}
         <Typography variant="body2" sx={{ mt: 0.5 }} >
           {brand}
           </Typography>
@@ -152,7 +152,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
         </Stack>  
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} color='text.secondary'>
-        <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
+       {/*  <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
             {negoable}
         </Typography>
         <Typography variant="subtitle2" sx={{ mt: 0.5 }} >
@@ -160,7 +160,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           </Typography>
           <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
           {isCrashed}
-          </Typography>
+          </Typography> */}
         </Stack>  
         <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
         {tradeableModels.map((model)=> (<Chip key={model} label={model}/>))}
@@ -168,8 +168,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
 
 
         <Typography variant="h4" sx={{ mb: 3 }}>
-
-          &nbsp;{fCurrency(price)}원
+          &nbsp;{price}원
         </Typography>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
