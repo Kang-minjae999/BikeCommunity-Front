@@ -263,7 +263,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       });
       reset();
       enqueueSnackbar(!isEdit ? '성공적으로 업로드 되었습니다!' : '성공적으로 업로드 되었습니다!');
-      navigate(PATH_DASHBOARD.eCommerce.list);
+      navigate(PATH_DASHBOARD.general.marketu);
     } catch (error) {
       console.error(error);
     }
