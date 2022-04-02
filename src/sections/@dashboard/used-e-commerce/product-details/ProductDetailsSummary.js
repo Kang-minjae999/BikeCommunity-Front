@@ -31,25 +31,8 @@ const RootStyle = styled('div')(({ theme }) => ({
 ProductDetailsSummary.propTypes = {
   onAddHeart: PropTypes.func,
   onGotoStep: PropTypes.func,
-  product: PropTypes.object({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    gearbox: PropTypes.bool,
-    brand: PropTypes.string,
-    modelName: PropTypes.string,
-    price: PropTypes.number,
-    year: PropTypes.number,
-    mileage: PropTypes.number,
-    displacement: PropTypes.number,
-    status: PropTypes.string,
-    negoable: PropTypes.bool,
-    tradeable: PropTypes.bool,
-    isCrashed: PropTypes.bool,
-    nicknameOfSeller: PropTypes.string,
-    avatarURLOfSeller: PropTypes.string,
-    tradeableModels: PropTypes.arrayOf(PropTypes.string),
-    imageURLs: PropTypes.arrayOf(PropTypes.string),
-})}
+  product: PropTypes.object()
+}
 
 
 
