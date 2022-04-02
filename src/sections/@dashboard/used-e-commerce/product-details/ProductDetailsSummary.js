@@ -106,7 +106,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Label
           variant='filled'
-          color={status === 0 ? 'success' : 'error'}
+          color={status === 0 ? 'info' : 'error'}
           sx={{mb:1}}
         >
         {status === 0 && '판매중'}
@@ -157,15 +157,15 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
         </Stack>  
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-          <Label variant='filled' color={negoable ? 'success' : 'error'} sx={{mb:1}} >
+          <Label variant='filled' color={negoable ? 'info' : 'error'} sx={{mb:1}} >
           {negoable && '네고가능'}
           {!negoable && '네고불가능'}
           </Label> 
-          <Label variant='filled' color={tradeable ? 'success' : 'error'} sx={{mb:1}} >
+          <Label variant='filled' color={tradeable ? 'info' : 'error'} sx={{mb:1}} >
           {tradeable && '대차가능'}
           {!tradeable && '대차불가능'}
           </Label> 
-          <Label variant='filled' color={isCrashed ? 'success' : 'error'} sx={{mb:1}} >
+          <Label variant='filled' color={isCrashed ? 'info' : 'error'} sx={{mb:1}} >
           {isCrashed && '무사고'}
           {!isCrashed && '사고있음'}
           </Label> 

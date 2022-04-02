@@ -79,17 +79,21 @@ const slice = createSlice({
       const product = action.payload;
       if(state.usedHeart.length >= 10){
         state.usedHeart.pop();
-        state.usedHeart = uniqBy([product, ...state.search]);
+        state.usedHeart = uniqBy([product, ...state.usedHeart]);
       } else {
-        state.usedHeart = uniqBy([product, ...state.search]);
+        state.usedHeart = uniqBy([product, ...state.usedHeart]);
       }
-      console.log(state.usedHeart)
     },
 
     deleteHeartUsed(state, action) {
       const updateProduct = state.usedHeart.filter((item) => item.id !== action.payload);
       state.usedHeart = updateProduct;
     },
+    
+    deleteAllHeartUsed(state) {
+      state.usedHeart = [];
+    },
+
 
     addHeart(state, action) {
       const product = action.payload;
@@ -246,6 +250,7 @@ export const {
   deleteHeart,
   addHeartUsed,
   deleteHeartUsed,
+  deleteAllHeartUsed,
   addSearch,
   deleteSearch,
   getCart,

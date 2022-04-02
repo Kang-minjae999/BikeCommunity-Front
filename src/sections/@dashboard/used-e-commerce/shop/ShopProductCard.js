@@ -30,25 +30,19 @@ export default function ShopProductCard({ product }) {
         <>
       <Link to={linkTo} component={RouterLink}>
       <Box sx={{ position: 'relative' }}>
-          <LabelProduct
-            color='info'
-            variant="filled"
-            sx={{
+
+{/*       <Stack direction='column'  sx={{
               top: 8,
               left: 8,
               zIndex: 9,
               position: 'absolute',
-              
-            }}
+            }}>
+          <LabelProduct
+            color='info'
+            variant="filled"
           >
             {address}
           </LabelProduct>
-          <Box sx={{
-              top: 8,
-              right: 8,
-              zIndex: 9,
-              position: 'absolute',
-            }}>
           <LabelProduct
             color='info'
             variant="filled" >
@@ -59,22 +53,45 @@ export default function ShopProductCard({ product }) {
             variant="filled">
             {mileage}km
           </LabelProduct>
-          </Box>
+          </Stack> */}
         <Image alt={title} src={thumbnailImageURLs} ratio="1/1" />
       </Box>
 
       <Stack spacing={2} sx={{ my:2 }}>
+      <Stack direction='row' justifyContent='space-between' sx={{
+              top: 8,
+              left: 8,
+              zIndex: 9,
+              position: 'absolute',
+            }}>
+          <LabelProduct
+            color='info'
+            variant="filled"
+          >
+            {address}
+          </LabelProduct>
+          <LabelProduct
+            color='info'
+            variant="filled" >
+            {year}년식
+          </LabelProduct>
+          <LabelProduct
+            color='info'
+            variant="filled">
+            {mileage}km
+          </LabelProduct>
+          </Stack>
       <Typography variant="subtitle2" noWrap>
             {title}
         </Typography>
         <Stack direction="column" alignItems="center" justifyContent="center">
-        <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={0.5}>
               <Typography variant="subtitle2" >
                 {brand}
               </Typography>
             <Typography variant="body2" >{modelName}</Typography>
           </Stack>
-        <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={0.5}>
               <Typography variant="subtitle2" >
                 {price}원
               </Typography>
