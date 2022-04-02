@@ -148,7 +148,7 @@ const [param, setparam] = useState('')
   const [loading, setloading] = useState(false)
 
   useEffect(() => {
-    if(products){
+    if(products === []){
       setloading(true)
     } else {
       setloading(false)
