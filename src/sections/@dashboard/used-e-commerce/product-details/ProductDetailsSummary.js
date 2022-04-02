@@ -163,7 +163,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           </Typography>
         </Stack>  
         <Typography variant="subtitle2" sx={{ mt: 0.5 }} color='text.secondary'>
-        {tradeableModels.map((model)=> (<Chip key={model}>{model}</Chip>))}
+        {tradeableModels.map((model)=> (<Chip key={model} label={model}/>))}
         </Typography>
 
 
