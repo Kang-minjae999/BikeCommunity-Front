@@ -153,12 +153,6 @@ export default function UEcommerceProductDetails() {
                 <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
                   <TabList onChange={(e, value) => setValue(value)}>
                     <Tab disableRipple value="1" label="Description" />
-                    <Tab
-                      disableRipple
-                      value="2"
-                      label={`Review (${product.reviews.length})`}
-                      sx={{ '& .MuiTab-wrapper': { whiteSpace: 'nowrap' } }}
-                    />
                   </TabList>
                 </Box>
 
@@ -168,9 +162,6 @@ export default function UEcommerceProductDetails() {
                   <Box sx={{ p: 3 }}>
                     <Markdown children={product.content} />
                   </Box>
-                </TabPanel>
-                <TabPanel value="2">
-                 {/*  <ProductDetailsReview product={product} /> */} 뭐 넣을게 있나
                 </TabPanel>
               </TabContext>
             </Card> 
