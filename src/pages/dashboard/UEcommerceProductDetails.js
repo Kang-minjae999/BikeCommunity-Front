@@ -83,7 +83,8 @@ export default function UEcommerceProductDetails() {
       const response = await axios.get(`/biketrade/${id}`);
   
       if (isMountedRef.current) {
-        setProduct(response.data);
+        setProduct(response.data.data);
+        console.log(product)
       }
     } catch (error) {
       setError(error)
@@ -119,7 +120,7 @@ export default function UEcommerceProductDetails() {
             <Card>
               <Grid container>
                 <Grid item xs={12} md={6} lg={7}>
-                 <ProductDetailsCarousel images={product?.bikeImageURLs} /> 
+                 {/* <ProductDetailsCarousel images={product?.bikeImageURLs} /> */} <Box/>
                 </Grid>
                 <Grid item xs={12} md={6} lg={5}>
                    <ProductDetailsSummary
