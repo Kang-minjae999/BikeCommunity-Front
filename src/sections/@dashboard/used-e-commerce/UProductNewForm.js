@@ -492,8 +492,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   <Autocomplete
                     multiple
                     freeSolo
-                    noOptionsText='그런 모델은 없어요'
-                    limitTags={7}
+                    noOptionsText='자유롭게 입력해주세요'
                     onChange={(event, newValue) => field.onChange(newValue)}
                     options={TRADEMODEL_OPTION.map((option) => option.value)}
                     renderTags={(value, getTagProps) =>
