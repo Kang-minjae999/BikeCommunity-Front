@@ -120,7 +120,7 @@ export default function UEcommerceProductDetails() {
             <Card>
               <Grid container>
                 <Grid item xs={12} md={6} lg={7}>
-                 {/* <ProductDetailsCarousel images={product?.bikeImageURLs} /> */} <Box/>
+                  <ProductDetailsCarousel images={product?.bikeImageURLs} /> 
                 </Grid>
                 <Grid item xs={12} md={6} lg={5}>
                    <ProductDetailsSummary
