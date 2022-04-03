@@ -90,6 +90,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
 
   const isDesktop = useResponsive('up', 'lg');
 
+
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout} >
       <Toolbar

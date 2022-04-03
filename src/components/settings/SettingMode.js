@@ -25,6 +25,11 @@ const BoxStyle = styled(CardActionArea)(({ theme }) => ({
 export default function SettingMode() {
   const { themeMode, onChangeMode } = useSettings();
 
+/*   const onClickDark = () => {
+    if(window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({type:'onDark'}))}
+  } */
+
   return (
     <RadioGroup name="themeMode" value={themeMode} onChange={onChangeMode}>
       <Grid dir="ltr" container spacing={3}>
