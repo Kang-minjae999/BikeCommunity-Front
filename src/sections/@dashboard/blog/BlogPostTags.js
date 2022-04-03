@@ -15,11 +15,7 @@ BlogPostTags.propTypes = {
 export default function BlogPostTags({ tags }) {
   return (
     <Box sx={{ py: 3 }}>
-      {tags.map((tag, index) => (
-        <Chip key={index} label={tag} sx={{ m: 0.5 }} />
-      ))}
-
-    {/*   <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
+     <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
         <FormControlLabel
           control={
             <Checkbox
@@ -30,9 +26,12 @@ export default function BlogPostTags({ tags }) {
               checkedIcon={<Iconify icon="eva:heart-fill" />}
             />
           }
-          label={fShortenNumber(favorite)}
+          label='좋아요'
         />
-      </Box> */}
+      </Box> 
+      {tags.map((tag, index) => (
+        <Chip key={index} label={tag} sx={{ m: 0.5 }} />
+      ))}
     </Box>
   );
 }

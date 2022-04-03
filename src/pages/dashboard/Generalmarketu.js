@@ -208,7 +208,6 @@ const [param, setparam] = useState('')
         <Appmarketcategory2/>
           <Divider sx={{mt:1, mb:2}} />
 
-
         <ShopProductList products={products} loading={!products.length} />
         <Stack
           direction="row"
