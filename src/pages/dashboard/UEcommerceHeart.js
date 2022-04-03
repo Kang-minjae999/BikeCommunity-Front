@@ -27,8 +27,8 @@ export default function UEcommerceHeart() {
   const onClick = (id) => {
     dispatch(deleteHeartUsed(id))
   }
-  const onClick2 = (id) => {
-    dispatch(deleteAllHeartUsed(id))
+  const onClick2 = () => {
+    dispatch(deleteAllHeartUsed())
   }
 
   return (
@@ -39,14 +39,14 @@ export default function UEcommerceHeart() {
           <Card>
             <Link component={RouterLink} to={linkTo}>
             <Box>
-            <Image alt={item.name} src={item.heartImageURLs} />
-            <Label>{item.heartStatus}</Label>
-            <Typography variant='subtitle2'>{item.heartTitle}</Typography>
-            <Typography variant='body2'>{item.heartBrand}/{item.heartModelName}</Typography>
-            <Typography variant='body2'>{item.heartYear}년식/{item.heartMileage}km</Typography>
+            <Image alt={item.name} src={item.heartImageURLs} sx={{mb:1}}/>
+            <Label sx={{mb:1}}>{item.heartStatus}</Label>
+            <Typography variant='subtitle2' sx={{mb:1}}>{item.heartTitle}</Typography>
+            <Typography variant='body2' sx={{mb:1}}>{item.heartBrand}/{item.heartModelName}</Typography>
+            <Typography variant='body2' sx={{mb:1}}>{item.heartYear}년식/{item.heartMileage}km</Typography>
             </Box>
             </Link>
-            <Button size="small" variant="text" onClick={() => onClick(item.heartId)}>
+            <Button size="small" fullWidth variant="text" onClick={() => onClick(item.heartId)}>
             <DeleteIcon />
             </Button>
           </Card>
