@@ -51,6 +51,8 @@ function SettingsProvider({ children }) {
       ...settings,
       themeMode: settings.themeMode === 'light' ? 'dark' : 'light',
     });
+    if(window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(JSON.stringify({type:'onDark'}))}
   };
 
   const onChangeDirection = (event) => {
