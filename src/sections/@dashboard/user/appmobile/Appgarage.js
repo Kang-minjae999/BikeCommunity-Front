@@ -4,10 +4,6 @@ import {useEffect, useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // -----------------------------------------
-import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import MapIcon from '@mui/icons-material/Map';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
@@ -15,15 +11,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import ListIcon from '@mui/icons-material/List';
 // -----------------------------------------
 import { useNavigate } from 'react-router-dom';
-import { Card, Paper, Stack, Grid, Typography, Box, CardHeader, Divider } from '@mui/material';
-import EcommerceShop from '../../../../pages/dashboard/EcommerceShop';
-import { AppFeatured } from '../../general/app';
-import  Appecommerce2  from './Appecommerce2';
-import { BlogPostRecent } from '../../blog';
-import BlogPostRecentapp from '../../blog/BlogPostRecentapp';
-import Image from '../../../../components/Image';
-import { AboutTeamapp } from '../../../about';
-import { Appmobileshopitem,Appmobileshopitem2,Appmobileshopitem3 } from '.';
+import { Stack, Grid, Typography,  Divider } from '@mui/material';
 
 
 export default function Appgarage() {
@@ -45,7 +33,7 @@ export default function Appgarage() {
       setvaluetrue(false)
       setTimeout(() => {setValue('')}, 100);
         };
-    }, [valuetrue]); 
+    }, [valuetrue, value, link]); 
  
 
   return (
@@ -54,29 +42,29 @@ export default function Appgarage() {
        <Stack spacing={1} sx={{mt:1}}>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>정비기록</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비기록</Typography>}
         value="garage/record"
-        icon={<AddchartIcon color='primary'/>}
+        icon={<AddchartIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>찾기</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>찾기</Typography>}
         value="garage/map"
-        icon={<MapIcon color='primary'/>}
+        icon={<MapIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>정비질문</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비질문</Typography>}
         value="garage/ask"
-        icon={<HelpCenterIcon color='primary'/>}
+        icon={<HelpCenterIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>정비예약</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비예약</Typography>}
         value="garage/reservation"
-        icon={<EngineeringIcon color='primary'/>}
+        icon={<EngineeringIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>후기</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>후기</Typography>}
         value="garage/review"
-        icon={<ListIcon color='primary' />}
+        icon={<ListIcon color='action' />}
       />
     </BottomNavigation>
     <Divider/>

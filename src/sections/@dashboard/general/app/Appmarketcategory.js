@@ -131,43 +131,43 @@ export default function Appmarketcategory() {
           {isDesktop && <> <Stack spacing={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>신차</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>신차</Typography>}
         value="신차"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>부품</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>부품</Typography>}
         value="부품"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>튜닝</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>튜닝</Typography>}
         value="튜닝"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>케미컬</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>케미컬</Typography>}
         value="케미컬"
       />
       <BottomNavigationAction 
-        label={<Typography variant='h6' color='black' fontWeight='bold'>용품</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>용품</Typography>}
         value="용품" 
         />
      <BottomNavigationAction
-        label={<><Typography variant='h6' color='black' fontWeight='bold'>헬멧</Typography></>}
+        label={<><Typography variant='h6' color='text.primary' fontWeight='bold'>헬멧</Typography></>}
         value="헬멧"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>자켓</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>자켓</Typography>}
         value="자켓"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>바지</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>바지</Typography>}
         value="바지"
       />
       <BottomNavigationAction
-        label={<Typography variant='h6' color='black' fontWeight='bold'>장갑</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>장갑</Typography>}
         value="장갑"
       />
       <BottomNavigationAction 
-        label={<Typography variant='h6' color='black' fontWeight='bold'>부츠</Typography>}
+        label={<Typography variant='h6' color='text.primary' fontWeight='bold'>부츠</Typography>}
         value="부츠" 
         />
     </BottomNavigation>
@@ -176,50 +176,46 @@ export default function Appmarketcategory() {
          <Stack spacing={1}>
          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>슈트</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>슈트</Typography>}
              value="슈트"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>보호대</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>보호대</Typography>}
              value="보호대"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>마스크</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>마스크</Typography>}
              value="마스크"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>가방</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>가방</Typography>}
              value="가방"
            />
            <BottomNavigationAction 
-             label={<Typography variant='h6' color='black' fontWeight='bold'>블루투스</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>블루투스</Typography>}
              value="블루투스" 
              />
             <BottomNavigationAction
-             label={<> <Typography variant='h6' color='black' fontWeight='bold'>블랙박스</Typography></>}
+             label={<> <Typography variant='h6' color='text.primary' fontWeight='bold'>블랙박스</Typography></>}
              value="블랙박스"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>거치대</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>거치대</Typography>}
              value="거치대"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>리어백</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>리어백</Typography>}
              value="리어백"
            />
            <BottomNavigationAction
-             label={<Typography variant='h6' color='black' fontWeight='bold'>우의</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>우의</Typography>}
              value="우의"
            />
            <BottomNavigationAction 
-             label={<Typography variant='h6' color='black' fontWeight='bold'>악세사리</Typography>}
+             label={<Typography variant='h6' color='text.primary' fontWeight='bold'>악세사리</Typography>}
              value="악세사리" 
              />
          </BottomNavigation>
-{/*               {ACCOUNT_TABS.map((button) => {
-                const isMatched = button.value === value;
-                return isMatched && <div key={button.value}>{button.component}</div>;
-              })} */}
           </Stack> </>}
 
 
@@ -227,96 +223,92 @@ export default function Appmarketcategory() {
           {!isDesktop && <> <Stack spacing={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black'>신차</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary'>신차</Typography>}
         value="신차"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>부품</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>부품</Typography>}
         value="부품"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>튜닝</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>튜닝</Typography>}
         value="튜닝"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>케미컬</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>케미컬</Typography>}
         value="케미컬"
       />
       <BottomNavigationAction 
-        label={<Typography variant='subtitle2'color='black'>용품</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>용품</Typography>}
         value="용품" 
         />
         </BottomNavigation>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
      <BottomNavigationAction
-        label={<><Typography variant='subtitle2'color='black'>헬멧</Typography></>}
+        label={<><Typography variant='subtitle2'color='text.primary'>헬멧</Typography></>}
         value="헬멧"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>자켓</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>자켓</Typography>}
         value="자켓"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>바지</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>바지</Typography>}
         value="바지"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='black'>장갑</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>장갑</Typography>}
         value="장갑"
       />
       <BottomNavigationAction 
-        label={<Typography variant='subtitle2'color='black'>부츠</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>부츠</Typography>}
         value="부츠" 
         />
     </BottomNavigation> 
          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>슈트</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>슈트</Typography>}
              value="슈트"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>보호대</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>보호대</Typography>}
              value="보호대"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>마스크</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>마스크</Typography>}
              value="마스크"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>가방</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>가방</Typography>}
              value="가방"
            />
            <BottomNavigationAction 
-             label={<Typography variant='subtitle2'color='black'>블루투스</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>블루투스</Typography>}
              value="블루투스" 
              />
          </BottomNavigation>
         <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
             <BottomNavigationAction
-             label={<> <Typography variant='subtitle2'color='black'>블랙박스</Typography></>}
+             label={<> <Typography variant='subtitle2'color='text.primary'>블랙박스</Typography></>}
              value="블랙박스"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>거치대</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>거치대</Typography>}
              value="거치대"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>리어백</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>리어백</Typography>}
              value="리어백"
            />
            <BottomNavigationAction
-             label={<Typography variant='subtitle2'color='black'>우의</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>우의</Typography>}
              value="우의"
            />
            <BottomNavigationAction 
-             label={<Typography variant='subtitle2'color='black'>악세사리</Typography>}
+             label={<Typography variant='subtitle2'color='text.primary'>악세사리</Typography>}
              value="악세사리" 
              />
          </BottomNavigation>
-{/*               {ACCOUNT_TABS.map((button) => {
-                const isMatched = button.value === value;
-                return isMatched && <div key={button.value}>{button.component}</div>;
-              })} */}
           </Stack> </>}
 
 </>

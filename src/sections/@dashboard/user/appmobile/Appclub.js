@@ -4,25 +4,11 @@ import {useEffect, useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // -----------------------------------------
-import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhotoFilterIcon from '@mui/icons-material/PhotoFilter';
-import AnnouncementIcon from '@mui/icons-material/Announcement';
-import PhotoIcon from '@mui/icons-material/Photo';
 import GroupsIcon from '@mui/icons-material/Groups';
 // -----------------------------------------
 import { useNavigate } from 'react-router-dom';
-import { Card, Paper, Stack, Grid, Typography, Box, CardHeader, Divider } from '@mui/material';
-import EcommerceShop from '../../../../pages/dashboard/EcommerceShop';
-import { AppFeatured } from '../../general/app';
-import  Appecommerce2  from './Appecommerce2';
-import { BlogPostRecent } from '../../blog';
-import BlogPostRecentapp from '../../blog/BlogPostRecentapp';
-import Image from '../../../../components/Image';
-import { AboutTeamapp } from '../../../about';
-import { Appmobileshopitem,Appmobileshopitem2,Appmobileshopitem3 } from '.';
+import {  Stack, Grid, Typography, Divider } from '@mui/material';
 
 
 export default function Appclub() {
@@ -44,7 +30,7 @@ export default function Appclub() {
       setvaluetrue(false)
       setTimeout(() => {setValue('')}, 100);
         };
-    }, [valuetrue]); 
+    }, [valuetrue, value, link]); 
  
 
   return (
@@ -53,14 +39,14 @@ export default function Appclub() {
        <Stack spacing={1} sx={{mt:1}}>
        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange} >
        <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>나의클럽</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>나의클럽</Typography>}
         value="riding"
-        icon={<GroupsIcon color='primary'/>}
+        icon={<GroupsIcon color='action'/>}
       />
         <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='black' fontWeight='bold'>클럽만들기</Typography>}
+        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>클럽만들기</Typography>}
         value="club/clubnew"
-        icon={<PhotoFilterIcon color='primary'/>}
+        icon={<PhotoFilterIcon color='action'/>}
       />
     </BottomNavigation> 
     <Divider/>

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Box, Container, Typography, Card, Stack, Avatar, BottomNavigation, BottomNavigationAction } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import CollectionsIcon from '@mui/icons-material/Collections';
 // routes
 import axios from '../../utils/axiospost';
 // hooks
@@ -182,19 +183,19 @@ export default function UserProfile() {
             
           <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , mt:2}} value={value} onChange={handleChange}>
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>갤러리</Typography>}
+              label={<Typography variant='body2' color='text.primary' fontWeight='bold'>갤러리</Typography>}
               value="gallery"
-              icon={<Iconify icon={'ic:round-perm-media'} width={20} height={20} />}
+              icon={<CollectionsIcon  width={20} height={20} color='action'/>}
             />
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>게시글</Typography>}
+              label={<Typography variant='body2' color='text.primary' fontWeight='bold'>게시글</Typography>}
               value="profile"
-              icon={<TocIcon icon={'ic:round-perm-media'} width={20} height={20} />}
+              icon={<TocIcon  width={20} height={20} color='action' />}
             />
             <BottomNavigationAction
-              label={<Typography variant='body2' color='black' fontWeight='bold'>판매글</Typography>}
+              label={<Typography variant='body2' color='text.primary' fontWeight='bold'>판매글</Typography>}
               value="sell"
-              icon={<LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />}
+              icon={<LocalAtmIcon  width={20} height={20} color='action' />}
             />
           </BottomNavigation>
 

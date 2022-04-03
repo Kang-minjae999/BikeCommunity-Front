@@ -52,7 +52,7 @@ export default function Aecheckouthead() {
       <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
           label={
-            <Typography variant="subtitle2" color="common.black">
+            <Typography variant="subtitle2" color="text.primary">
               신품
             </Typography>
           }
@@ -60,7 +60,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="subtitle2" color="black">
+            <Typography variant="subtitle2" color="text.primary">
               중고
             </Typography>
           }
@@ -68,7 +68,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="subtitle2" color="black">
+            <Typography variant="subtitle2" color="text.primary">
               찜
             </Typography>
           }
@@ -76,7 +76,7 @@ export default function Aecheckouthead() {
         />
         <BottomNavigationAction
           label={
-            <Typography variant="subtitle2" color="black">
+            <Typography variant="subtitle2" color="text.primary">
               결제
             </Typography>
           }

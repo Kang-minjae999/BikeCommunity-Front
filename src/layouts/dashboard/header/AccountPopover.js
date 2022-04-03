@@ -113,8 +113,8 @@ const MENU_OPTIONS = [
           }),
         }}
       >
-       {user && <MyAvatar />}
-       {!user && <PersonIcon color="text.primary" />}
+       <MyAvatar />
+     {/*   {!user && <PersonIcon color="text.primary" />} */}
       </IconButtonAnimate>
 
       <MenuPopover

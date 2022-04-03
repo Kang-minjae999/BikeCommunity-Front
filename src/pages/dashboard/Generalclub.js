@@ -1,57 +1,18 @@
 // @mui
-import { useTheme } from '@mui/material/styles';
-import {
-  Box,
-  CardContent,
-  Container,
-  Grid,
-  Link,
-  Stack,
-  Typography,
-  Alert,
-  Button,
-  Divider,
-  Card,
-  CardHeader,
-} from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import { common } from '@mui/material/colors';
-// icons
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import { Container, Grid} from '@mui/material';
 import { Appclub } from '../../sections/@dashboard/user/appmobile';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
 import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sectionss
 import MainFooter from '../../layouts/main/MainFooter';
-import {
-  Appmobilefirst,
-  AppWelcome,
-  AppWelcomefirst,
-  AppFeatured,
-  AppFeaturedpc,
-  AppWelcomesecond,
-  Appmobilesecond,
-  AppTopRelated,
-  AppAreaInstalled,
-  AppWidgetSummary,
-  AppCurrentDownload,
-  Appcompany,
-  Apppic,
-  Appweather,
-  AppTopInstalledCountries,
-} from '../../sections/@dashboard/general/app';
-import BlogPosts from './BlogPosts';
-import BlogPostsgeneral from './BlogPostsgeneral';
 import Club from './Club';
 
 // ----------------------------------------------------------------------
 
 export default function Generalclub() {
-  const theme = useTheme();
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up', 'lg');
 

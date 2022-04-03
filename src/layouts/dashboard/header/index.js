@@ -99,18 +99,18 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           border:"1px",
         }}
       >
-         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />}
+         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} fontSize='large' />}
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-          <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+          <Typography color="text.primary" variant='h3' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
           </Typography>
           </Link>
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 2, sm: 1.5 }}>
-        <Link component={RouterLink} to="/dashboard/all-e-commerce/checkout"underline="none" sx={{mt:1}}>     
-          <LocalGroceryStoreIcon color='action'/>
+        <Link component={RouterLink} to="/dashboard/all-e-commerce/checkout" underline="none" sx={{mt:1}}>     
+          <LocalGroceryStoreIcon color='action' fontSize='large'/>
         </Link>
-          <AccountPopover color='text.primary'/>
+          <AccountPopover color='text.primary' />
         </Stack>
         </Toolbar>  
         {!isDesktop &&
