@@ -47,6 +47,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   const {
     id,
     title,
+    address,
     gearbox,
     brand,
     modelName,
@@ -68,6 +69,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   const defaultValues = {
     heartId: id,
     heartTitle: title,
+    heartAddress: address,
     heartImageURLs: bikeImageURLs[0],
     heartBrand: brand,
     heartModelName: modelName,
@@ -133,16 +135,16 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           <Typography variant='body2'>  
           {createdDate}
           </Typography>
-         </Stack>
+        </Stack>
 
         <Divider sx={{ mb: 2 }} />
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
           <Typography variant="subtitle2" >
-          {brand}
+          {brand}/{modelName}
           </Typography>
           <Typography variant="subtitle2" >
-          {modelName}
+          {address}
           </Typography>
           <Typography variant="subtitle2" >
           {displacement}cc

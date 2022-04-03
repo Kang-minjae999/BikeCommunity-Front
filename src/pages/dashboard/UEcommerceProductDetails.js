@@ -153,6 +153,10 @@ export default function UEcommerceProductDetails() {
                   <TabList onChange={(e, value) => setValue(value)}>
                     <Tab disableRipple value="1" label="설명" />
                   </TabList>
+                  {product?.edit && 
+                  <TabList onChange={(e, value) => setValue(value)}>
+                    <Tab disableRipple value="2" label="설명" />
+                  </TabList>}
                 </Box>
 
                 <Divider />
@@ -162,6 +166,12 @@ export default function UEcommerceProductDetails() {
                     <Markdown children={product.content} />
                   </Box>
                 </TabPanel>
+                {product?.edit && 
+                <TabPanel value="2">
+                  <Box sx={{ p: 3 }}>
+                    <Markdown children={product.edit} />
+                  </Box>
+                </TabPanel>}
               </TabContext>
             </Card> 
           </>
