@@ -15,6 +15,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
 import MyAvatar from '../../../components/MyAvatar';
+import SettingMode from '../../../components/settings/SettingMode';
 
 
 // ----------------------------------------------------------------------
@@ -110,7 +111,7 @@ const MENU_OPTIONS = [
         }}
       >
        {user && <MyAvatar />}
-       {!user && <PersonIcon color="primary" />}
+       {!user && <PersonIcon color="text.primary" />}
       </IconButtonAnimate>
 
       <MenuPopover
@@ -149,7 +150,9 @@ const MENU_OPTIONS = [
             </MenuItem>
           ))}
         </Stack>
-
+        <MenuItem >
+          <SettingMode />
+        </MenuItem>
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {user && (

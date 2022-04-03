@@ -98,36 +98,36 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           border:"1px",
         }}
       >
-         {!isDesktop && <MenuIcon color='primary' onClick={onOpenSidebar} />}
+         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />}
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-          <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+          <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
           </Typography>
           </Link>
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 2, sm: 1.5 }}>
         <Link component={RouterLink} to="/dashboard/all-e-commerce/checkout"underline="none" sx={{mt:1}}>     
-          <LocalGroceryStoreIcon color='primary'/>
+          <LocalGroceryStoreIcon color='action'/>
         </Link>
-          <AccountPopover color='primary'/>
+          <AccountPopover color='text.primary'/>
         </Stack>
         </Toolbar>  
         {!isDesktop &&
         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={0} sx={{mx:1}}>
           <Button variant='text' onClick={()=> setValue('app')+ setvaluetrue(true)}>
-          <Typography variant='body2' color='black' fontWeight='bold'>홈</Typography>
+          <Typography variant='body2' color='text.primary' fontWeight='bold'>홈</Typography>
           </Button>
           <Button variant='text' onClick={()=> setValue('market/all')+ setvaluetrue(true)}>
-          <Typography variant='body2' color='black' fontWeight='bold'>쇼핑</Typography>
+          <Typography variant='body2' color='text.primary' fontWeight='bold'>쇼핑</Typography>
           </Button>
           <Button variant='text' onClick={()=> setValue('marketu/all')+ setvaluetrue(true)}>
-          <Typography variant='body2' color='black' fontWeight='bold'>중고</Typography>
+          <Typography variant='body2' color='text.primary' fontWeight='bold'>중고</Typography>
           </Button>
           <Button variant='text' onClick={()=> setValue('garages')+ setvaluetrue(true)}>
-          <Typography variant='body2' color='black' fontWeight='bold'>정비</Typography>
+          <Typography variant='body2' color='text.primary' fontWeight='bold'>정비</Typography>
           </Button>
           <Button variant='text' onClick={()=> setValue('clubs')+ setvaluetrue(true)}>
-          <Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>
+          <Typography variant='body2' color='text.primary' fontWeight='bold'>클럽</Typography>
           </Button>
         </Stack>}
     </RootStyle>  

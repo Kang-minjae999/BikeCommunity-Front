@@ -15,7 +15,7 @@ export default function Logo({ disabledLink = false, sx }) {
 
   const logo = (
     <Box sx={{ width: 30, height: 30, ...sx }}>
-    <TwoWheelerIcon  fontSize = 'large' color='primary'/>
+    <TwoWheelerIcon  fontSize = 'large' color='action'/>
     </Box>
   );
 

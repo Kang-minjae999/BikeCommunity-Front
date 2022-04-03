@@ -1,18 +1,15 @@
 import { useEffect, useState, useCallback } from 'react';
-import orderBy from 'lodash/orderBy';
 // form
 import { useForm } from 'react-hook-form';
-import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Container, Typography, Stack, Button, Pagination, Divider, Box, Chip } from '@mui/material';
+import { Container, Stack, Pagination, Divider, Box, Chip } from '@mui/material';
 import { Appmarketcategory2 } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
 import axios from '../../utils/axiossecondhand';
 import { useDispatch, useSelector } from '../../redux/store';
-import { deleteSearch, filterProducts } from '../../redux/slices/product';
-// routes
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { deleteSearch } from '../../redux/slices/product';
+// routes;
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -120,10 +117,7 @@ const [param, setparam] = useState('')
     defaultValues,
   });
 
-  const { reset, watch, setValue } = methods;
-
-  const values = watch();
-
+  const { reset } = methods;
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -144,19 +138,7 @@ const [param, setparam] = useState('')
     dispatch(deleteSearch(item));
   };
   
-  
-  const [loading, setloading] = useState(false)
-
-  useEffect(() => {
-    if(products === []){
-      setloading(true)
-    } else {
-      setloading(false)
-    }
-  }, [products])
-
-
-  return (
+    return (
     <Page title="중고마켓">
           <Container maxWidth={themeStretch ? false : 'lx'}>
           {isDesktop && <HeaderBreadcrumbs
@@ -227,7 +209,7 @@ const [param, setparam] = useState('')
           <Divider sx={{mt:1, mb:2}} />
 
 
-        <ShopProductList products={products} loading={loading} />
+        <ShopProductList products={products} loading={!products.length} />
         <Stack
           direction="row"
           justifyContent="center"

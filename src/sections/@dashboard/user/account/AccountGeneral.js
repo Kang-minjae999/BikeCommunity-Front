@@ -166,7 +166,7 @@ export default function AccountGeneral() {
               <RHFTextField name="address" label="주소" />
               <RHFTextField name="detailAddress" label="상세주소" />
               <RHFTextField name="zipcode" label="우편번호" />
-              <LoadingButton type="submit" fullWidth variant="outlined" loading={isSubmitting}>
+              <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' loading={isSubmitting}>
                 저장하기
               </LoadingButton>
             </Box>

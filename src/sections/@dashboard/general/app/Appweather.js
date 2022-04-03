@@ -258,7 +258,7 @@ const onClickRiding = () => {
   return (
 <>
 <Grid container >
-<Button onClick={onClickRiding} variant='outlined' sx={{mt:2, width:'100%'}}>라이딩 시작하기</Button>
+<Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:2, mb:2, width:'100%', color:'text.primary'}} >라이딩 시작하기</Button>
   {weather && 
   <>
   <Grid item xs={6} xl={6}>

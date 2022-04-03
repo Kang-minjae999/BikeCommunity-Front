@@ -66,29 +66,29 @@ export default function Appriding() {
     <Stack spacing={1} sx={{mt:1}}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black' fontWeight='bold'>라이딩홈</Typography>}
+        label={<Typography variant='body2' color='text.primary' fontWeight='bold'>라이딩홈</Typography>}
         value="home"
-        icon={<HomeIcon color='primary'/>}
+        icon={<HomeIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black' fontWeight='bold'>기록</Typography>}
+        label={<Typography variant='body2' color='text.primary' fontWeight='bold'>기록</Typography>}
         value="record"
-        icon={<PhotoFilterIcon color='primary'/>}
+        icon={<PhotoFilterIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black' fontWeight='bold'>클럽</Typography>}
+        label={<Typography variant='body2' color='text.primary' fontWeight='bold'>클럽</Typography>}
         value="clubrecord"
-        icon={<GroupsIcon color='primary'/>}
+        icon={<GroupsIcon color='action'/>}
       />
       <BottomNavigationAction 
-        label={<Typography variant='body2' color='black' fontWeight='bold'>바이크</Typography>}
+        label={<Typography variant='body2' color='text.primary' fontWeight='bold'>바이크</Typography>}
         value="motocycle"
-        icon={<TwoWheelerIcon color='primary'/>} 
+        icon={<TwoWheelerIcon color='action'/>} 
         />
       <BottomNavigationAction 
-        label={<Typography variant='body2' color='black' fontWeight='bold'>라이딩맵</Typography>}
+        label={<Typography variant='body2' color='text.primary' fontWeight='bold'>라이딩맵</Typography>}
         value="map"
-        icon={<MapIcon color='primary'/>} 
+        icon={<MapIcon color='action'/>} 
         onClick={onClick}
       />
     </BottomNavigation>

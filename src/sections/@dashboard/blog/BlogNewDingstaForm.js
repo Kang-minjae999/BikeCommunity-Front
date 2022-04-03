@@ -153,7 +153,7 @@ export default function BlogNewDingstaForm() {
                   </Grid>
                 </Grid>
               </Stack>
-              <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting}>
+              <LoadingButton fullWidth type="submit" variant="outlined" color='inherit' size="large" loading={isSubmitting}>
                 올리기
               </LoadingButton>
             </Stack>

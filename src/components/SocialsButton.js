@@ -50,12 +50,12 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
           <Link key={name} href={path} 
           target="_blank"
           rel="noopener noreferrer">
-            <Tooltip title={name} placement="top">
+            <Tooltip title={name} placement="top" color='action'>
               <IconButton
                 color="inherit"
                 sx={{
                   ...(initialColor && {
-                    color: socialColor,
+                    color: 'action',
                     '&:hover': {
                       bgcolor: alpha(socialColor, 0.08),
                     },
@@ -64,7 +64,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
                 }}
                 {...other}
               >
-                <Iconify icon={icon} sx={{ width: 20, height: 20 }} />
+                <Iconify icon={icon} sx={{ width: 20, height: 20, color:'text.primary' }} />
               </IconButton>
             </Tooltip>
           </Link>

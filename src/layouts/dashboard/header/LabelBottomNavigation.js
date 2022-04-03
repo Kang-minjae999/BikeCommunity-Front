@@ -43,31 +43,31 @@ export default function LabelBottomNavigation() {
 
   return (
     <>
-    <BottomNavigation showLabels sx={{ width: '100%' ,height:'1%'}} value={value} onChange={handleChange}>
+    <BottomNavigation showLabels sx={{ width: '100%' ,height:'1%'}} value={value} onChange={handleChange} >
     <BottomNavigationAction
-        label={<Typography variant='body2' color='black'>라이딩</Typography>}
+        label={<Typography variant='body2' color='text.primary'>라이딩</Typography>}
         value="riding"
-        icon={<TwoWheelerIcon color='primary'/>}
+        icon={<TwoWheelerIcon color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black'>거래</Typography>}
+        label={<Typography variant='body2' color='text.primary'>거래</Typography>}
         value="shop"
-        icon={<StoreIcon  color='primary'/>}
+        icon={<StoreIcon  color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black'>홈</Typography>}
+        label={<Typography variant='body2' color='text.primary'>홈</Typography>}
         value="app"
-        icon={<HomeIcon color='primary' />}
+        icon={<HomeIcon color='action' />}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='black'>인스타</Typography>}
+        label={<Typography variant='body2' color='text.primary'>인스타</Typography>}
         value="blog/dingstas"
-        icon={<PhotoFilterIcon color='primary' />}
+        icon={<PhotoFilterIcon color='action' />}
       />
       <BottomNavigationAction 
-        label={<Typography variant='body2' color='black'>포스트</Typography>}
+        label={<Typography variant='body2' color='text.primary'>포스트</Typography>}
         value="blog/posts" 
-        icon={<PhotoIcon  color='primary'/>} />
+        icon={<PhotoIcon  color='action'/>} />
     </BottomNavigation>
     </>
   );

@@ -18,7 +18,7 @@ export default function BlockContentsReport() {
     >
         <AddAPhotoIcon />
        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          신고 해결에 도움이 되는 사진이 있다면 첨부해주세요!
+          내용에 도움이 되는 사진이 있다면 첨부해주세요!
         </Typography>
     </Stack>
   );

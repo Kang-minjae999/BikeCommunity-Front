@@ -169,7 +169,7 @@ export default function ShopFilterSidebar({ isOpen, onResetAll, onOpen, onClose 
                 </Stack>
                 <Stack spacing={1}>
                   <Typography variant="subtitle1">검색 저장</Typography>
-                <Button variant='outlined'>상세검색 설정 저장하기</Button>
+                <Button variant='outlined' color='inherit'>상세검색 설정 저장하기</Button>
                 </Stack>
               </Stack>
           </Stack>    

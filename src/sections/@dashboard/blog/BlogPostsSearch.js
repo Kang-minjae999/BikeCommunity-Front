@@ -115,8 +115,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
           alignItems="center"
           spacing={0}
           >
-        <SearchIcon/>
-        <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+        <SearchIcon color='action'/>
+        <Typography variant="body2" sx={{ color: 'text.primary' }}>
         {label}
         </Typography>
         </Stack>
@@ -129,6 +129,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        color='action'
       >
         <MenuItem onClick={handleClose}>내용</MenuItem>
         <MenuItem onClick={handleClose2}>태그</MenuItem>
@@ -198,8 +199,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
     alignItems="center"
     spacing={0}
     >
-    <AddIcon sx={{ml:1, mr:1}}/>
-    <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+    <AddIcon sx={{ml:1, mr:1}} color='action'/>
+    <Typography variant="body2" sx={{ color: 'text.primary' }}>
     추가
     </Typography> 
     </Stack>

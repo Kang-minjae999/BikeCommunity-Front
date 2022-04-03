@@ -99,6 +99,7 @@ export default function SimpleDialogDemo() {
       <Button
       onClick={handleClickOpen}
       variant="outlined"
+      color='inherit'
       startIcon={<AddIcon  />}
       sx={{width:'100%'}}>
       내 바이크 팔기
