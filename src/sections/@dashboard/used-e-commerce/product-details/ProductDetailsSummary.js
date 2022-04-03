@@ -102,6 +102,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     }
   };
 
+  const goEdit = () => {
+    navigate(`product/newmoto/${id}/edit`)
+  }
+
   return (
     <RootStyle {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -200,7 +204,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           </Button>
         </Stack>
         {nicknameOfSeller === user?.nickname &&
-        <Button fullWidth size="large" type="submit" variant="contained">
+        <Button fullWidth size="large" type="submit" variant="contained" onClick={goEdit}>
             수정하기
         </Button>}
       </FormProvider>
