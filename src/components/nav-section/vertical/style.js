@@ -21,7 +21,7 @@ export const ListItemStyle = styled(ListItemButton, {
   // activeRoot
   ...(activeRoot && {
     ...theme.typography.subtitle2,
-    color: theme.palette.primary.main,
+    color: theme.palette.action,
     backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
   }),
   // activeSub
