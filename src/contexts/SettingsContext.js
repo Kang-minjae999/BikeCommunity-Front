@@ -44,8 +44,15 @@ function SettingsProvider({ children }) {
       ...settings,
       themeMode: event.target.value,
     });
+
     if(window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({type:'onDark'}))}
+      if(event.target.value === 'dark'){
+        window.ReactNativeWebView.postMessage(JSON.stringify({type:'onDark'}))
+      }
+      if(event.target.value === 'light'){
+        window.ReactNativeWebView.postMessage(JSON.stringify({type:'onLight'}))
+      }
+    }
   };
 
   const onToggleMode = () => {

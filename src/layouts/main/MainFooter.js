@@ -20,13 +20,13 @@ const LINKS = [
   {
     headline: '사업자 등록번호',
     children: [
-      { name: '000 000 00 0 0', href: PATH_PAGE.about },
+      { name: '000 000 00 0 0', href: 'tel:01055197425' },
     ],
   },
   {
     headline: '대표전화 및 문의',
     children: [
-      { name: '000 0000 0000', href: PATH_PAGE.about },
+      { name: '000 0000 0000', href:'tel:01055197425' },
       { name: 'aaa@aaa.com', href: PATH_PAGE.about },
     ],
   },
@@ -96,6 +96,7 @@ export default function MainFooter() {
                       key={link.name}
                       color="inherit"
                       variant="body2"
+                      href={link.href}
                       component={RouterLink}
                       sx={{ display: 'block' }}
                     >
