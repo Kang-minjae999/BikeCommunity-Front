@@ -21,11 +21,7 @@ export const ListItemStyle = styled(ListItemButton, {
   // activeRoot
   ...(activeRoot && {
     ...theme.typography.subtitle2,
-<<<<<<< Updated upstream
     color: theme.palette.action,
-=======
-    color: theme.palette.text.primary,
->>>>>>> Stashed changes
     backgroundColor: alpha(theme.palette.primary.main, theme.palette.action.selectedOpacity),
   }),
   // activeSub

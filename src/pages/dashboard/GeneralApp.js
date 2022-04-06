@@ -7,7 +7,8 @@ import Page from '../../components/Page';
 // sections
 
 import MainFooter from '../../layouts/main/MainFooter';
-import { AppHomeHeader } from '../../sections/@dashboard/general/app';
+import { AppHeaderSpace, AppHomeHeader } from '../../sections/@dashboard/general/app';
+import GeneralAppChan from './GeneralAppChan';
 
 // ----------------------------------------------------------------------
 
@@ -21,6 +22,8 @@ export default function GeneralApp() {
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
          <AppHomeHeader />  
+        <AppHeaderSpace />
+        <GeneralAppChan />
         </Grid>  
          <Grid item xs={12} lg={12}>
           <MainFooter />

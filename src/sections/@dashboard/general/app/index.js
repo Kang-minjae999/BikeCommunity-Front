@@ -24,7 +24,7 @@ export { default as AppHomeSale } from './AppHomeSale';
 export { default as AppHomeSaleFeatured } from './AppHomeSaleFeatured';
 
 export { default as AppRidingHeader } from './AppRidingHeader';
-export { default as AppRidingHome } from './AppRidingHome';
+export { default as AppRidingHome } from './AppRidinghome';
 export { default as AppRidingClub } from './AppRidingClub';
 
 export { default as AppUserHeader } from './AppUserHeader';

@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Paper, Box } from '@mui/material';
-import AppRidingHome from './AppRidingHome';
+import AppRidingHome from './AppRidinghome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import Generalgarage from '../../../../pages/dashboard/GeneralGarage';
