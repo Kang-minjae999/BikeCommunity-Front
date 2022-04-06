@@ -43,8 +43,8 @@ export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.app; // as '/dashboard/ap
 // ----------------------------------------------------------------------
 
 export const HEADER = {
-  MOBILE_HEIGHT: 92,
-  MAIN_DESKTOP_HEIGHT: 92,
+  MOBILE_HEIGHT: 52,
+  MAIN_DESKTOP_HEIGHT: 52,
   DASHBOARD_DESKTOP_HEIGHT: 92,
   DASHBOARD_DESKTOP_OFFSET_HEIGHT: 92 - 32,
 };

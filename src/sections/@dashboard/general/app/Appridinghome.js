@@ -1,12 +1,18 @@
-import { Card } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+import Appweather from './Appweather';
 
 // ----------------------------------------------------------------------
 
-export default function AppridingHome() {
+export default function AppRidingHome() {
 
   return (
-    <Card sx={{height: { xs: 120, xl: 300 }}}>
-      광고 or 이벤트 판 or 상품 추천
-    </Card>
+    <>
+    <Container>
+    <Appweather />
+    <Typography sx={{mt:2,ml:2,mb:2}}>
+      대표 바이크 보여주기 
+    </Typography>
+    </Container>
+    </>
   );
 }

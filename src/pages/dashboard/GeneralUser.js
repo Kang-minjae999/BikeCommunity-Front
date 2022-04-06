@@ -7,11 +7,11 @@ import Page from '../../components/Page';
 // sections
 
 import MainFooter from '../../layouts/main/MainFooter';
-import { AppHomeHeader } from '../../sections/@dashboard/general/app';
+import { AppUserHeader } from '../../sections/@dashboard/general/app';
 
 // ----------------------------------------------------------------------
 
-export default function GeneralApp() {
+export default function GeneralUser() {
   const { themeStretch } = useSettings();
 
 
@@ -20,11 +20,8 @@ export default function GeneralApp() {
       <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
-         <AppHomeHeader />  
+         <AppUserHeader />  
         </Grid>  
-         <Grid item xs={12} lg={12}>
-          <MainFooter />
-         </Grid>
          </Grid>
       </Container>
     </Page>

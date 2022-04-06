@@ -20,7 +20,6 @@ import {
   AccountNotifications,
   AccountChangePassword,
 } from '../../sections/@dashboard/user/account';
-import UserAccountcopy from './UserAccountcopy';
 
 // ----------------------------------------------------------------------
 

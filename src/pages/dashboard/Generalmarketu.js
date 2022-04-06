@@ -28,7 +28,7 @@ import SimpleDialogDemo from './Generalmarketunewbutton';
 
 // ------------------------------------------------------------
 
-export default function Generalmarketu() {
+export default function GeneralMarketu() {
   const { themeStretch } = useSettings();
   
   const isDesktop = useResponsive('up','lg')

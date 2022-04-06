@@ -39,14 +39,14 @@ export default function Appclub() {
        <Stack spacing={1} sx={{mt:1}}>
        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange} >
        <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>나의클럽</Typography>}
+        label={<Typography variant='subtitle2' color={value === 'riding' ? 'text.primary' : 'disable'} fontWeight='bold'>나의클럽</Typography>}
         value="riding"
-        icon={<GroupsIcon color='action'/>}
+        icon={<GroupsIcon color={value === 'riding' ? 'action' : 'disable'}/>}
       />
         <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>클럽만들기</Typography>}
+        label={<Typography variant='subtitle2' color={value === 'riding' ? 'text.primary' : 'disable'} fontWeight='bold'>클럽만들기</Typography>}
         value="club/clubnew"
-        icon={<PhotoFilterIcon color='action'/>}
+        icon={<PhotoFilterIcon color={value === 'riding' ? 'action' : 'disable'}/>}
       />
     </BottomNavigation> 
     <Divider/>

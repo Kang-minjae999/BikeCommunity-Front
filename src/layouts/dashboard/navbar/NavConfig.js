@@ -47,8 +47,8 @@ const navConfig = [
     subheader: 'Ridertown',
     items: [ 
       { title: '홈', path: PATH_DASHBOARD.general.app, icon: (<HomeIcon sx={{ width: 1, height: 1 }} />)},
-      { title: '라이딩', path: PATH_DASHBOARD.general.riding, icon: (<SpeedIcon sx={{ width: 1, height: 1 }} />) },
-      { title: '장바구니', path: PATH_DASHBOARD.alleCommerce.checkout ,icon: ICONS.cart },
+      { title: '라이더', path: PATH_DASHBOARD.general.riding, icon: (<SpeedIcon sx={{ width: 1, height: 1 }} />) },
+      { title: '장바구니', path: PATH_DASHBOARD.general.checkout ,icon: ICONS.cart },
       { title: '라이딩맵', path: PATH_DASHBOARD.general.map ,icon: (<MapIcon sx={{ width: 1, height: 1 }}/>) },
       { title: '딩스타그램', path: PATH_DASHBOARD.blog.dingstas ,icon: (<PhotoFilterIcon sx={{ width: 1, height: 1 }}/>) },
     ],

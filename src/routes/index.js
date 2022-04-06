@@ -84,19 +84,8 @@ export default function Router() {
         { path: 'market/:option', element: <Generalmarket /> }, // ok
         { path: 'marketu/:option', element: <Generalmarketu /> }, // ok
         { path: 'clubmy', element: <ClubMy /> }, // ok
-        // ----------------------------------------------------
-        { path: 'ecommerce', element: <GeneralEcommerce /> },
-        { path: 'analytics', element: <GeneralAnalytics /> },
-        { path: 'banking', element: <GeneralBanking /> },
-        { path: 'booking', element: <GeneralBooking /> },
-
-        {
-          path: 'all-e-commerce',
-          children: [
-            { element: <Navigate to="/dashboard/all-e-commerce/shop" replace />, index: true },// ok
-            { path: 'checkout', element: <AEcommerceCheckout /> }, // ok
-          ],
-        },
+        { path: 'mypage', element: <GeneralUser /> }, // ok
+        { path: 'checkout', element: <AEcommerceCheckout /> }, // ok
         {
           path: 'e-commerce',
           children: [
@@ -122,8 +111,7 @@ export default function Router() {
             { path: 'motocycle', element: <UEmotocycle /> },
             { path: 'motocyclegarage', element: <UEmotocyclegarage /> },
             { path: 'motocyclegear', element: <UEmotocyclegear /> },          
-            { path: 'motocycleparts', element: <UEmotocycleparts /> },          
-            { path: 'motocyclesupplies', element: <UEmotocyclesupplies /> },
+            { path: 'motocycleparts', element: <UEmotocycleparts /> },        
             { path: 'product/detail/:id', element: <UEcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
@@ -226,8 +214,6 @@ export default function Router() {
             { path: 'list', element: <ChatList /> },
           ],
         },
-        { path: 'calendar', element: <Calendar /> },
-        { path: 'kanban', element: <Kanban /> },
       ],
     },
 
@@ -271,17 +257,13 @@ const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 const GeneralMap = Loadable(lazy(() => import('../pages/dashboard/GeneralMap')));
 const GeneralRiding = Loadable(lazy(() => import('../pages/dashboard/GeneralRiding')));
-const Generalclub = Loadable(lazy(() => import('../pages/dashboard/Generalclub')));
-const Generalgarage = Loadable(lazy(() => import('../pages/dashboard/Generalgarage')));
-const Generalshop = Loadable(lazy(() => import('../pages/dashboard/Generalshop')));
-const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/Generalmarket')));
-const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/Generalmarketu')));
+const Generalclub = Loadable(lazy(() => import('../pages/dashboard/GeneralClub')));
+const Generalgarage = Loadable(lazy(() => import('../pages/dashboard/GeneralGarage')));
+const Generalshop = Loadable(lazy(() => import('../pages/dashboard/GeneralShop')));
+const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMarket')));
+const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));
+const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
 
-
-const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
-const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/GeneralAnalytics')));
-const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
-const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
 
 
 const AEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AEcommerceCheckout')));
@@ -310,7 +292,6 @@ const UEmotocycle = Loadable(lazy(() => import('../pages/dashboard/UEmotocycle')
 const UEmotocyclegarage = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclegarage')));
 const UEmotocyclegear = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclegear')));
 const UEmotocycleparts = Loadable(lazy(() => import('../pages/dashboard/UEmotocycleparts')));
-const UEmotocyclesupplies = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclesupplies')));
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
 const UEcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetails')));
 
@@ -347,8 +328,6 @@ const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));
 const ChatList = Loadable(lazy(() => import('../pages/dashboard/ChatList')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
-const Calendar = Loadable(lazy(() => import('../pages/dashboard/Calendar')));
-const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
 // Main
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const About = Loadable(lazy(() => import('../pages/About')));

@@ -29,7 +29,7 @@ import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
-export default function Generalmarket() {
+export default function GeneralMarket() {
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up','lg')
 

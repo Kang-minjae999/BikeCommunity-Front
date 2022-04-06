@@ -1,6 +1,4 @@
-export { default as BlogNewPostPreview } from './BlogNewPostPreview';
 export { default as BlogPostCard } from './BlogPostCard';
-export { default as BlogPostCardapp } from './BlogPostCardapp';
 export { default as BlogPostCommentForm } from './BlogPostCommentForm';
 export { default as BlogPostCommentItem } from './BlogPostCommentItem';
 export { default as BlogPostCommentList } from './BlogPostCommentList';

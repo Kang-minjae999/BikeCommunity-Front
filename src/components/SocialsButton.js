@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Link, Stack, Button, Tooltip, IconButton } from '@mui/material';
+import { Link, Stack, Button, Tooltip, IconButton, Avatar } from '@mui/material';
 //
 import Iconify from './Iconify';
 
@@ -20,25 +20,19 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       name: 'FaceBook',
       icon: 'eva:facebook-fill',
       socialColor: '#1877F2',
-      path: links.facebook || 'https://www.facebook.com/',
+      path: links.facebook || 'https://www.facebook.com/%EB%9D%BC%EC%9D%B4%EB%8D%94%ED%83%80%EC%9A%B4-106038132073040',
     },
     {
       name: 'Instagram',
       icon: 'ant-design:instagram-filled',
       socialColor: '#E02D69',
-      path: links.instagram || '#instagram-link',
+      path: links.instagram || 'https://instagram.com/rt_ridertown?utm_medium=copy_link',
     },
     {
-      name: 'Linkedin',
-      icon: 'eva:linkedin-fill',
+      name: 'naverblog',
+      icon: 'simple-icons:naver',
       socialColor: '#007EBB',
-      path: links.linkedin || '#linkedin-link',
-    },
-    {
-      name: 'Twitter',
-      icon: 'eva:twitter-fill',
-      socialColor: '#00AAEC',
-      path: links.twitter || '#twitter-link',
+      path: links.linkedin || 'https://blog.naver.com/ridertown',
     },
   ];
 

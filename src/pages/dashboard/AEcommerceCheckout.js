@@ -7,24 +7,24 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 import { Aecheckouthead } from '../../sections/@dashboard/general/app';
+import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
 
 export default function AEcommerceCheckout() {
   const { themeStretch } = useSettings();
+  const isDesktop = useResponsive('up', 'lg')
 
   return (
-    <Page title="리스트">
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
-        <HeaderBreadcrumbs
+      <Container maxWidth={themeStretch ? false : 'lx'} >
+        {isDesktop && <HeaderBreadcrumbs
           heading="Checkout/Cart"
           links={[
             { name: '' },
           ]}
-        />
+        />}
         <Aecheckouthead />
       </Container>
-    </Page>
   );
 }
