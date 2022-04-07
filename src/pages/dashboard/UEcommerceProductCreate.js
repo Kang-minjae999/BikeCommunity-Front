@@ -17,14 +17,13 @@ import UProductNewFormparts from '../../sections/@dashboard/used-e-commerce/UPro
 import Alert from '../../theme/overrides/Alert';
 import useAuth from '../../hooks/useAuth';
 
-
 // ----------------------------------------------------------------------
 
 export default function EcommerceProductCreate() {
   const { themeStretch } = useSettings();
   const isMountedRef = useIsMountedRef();
-  const navigate = useNavigate()
-  const { user } = useAuth()
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { pathname } = useLocation();
   const { id = '' } = useParams();
 
@@ -38,55 +37,48 @@ export default function EcommerceProductCreate() {
   const [currentProduct, setcurrentProduct] = useState(null);
 
   useEffect(() => {
-    if(ismoto){
-      setApi('biketrade')
+    if (ismoto) {
+      setApi('biketrade');
     }
-    if(isgear){
-      setApi('biketrade')
+    if (isgear) {
+      setApi('biketrade');
     }
-    if(isparts){
-      setApi('biketrade')
+    if (isparts) {
+      setApi('biketrade');
     }
-  }, [ismoto, isgear, isparts])
-  
+  }, [ismoto, isgear, isparts]);
 
   const getProduct = useCallback(async () => {
     try {
       const response = await axios.get(`/${api}/${id}`);
-  
+
       if (isMountedRef.current) {
         setcurrentProduct(response.data.data);
       }
     } catch (error) {
-      Alert.Alert(error)
+      alert(error);
     }
-  }, [isMountedRef,id,api]);
+  }, [isMountedRef, id, api]);
 
   useEffect(() => {
     getProduct();
-  }, [getProduct])
-  
-  
+  }, [getProduct]);
+
   useEffect(() => {
-    if(isEdit && currentProduct){
-      if(user?.nickname !== currentProduct?.nicknameOfSeller){
-        navigate('dashboard/app')
+    if (isEdit && currentProduct) {
+      if (user?.nickname !== currentProduct?.nicknameOfSeller) {
+        navigate('dashboard/app');
       }
     }
   }, [isEdit, currentProduct, user, navigate]);
-
-
-
 
   return (
     <Page title="중고거래 / 새 상품 올리기">
       <Container maxWidth={themeStretch ? false : 'lx'}>
         <HeaderBreadcrumbs
           heading={!isEdit ? '중고 상품 올리기' : '상품 수정하기'}
-          links={[
-            { name: ''}
-          ]}
-          sx={{mt:2}}
+          links={[{ name: '' }]}
+          sx={{ mt: 2 }}
         />
 
         {ismoto && <UProductNewForm isEdit={isEdit} currentProduct={currentProduct} />}

@@ -8,46 +8,75 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Card, Chip, Grid, Stack, Autocomplete, InputAdornment, Button} from '@mui/material';
+import { Card, Chip, Grid, Stack, Autocomplete, InputAdornment, Button } from '@mui/material';
 // routes
 import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import axios from '../../../utils/axiossecondhand';
 // option
-import BRAND_OPTION from '../../../components/option/BRAND_OPTION'
-import HONDA_OPTION from '../../../components/option/HONDA_OPTION'
-import YAMAHA_OPTION from '../../../components/option/YAMAHA_OPTION'
-import SUZUKI_OPTION from '../../../components/option/SUZUKI_OPTION'
-import KAWASAKI_OPTION from '../../../components/option/KAWASAKI_OPTION'
-import BMW_OPTION from '../../../components/option/BMW_OPTION'
-import DUCATI_OPTION from '../../../components/option/DUCATI_OPTION'
-import HARLEY_OPTION from '../../../components/option/HARLEY_OPTION'
-import INDIAN_OPTION from '../../../components/option/INDIAN_OPTION'
-import TRIUMPH_OPTION from '../../../components/option/TRIUMPH_OPTION'
-import KTM_OPTION from '../../../components/option/KTM_OPTION'
-import HUSQVARNA_OPTION from '../../../components/option/HUSQVARNA_OPTION'
-import VESPA_OPTION from '../../../components/option/VESPA_OPTION'
-import DAELIM_OPTION from '../../../components/option/DAELIM_OPTION'
-import KRMOTORS_OPTION from '../../../components/option/KRMOTORS_OPTION'
-import KYMCO_OPTION from '../../../components/option/KYMCO_OPTION'
-import ROYALENFIELD_OPTION from '../../../components/option/ROYALENFIELD_OPTION'
-import BENELLI_OPTION from '../../../components/option/BENELLI_OPTION'
-import CLASSIC125_OPTION from '../../../components/option/CLASSIC125_OPTION'
-import APRILIA_OPTION from '../../../components/option/APRILIA_OPTION'
-import MVAGUSTA_OPTION from '../../../components/option/MVAGUSTA_OPTION'
-import ROYALALLOY_OPTION from '../../../components/option/ROYALALLOY_OPTION'
-import FBMONDIAL_OPTION from '../../../components/option/FBMONDIAL_OPTION'
-import MOTOGUZZI_OPTION from '../../../components/option/MOTOGUZZI_OPTION'
+import BRAND_OPTION from '../../../components/option/BRAND_OPTION';
+import HONDA_OPTION from '../../../components/option/HONDA_OPTION';
+import YAMAHA_OPTION from '../../../components/option/YAMAHA_OPTION';
+import SUZUKI_OPTION from '../../../components/option/SUZUKI_OPTION';
+import KAWASAKI_OPTION from '../../../components/option/KAWASAKI_OPTION';
+import BMW_OPTION from '../../../components/option/BMW_OPTION';
+import DUCATI_OPTION from '../../../components/option/DUCATI_OPTION';
+import HARLEY_OPTION from '../../../components/option/HARLEY_OPTION';
+import INDIAN_OPTION from '../../../components/option/INDIAN_OPTION';
+import TRIUMPH_OPTION from '../../../components/option/TRIUMPH_OPTION';
+import KTM_OPTION from '../../../components/option/KTM_OPTION';
+import HUSQVARNA_OPTION from '../../../components/option/HUSQVARNA_OPTION';
+import VESPA_OPTION from '../../../components/option/VESPA_OPTION';
+import DAELIM_OPTION from '../../../components/option/DAELIM_OPTION';
+import KRMOTORS_OPTION from '../../../components/option/KRMOTORS_OPTION';
+import KYMCO_OPTION from '../../../components/option/KYMCO_OPTION';
+import ROYALENFIELD_OPTION from '../../../components/option/ROYALENFIELD_OPTION';
+import BENELLI_OPTION from '../../../components/option/BENELLI_OPTION';
+import CLASSIC125_OPTION from '../../../components/option/CLASSIC125_OPTION';
+import APRILIA_OPTION from '../../../components/option/APRILIA_OPTION';
+import MVAGUSTA_OPTION from '../../../components/option/MVAGUSTA_OPTION';
+import ROYALALLOY_OPTION from '../../../components/option/ROYALALLOY_OPTION';
+import FBMONDIAL_OPTION from '../../../components/option/FBMONDIAL_OPTION';
+import MOTOGUZZI_OPTION from '../../../components/option/MOTOGUZZI_OPTION';
 // components
-import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFSwitch} from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFSwitch } from '../../../components/hook-form';
 // ----------------------------------------------------------------------
 
 const GEARBOX_OPTION = ['메뉴얼', '스쿠터'];
 
-const YEAR_OPTION = [ 
-  '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', 
-  '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', 
-  '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990',
+const YEAR_OPTION = [
+  '2021',
+  '2020',
+  '2019',
+  '2018',
+  '2017',
+  '2016',
+  '2015',
+  '2014',
+  '2013',
+  '2012',
+  '2011',
+  '2010',
+  '2009',
+  '2008',
+  '2007',
+  '2006',
+  '2005',
+  '2004',
+  '2003',
+  '2002',
+  '2001',
+  '2000',
+  '1999',
+  '1998',
+  '1997',
+  '1996',
+  '1995',
+  '1994',
+  '1993',
+  '1992',
+  '1991',
+  '1990',
 ];
 // ----------------------------------------------------------------------
 
@@ -57,8 +86,8 @@ UProductNewForm.propTypes = {
 };
 
 export default function UProductNewForm({ isEdit, currentProduct }) {
-  const [MODEL_OPTION, SETMODEL_OPTION] = useState([])
-  const TRADEMODEL_OPTION = []
+  const [MODEL_OPTION, SETMODEL_OPTION] = useState([]);
+  const TRADEMODEL_OPTION = [];
   const [tradechecked, settradeChecked] = useState(false);
 
   const navigate = useNavigate();
@@ -73,7 +102,10 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     gearbox: Yup.string().required('종류가 필요해요.').nullable(),
     brand: Yup.string().required('설명이 필요해요.').nullable(),
     modelName: Yup.string().required('모델명이 필요해요.').nullable(),
-    displacement: Yup.number().moreThan(1, '배기량을 입력해주세요.').lessThan(10000, '배기량을 알맞게 입력해주세요.').nullable(),
+    displacement: Yup.number()
+      .moreThan(1, '배기량을 입력해주세요.')
+      .lessThan(10000, '배기량을 알맞게 입력해주세요.')
+      .nullable(),
     mileage: Yup.number().moreThan(0, '키로수를 입력해주세요.').nullable(),
     year: Yup.string().min(4, '년식을 입력해주세요.').max(4, '년식을 입력해주세요.').nullable(),
     price: Yup.number().moreThan(0, '가격은 0원 이상이에요.'),
@@ -137,17 +169,16 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   useEffect(() => {
     if (values.gearbox === '메뉴얼') {
-    setGearboxPost(true);
+      setGearboxPost(true);
     }
     if (values.gearbox === '스쿠터') {
-    setGearboxPost(false);
+      setGearboxPost(false);
     }
-  }, [values]); 
+  }, [values]);
 
   useEffect(() => {
     setTitlePost(`[${values.modelName}] ${values.title}`);
   }, [values.title, values.modelName]);
-
 
   useEffect(() => {
     if (values.tradeable) {
@@ -162,82 +193,81 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   useEffect(() => {
     if (values.brand === '혼다') {
       SETMODEL_OPTION(HONDA_OPTION);
-    } 
+    }
     if (values.brand === '야마하') {
       SETMODEL_OPTION(YAMAHA_OPTION);
-    } 
+    }
     if (values.brand === '스즈키') {
       SETMODEL_OPTION(SUZUKI_OPTION);
-    } 
+    }
     if (values.brand === '가와사키') {
       SETMODEL_OPTION(KAWASAKI_OPTION);
-    } 
+    }
     if (values.brand === 'BMW') {
       SETMODEL_OPTION(BMW_OPTION);
-    } 
+    }
     if (values.brand === '두카티') {
       SETMODEL_OPTION(DUCATI_OPTION);
-    } 
+    }
     if (values.brand === '할리데이비슨') {
       SETMODEL_OPTION(HARLEY_OPTION);
-    } 
+    }
     if (values.brand === '인디안') {
       SETMODEL_OPTION(INDIAN_OPTION);
-    } 
+    }
     if (values.brand === '트라이엄프') {
       SETMODEL_OPTION(TRIUMPH_OPTION);
-    } 
+    }
     if (values.brand === 'KTM') {
       SETMODEL_OPTION(KTM_OPTION);
-    } 
+    }
     if (values.brand === '허스크바나') {
       SETMODEL_OPTION(HUSQVARNA_OPTION);
-    } 
+    }
     if (values.brand === '베스파') {
       SETMODEL_OPTION(VESPA_OPTION);
-    } 
+    }
     if (values.brand === '대림') {
       SETMODEL_OPTION(DAELIM_OPTION);
-    } 
+    }
     if (values.brand === '효성') {
       SETMODEL_OPTION(KRMOTORS_OPTION);
-    } 
+    }
     if (values.brand === '킴코') {
       SETMODEL_OPTION(KYMCO_OPTION);
-    } 
+    }
     if (values.brand === '로얄엔필드') {
       SETMODEL_OPTION(ROYALENFIELD_OPTION);
-    } 
+    }
     if (values.brand === '베넬리') {
       SETMODEL_OPTION(BENELLI_OPTION);
-    } 
+    }
     if (values.brand === '이탈젯/부캐너/cg/엘로이') {
       SETMODEL_OPTION(CLASSIC125_OPTION);
-    } 
+    }
     if (values.brand === '아프릴리아') {
       SETMODEL_OPTION(APRILIA_OPTION);
-    } 
+    }
     if (values.brand === 'MV아구스타') {
       SETMODEL_OPTION(MVAGUSTA_OPTION);
-    } 
+    }
     if (values.brand === '로얄알로이') {
       SETMODEL_OPTION(ROYALALLOY_OPTION);
-    } 
+    }
     if (values.brand === 'FB몬디알') {
       SETMODEL_OPTION(FBMONDIAL_OPTION);
-    } 
+    }
     if (values.brand === '모토구찌') {
       SETMODEL_OPTION(MOTOGUZZI_OPTION);
-    } 
+    }
     if (values.brand === '기타') {
-      SETMODEL_OPTION([{value:'기타'}]);
-    } 
+      SETMODEL_OPTION([{ value: '기타' }]);
+    }
   }, [values.brand]);
-
 
   // ---------------------------------------------------------------
   const onSubmit = async (data) => {
-    if(isEdit){
+    if (isEdit) {
       if (!Array.isArray(watch('tradeableModel'))) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
@@ -333,9 +363,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     setValue('images', filteredItems);
   };
 
-
-  // 
-  const [isOpenPost, setIsOpenPost] = useState(false); 
+  //
+  const [isOpenPost, setIsOpenPost] = useState(false);
   const onChangeOpenPost = () => {
     setIsOpenPost(!isOpenPost);
   };
@@ -358,18 +387,18 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     padding: '7px',
   };
   const address = watch('address');
-  // 
+  //
 
-  const [modelAlert, setModelAlert] = useState('브랜드를 먼저 선택해주세요!')
+  const [modelAlert, setModelAlert] = useState('브랜드를 먼저 선택해주세요!');
 
   useEffect(() => {
-    if(values.brand){
-    setModelAlert('그런 모델명은 없어요!')
-  } if(values.brand === '기타'){
-    setModelAlert('기타를 선택해주세요.')
-  }
-  }, [values.brand])
-  
+    if (values.brand) {
+      setModelAlert('그런 모델명은 없어요!');
+    }
+    if (values.brand === '기타') {
+      setModelAlert('기타를 선택해주세요.');
+    }
+  }, [values.brand]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -399,13 +428,19 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   지역찾기
                 </Button>
                 {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-                <RHFTextField name="address" placeholder="지역은 (도/시/군/구)만 남아요!" label={address ? '지역' : "지역찾기를 눌러주세요"} autoComplete="false" disabled/>
-                 <Controller
+                <RHFTextField
+                  name="address"
+                  placeholder="지역은 (도/시/군/구)만 남아요!"
+                  label={address ? '지역' : '지역찾기를 눌러주세요'}
+                  autoComplete="false"
+                  disabled
+                />
+                <Controller
                   name="gearbox"
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
-                    noOptionsText='메뉴얼, 스쿠터 중에 골라주세요'
+                      noOptionsText="메뉴얼, 스쿠터 중에 골라주세요"
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={GEARBOX_OPTION.map((option) => option)}
                       renderTags={(value, getTagProps) =>
@@ -413,13 +448,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <RHFTextField 
-                        name="gearbox"
-                        label="종류" {...params}
-                        placeholder='종류' />}
+                      renderInput={(params) => (
+                        <RHFTextField name="gearbox" label="종류" {...params} placeholder="종류" />
+                      )}
                     />
                   )}
-                />   
+                />
 
                 <Controller
                   name="brand"
@@ -427,7 +461,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   render={({ field }) => (
                     <Autocomplete
                       {...field}
-                      noOptionsText='그런 브랜드는 없어요!'
+                      noOptionsText="그런 브랜드는 없어요!"
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={BRAND_OPTION.map((option) => option.label)}
                       renderTags={(value, getTagProps) =>
@@ -447,7 +481,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
-                    noOptionsText={modelAlert}
+                      noOptionsText={modelAlert}
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={MODEL_OPTION.map((option) => option.value)}
                       renderTags={(value, getTagProps) =>
@@ -466,7 +500,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                   control={control}
                   render={({ field }) => (
                     <Autocomplete
-                      noOptionsText='그런 년도는 없어요'
+                      noOptionsText="그런 년도는 없어요"
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={YEAR_OPTION.map((option) => option)}
                       renderTags={(value, getTagProps) =>
@@ -525,26 +559,30 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
               {!tradechecked ? (
                 ''
-              ) : (<>
-                <Controller
-                name="tradeableModel"
-                control={control}
-                render={({ field }) => (
-                  <Autocomplete
-                    multiple
-                    freeSolo
-                    noOptionsText='자유롭게 입력해주세요'
-                    onChange={(event, newValue) => field.onChange(newValue)}
-                    options={TRADEMODEL_OPTION.map((option) => option.value)}
-                    renderTags={(value, getTagProps) =>
-                      value.map((option, index) => (
-                        <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                      ))
-                    }
-                    renderInput={(params) => <RHFTextField name="tradeableModel" label="대차가능모델" {...params} />}
+              ) : (
+                <>
+                  <Controller
+                    name="tradeableModel"
+                    control={control}
+                    render={({ field }) => (
+                      <Autocomplete
+                        multiple
+                        freeSolo
+                        noOptionsText="자유롭게 입력해주세요"
+                        onChange={(event, newValue) => field.onChange(newValue)}
+                        options={TRADEMODEL_OPTION.map((option) => option.value)}
+                        renderTags={(value, getTagProps) =>
+                          value.map((option, index) => (
+                            <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+                          ))
+                        }
+                        renderInput={(params) => (
+                          <RHFTextField name="tradeableModel" label="대차가능모델" {...params} />
+                        )}
+                      />
+                    )}
                   />
-                )}
-              /></>
+                </>
               )}
             </Card>
 
