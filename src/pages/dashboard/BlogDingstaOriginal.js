@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState, useCallback } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 // @mui
@@ -23,21 +22,34 @@ import {
 import DotdotdotPost from '../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------
-BlogDingsta.propTypes = {
-  postClick: PropTypes.object,
-  error: PropTypes.string,
-};
 
-export default function BlogDingsta({postClick ,error}) {
+export default function BlogDingsta() {
   const { themeStretch } = useSettings();
+
+  const isMountedRef = useIsMountedRef();
+
+  const { id = '' } = useParams();
 
   const [post, setPost] = useState(null);
 
-  useEffect(() => {
-    if(postClick){
-      setPost(postClick);
+  const [error, setError] = useState(null);
+
+  const getPost = useCallback(async () => {
+    try {
+      const response = await axios.get(`/dingsta/${id}`);
+
+      if (isMountedRef.current) {
+        setPost(response.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+      setError('서버와의 연결이 이상해요!');
     }
-  }, [postClick]);
+  }, [isMountedRef, id]);
+
+  useEffect(() => {
+    getPost();
+  }, [getPost]);
 
   const linkToProfile = `${PATH_DASHBOARD.user.profile}/${post?.nicknameOfPost}`;
   

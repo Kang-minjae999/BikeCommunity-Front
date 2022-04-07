@@ -4,12 +4,11 @@ import orderBy from 'lodash/orderBy';
 import { useForm } from 'react-hook-form';
 // @mui
 import { Container, Typography, Stack } from '@mui/material';
-import { Appmarketcategory, AppWelcomefirst } from '../../sections/@dashboard/general/app';
+import { Appmarketcategory, Appmarketcategorymobile } from '../../sections/@dashboard/general/app';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts, filterProducts } from '../../redux/slices/product';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -24,7 +23,6 @@ import {
   ShopFilterSidebar,
   ShopProductSearch,
 } from '../../sections/@dashboard/e-commerce/shop';
-import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -32,6 +30,17 @@ import useResponsive from '../../hooks/useResponsive';
 export default function GeneralMarket() {
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up','lg')
+
+  const [categoryValue, setCategoryValue] = useState('moto')
+
+  useEffect(() => {
+    setCategoryValue(localStorage.getItem('Market'))
+  }, [])
+  
+  
+  useEffect(() => {
+    localStorage.setItem('Market', categoryValue)
+  }, [categoryValue])
 
   const dispatch = useDispatch();
 
@@ -117,7 +126,9 @@ export default function GeneralMarket() {
 
           ]}
         />}
-       {isDesktop && <Stack
+       {isDesktop && 
+       <> 
+       <Stack
           spacing={2}
           direction={{ xs: 'column', sm: 'row' }}
           alignItems={{ sm: 'center' }}
@@ -136,9 +147,12 @@ export default function GeneralMarket() {
             </FormProvider>
             <ShopProductSort />
           </Stack>
-        </Stack>}
+        </Stack>
+
+        <Appmarketcategory/></>}
 
         {!isDesktop && 
+        <>
         <Stack
           spacing={1}
           direction={{ xs: 'column', sm: 'row' }}
@@ -159,9 +173,9 @@ export default function GeneralMarket() {
             <ShopProductSort />
           </Stack>
           <ShopProductSearch />
-        </Stack>}
-
-        <Appmarketcategory/>
+        </Stack>
+        <Appmarketcategorymobile value={categoryValue} setValue={setCategoryValue} />
+        </>}
 
         <Stack sx={{ mb: 3 }}>
           {!isDefault && (
@@ -186,7 +200,6 @@ export default function GeneralMarket() {
         </Stack>
 
         <ShopProductList products={filteredProducts} loading={!products.length && isDefault} />
-     {/*    <CartWidget /> */}
       </Container>
     </Page>
   );

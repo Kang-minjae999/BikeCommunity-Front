@@ -15,7 +15,6 @@ import EcommerceShop from '../../../../pages/dashboard/EcommerceShop';
 import { AppFeatured } from '../../general/app';
 import  Appecommerce2  from './Appecommerce2';
 import { BlogPostRecent } from '../../blog';
-import BlogPostRecentapp from '../../blog/BlogPostRecentapp';
 import Image from '../../../../components/Image';
 import { AboutTeamapp } from '../../../about';
 import { Appmobileshopitem,Appmobileshopitem2,Appmobileshopitem3 } from '.';

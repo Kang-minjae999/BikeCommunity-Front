@@ -23,7 +23,7 @@ export default function GeneralApp() {
         <Grid item xs={12} lg={12} >
          <AppHomeHeader />  
         <AppHeaderSpace />
-        <GeneralAppChan />
+     {/*    <GeneralAppChan /> */}
         </Grid>  
          <Grid item xs={12} lg={12}>
           <MainFooter />

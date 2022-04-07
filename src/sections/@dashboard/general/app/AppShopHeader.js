@@ -26,12 +26,12 @@ export default function AppUserHeader() {
       component: <Generalmarket />,
     },
     {
-      value: 'newmoto',
-      component: <AppUserMoto />,
-    },
-    {
       value: 'brand',
       component: <AppHomeMagazine/>,
+    },
+    {
+      value: 'newmoto',
+      component: <AppUserMoto />,
     },
     {
       value: 'used',
@@ -59,14 +59,14 @@ export default function AppUserHeader() {
         value="market"
       />
       <BottomNavigationAction
-        sx={{...(value === 'newmoto') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>신차</Typography>}
-        value="newmoto"
-      />
-      <BottomNavigationAction
         sx={{...(value === 'brand') && valueStyle}}
         label={<Typography  variant='subtitle2' color='text.primary'>브랜드</Typography>}
         value="brand"
+      />
+      <BottomNavigationAction
+        sx={{...(value === 'newmoto') && valueStyle}}
+        label={<Typography  variant='subtitle2' color='text.primary'>신차</Typography>}
+        value="newmoto"
       />
       <BottomNavigationAction
         sx={{...(value === 'used') && valueStyle}}

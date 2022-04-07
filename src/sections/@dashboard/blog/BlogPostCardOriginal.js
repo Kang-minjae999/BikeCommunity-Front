@@ -1,16 +1,12 @@
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { m } from 'framer-motion';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
-import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // utils
-import { MotionContainer, varFade } from '../../../components/animate';
-import axios from '../../../utils/axiospost';
 import { fyeardateTime } from '../../../utils/formatTime';
 import { fNumber } from '../../../utils/formatNumber';
 // components
@@ -19,7 +15,6 @@ import Iconify from '../../../components/Iconify';
 import TextMaxLine from '../../../components/TextMaxLine';
 import TextIconLabel from '../../../components/TextIconLabel';
 import DotdotdotPost from '../../../components/DotdotdotPost';
-import BlogDingsta from '../../../pages/dashboard/BlogDingsta';
 
 // ----------------------------------------------------------------------
 
@@ -30,38 +25,26 @@ BlogPostCard.propTypes = {
 export default function BlogPostCard({ post }) {
   const { id, nicknameOfPost, thumbnailImageUrl, content, createdDate, avatarImageURL, tags ,view , heart, numOfComment} = post;
 
+  const [api, setapi] = useState('');
+  const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
   const linkToProfile = `${PATH_DASHBOARD.user.profile}/${nicknameOfPost}`;
+  const { pathname } = useLocation();
 
-  const [detail, setDetail] = useState(false)
-
-  const isMountedRef = useIsMountedRef();
-
-  const [postClick, setPostClick] = useState(null);
-
-  const [error, setError] = useState(null);
-
-  const getPost = useCallback(async () => {
-    try {
-      const response = await axios.get(`/dingsta/${id}`);
-
-      if (isMountedRef.current) {
-        setPostClick(response.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-      setError('서버와의 연결이 이상해요!');
-    }
-  }, [isMountedRef, id]);
 
   useEffect(() => {
-    getPost();
-  }, [getPost]);
-
-
+    if (pathname.includes('notices')) {
+      setapi('notice');
+    }
+    if (pathname.includes('posts')) {
+      setapi('post');
+    }
+    if (pathname.includes('dingstas')) {
+      setapi('dingsta');
+    }
+  }, [pathname]);
 
   return (
-    <>
-    {(!detail || !postClick) && <Card>
+    <Card>
       <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
         <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={0}>
         <Link to={linkToProfile} color="inherit" component={RouterLink}>
@@ -80,36 +63,45 @@ export default function BlogPostCard({ post }) {
         <DotdotdotPost nicknameOfPost={nicknameOfPost}/>
       </Stack>
       <Box sx={{ position: 'relative' }}>
-      <Link onClick={() => setDetail(!detail)}  color="inherit">
-        <Image alt={nicknameOfPost} src={thumbnailImageUrl} ratio="1/1" />
+      <Link to={linkTo} color="inherit" component={RouterLink}>
+        <Image alt="cover" src={thumbnailImageUrl} ratio="1/1" />
         </Link>
       </Box>
       <PostContent content={content} createdDate={createdDate} id={id} tags={tags} view={view} heart={heart} numOfComment={numOfComment}/>
-    </Card>}
-   {(detail && postClick) && 
-      <MotionContainer> 
-        <m.div variants={varFade().in}>
-         <BlogDingsta postClick={postClick} error={error}/>
-        </m.div> 
-      </MotionContainer>}
-   </>
+    </Card>
   );
 }
 
 // ----------------------------------------------------------------------
 
 PostContent.propTypes = {
+  id: PropTypes.number,
   view: PropTypes.number,
   heart: PropTypes.number,
   numOfComment: PropTypes.number,
   content: PropTypes.string,
   createdDate: PropTypes.string,
   tags: PropTypes.array,
-  detail: PropTypes.bool,
-  setDetail: PropTypes.func,
 };
 
-export function PostContent({ content, createdDate, tags, view, heart, numOfComment, detail , setDetail}) {
+export function PostContent({ id, content, createdDate, tags, view, heart, numOfComment}) {
+  const { pathname } = useLocation();
+
+  const [api, setapi] = useState();
+
+  useEffect(() => {
+    if (pathname.includes('notices')) {
+      setapi('notice');
+    }
+    if (pathname.includes('posts')) {
+      setapi('post');
+    }
+    if (pathname.includes('dingstas')) {
+      setapi('dingsta');
+    }
+  }, [pathname]);
+
+  const linkTo = `${PATH_DASHBOARD.blog.root}/${api}/${id}`;
 
   const POST_INFO = [
     { number: view, icon: 'eva:eye-fill' },
@@ -135,7 +127,7 @@ export function PostContent({ content, createdDate, tags, view, heart, numOfComm
         {fyeardateTime(createdDate)}
       </Typography>
 
-      <Link onClick={() => setDetail(!detail)} color="inherit" >
+      <Link to={linkTo} color="inherit" component={RouterLink}>
         <TextMaxLine variant="subtitle2" line={2} persistent>
           {content}
         </TextMaxLine>

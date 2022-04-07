@@ -1,21 +1,11 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import FolderIcon from '@mui/icons-material/Folder';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useNavigate, useParams } from 'react-router-dom';
 // --------------------------------------------------------------
-import { Card, Paper, Typography, Box, Stack } from '@mui/material';
-import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
+import { Typography, Stack } from '@mui/material';
 // --------------------------------------------------------------
-import Apphome from '../../user/appmobile/Apphome';
-import Appecommerce from '../../user/appmobile/Appecommerce';
-import Appusedecommerce from '../../user/appmobile/Appusedecommerce';
-import Appgarage from '../../user/appmobile/Appgarage';
-import Apppost from '../../user/appmobile/Apppost'; 
 import useResponsive from '../../../../hooks/useResponsive';
 
 
@@ -25,7 +15,6 @@ export default function Appmarketcategory2() {
   const [chvalue, setchvalue] = useState('');
   const isDesktop = useResponsive('up','lg')
   const navigate = useNavigate()
-
 
 
   const handleChange = (event, newValue) => {

@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 // @mui
 import { Container, Stack, Pagination, Divider, Box, Chip } from '@mui/material';
-import { Appmarketcategory2 } from '../../sections/@dashboard/general/app';
+import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
 import axios from '../../utils/axiossecondhand';
@@ -47,9 +47,22 @@ const [totalpage, settotalpage] = useState(0);
 const [pagenation, setpagenation] = useState(1);
 
 
+const [value, setValue] = useState('biketrade');
+
+useEffect(() => {
+  setValue(localStorage.getItem('uMarket'))
+}, [])
+
+
+useEffect(() => {
+  localStorage.setItem('uMarket', value)
+}, [value])
+
+
+
 const getAllProducts = useCallback(async () => {
   try {
-    const response = await axios.get(`/biketrade?page=${page}&size=12`);
+    const response = await axios.get(`/${value}?page=${page}&size=12`);
 
     if (isMountedRef.current) {
       setProducts(response.data.data.content);
@@ -58,7 +71,7 @@ const getAllProducts = useCallback(async () => {
   } catch (error) {
     console.error(error);
   }
-}, [isMountedRef,page]);
+}, [isMountedRef,page, value]);
 
 
 const [param, setparam] = useState('')
@@ -176,9 +189,23 @@ const [param, setparam] = useState('')
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
           {search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
         </Box>  
+        <Divider sx={{mt:1, mb:1}} />
+        <Appmarketcategory2/>
+          <Divider sx={{mt:1, mb:2}} />
+
+        <ShopProductList products={products} loading={!products.length} />
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          >
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        </Stack>
         </>}
         
         {!isDesktop && 
+        <>
         <Stack
           spacing={1}
           direction={{ xs: 'column', sm: 'row' }}
@@ -202,10 +229,10 @@ const [param, setparam] = useState('')
           <Box sx={{  whiteSpace: 'nowrap',
           overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
           <SimpleDialogDemo />
-        </Stack>}
+        </Stack>
 
         <Divider sx={{mt:1, mb:1}} />
-        <Appmarketcategory2/>
+        <Appmarketcategory2mobile value={value} setValue={setValue}/>
           <Divider sx={{mt:1, mb:2}} />
 
         <ShopProductList products={products} loading={!products.length} />
@@ -216,7 +243,8 @@ const [param, setparam] = useState('')
           spacing={2}
           >
         <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
-        </Stack>      
+        </Stack>
+        </>}      
         </Container>
     </Page>
   );

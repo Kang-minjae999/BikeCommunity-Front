@@ -69,7 +69,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           border:"1px",
         }}
       >
-         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} fontSize='large' />}
+         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />}
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
           <Typography color="text.primary" variant='h3' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN

@@ -40,8 +40,13 @@ export { default as AppFeaturedpc } from './AppFeaturedpc';
 export { default as AppFeaturedpc2 } from './AppFeaturedpc2';
 export { default as AppFeaturedpc3 } from './AppFeaturedpc3';
 export { default as AppNewInvoice } from './AppNewInvoice';
+
 export { default as Appmarketcategory } from './Appmarketcategory';
 export { default as Appmarketcategory2 } from './Appmarketcategory2';
+export { default as Appmarketcategorymobile } from './Appmarketcategorymobile';
+export { default as Appmarketcategory2mobile } from './Appmarketcategory2mobile';
+
+
 export { default as AppTopAuthors } from './AppTopAuthors';
 export { default as AppTopRelated } from './AppTopRelated';
 export { default as AppAreaInstalled } from './AppAreaInstalled';

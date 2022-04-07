@@ -1,6 +1,6 @@
 import { CardHeader, Divider } from '@mui/material';
-import Appmarketcategory from './Appmarketcategory';
-import Appmarketcategory2 from './Appmarketcategory2';
+import Appmarketcategory2mobile from './Appmarketcategory2mobile';
+import Appmarketcategorymobile from './Appmarketcategorymobile';
 
 
 export default function AppShopAllCate() {
@@ -8,10 +8,10 @@ export default function AppShopAllCate() {
   return (
     <>
     <CardHeader title='신품' sx={{mb:2}}/>
-    <Appmarketcategory />
+    <Appmarketcategorymobile />
     <Divider sx={{my:2}}/>
     <CardHeader title='중고' sx={{mb:2}}/>
-    <Appmarketcategory2 />
+    <Appmarketcategory2mobile />
     </>
   );
 }
