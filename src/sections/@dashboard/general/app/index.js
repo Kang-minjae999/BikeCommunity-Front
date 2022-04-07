@@ -9,7 +9,6 @@ export { default as Appweathercontentride } from './Appweathercontentride';
 export { default as Appweathercontent2ride } from './Appweathercontent2ride';
 export { default as AppWelcomefirst } from './AppWelcomefirst';
 
-
 export { default as AppHeaderSpace } from './AppHeaderSpace';
 
 export { default as AppHomeHeader } from './AppHomeHeader';
@@ -32,7 +31,7 @@ export { default as AppUserProfile } from './AppUserProfile';
 export { default as AppUserMoto } from './AppUserMoto';
 
 export { default as AppShopHeader } from './AppShopHeader';
-export { default as AppShopAllCate} from './AppShopAllCate';
+export { default as AppShopAllCate } from './AppShopAllCate';
 
 export { default as AppWelcomesecond } from './AppWelcomesecond';
 export { default as Appmobilesecond } from './Appmobilesecond';
