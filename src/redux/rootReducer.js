@@ -7,6 +7,7 @@ import chatReducer from './slices/chat';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
+import notificationReducer from './slices/notification';
 
 // ----------------------------------------------------------------------
 
@@ -24,12 +25,20 @@ const productPersistConfig = {
   whitelist: ['checkout', 'search', 'heart', 'usedHeart'],
 };
 
+const NotificationPersistConfig = {
+  key: 'notification',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['alert', 'alertNumber', 'readAlert'],
+};
+
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
   calendar: calendarReducer,
   kanban: kanbanReducer,
   product: persistReducer(productPersistConfig, productReducer),
+  notification: persistReducer(NotificationPersistConfig, notificationReducer),
 });
 
 export { rootPersistConfig, rootReducer };

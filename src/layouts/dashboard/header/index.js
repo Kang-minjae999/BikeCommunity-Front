@@ -14,6 +14,7 @@ import cssStyles from '../../../utils/cssStyles';
 import { HEADER, NAVBAR } from '../../../config';
 // components
 import AccountPopover from './AccountPopover';
+import Notification from './Notification';
 
 
 // ----------------------------------------------------------------------
@@ -77,6 +78,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           </Link>
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 2, sm: 1.5 }}>
+          <Notification />
         <Link component={RouterLink} to="/dashboard/checkout" underline="none" sx={{mt:1}}>     
           <LocalGroceryStoreIcon color='action' />
         </Link>

@@ -1,22 +1,11 @@
 import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
-import {
-  Box,
-  List,
-  Badge,
-  Button,
-  Avatar,
-  Tooltip,
-  Divider,
-  Typography,
-  ListItemText,
-  ListSubheader,
-  ListItemAvatar,
-  ListItemButton,
-} from '@mui/material';
+import { Box, List, Badge, Button, Avatar, Tooltip, Divider, Typography, ListItemText, ListSubheader, ListItemAvatar, ListItemButton} from '@mui/material';
 // utils
+import { useDispatch, useSelector } from '../../../redux/store';
+import { readAlert, addAlert, deleteAllAlert, getAlert } from '../../../redux/slices/notification';
 import { fToNow } from '../../../utils/formatTime';
 // _mock_
 import { _notifications } from '../../../_mock';
@@ -30,6 +19,15 @@ import { IconButtonAnimate } from '../../../components/animate';
 
 export default function NotificationsPopover() {
   const [notifications, setNotifications] = useState(_notifications);
+
+  const { alert, alertNumber, readAlert } = useSelector((state) => state.notification);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAlert())
+  }, [])
+  
 
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
@@ -55,7 +53,7 @@ export default function NotificationsPopover() {
   return (
     <>
       <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 40, height: 40 }}>
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={alertNumber} color="error">
           <Iconify icon="eva:bell-fill" width={20} height={20} />
         </Badge>
       </IconButtonAnimate>
@@ -70,56 +68,70 @@ export default function NotificationsPopover() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">알림</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              안읽은 메세지가 {totalUnRead}개 있어요
+              안읽은 메세지가 {alertNumber}개 있어요 &nbsp;
+            <Button onClick={() => dispatch(deleteAllAlert())} sx={{color:'text.primary'}}>다지우기</Button>
             </Typography>
           </Box>
 
-          {totalUnRead > 0 && (
+          {/* {totalUnRead > 0 && (
             <Tooltip title=" Mark all as read">
               <IconButtonAnimate color="primary" onClick={handleMarkAllAsRead}>
                 <Iconify icon="eva:done-all-fill" width={20} height={20} />
               </IconButtonAnimate>
             </Tooltip>
-          )}
+          )} */}
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
-          <List
+         {alert !== [] && 
+         <List
             disablePadding
             subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+              <>
+               <Divider sx={{ borderStyle: 'dashed' }} />
+              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline', color:'text.primary' }}>
                 새로운 메세지
               </ListSubheader>
+              <Divider sx={{ borderStyle: 'dashed' }} />
+              </>
             }
           >
-            {notifications.slice(0, 2).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
+            {alert.map((notification, index) => (
+              <NotificationItem key={index} notification={notification} />
             ))}
-          </List>
+          </List>}
 
+          {readAlert !== [] && 
           <List
             disablePadding
             subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+              <>
+              <Divider sx={{ borderStyle: 'dashed' , mt:3}} />
+              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline', color:'text.primary' }}>
                 지난 메세지
               </ListSubheader>
+               <Divider sx={{ borderStyle: 'dashed' }} />
+               </>
             }
           >
-            {notifications.slice(2, 5).map((notification) => (
+            {/* {notifications.slice(2, 5).map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
+            ))} */}
+            {readAlert.map((notification, index) => (
+              <NotificationItem key={index} notification={notification} />
             ))}
-          </List>
+          </List>}
         </Scrollbar>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+       {/*  <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
-        <Box sx={{ p: 1 }}>
+        {/* <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
             전체보기
           </Button>
-        </Box>
+        </Box> */}
       </MenuPopover>
     </>
   );
@@ -127,7 +139,7 @@ export default function NotificationsPopover() {
 
 // ----------------------------------------------------------------------
 
-NotificationItem.propTypes = {
+/* NotificationItem.propTypes = {
   notification: PropTypes.shape({
     createdAt: PropTypes.instanceOf(Date),
     id: PropTypes.string,
@@ -137,27 +149,32 @@ NotificationItem.propTypes = {
     type: PropTypes.string,
     avatar: PropTypes.any,
   }),
-};
+}; */
 
 function NotificationItem({ notification }) {
-  const { avatar, title } = renderContent(notification);
+/*   const { avatar, title } = renderContent(notification); */
+  const dispatch = useDispatch()
+
+  const goRead = (e) => {
+    dispatch(readAlert(e))
+  }
 
   return (
     <ListItemButton
-      sx={{
+      /* sx={{
         py: 1.5,
         px: 2.5,
         mt: '1px',
         ...(notification.isUnRead && {
           bgcolor: 'action.selected',
         }),
-      }}
+      }} */
     >
       <ListItemAvatar>
-        <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>
+        <Avatar sx={{ bgcolor: 'background.neutral' }} src='http://attach.postzzal.com/public/files/2021/04/25/u2c7xy86z11619361591021.jpeg' />
       </ListItemAvatar>
       <ListItemText
-        primary={title}
+        primary={<Button sx={{color:'text.primary'}} onClick={() => goRead(notification)} >{notification}</Button>}
         secondary={
           <Typography
             variant="caption"
@@ -168,8 +185,8 @@ function NotificationItem({ notification }) {
               color: 'text.disabled',
             }}
           >
-            <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {fToNow(notification.createdAt)}
+           {/*  <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
+            {fToNow(notification.createdAt)} */}
           </Typography>
         }
       />
@@ -179,7 +196,7 @@ function NotificationItem({ notification }) {
 
 // ----------------------------------------------------------------------
 
-function renderContent(notification) {
+/* function renderContent(notification) {
   const title = (
     <Typography variant="subtitle2">
       {notification.title}
@@ -238,3 +255,4 @@ function renderContent(notification) {
     title,
   };
 }
+ */

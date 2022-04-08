@@ -22,8 +22,8 @@ export default function GeneralApp() {
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
          <AppHomeHeader />  
-        <AppHeaderSpace />
-     {/*    <GeneralAppChan /> */}
+         <AppHeaderSpace />
+        {/*  <GeneralAppChan />  */}
         </Grid>  
          <Grid item xs={12} lg={12}>
           <MainFooter />
