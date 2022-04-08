@@ -110,6 +110,7 @@ const slice = createSlice({
     deleteAllAlert(state) {
       state.alert = [];
       state.readAlert = [];
+      state.alertNumber = 0 ;
     },
 
     addHeartUsed(state, action) {
