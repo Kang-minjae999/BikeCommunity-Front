@@ -56,7 +56,7 @@ export default function AccountGeneral() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post('/join', data
+      await axios.put('/users', data
        ,{
         headers: {
           Authorization: accessToken,
