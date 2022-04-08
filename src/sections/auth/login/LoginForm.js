@@ -61,7 +61,6 @@ export default function LoginForm() {
     try {
       await login(data.email, data.password);
     } catch (error) {
-      enqueueSnackbar(error)
       reset();
       if (isMountedRef.current) {
         setError('afterSubmit', error);
