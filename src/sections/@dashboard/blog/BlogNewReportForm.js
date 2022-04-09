@@ -13,13 +13,17 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField, RHFUploadMultiFileReport } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospostadmin';
+import axios from '../../../utils/axiospost';
+import useAuth from '../../../hooks/useAuth';
+
 // ----------------------------------------------------------------------
 
 export default function BlogNewReportForm() {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
+
+  const { user } = useAuth();
 
   const NewBlogSchema = Yup.object().shape({
     title: Yup.string().required('제목이 필요합니다.'),
@@ -50,18 +54,19 @@ export default function BlogNewReportForm() {
     const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     data.Images.map((file) => formData.append('imageFiles', file));
-    formData.append('title', data.title)
     formData.append('content', data.content)
+    formData.append('title', data.title)
+    formData.append('nickname', user.nickname)
 
     try {
-      await axios.post('/notice', formData ,{
+      await axios.post(`/report/${user.nickname}`, formData ,{
         headers: {
         'content-type': 'multipart/form-data',
         Authorization: accessToken,
         },
       });
       enqueueSnackbar('공지사항 추가 완료!');
-      navigate(PATH_DASHBOARD.blog.notice);
+      navigate(PATH_DASHBOARD.blog.reports);
     } catch (error) {
       console.error(error);
     }
@@ -98,8 +103,8 @@ export default function BlogNewReportForm() {
            <CardHeader title='신고하기/문의하기/건의하기' sx={{mb:2}}/>
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
-                <RHFTextField name="title" label="제목" />
-                <RHFTextField name="content" label="내용" multiline minRows={8}/>
+                <RHFTextField name="title" label="제목" color='action'/>
+                <RHFTextField name="content" label="내용" multiline minRows={8} color='action'/>
                 <RHFUploadMultiFileReport
                   name="Images"
                   showPreview
@@ -111,7 +116,7 @@ export default function BlogNewReportForm() {
                 />
               </Stack>
             </Card>
-              <LoadingButton fullWidth type="submit" variant="outlined" size="large" loading={isSubmitting}>
+              <LoadingButton fullWidth type="submit" variant="outlined" size="large" color='inherit' loading={isSubmitting} sx={{color:'text.primary'}}>
                 올리기
               </LoadingButton>
           </Grid>

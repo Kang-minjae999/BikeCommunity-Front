@@ -58,7 +58,7 @@ export default function UserProfile() {
       const response = await axios.get(`/dingsta/nickname/${nickname}`);
 
       if (isMountedRef.current) {
-        setPost(response.data.data);
+        setPost(response.data.data.content);
       }
     } catch (error) {
       console.error(error);
@@ -109,6 +109,19 @@ export default function UserProfile() {
     },
   ];
 
+  const [heart, setHeart] = useState([])
+  const [sum, setSum] = useState(0)
+  
+  useEffect (() => {
+    if(post){
+      setHeart(post.map((e)=>e.heart))
+      setSum(heart.reduce((stack, el)=>{
+        return stack + el;
+      }, 0))
+    }
+ },[post])
+
+
   return (
     <Page title="프로필">
       <Container maxWidth={themeStretch ? false : 'md'} sx={{ mt: 2 }}>
@@ -122,27 +135,27 @@ export default function UserProfile() {
                   alt="avatar"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU"
                 />
-                <Typography variant={isDesktop ? 'h6' : 'h4'}>&nbsp;일론머스크&nbsp;</Typography>
+                <Typography variant={isDesktop ? 'h6' : 'h4'}>&nbsp;{nickname}&nbsp;</Typography>
               </Stack>
             </Box>
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{ mr: 2 }}>
               <Box>
                 <Stack direction="column" justifyContent="center" alignItems="center" spacing={0}>
                   <Typography variant="subtitle2">게시글</Typography>
-                  <Typography variant="body2">141</Typography>
+                  <Typography variant="body2">{post?.length}</Typography>
                 </Stack>
               </Box>
 
               <Box>
                 <Stack direction="column" justifyContent="center" alignItems="center" spacing={0}>
                   <Typography variant="subtitle2">판매글</Typography>
-                  <Typography variant="body2">50</Typography>
+                  <Typography variant="body2">{post?.length}</Typography>
                 </Stack>
               </Box>
               <Box>
                 <Stack direction="column" justifyContent="center" alignItems="center" spacing={0}>
                   <Typography variant="subtitle2">좋아요</Typography>
-                  <Typography variant="body2">1645</Typography>
+                  <Typography variant="body2">{sum}</Typography>
                 </Stack>
               </Box>
             </Stack>
@@ -183,7 +196,7 @@ export default function UserProfile() {
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === value;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })}
+        })} 
         {error && <Typography sx={{ mt: 10 }}>{error}</Typography>}
       </Container>
     </Page>

@@ -11,7 +11,7 @@ import { Grid, Chip, Stack, Autocomplete } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
+import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
@@ -120,8 +120,8 @@ export default function BlogNewDingstaForm() {
                 onRemove={handleRemove}
                 onRemoveAll={handleRemoveAll}
               />
-              <RHFTextField name="content" label="내용" multiline minRows={5} />
-              <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+              <RHFTextField name="content" label="내용" multiline minRows={5} color='action'/>
+              <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} >
                 <Grid container spacing={1}>
                   <Grid item xs={9} md={9}>
                     <Controller
@@ -138,18 +138,13 @@ export default function BlogNewDingstaForm() {
                               <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                             ))
                           }
-                          renderInput={(params) => <RHFTextField name="tags" label="태그" {...params} />}
+                          renderInput={(params) => <RHFTextField name="tags" label="태그" {...params} color='action'/>}
                         />
                       )}
                     />
                   </Grid>
                   <Grid item xs={3} md={3}>
-                    <RHFSwitch
-                      name="isPublic"
-                      label="공개"
-                      labelPlacement="start"
-                      sx={{ mt: 1, mx: 0, width: 1, justifyContent: 'row' }}
-                    />
+                  <RHFCheckbox name="isPublic" label="공개" labelPlacement="start" sx={{mt:1}}/>
                   </Grid>
                 </Grid>
               </Stack>

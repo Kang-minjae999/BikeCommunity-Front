@@ -14,23 +14,9 @@ BlogPostTags.propTypes = {
 
 export default function BlogPostTags({ tags }) {
   return (
-    <Box sx={{ py: 3 }}>
-     <Box sx={{ display: 'flex', alignItems: 'center', mt: 3 }}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              defaultChecked
-              size="small"
-              color="error"
-              icon={<Iconify icon="eva:heart-fill" />}
-              checkedIcon={<Iconify icon="eva:heart-fill" />}
-            />
-          }
-          label='좋아요'
-        />
-      </Box> 
+    <Box >
       {tags.map((tag, index) => (
-        <Chip key={index} label={tag} sx={{ m: 0.5 }} />
+        <Chip key={index} label={tag} sx={{ mr: 0.5, mb:2 }} />
       ))}
     </Box>
   );

@@ -15,23 +15,24 @@ import {
 // utils
 import { fyeardateTime } from '../../../utils/formatTime';
 import BlogPostCommentForm from './BlogPostCommentForm';
+import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
-BlogPostCommentItem.propTypes = {
-  name: PropTypes.string,
-  avatarUrl: PropTypes.string,
+BlogPostCommentItemNew.propTypes = {
   message: PropTypes.string,
-  postedAt: PropTypes.string,
-  newcomment: PropTypes.object,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt, newcomment }) {
+export default function BlogPostCommentItemNew({ message }) {
   const [openReply, setOpenReply] = useState(false);
 
   const handleOpenReply = () => {
     setOpenReply(true);
   };
+
+  const { user } = useAuth()
+
+  const date = new Date()
 
   return (
     <>
@@ -43,11 +44,11 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt
         }}
       >
         <ListItemAvatar>
-          <Avatar alt={name} src={avatarUrl} sx={{ width: 32, height: 32 }} />
+          <Avatar alt={user?.nickname} src={user?.avatar} sx={{ width: 32, height: 32 }} />
         </ListItemAvatar>
 
         <ListItemText
-          primary={name}
+          primary={user?.nickname}
           primaryTypographyProps={{ variant: 'subtitle1' }}
           secondary={
             <>
@@ -59,10 +60,10 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt
                   color: 'text.disabled',
                 }}
               >
-                {fyeardateTime(postedAt)}
+                {fyeardateTime(date)}
               </Typography>
                <Typography component="span" variant="body2" sx={{color:'text.primary'}}>
-                {/* <strong>{tagUser}</strong> */} {message}
+                {message}
               </Typography> 
             </>
           }

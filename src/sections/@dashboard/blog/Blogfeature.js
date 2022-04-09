@@ -49,18 +49,12 @@ export default function Blogfeature({post}) {
       zIndex: 9,
       left: 0,
       right: 0,
-      bottom: 20,
+      bottom: -20,
       position: 'absolute',
+      color:'text.primary'
     }),
   };
 
-  const handlePrevious = () => {
-    carouselRef.current.slickPrev();
-  };
-
-  const handleNext = () => {
-    carouselRef.current.slickNext();
-  };
 
   return (
     <>
@@ -69,25 +63,6 @@ export default function Blogfeature({post}) {
           <CarouselItem key={index} item={app} index={index} isActive={index === currentIndex} />
         ))}
       </Slider>
-
-      <CarouselArrows
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        spacing={0}
-        sx={{
-          top: 16,
-          right: 16,
-          position: 'absolute',
-          '& .arrow': {
-            p: 0,
-            width: 32,
-            height: 32,
-            opacity: 0.48,
-            color: 'common.white',
-            '&:hover': { color: 'common.white', opacity: 1 },
-          },
-        }}
-      />
     </>
   );
 }
@@ -103,38 +78,6 @@ CarouselItem.propTypes = {
 function CarouselItem({ item, isActive, index }) {
   return (
     <Box sx={{ position: 'relative'}}>
-{/*       <CardContent
-        component={MotionContainer}
-        animate={isActive}
-        action
-        sx={{
-          bottom: 0,
-          width: 1,
-          zIndex: 9,
-          textAlign: 'left',
-          position: 'absolute',
-          color: 'common.white',
-        }}
-      >
-        <m.div variants={varFade().inRight}>
-          <Typography variant="overline" component="div" sx={{ mb: 1, opacity: 0.48 }}>
-            {type}
-          </Typography>
-        </m.div>
-        <m.div variants={varFade().inRight}>
-          <Link component={RouterLink} to="#" color="inherit" underline="none">
-            <Typography variant="h5" gutterBottom noWrap>
-              {title}
-            </Typography>
-          </Link>
-        </m.div>
-        <m.div variants={varFade().inRight}>
-          <Typography variant="body2" noWrap>
-            {description}
-          </Typography>
-        </m.div>
-      </CardContent>
-      <OverlayStyle /> */}
       <Image ratio='1/1' alt={item} src={item} />
     </Box>
   );

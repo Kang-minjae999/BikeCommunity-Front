@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
 // @mui
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { blue } from '@mui/material/colors';
 
 // ----------------------------------------------------------------------
 
@@ -19,7 +20,12 @@ export function RHFCheckbox({ name, ...other }) {
         <Controller
           name={name}
           control={control}
-          render={({ field }) => <Checkbox {...field} checked={field.value} />}
+          render={({ field }) => <Checkbox {...field} checked={field.value} sx={{
+            color: blue[800],
+            '&.Mui-checked': {
+              color: blue[600],
+            },
+          }}/>}
         />
       }
       {...other}

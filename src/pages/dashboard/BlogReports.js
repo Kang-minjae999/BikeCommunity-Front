@@ -16,15 +16,15 @@ import Iconify from '../../components/Iconify';
 import { SkeletonboardItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blognotice';
+import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blogreport';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
+  { value: 'latest', label: ' 최신' },
+  { value: 'popular', label: '인기 ' },
+  { value: 'oldest', label: '과거' },
 ];
 
 // ----------------------------------------------------------------------
@@ -61,7 +61,7 @@ export default function Blogreports() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/notices?page=${page}&size=12`);
+      const response = await axios.get(`/report?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -93,16 +93,16 @@ export default function Blogreports() {
 
   const [admin , setadmin] = useState(false)
   
-  useEffect(() => {
-    if(user){
-      if(user?.role === 'admin'){
-        setadmin(true)
-      }
-    } else{
-    setadmin(false)
-    }
+  // useEffect(() => {
+  //   if(user){
+  //     if(user?.role === 'admin'){
+  //       setadmin(true)
+  //     }
+  //   } else{
+  //   setadmin(false)
+  //   }
   
-  }, [user])
+  // }, [user])
   
 
 
@@ -114,11 +114,10 @@ export default function Blogreports() {
           links={[
             { name: '' },
           ]}
-            action={
-            (admin) && <Button
+            action={<Button
               variant="outlined"
               component={RouterLink}
-              to={PATH_DASHBOARD.blog.newPost}
+              to={PATH_DASHBOARD.blog.newReport}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
               글쓰기
@@ -134,7 +133,7 @@ export default function Blogreports() {
 
         <Grid container spacing={1}>
         {(!posts.length ? [...Array(12)] 
-            : sortedPosts).map((post, index) =>
+            : sortedPosts).map((post, index) =>  
             post ? (
               <Grid key={post.id} item xs={12} sm={12} md={12}>
                 <BlogPostlist post={post}/>
@@ -142,7 +141,7 @@ export default function Blogreports() {
             ) : (
               <SkeletonboardItem key={index} />
             )
-          )}
+            )}
         </Grid>
         <Stack
           direction="row"
@@ -150,7 +149,13 @@ export default function Blogreports() {
           alignItems="center"
           spacing={2}
           >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Pagination 
+        count={totalpage} 
+        page={pagenation} 
+        onChange={handleChange} 
+        shape="rounded" 
+        color="action" 
+        size="large" sx={{mt:2}}/>
         </Stack>
       </Container>
     </Page>

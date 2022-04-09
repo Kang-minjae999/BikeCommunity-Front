@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+
 // @mui
 import { Box, List } from '@mui/material';
 //
 import BlogPostCommentItem from './BlogPostCommentItem';
-
+import BlogPostCommentForm from './BlogPostCommentForm';
+import BlogPostCommentItemNew from './BlogPostCommentItemNew';
 // ----------------------------------------------------------------------
 
 BlogPostCommentList.propTypes = {
@@ -11,41 +14,41 @@ BlogPostCommentList.propTypes = {
 };
 
 export default function BlogPostCommentList({ post }) {
-  const { comments } = post;
+  const { comments, id } = post;
+  const [comment, setComment] = useState([]);
 
   return (
+    <>
     <List disablePadding>
       {comments.map((comment, index) => {
         const { nicknameOfComment, avatarImageURL, createdDate ,content} = comment;
-        /* const hasReply = replyComment.length > 0; */
         const key = `comment ${index}`
 
         return (
-          <Box key={key} sx={{}}>
+          <Box key={key} >
             <BlogPostCommentItem
               name={nicknameOfComment}
               avatarUrl={avatarImageURL}
               postedAt={createdDate}
               message={content}
             />
-            {/* {hasReply &&
-              replyComment.map((reply) => {
-                const user = users.find((user) => user.id === reply.userId);
-                return (
-                  <BlogPostCommentItem
-                    key={reply.id}
-                    message={reply.message}
-                    tagUser={reply.tagUser}
-                    postedAt={reply.postedAt}
-                    name={user.name}
-                    avatarUrl={user.avatarUrl}
-                    hasReply
-                  />
-                );
-              })} */}
           </Box>
         );
       })}
+      <>      
+      {comment.map((comment, index) => {
+        const key = `comment ${index}`
+        return (
+          <Box key={key} >
+            <BlogPostCommentItemNew
+              message={comment}
+            />
+          </Box>
+        );
+      })}
+      </>
     </List>
+   <BlogPostCommentForm id={id} comment={comment} setComment={setComment} />
+   </>
   );
 }

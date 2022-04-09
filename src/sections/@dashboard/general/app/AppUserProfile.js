@@ -107,7 +107,20 @@ export default function AppUserProfile() {
     },
   ];
 
-  return (
+  const [heart, setHeart] = useState([])
+  const [sum, setSum] = useState(0)
+  
+  useEffect (() => {
+    if(post){
+      setHeart(post.map((e)=>e.heart))
+      setSum(heart.reduce((stack, el)=>{
+        return stack + el;
+      }, 0))
+    }
+ },[post])
+
+
+ return (
       <>
           <Card >
             <Stack
@@ -123,8 +136,8 @@ export default function AppUserProfile() {
                   alignItems="center"
                   spacing={0}
                 >
-                <Avatar sx={{width:40,height:40, mx:1 ,my:1}} alt='avatar' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU'/>
-                <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;일론머스크&nbsp;</Typography> 
+                <Avatar sx={{width:40,height:40, mx:1 ,my:1}} alt='avatar' src={user?.avatar} />
+                <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;{user?.nickname}&nbsp;</Typography> 
                 </Stack>
               </Box>
               <Stack
@@ -142,7 +155,7 @@ export default function AppUserProfile() {
                       spacing={0}
                     >
                       <Typography variant="subtitle2">게시글</Typography>
-                      <Typography variant="body2" >141</Typography>
+                      <Typography variant="body2" >{post?.length}</Typography>
                     </Stack>
                   </Box>
                 <Box >
@@ -153,7 +166,7 @@ export default function AppUserProfile() {
                     spacing={0}
                   >
                     <Typography variant="subtitle2" >판매글</Typography>
-                    <Typography variant="body2" >50</Typography>
+                    <Typography variant="body2" >{post?.length}</Typography>
                   </Stack>
                 </Box>
                 <Box >
@@ -164,7 +177,7 @@ export default function AppUserProfile() {
                     spacing={0}
                   >
                     <Typography variant="subtitle2" >좋아요</Typography>
-                    <Typography variant="body2" >1645</Typography>
+                    <Typography variant="body2" >{sum}</Typography>
                   </Stack>
                 </Box>
                 </Stack>

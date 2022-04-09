@@ -140,9 +140,9 @@ export default function BlogDingstas() {
             page={pagenation}
             onChange={handleChange}
             shape="rounded"
-            color="primary"
+            color="action"
             size="large"
-            sx={{ mt: 2 }}
+            sx={{ mt: 2 ,mb:4}}
           />
         </Stack>
       </Container>

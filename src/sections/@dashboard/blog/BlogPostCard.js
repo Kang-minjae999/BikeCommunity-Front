@@ -4,7 +4,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { m } from 'framer-motion';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip } from '@mui/material';
+import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip, Divider } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -19,7 +19,7 @@ import Iconify from '../../../components/Iconify';
 import TextMaxLine from '../../../components/TextMaxLine';
 import TextIconLabel from '../../../components/TextIconLabel';
 import DotdotdotPost from '../../../components/DotdotdotPost';
-import BlogDingsta from '../../../pages/dashboard/BlogDingsta';
+import BlogDingstaForStas from '../../../pages/dashboard/BlogDingstaForStas';
 
 // ----------------------------------------------------------------------
 
@@ -71,25 +71,28 @@ export default function BlogPostCard({ post }) {
             sx={{ width: 32, height: 32, mt: 1, mb: 1, ml: 1, mr: 1 }}
           />
         </Link>
-        <Link to={linkToProfile} color="inherit" component={RouterLink}>
-          <Typography variant="subtitle2" sx={{ color: 'common.black' }}>
+        <Link to={linkToProfile} color="action" component={RouterLink}>
+          <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
             {nicknameOfPost}
           </Typography> 
           </Link>
         </Stack>
         <DotdotdotPost nicknameOfPost={nicknameOfPost}/>
       </Stack>
+      <Divider />
       <Box sx={{ position: 'relative' }}>
       <Link onClick={() => setDetail(!detail)}  color="inherit">
         <Image alt={nicknameOfPost} src={thumbnailImageUrl} ratio="1/1" />
         </Link>
       </Box>
-      <PostContent content={content} createdDate={createdDate} id={id} tags={tags} view={view} heart={heart} numOfComment={numOfComment}/>
+      <Divider />
+      <PostContent content={content} createdDate={createdDate} 
+      id={id} tags={tags} view={view} heart={heart} numOfComment={numOfComment} detail={detail} setDetail={setDetail} />
     </Card>}
    {(detail && postClick) && 
       <MotionContainer> 
         <m.div variants={varFade().in}>
-         <BlogDingsta postClick={postClick} error={error}/>
+         <BlogDingstaForStas postClick={postClick} error={error}/>
         </m.div> 
       </MotionContainer>}
    </>
@@ -120,30 +123,20 @@ export function PostContent({ content, createdDate, tags, view, heart, numOfComm
   return (
     <CardContent
       sx={{
-        pt: 4.5,
+        pt: 2,
         width: 1,
       }}
     >
-      <Typography
-        gutterBottom
-        variant="caption"
-        component="div"
-        sx={{
-          color: 'text.disabled',
-        }}
-      >
-        {fyeardateTime(createdDate)}
-      </Typography>
 
       <Link onClick={() => setDetail(!detail)} color="inherit" >
-        <TextMaxLine variant="subtitle2" line={2} persistent>
+        <TextMaxLine variant="subtitle2" line={1} persistent>
           {content}
         </TextMaxLine>
       </Link>
       {tags && (
-        <Box sx={{ py: 3 }}>
+        <Box sx={{ mt: 2 }}>
           {tags.map((tag) => (
-            <Chip key={tag} label={tag} sx={{ m: 0.5 }} size="small" />
+            <Chip key={tag} label={tag} sx={{ mr: 0.5 }} size="small" />
           ))}
         </Box>
       )}
@@ -152,10 +145,19 @@ export function PostContent({ content, createdDate, tags, view, heart, numOfComm
         direction="row"
         justifyContent="flex-end"
         sx={{
-          mt: 0.5,
+          mt: 2,
           color: 'text.disabled',
         }}
       >
+      <Typography
+        variant="caption"
+        component="div"
+        sx={{
+          color: 'text.disabled',
+        }}
+      >
+        {fyeardateTime(createdDate)}
+      </Typography>
         {POST_INFO.map((info, index) => (
           <TextIconLabel
             key={index}

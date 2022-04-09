@@ -67,7 +67,7 @@ export default function Login() {
         spacing={1}>
         <Logo sx={{ mb: 0.5 }}/>
         <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+            <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
@@ -89,7 +89,7 @@ export default function Login() {
                 <Typography variant="h4" gutterBottom>
                   로그인
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>아이디와 비밀번호를 입력해주세요.</Typography>
+                <Typography sx={{ color: 'text.primary' }}>아이디와 비밀번호를 입력해주세요.</Typography>
               </Box>
               <Tooltip title='회원가입' placement="right">
               <Typography variant="body2" sx={{ mt: { md: 2 } }}>
@@ -113,7 +113,7 @@ export default function Login() {
         spacing={1}>
         <Logo sx={{ mb: 0.5 }}/>
         <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+            <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
@@ -131,7 +131,7 @@ export default function Login() {
             <LoginForm />
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
                 계정이 없으신가요?{' '}
-                <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
+                <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register} sx={{color:'text.primary'}}>
                   회원가입
                 </Link>
               </Typography>

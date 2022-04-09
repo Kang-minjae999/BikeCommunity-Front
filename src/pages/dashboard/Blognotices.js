@@ -22,9 +22,9 @@ import useAuth from '../../hooks/useAuth';
 // ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
-  { value: 'latest', label: 'Latest' },
-  { value: 'popular', label: 'Popular' },
-  { value: 'oldest', label: 'Oldest' },
+  { value: 'latest', label: '최신' },
+  { value: 'popular', label: '인기' },
+  { value: 'oldest', label: '과거' },
 ];
 
 // ----------------------------------------------------------------------
@@ -153,7 +153,7 @@ export default function Blognotice() {
           alignItems="center"
           spacing={2}
           >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="action" size="large" sx={{mt:2}}/>
         </Stack>
       </Container>
     </Page>

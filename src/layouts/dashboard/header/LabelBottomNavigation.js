@@ -14,14 +14,18 @@ import { Typography } from '@mui/material';
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = useState('');
+  const [go, setGo] = useState(false)
   const navigate = useNavigate();
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    setGo(true)
   };
 
   useEffect(() => {
-    navigate(`/dashboard/${value}`)
-    }, [value]); 
+    if(go){
+      navigate(`/dashboard/${value}`)
+    }
+    }, [value, go]); 
 
 
 
@@ -40,7 +44,7 @@ export default function LabelBottomNavigation() {
       />
       <BottomNavigationAction
         label={<Typography variant='body2' color='text.primary'>모아보기</Typography>}
-        value="blog/dingstas"
+        value="blog/reports"
         icon={<AutoAwesomeMotionIcon color='action' />}
       />
       <BottomNavigationAction

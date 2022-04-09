@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Typography, Stack } from '@mui/material';
+import { Typography, Stack, Box, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
@@ -22,11 +22,12 @@ const RootStyles = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 BlogPostCommentForm.propTypes = {
-  post: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+  comment: PropTypes.array,
+  setComment: PropTypes.func
 };
 
-export default function BlogPostCommentForm({post}) {
-  const {id} = post
+export default function BlogPostCommentForm({id, comment, setComment}) {
   const { enqueueSnackbar } = useSnackbar();
 
   const CommentSchema = Yup.object().shape({
@@ -59,26 +60,28 @@ export default function BlogPostCommentForm({post}) {
       });
       reset()
       enqueueSnackbar('덧글 추가 완료!');
-      window.location.replace(`/dashboard/blog/dingsta/${id}`);
+      setComment(comments => [...comments, data.content]);
+      console.log(data.content)
+      
     } catch (error) {
       console.error(error);
     }
   }; 
 
   return (
-    <RootStyles>
-      <Typography variant="subtitle1" sx={{ mb: 3 }}>
-        덧글 쓰기
-      </Typography>
-
+    <Box>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3} alignItems="flex-end">
-          <RHFTextField name="content" label="덧글" multiline rows={3} />
-          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            덧글 달기
-          </LoadingButton>
+          <RHFTextField name="content" label="댓글" multiline color='action'
+          InputProps={{
+            endAdornment: (         
+            <InputAdornment position="end">
+            <LoadingButton type="submit" variant="text" loading={isSubmitting} sx={{color:'text.primary'}}> 
+              달기
+            </LoadingButton>
+            </InputAdornment>)}}/>
         </Stack>
       </FormProvider>
-    </RootStyles>
+    </Box>
   );
 }

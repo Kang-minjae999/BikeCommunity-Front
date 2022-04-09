@@ -74,7 +74,7 @@ export default function Router() {
           </>
         ),
       children: [
-        { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
+        { element: <Navigate to='/dashboard/app' replace />, index: true },
         { path: 'app', element: <GeneralApp /> }, // ok
         { path: 'map', element: <GeneralMap /> }, // ok
         { path: 'riding', element: <GeneralRiding /> }, // ok

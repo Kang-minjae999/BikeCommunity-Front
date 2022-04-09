@@ -13,10 +13,12 @@ import Page from '../../components/Page';
 import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { SkeletonPost } from '../../components/skeleton';
+import  Image from '../../components/Image';
+import { fyeardateTime } from '../../utils/formatTime';
 // sections
 import {
   BlogPostHero,
-} from '../../sections/@dashboard/blognotice';
+} from '../../sections/@dashboard/blogpost';
 
 // ----------------------------------------------------------------------
 
@@ -33,10 +35,9 @@ export default function BlogReport() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/notices/${id}`);
-
+      const response = await axios.get(`/report/${id}`);
       if (isMountedRef.current) {
-        setPost(response.data.data.content);
+        setPost(response.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -48,6 +49,7 @@ export default function BlogReport() {
     getPost();
   }, [getPost]);
 
+  console.log(post)
   return (
     <Page title="신고/문의/건의">
       <Container maxWidth={themeStretch ? false : 'lx'}>
@@ -61,14 +63,17 @@ export default function BlogReport() {
 
         {post && (
           <Card>
-              <BlogPostHero post={post} />
-                <Divider/>
+          <Typography sx={{m:2}} variant='h6'>{post?.title}</Typography>
+                <Divider />
+            <Typography sx={{m:2}}>{post?.nicknameOfPost}/{fyeardateTime(post.createdDate)}</Typography>
+                <Divider />
               <Box sx={{ p: { xs: 3, md: 5 }}}>
-              <Typography variant="body2" sx={{ mb: 5 }}>
+              <Typography variant="body2" sx={{ m:2 }}>
                {post.content}
               </Typography> 
               <Box sx={{ my: 5 }}>
                 <Divider />
+              {post.postImageURLs.map((e, index)=><Box key={index}> <Image alt={index} src={e}/> </Box>)}
               </Box>
             </Box>
           </Card>

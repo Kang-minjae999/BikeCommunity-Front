@@ -71,9 +71,28 @@ export default function BlogPosts() {
     }
   }, [isMountedRef,page]);
 
+  const [param, setparam] = useState('');
+
+  const getAllPosts2 = useCallback(async () => {
+    try {
+      const response = await axios.get(`/dingsta/search?page=${page}&size=12&title=${param}`);
+      if (isMountedRef.current) {
+        setPosts(response.data.data.content);
+        settotalpage(response.data.data.totalPages);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef, page, param]);
+
   useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
+    if (!param) {
+      getAllPosts();
+    }
+    if (param) {
+      getAllPosts2();
+    }
+  }, [getAllPosts, getAllPosts2, param]);
 
   const handleChangeSort = (value) => {
     if (value) {
@@ -114,24 +133,18 @@ export default function BlogPosts() {
           links={[
             { name: ''},
           ]}
-             action={
-            (admin) && <Button
+             action={ <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> }   
+          sx={{mt:2}}
+        />
+          <BlogPostsSearch setparam={setparam}/>
+            {admin && <Button
               variant="outlined"
               component={RouterLink}
               to={PATH_DASHBOARD.blog.newPost}
               startIcon={<Iconify icon={'eva:plus-fill'} />}
             >
               글쓰기
-            </Button>
-          } 
-          sx={{mt:2}}
-        />
-
-        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-          <BlogPostsSearch />
-          <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
-        </Stack>
-
+            </Button>}
         <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
             post ? (
@@ -149,7 +162,7 @@ export default function BlogPosts() {
           alignItems="center"
           spacing={2}
           >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="action" size="large" sx={{mt:2}}/>
         </Stack>
       </Container>
     </Page>

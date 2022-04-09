@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 // utils
 import { fyeardateTime } from '../../../utils/formatTime';
-import BlogPostCommentForm from './BlogPostCommentForm';
 
 // ----------------------------------------------------------------------
 
@@ -22,11 +21,12 @@ BlogPostCommentItem.propTypes = {
   name: PropTypes.string,
   avatarUrl: PropTypes.string,
   message: PropTypes.string,
+  tagUser: PropTypes.string,
   postedAt: PropTypes.string,
-  newcomment: PropTypes.object,
+  hasReply: PropTypes.bool,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt, newcomment }) {
+export default function BlogPostCommentItem({ name, avatarUrl, message, tagUser, postedAt, hasReply }) {
   const [openReply, setOpenReply] = useState(false);
 
   const handleOpenReply = () => {
@@ -40,10 +40,14 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt
         sx={{
           alignItems: 'flex-start',
           py: 3,
+          ...(hasReply && {
+            ml: 'auto',
+            width: (theme) => `calc(100% - ${theme.spacing(7)})`,
+          }),
         }}
       >
         <ListItemAvatar>
-          <Avatar alt={name} src={avatarUrl} sx={{ width: 32, height: 32 }} />
+          <Avatar alt={name} src={avatarUrl} sx={{ width: 48, height: 48 }} />
         </ListItemAvatar>
 
         <ListItemText
@@ -61,13 +65,42 @@ export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt
               >
                 {fyeardateTime(postedAt)}
               </Typography>
-               <Typography component="span" variant="body2" sx={{color:'text.primary'}}>
-                {/* <strong>{tagUser}</strong> */} {message}
-              </Typography> 
+              <Typography component="span" variant="body2">
+                <strong>{tagUser}</strong> {message}
+              </Typography>
             </>
           }
         />
+
+        {!hasReply && (
+          <Button size="small" onClick={handleOpenReply} sx={{ position: 'absolute', right: 0 }}>
+            답글달기
+          </Button>
+        )}
       </ListItem>
+
+      {!hasReply && openReply && (
+        <Box
+          sx={{
+            mb: 3,
+            ml: 'auto',
+            width: (theme) => `calc(100% - ${theme.spacing(7)})`,
+          }}
+        >
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Write comment"
+            sx={{
+              '& fieldset': {
+                borderWidth: `1px !important`,
+                borderColor: (theme) => `${theme.palette.grey[500_32]} !important`,
+              },
+            }}
+          />
+        </Box>
+      )}
+
       <Divider
         sx={{
           ml: 'auto',

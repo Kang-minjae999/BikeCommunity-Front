@@ -93,7 +93,7 @@ export default function LoginForm() {
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="비밀번호 기억하기" />
-        <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
+        <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword} sx={{color:'text.primary'}}>
           비밀번호가 기억이 안나시나요?
         </Link>
       </Stack>

@@ -53,6 +53,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
     if (event.key === 'Enter') {
       setparam(searchQuery)
       setapi(value)
+      document.activeElement.blur()
     }
   };
 

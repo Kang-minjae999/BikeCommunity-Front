@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState, useCallback } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 // @mui
@@ -22,40 +23,27 @@ import {
 import DotdotdotPost from '../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------
+BlogDingstaForStas.propTypes = {
+  postClick: PropTypes.object,
+  error: PropTypes.string,
+};
 
-export default function BlogDingsta() {
+export default function BlogDingstaForStas({postClick ,error}) {
   const { themeStretch } = useSettings();
-
-  const isMountedRef = useIsMountedRef();
-
-  const { id = '' } = useParams();
 
   const [post, setPost] = useState(null);
 
-  const [error, setError] = useState(null);
-
-  const getPost = useCallback(async () => {
-    try {
-      const response = await axios.get(`/dingsta/${id}`);
-
-      if (isMountedRef.current) {
-        setPost(response.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-      setError('서버와의 연결이 이상해요!');
-    }
-  }, [isMountedRef, id]);
-
   useEffect(() => {
-    getPost();
-  }, [getPost]);
+    if(postClick){
+      setPost(postClick);
+    }
+  }, [postClick]);
 
   const linkToProfile = `${PATH_DASHBOARD.user.profile}/${post?.nicknameOfPost}`;
   
   return (
     <Page title="딩스타그램">
-    <Container maxWidth={themeStretch ? false : 'md'}>
+    <Container maxWidth={themeStretch ? false : 'md'} disableGutters>
 
       {post && (
         <Card>
@@ -72,39 +60,34 @@ export default function BlogDingsta() {
             spacing={0}
           >
           <Link to={linkToProfile} color="inherit" component={RouterLink}>
-          <Avatar alt={post.avatarImageURL} src={post.avatarImageURL} sx={{ width: 48, height: 48, mt:1,mb:1,ml:1,mr:1 }} />
+          <Avatar alt={post.avatarImageURL} src={post.avatarImageURL} sx={{ width: 32, height: 32, mt:1,mb:1,ml:1,mr:1 }} />
           </Link>
           <Link to={linkToProfile} color="inherit" component={RouterLink}>
-          <Typography variant="subtitle1" sx={{ color: 'common.black' }}>
+          <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
             {post.nicknameOfPost}
           </Typography>
           </Link>
           </Stack>
           <DotdotdotPost nicknameOfPost={post.nicknameOfPost} />
           </Stack>
+          <Divider />
           <Blogfeature post={post}/>
           <Divider />
-          <Box sx={{ p: { xs: 3, md: 5 } }}>
-            <Typography variant="body2" sx={{ mb: 5 }}>
+          <Box sx={{ p: { xs: 2, md: 3 } }}>
+            <Typography variant="body2" sx={{ mb: 2 }}>
               {post.content}
             </Typography>
-            <Box sx={{ my: 5 }}>
-              <Divider />
               <BlogPostTags tags={post.tags} />
               <Divider />
-            </Box>
-
-            <Box sx={{ display: 'flex', mb: 2 }}>
-              <Typography variant="h4">댓글</Typography>
+            <Box sx={{ display: 'flex', my: 1 }}>
+              <Typography variant="subtitle2">댓글</Typography>
               <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
                 ({post.numOfComment})
               </Typography>
             </Box> 
-          <Divider />
 
           <BlogPostCommentList post={post} />  
 
-           <BlogPostCommentForm post={post}/> 
           </Box>
         </Card>
       )}
