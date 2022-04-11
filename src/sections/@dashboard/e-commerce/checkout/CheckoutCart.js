@@ -108,8 +108,7 @@ export default function CheckoutCart() {
           ) : (
             <EmptyContent
               title="장바구니가 비었어요!"
-              description="물건들을 장바구니에 담아보네요!"
-              img="https://minimal-assets-api.vercel.app/assets/illustrations/illustration_empty_cart.svg"
+              description="물건들을 장바구니에 담아보세요!"
             />
           )}
         </Card>

@@ -34,11 +34,11 @@ export default function UserAccount() {
       icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
       component: <AccountGeneral />,
     },
-    {
+/*     {
       value: '내 바이크',
       icon: <Iconify icon={'eva:share-fill'} width={20} height={20} />,
       component: <AccountSocialLinks myProfile={_userAbout} />,
-    },
+    }, */
 /*     {
       value: '알림',
       icon: <Iconify icon={'eva:bell-fill'} width={20} height={20} />,
@@ -59,12 +59,12 @@ export default function UserAccount() {
   return (
     <Page title="설정">
       <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
-        <HeaderBreadcrumbs
+        {/* <HeaderBreadcrumbs
           heading="설정"
           links={[
             { name: ''}
           ]}
-        />
+        /> */}
         <Stack direction='row' alignItems='center' justifyContent='center' spacing={0}>
         <Tabs
           value={currentTab}

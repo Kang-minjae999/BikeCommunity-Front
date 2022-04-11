@@ -29,6 +29,8 @@ export { default as AppRidingClub } from './AppRidingClub';
 export { default as AppUserHeader } from './AppUserHeader';
 export { default as AppUserProfile } from './AppUserProfile';
 export { default as AppUserMoto } from './AppUserMoto';
+export { default as AppUserMotoNew } from './AppUserMotoNew';
+export { default as AppUserClub } from './AppUserClub';
 
 export { default as AppShopHeader } from './AppShopHeader';
 export { default as AppShopAllCate } from './AppShopAllCate';

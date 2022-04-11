@@ -18,8 +18,11 @@ export default function BlockContent() {
     >
         <AddAPhotoIcon />
       <Box sx={{ p: 3 }}>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          대표사진 
+        </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          대표사진 올리기
+        사진이 없다면 올리지 않으셔도 됩니다!
         </Typography>
       </Box>
     </Stack>

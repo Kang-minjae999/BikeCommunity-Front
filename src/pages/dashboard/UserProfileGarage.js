@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, /* useNavigate */ } from 'react-router-dom';
 // @mui
 import {
   Box,
@@ -37,7 +37,7 @@ export default function UserProfile() {
 
   const isMountedRef = useIsMountedRef();
 
-  const navigate = useNavigate();
+/*   const navigate = useNavigate(); */
 
   const { nickname = '' } = useParams();
 
@@ -115,9 +115,8 @@ export default function UserProfile() {
   useEffect (() => {
     if(post){
       setHeart(post.map((e)=>e.heart))
-      setSum(heart.reduce((stack, el)=>{
-        return stack + el;
-      }, 0))
+      setSum(heart.reduce((stack, el)=>{return stack + el}
+      , 0))
     }
  },[post, heart])
 

@@ -1,4 +1,5 @@
 export { default as Profile } from './Profile';
+export { default as ProfileName } from './ProfileName';
 export { default as ProfileCover } from './ProfileCover';
 export { default as ProfileFriends } from './ProfileFriends';
 export { default as ProfileGallery } from './ProfileGallery';

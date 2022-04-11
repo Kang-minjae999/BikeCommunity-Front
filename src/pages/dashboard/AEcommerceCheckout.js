@@ -3,7 +3,6 @@ import {  Container } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
-import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 
 import { Aecheckouthead } from '../../sections/@dashboard/general/app';

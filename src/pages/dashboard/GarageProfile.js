@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Card, Tabs, Container, Stack, Grid } from '@mui/material';
+import { Tab, Box, Card, Tabs, Container, Stack, Grid, BottomNavigation, BottomNavigationAction, Typography } from '@mui/material';
+import TocIcon from '@mui/icons-material/Toc';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import Image from '../../components/Image';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -21,6 +25,8 @@ import {
   ProfileAbout,
   ProfileSocialInfo,
   ProfileGallery,
+  ProfileName,
+  ProfileFollowers,
 } from '../../sections/@dashboard/garage/profile';
 
 
@@ -49,86 +55,97 @@ export default function UserProfile() {
   const { user } = useAuth();
   const { name = '' } = useParams();
 
-  const [currentTab, setCurrentTab] = useState('profile');
+  const [value, setValue] = useState('gallery');
+  const [chvalue, setchvalue] = useState('');
+  const [istrue, setistrue] = useState(false);
 
-  const handleChangeTab = (newValue) => {
-    setCurrentTab(newValue);
+  const handleChange = (event, newValue) => {
+    setchvalue(newValue);
+    setistrue(true);
   };
+
+  useEffect(() => {
+    if (istrue) {
+      setValue(chvalue);
+    }
+    return () => {
+      setistrue(false);
+    };
+  }, [istrue, chvalue]);
 
   const PROFILE_TABS = [
     {
-      label: '프로필',
-      value: 'profile',
-      icon: <Iconify icon={'ic:round-account-box'} width={20} height={20} />,
-      component: <Profile myProfile={_userAbout} posts={_userFeeds}/>,
+      value: 'gallery',
+      label: '바이크',
+      icon: <Iconify icon={'ic:round-perm-media'} width={20} height={20} />,
+      component: <Typography>확인</Typography>,
     },
     {
-      label: '갤러리',
-      value: 'gallery',
-      icon: <Iconify icon={'ic:round-perm-media'} width={20} height={20} />,
-      component: <ProfileGallery gallery={_userGallery} />,
+      value: 'profile',
+      label: '게시글',
+      icon: <TocIcon icon={'ic:round-perm-media'} width={20} height={20} />,
+      component: <Typography>확인</Typography>,
+    },
+    {
+      value: 'sell',
+      label: '판매중',
+      icon: <LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />,
+      component:  <Typography>확인</Typography>,
     },
   ];
+  const valueStyle = {
+    borderBottom: 2,
+    borderBottomColor: 'text.primary',
+  };
 
   return (
     <Page title="정비소">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
-        <HeaderBreadcrumbs
-          heading="Profile"
-          links={[
-            { name: '홈', href: PATH_DASHBOARD.root },
-            { name: '정비소', href: PATH_DASHBOARD.garage.root },
-            { name: name || '' },
-          ]}
-        />
-    <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
-        <Card
-          sx={{
-            mb: 3,
-            height: 600,
-            Width: 800,
-            position: 'relative',
-          }}
-        >
-          
-          <ProfileCover myProfile={_userAbout} name={name} />
-
-          <TabsWrapperStyle>
-            <Tabs
-              value={currentTab}
-              scrollButtons="auto"
-              variant="scrollable"
-              allowScrollButtonsMobile
-              onChange={(e, value) => handleChangeTab(value)}
-            >
-              {PROFILE_TABS.map((tab) => (
-                <Tab disableRipple key={tab.value} value={tab.value} icon={tab.icon} label={tab.label} />
-              ))}
-            </Tabs>
-          </TabsWrapperStyle>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Card
-          sx={{
-            mb: 3,
-            height: 600,
-            Width: 300,
-            position: 'relative',
-          }}
-        >
-          <ProfileAbout profile={_userAbout}/><br/>
-          <ProfileSocialInfo profile={_userAbout}/>
-        </Card>
-        </Grid> 
+      <Container maxWidth={themeStretch ? false : 'sm'} disableGutters>
+    <Grid container spacing={1} sx={{mb:2}}>
+      <Grid item xs={12} md={12}>
+      <Card>         
+      <Stack direction='column' alignItems='center'>
+      <Image ratio='1/1' alt="profile cover" 
+      src='https://mblogthumb-phinf.pstatic.net/MjAxODEwMTNfMjMz/MDAxNTM5Mzk3NDU2NDMz.oggENfLQF6TKqUCoABhUzb3z0MODnWH8LX6-rODwkeAg.6tr3s4Hqil9ObOA4Pb5H3-fDVcQehx8WyEFWGdhVZVIg.JPEG.usedcheck/fa6_53_i2.jpg?type=w800'/>
+      <ProfileName />
+     {/*  <ProfileSocialInfo profile={_userAbout}/> */}
+      <BottomNavigation showLabels sx={{ width: '80%', height: '1%', mt:1, mb:1}} value={value} onChange={handleChange}>
+          <BottomNavigationAction
+           sx={{ ...(value === 'gallery' && valueStyle) }}
+            label={
+              <Typography variant="body1" color={value === 'gallery' ? 'text.primary' : 'disabled'} fontWeight="bold">
+                갤러리
+              </Typography>
+            }
+          />
+          <BottomNavigationAction
+           sx={{ ...(value === 'profile' && valueStyle) }}
+            label={
+              <Typography variant="body1" color={value === 'profile' ? 'text.primary' : 'disabled'} fontWeight="bold">
+                정비글
+              </Typography>
+            }
+            value="profile"
+          />
+          <BottomNavigationAction
+           sx={{ ...(value === 'sell' && valueStyle) }}
+            label={
+              <Typography variant="body1" color={value === 'sell' ? 'text.primary' : 'disabled'} fontWeight="bold">
+                판매중
+              </Typography>
+            }
+            value="sell"
+          />
+        </BottomNavigation>
+        </Stack>
+      </Card>
+      </Grid> 
       </Grid>  
 
-
         {PROFILE_TABS.map((tab) => {
-          const isMatched = tab.value === currentTab;
+          const isMatched = tab.value === value;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })}
+        })} 
       </Container>
     </Page>
   );

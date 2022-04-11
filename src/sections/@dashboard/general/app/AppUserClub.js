@@ -1,18 +1,16 @@
 import { Box } from '@mui/material';
-import AppUserMotoNew from './AppUserMotoNew';
 
 
 // ----------------------------------------------------------------------
 
 
-export default function AppUserMoto() {
+export default function AppUserClub() {
 
   return (
       <>
       <Box>
-        바이크 없으면 등록/있으면 보여주기
+        가입 클럽 목록 ㅇㅇ
       </Box>
-      <AppUserMotoNew />
       </>
   );
 }

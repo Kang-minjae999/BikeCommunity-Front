@@ -10,31 +10,55 @@ import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import ListIcon from '@mui/icons-material/List';
 // -----------------------------------------
-import { useNavigate } from 'react-router-dom';
 import { Stack, Grid, Typography,  Divider } from '@mui/material';
 
 
 export default function Appgarage() {
-  const [value, setValue] = useState('');
-  const [valuetrue, setvaluetrue] = useState(false);
-  const link = useNavigate();
+  const [value, setValue] = useState('list');
+  const [chvalue, setchvalue] = useState('');
+  const [istrue, setistrue] = useState(false);
+
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    setvaluetrue(true);
+    setchvalue(newValue);
+    setistrue(true);
   };
 
-
   useEffect(() => {
-    if(valuetrue === true )
-    {
-    link(`/dashboard/${value}`)
-    } 
+    if (istrue) {
+      setValue(chvalue);
+    }
     return () => {
-      setvaluetrue(false)
-      setTimeout(() => {setValue('')}, 100);
-        };
-    }, [valuetrue, value, link]); 
- 
+      setistrue(false);
+    };
+  }, [istrue, chvalue]);
+
+  const ACCOUNT_TABS = [
+    {
+      value: 'list',
+      component: '',
+    },
+    {
+      value: 'map',
+      component: '',
+    },
+    {
+      value: 'ask',
+      component: '',
+    },
+    {
+      value: 'reservation',
+      component: '',
+    },
+    {
+      value: 'review',
+      component: '',
+    },
+  ];
+
+  const valueStyle = {
+    borderBottom: 2,
+    borderBottomColor: 'text.primary',
+  };
 
   return (
     <Grid container spacing={1}>
@@ -42,32 +66,41 @@ export default function Appgarage() {
        <Stack spacing={1} sx={{mt:1}}>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비기록</Typography>}
-        value="garage/record"
-        icon={<AddchartIcon color='action'/>}
+        sx={{ ...(value === 'list' && valueStyle) }}
+        label={<Typography variant='subtitle2' color={value === 'list' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비소</Typography>}
+        value="list"
+        icon={<AddchartIcon color={value === 'list' ? 'action' : 'disabled'}/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>찾기</Typography>}
-        value="garage/map"
-        icon={<MapIcon color='action'/>}
+        sx={{ ...(value === 'map' && valueStyle) }}
+        label={<Typography variant='subtitle2' color={value === 'map' ? 'text.primary' : 'inherit'} fontWeight='bold'>위치찾기</Typography>}
+        value="map"
+        icon={<MapIcon color={value === 'map' ? 'action' : 'disabled'}/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비질문</Typography>}
-        value="garage/ask"
-        icon={<HelpCenterIcon color='action'/>}
+        sx={{ ...(value === 'ask' && valueStyle) }}
+        label={<Typography variant='subtitle2' color={value === 'ask' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비질문</Typography>}
+        value="ask"
+        icon={<HelpCenterIcon color={value === 'ask' ? 'action' : 'disabled'}/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>정비예약</Typography>}
-        value="garage/reservation"
-        icon={<EngineeringIcon color='action'/>}
+        sx={{ ...(value === 'reservation' && valueStyle) }}
+        label={<Typography variant='subtitle2' color={value === 'reservation' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비예약</Typography>}
+        value="reservation"
+        icon={<EngineeringIcon color={value === 'reservation' ? 'action' : 'disabled'}/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary' fontWeight='bold'>후기</Typography>}
-        value="garage/review"
-        icon={<ListIcon color='action' />}
+        sx={{ ...(value === 'review' && valueStyle) }}
+        label={<Typography variant='subtitle2' color={value === 'record' ? 'text.primary' : 'inherit'} fontWeight='bold'>후기</Typography>}
+        value="review"
+        icon={<ListIcon color={value === 'review' ? 'action' : 'disabled'} />}
       />
     </BottomNavigation>
     <Divider/>
+    {ACCOUNT_TABS.map((button) => {
+        const isMatched = button.value === value;
+        return isMatched && <div key={button.value}>{button.component}</div>;
+      })}
     </Stack>
     </Grid>
     </Grid>

@@ -1,12 +1,14 @@
 import { Button } from '@mui/material';
-import { SnackbarProvider, useSnackbar } from 'notistack';
-import { useEffect, useRef, useState } from 'react';
+import {  useSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from '../../../redux/store';
-import { readAlert, addAlert, deleteAllAlert, getAlert } from '../../../redux/slices/notification';
+import { useDispatch } from '../../../redux/store';
+import { readAlert, addAlert, getAlert } from '../../../redux/slices/notification';
 import NotificationsPopover from './NotificationsPopover';
+import useAuth from '../../../hooks/useAuth';
 
 const Notification = () => {
+  const {user} = useAuth()
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch()
 
@@ -18,16 +20,20 @@ const Notification = () => {
   }
 
   const notificationSnack = (event) =>  {
-    dispatch(addAlert(event.data))
-    enqueueSnackbar(<Button onClick={() => read(event.data)} sx={{color:'text.primary'}}>{event.data}</Button>,  
-    {variant:'info', autoHideDuration:null,})
-    dispatch(getAlert())    
+    if(event.data !== 'dummy'){
+      dispatch(addAlert(event.data))
+      enqueueSnackbar(<Button onClick={() => read(event.data)} sx={{color:'text.primary'}}>{event.data}</Button>,  
+      {variant:'info', autoHideDuration:null,})
+      dispatch(getAlert())  
+    }     
   }
 
   useEffect (() => {
-    const eventSource = new EventSource(`http://localhost:8000/user-service/sse/1`);
-    eventSource.addEventListener('sse', notificationSnack)
-  }, [])
+    if(user?.nickname){
+      const eventSource = new EventSource(`http://localhost:8000/user-service/sse/${user.nickname}`);
+      eventSource.addEventListener('sse', notificationSnack)
+    }
+  }, [user])
   
   
   

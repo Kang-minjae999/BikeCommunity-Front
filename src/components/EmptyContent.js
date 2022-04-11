@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 //
-import Image from './Image';
 
 // ----------------------------------------------------------------------
 
@@ -21,21 +20,12 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 EmptyContent.propTypes = {
   title: PropTypes.string.isRequired,
-  img: PropTypes.string,
   description: PropTypes.string,
 };
 
-export default function EmptyContent({ title, description, img, ...other }) {
+export default function EmptyContent({ title, description, ...other }) {
   return (
     <RootStyle {...other}>
-      <Image
-        disabledEffect
-        visibleByDefault
-        alt="empty content"
-        src={img || 'https://minimal-assets-api.vercel.app/assets/illustrations/illustration_empty_content.svg'}
-        sx={{ height: 240, mb: 3 }}
-      />
-
       <Typography variant="h5" gutterBottom>
         {title}
       </Typography>

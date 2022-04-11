@@ -10,6 +10,7 @@ import Generalgarage from '../../../../pages/dashboard/GeneralGarage';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
+import { Appgarage } from '../../user/appmobile';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
@@ -50,7 +51,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'garage',
-      component: <Generalgarage />,
+      component: <Appgarage />,
     },
   ];
 

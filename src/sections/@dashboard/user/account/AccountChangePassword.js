@@ -51,14 +51,14 @@ export default function AccountChangePassword() {
     <Card sx={{ p: 3 }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3} alignItems="flex-end">
-          <RHFTextField name="oldPassword" type="password" label="Old Password" />
+          <RHFTextField name="oldPassword" type="password" label="현재 비밀번호" />
 
-          <RHFTextField name="newPassword" type="password" label="New Password" />
+          <RHFTextField name="newPassword" type="password" label="새 비밀번호" />
 
-          <RHFTextField name="confirmNewPassword" type="password" label="Confirm New Password" />
+          <RHFTextField name="confirmNewPassword" type="password" label="새 비밀번호 확인" />
 
-          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-            Save Changes
+          <LoadingButton type="submit" variant="outlined" loading={isSubmitting}>
+            비밀번호 변경
           </LoadingButton>
         </Stack>
       </FormProvider>

@@ -26,26 +26,18 @@ export default function ProfileAbout({ profile }) {
 
   return (
     <Card sx={{ ml: 1, mr:1 ,mt:1 }}>
-      <CardHeader title="About" />
-
-      <Stack spacing={2} sx={{ p: 3 }}>
-        <Typography variant="body2">{quote}</Typography>
+      <Stack spacing={2} sx={{m:1}}>
+        <Typography variant="body1">안녕하세요. 저희는 바이크 정비 수리 커스텀을 주로하는 일론머스크입니다.
+        그대 기억이~~~~지난 사랑이~~~~</Typography>
 
         <Stack direction="row">
           <IconStyle icon={'eva:pin-fill'} />
-          <Typography variant="body2">
-            Live at &nbsp;
+          <Typography variant="body1">
             <Link component="span" variant="subtitle2" color="text.primary">
-              {country}
+              경기도 군포시 산본동 보람타워 509호
             </Link>
           </Typography>
         </Stack>
-
-        <Stack direction="row">
-          <IconStyle icon={'eva:email-fill'} />
-          <Typography variant="body2">{email}</Typography>
-        </Stack>
-
         <Stack direction="row">
           <IconStyle icon={'ic:round-business-center'} />
           <Typography variant="body2">

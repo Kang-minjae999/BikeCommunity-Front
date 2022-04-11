@@ -2,9 +2,8 @@ import * as React from 'react';
 import {useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import {  Typography, Stack, Paper, Box } from '@mui/material';
-import { AppUserMoto, AppHomeMagazine, AppHomeSale, AppUserProfile } from '.';
-import AEcommerceCheckout from '../../../../pages/dashboard/AEcommerceCheckout';
+import {  Typography, Paper } from '@mui/material';
+import { AppUserMoto,  AppUserProfile, AppUserClub } from '.';
 import UserAccount from '../../../../pages/dashboard/UserAccount';
 import AppHeaderSpace from './AppHeaderSpace';
 import Aecheckouthead from './Aecheckouthead';
@@ -31,8 +30,8 @@ export default function AppUserHeader() {
       component: <AppUserMoto />,
     },
     {
-      value: 'garagerecord',
-      component: <AppHomeMagazine/>,
+      value: 'club',
+      component: <AppUserClub/>,
     },
     {
       value: 'setting',
@@ -61,13 +60,13 @@ export default function AppUserHeader() {
       />
       <BottomNavigationAction
         sx={{...(value === 'moto') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>서비스</Typography>}
+        label={<Typography  variant='subtitle2' color='text.primary'>바이크</Typography>}
         value="moto"
       />
       <BottomNavigationAction
-        sx={{...(value === 'garagerecord') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>바이크</Typography>}
-        value="garagerecord"
+        sx={{...(value === 'club') && valueStyle}}
+        label={<Typography  variant='subtitle2' color='text.primary'>클럽</Typography>}
+        value="club"
       />
       <BottomNavigationAction 
         sx={{...(value === 'setting') && valueStyle}}

@@ -143,6 +143,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/garage/profile" replace />, index: true },
             { path: 'profile', element: <GarageProfile /> },
             { path: 'profile/:id', element: <GarageProfile /> },
+            { path: 'home', element: <GarageHome /> },
             { path: 'cards', element: <GarageCards /> },
             { path: 'reservation', element: <Garagecheckout /> },
             { path: 'record', element: <Garagerecord /> },
@@ -314,6 +315,7 @@ const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 // 개러지
 const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
+const GarageHome = Loadable(lazy(() => import('../pages/dashboard/GarageHome')));
 const GarageCards = Loadable(lazy(() => import('../pages/dashboard/GarageCards')));
 const GarageMap = Loadable(lazy(() => import('../pages/dashboard/GarageMap')));
 const Garagecheckout = Loadable(lazy(() => import('../pages/dashboard/Garagecheckout')));
