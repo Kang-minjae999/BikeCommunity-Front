@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
 import { useEffect, useState } from 'react';
 // @mui
-import { Box, List, Badge, Button, Avatar, Tooltip, Divider, Typography, ListItemText, ListSubheader, ListItemAvatar, ListItemButton} from '@mui/material';
+import { Box, List, Badge, Button, Avatar, Divider, Typography, ListItemText, ListSubheader, ListItemAvatar, ListItemButton} from '@mui/material';
 // utils
 import { useDispatch, useSelector } from '../../../redux/store';
 import { readAlert, addAlert, deleteAllAlert, getAlert } from '../../../redux/slices/notification';
 import { fToNow } from '../../../utils/formatTime';
 // _mock_
-import { _notifications } from '../../../_mock';
 // components
 import Iconify from '../../../components/Iconify';
 import Scrollbar from '../../../components/Scrollbar';
@@ -18,8 +17,6 @@ import { IconButtonAnimate } from '../../../components/animate';
 // ----------------------------------------------------------------------
 
 export default function NotificationsPopover() {
-  const [notifications, setNotifications] = useState(_notifications);
-
   const { alert, alertNumber, readAlert } = useSelector((state) => state.notification);
 
   const dispatch = useDispatch()
@@ -29,8 +26,6 @@ export default function NotificationsPopover() {
   }, [])
   
 
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
-
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -39,15 +34,6 @@ export default function NotificationsPopover() {
 
   const handleClose = () => {
     setOpen(null);
-  };
-
-  const handleMarkAllAsRead = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        isUnRead: false,
-      }))
-    );
   };
 
   return (
@@ -72,14 +58,6 @@ export default function NotificationsPopover() {
             <Button onClick={() => dispatch(deleteAllAlert())} sx={{color:'text.primary'}}>다지우기</Button>
             </Typography>
           </Box>
-
-          {/* {totalUnRead > 0 && (
-            <Tooltip title=" Mark all as read">
-              <IconButtonAnimate color="primary" onClick={handleMarkAllAsRead}>
-                <Iconify icon="eva:done-all-fill" width={20} height={20} />
-              </IconButtonAnimate>
-            </Tooltip>
-          )} */}
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -116,16 +94,11 @@ export default function NotificationsPopover() {
                </>
             }
           >
-            {/* {notifications.slice(2, 5).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))} */}
             {readAlert.map((notification, index) => (
               <NotificationItem key={index} notification={notification} />
             ))}
           </List>}
         </Scrollbar>
-
-       {/*  <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
         {/* <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
@@ -160,16 +133,7 @@ function NotificationItem({ notification }) {
   }
 
   return (
-    <ListItemButton
-      /* sx={{
-        py: 1.5,
-        px: 2.5,
-        mt: '1px',
-        ...(notification.isUnRead && {
-          bgcolor: 'action.selected',
-        }),
-      }} */
-    >
+    <ListItemButton>
       <ListItemAvatar>
         <Avatar sx={{ bgcolor: 'background.neutral' }} src='http://attach.postzzal.com/public/files/2021/04/25/u2c7xy86z11619361591021.jpeg' />
       </ListItemAvatar>
@@ -193,66 +157,3 @@ function NotificationItem({ notification }) {
     </ListItemButton>
   );
 }
-
-// ----------------------------------------------------------------------
-
-/* function renderContent(notification) {
-  const title = (
-    <Typography variant="subtitle2">
-      {notification.title}
-      <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-        &nbsp; {noCase(notification.description)}
-      </Typography>
-    </Typography>
-  );
-
-  if (notification.type === 'order_placed') {
-    return {
-      avatar: (
-        <img
-          alt={notification.title}
-          src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_package.svg"
-        />
-      ),
-      title,
-    };
-  }
-  if (notification.type === 'order_shipped') {
-    return {
-      avatar: (
-        <img
-          alt={notification.title}
-          src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_shipping.svg"
-        />
-      ),
-      title,
-    };
-  }
-  if (notification.type === 'mail') {
-    return {
-      avatar: (
-        <img
-          alt={notification.title}
-          src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_mail.svg"
-        />
-      ),
-      title,
-    };
-  }
-  if (notification.type === 'chat_message') {
-    return {
-      avatar: (
-        <img
-          alt={notification.title}
-          src="https://minimal-assets-api.vercel.app/assets/icons/ic_notification_chat.svg"
-        />
-      ),
-      title,
-    };
-  }
-  return {
-    avatar: notification.avatar ? <img alt={notification.title} src={notification.avatar} /> : null,
-    title,
-  };
-}
- */

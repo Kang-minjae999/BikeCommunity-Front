@@ -153,6 +153,7 @@ export default function Router() {
             { path: 'map', element: <GarageMap /> },
             { path: ':id/edit', element: <GarageCreate /> },
             { path: 'account', element: <GarageAccount /> },
+            { path: 'setting', element: <GarageSetting /> },
           ],
         },
         {
@@ -217,32 +218,14 @@ export default function Router() {
         },
       ],
     },
-
-    // Main Routes
-    {
-      path: '*',
-      element: <LogoOnlyLayout />,
-      children: [
-        { path: 'coming-soon', element: <ComingSoon /> },
-        { path: 'maintenance', element: <Maintenance /> },
-        { path: 'pricing', element: <Pricing /> },
-        { path: 'payment', element: <Payment /> },
-        { path: '500', element: <Page500 /> },
-        { path: '404', element: <NotFound /> },
-        { path: '*', element: <Navigate to="/404" replace /> },
-      ],
-    },
     {
       path: '/',
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
-        { path: 'about-us', element: <About /> },
-        { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <Faqs /> },
       ],
     },
-    { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
 
@@ -264,7 +247,6 @@ const Generalshop = Loadable(lazy(() => import('../pages/dashboard/GeneralShop')
 const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMarket')));
 const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));
 const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
-
 
 
 const AEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AEcommerceCheckout')));
@@ -324,6 +306,7 @@ const Garagerecord = Loadable(lazy(() => import('../pages/dashboard/Garagerecord
 const GarageList = Loadable(lazy(() => import('../pages/dashboard/GarageList')));
 const GarageAccount = Loadable(lazy(() => import('../pages/dashboard/GarageAccount')));
 const GarageCreate = Loadable(lazy(() => import('../pages/dashboard/GarageCreate')));
+const GarageSetting = Loadable(lazy(() => import('../pages/dashboard/GarageSetting')));
 
 
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
@@ -332,12 +315,4 @@ const ChatList = Loadable(lazy(() => import('../pages/dashboard/ChatList')));
 const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 // Main
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
-const About = Loadable(lazy(() => import('../pages/About')));
-const Contact = Loadable(lazy(() => import('../pages/Contact')));
 const Faqs = Loadable(lazy(() => import('../pages/Faqs')));
-const ComingSoon = Loadable(lazy(() => import('../pages/ComingSoon')));
-const Maintenance = Loadable(lazy(() => import('../pages/Maintenance')));
-const Pricing = Loadable(lazy(() => import('../pages/Pricing')));
-const Payment = Loadable(lazy(() => import('../pages/Payment')));
-const Page500 = Loadable(lazy(() => import('../pages/Page500')));
-const NotFound = Loadable(lazy(() => import('../pages/Page404')));

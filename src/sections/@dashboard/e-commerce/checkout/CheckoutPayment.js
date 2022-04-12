@@ -14,10 +14,9 @@ import Iconify from '../../../../components/Iconify';
 import { FormProvider } from '../../../../components/hook-form';
 //
 import CheckoutSummary from './CheckoutSummary';
-import CheckoutDelivery from './CheckoutDelivery';
 import CheckoutBillingInfo from './CheckoutBillingInfo';
 import CheckoutPaymentMethods from './CheckoutPaymentMethods';
-import Pay from '../../../payment2/Pay';
+import Pay from '../../../paymentport/Pay';
 import { fCurrency } from '../../../../utils/formatNumber';
 import useResponsive from '../../../../hooks/useResponsive';
 

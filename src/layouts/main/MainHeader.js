@@ -1,21 +1,16 @@
-import { useLocation ,Link as RouterLink  } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { Link as RouterLink  } from 'react-router-dom';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, AppBar, Toolbar, Container, Link, Typography } from '@mui/material';
+import { Box, AppBar, Toolbar, Container, Link, Typography, Button } from '@mui/material';
 // hooks
 import useOffSetTop from '../../hooks/useOffSetTop';
-import useResponsive from '../../hooks/useResponsive';
 // utils
 import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
 // components
 import Logo from '../../components/Logo';
-import Label from '../../components/Label';
-//
-import MenuDesktop from './MenuDesktop';
-import MenuMobile from './MenuMobile';
-import navConfig from './MenuConfig';
 
 // ----------------------------------------------------------------------
 
@@ -50,11 +45,7 @@ export default function MainHeader() {
 
   const theme = useTheme();
 
-  const { pathname } = useLocation();
-
-  const isDesktop = useResponsive('up', 'md');
-
-  const isHome = pathname === '/';
+  const navigate = useNavigate('up', 'lg')
 
   return (
     <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
@@ -82,8 +73,7 @@ export default function MainHeader() {
             </Typography>
             </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
-          {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
+          <Button onClick={() => navigate('/dashboard/app')} sx={{color:'text.primary'}}>메인화면으로</Button>
         </Container>
       </ToolbarStyle>
 

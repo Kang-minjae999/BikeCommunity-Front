@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Tab, Box, Card, Tabs, Container, Stack, Grid, BottomNavigation, BottomNavigationAction, Typography } from '@mui/material';
+import { Tab, Box, Card, Tabs, Container, Stack, Grid, BottomNavigation, BottomNavigationAction, Typography, Button } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -54,6 +55,7 @@ export default function UserProfile() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
   const { name = '' } = useParams();
+  const navigate = useNavigate('up', 'lg')
 
   const [value, setValue] = useState('gallery');
   const [chvalue, setchvalue] = useState('');
@@ -82,7 +84,7 @@ export default function UserProfile() {
     },
     {
       value: 'profile',
-      label: '게시글',
+      label: '정비글',
       icon: <TocIcon icon={'ic:round-perm-media'} width={20} height={20} />,
       component: <Typography>확인</Typography>,
     },
@@ -105,11 +107,11 @@ export default function UserProfile() {
       <Grid item xs={12} md={12}>
       <Card>         
       <Stack direction='column' alignItems='center'>
-      <Image ratio='1/1' alt="profile cover" 
-      src='https://mblogthumb-phinf.pstatic.net/MjAxODEwMTNfMjMz/MDAxNTM5Mzk3NDU2NDMz.oggENfLQF6TKqUCoABhUzb3z0MODnWH8LX6-rODwkeAg.6tr3s4Hqil9ObOA4Pb5H3-fDVcQehx8WyEFWGdhVZVIg.JPEG.usedcheck/fa6_53_i2.jpg?type=w800'/>
-      <ProfileName />
-     {/*  <ProfileSocialInfo profile={_userAbout}/> */}
-      <BottomNavigation showLabels sx={{ width: '80%', height: '1%', mt:1, mb:1}} value={value} onChange={handleChange}>
+        <Image ratio='1/1' alt="profile cover" 
+        src='https://mblogthumb-phinf.pstatic.net/MjAxODEwMTNfMjMz/MDAxNTM5Mzk3NDU2NDMz.oggENfLQF6TKqUCoABhUzb3z0MODnWH8LX6-rODwkeAg.6tr3s4Hqil9ObOA4Pb5H3-fDVcQehx8WyEFWGdhVZVIg.JPEG.usedcheck/fa6_53_i2.jpg?type=w800'/>
+        <ProfileName />
+        <Button variant='outlined' onClick={()=>navigate('/dashboard/garage/setting')}>정비소 관리</Button> 
+        <BottomNavigation showLabels sx={{ width: '80%', height: '1%', mt:1, mb:1}} value={value} onChange={handleChange}>
           <BottomNavigationAction
            sx={{ ...(value === 'gallery' && valueStyle) }}
             label={
@@ -117,6 +119,7 @@ export default function UserProfile() {
                 갤러리
               </Typography>
             }
+            value="gallery"
           />
           <BottomNavigationAction
            sx={{ ...(value === 'profile' && valueStyle) }}
@@ -136,7 +139,7 @@ export default function UserProfile() {
             }
             value="sell"
           />
-        </BottomNavigation>
+          </BottomNavigation>
         </Stack>
       </Card>
       </Grid> 

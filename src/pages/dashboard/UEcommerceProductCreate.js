@@ -60,8 +60,10 @@ export default function EcommerceProductCreate() {
   }, [isMountedRef, id, api]);
 
   useEffect(() => {
-    getProduct();
-  }, [getProduct]);
+    if(id){
+      getProduct();
+    }
+  }, [getProduct, id]);
 
   useEffect(() => {
     if (isEdit && currentProduct) {

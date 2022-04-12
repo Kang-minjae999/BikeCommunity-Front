@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
 // routes
 import { PATH_DASHBOARD, PATH_AUTH, PATH_PAGE } from '../../../routes/paths';
 // hooks
@@ -79,10 +77,6 @@ const MENU_OPTIONS = [
   {
     label: '설정',
     linkTo: '/dashboard/mypage',
-  },
-  {
-    label: '프로필',
-    linkTo: `${PATH_DASHBOARD.user.profile}/${user?.nickname}`,
   },
   {
     label: '공지사항',

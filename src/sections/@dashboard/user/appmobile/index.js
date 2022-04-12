@@ -4,6 +4,7 @@ export { default as Appecommerce2 } from './Appecommerce2';
 export { default as Appusedecommerce } from './Appusedecommerce';
 export { default as Apppost } from './Apppost';
 export { default as Appgarage } from './Appgarage';
+export { default as Appgaragesetting } from './Appgaragesetting';
 export { default as Appclub } from './Appclub';
 export { default as Appmobileshopitem } from './Appmobileshopitem';
 export { default as Appmobileshopitem2 } from './Appmobileshopitem2';
