@@ -77,7 +77,8 @@ const slice = createSlice({
 
     addHeartUsed(state, action) {
       const product = action.payload;
-      if(state.usedHeart.length >= 10){
+      state.usedHeart = state.usedHeart.filter((item) => item.heartId !== action.payload.heartId)
+      if(state.usedHeart.length >= 20){
         state.usedHeart.pop();
         state.usedHeart = uniqBy([product, ...state.usedHeart]);
       } else {
@@ -86,7 +87,7 @@ const slice = createSlice({
     },
 
     deleteHeartUsed(state, action) {
-      const updateProduct = state.usedHeart.filter((item) => item.id !== action.payload);
+      const updateProduct = state.usedHeart.filter((item) => item.heartId !== action.payload);
       state.usedHeart = updateProduct;
     },
     
@@ -97,7 +98,7 @@ const slice = createSlice({
 
     addHeart(state, action) {
       const product = action.payload;
-      if(state.heart.length >= 10){
+      if(state.heart.length >= 20){
         state.heart.pop();
         state.heart = uniqBy([product, ...state.search]);
       } else {

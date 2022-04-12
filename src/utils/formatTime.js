@@ -1,4 +1,5 @@
 import { format, getTime, formatDistanceToNow } from 'date-fns';
+import {ko} from 'date-fns/esm/locale'
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ export function fDateTimeSuffix(date) {
 
 export function fToNow(date) {
   return formatDistanceToNow(new Date(date), {
-    addSuffix: true
+    addSuffix: true,
+    locale: ko
   });
 }

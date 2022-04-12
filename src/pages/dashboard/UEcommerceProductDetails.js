@@ -106,20 +106,13 @@ export default function UEcommerceProductDetails() {
   return (
     <Page title="중고거래">
       <Container maxWidth={themeStretch ? false : 'lx'}>
-        <HeaderBreadcrumbs
-          heading="중고거래"
-          links={[
-            { name: '' }
-          ]}
-          sx={{mt:2}}
-        />
-
         {product && (
           <>
             <Card>
               <Grid container>
                 <Grid item xs={12} md={6} lg={7}>
                   <ProductDetailsCarousel images={product?.bikeImageURLs} /> 
+                  <Divider />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5}>
                    <ProductDetailsSummary
@@ -130,25 +123,9 @@ export default function UEcommerceProductDetails() {
                 </Grid>
               </Grid>
             </Card>
-
-            <Grid container sx={{ my: 8 }}>
-              {PRODUCT_DESCRIPTION.map((item) => (
-                <Grid item xs={12} md={4} key={item.title}>
-                  <Box sx={{ my: 2, mx: 'auto', maxWidth: 280, textAlign: 'center' }}>
-                    <IconWrapperStyle>
-                      <Iconify icon={item.icon} width={36} height={36} />
-                    </IconWrapperStyle>
-                    <Typography variant="subtitle1" gutterBottom>
-                      {item.title}
-                    </Typography>
-                    <Typography sx={{ color: 'text.secondary' }}>{item.description}</Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-
-            <Card>
-              <TabContext value={value}>
+            
+            <Card sx={{ mt:2}} >
+              <TabContext value={value} >
                 <Box sx={{ px: 3, bgcolor: 'background.neutral' }}>
                   <TabList onChange={(e, value) => setValue(value)}>
                     <Tab disableRipple value="1" label="설명" />
@@ -174,6 +151,21 @@ export default function UEcommerceProductDetails() {
                 </TabPanel>}
               </TabContext>
             </Card> 
+            <Grid container sx={{ my: 8 }}>
+              {PRODUCT_DESCRIPTION.map((item) => (
+                <Grid item xs={12} md={4} key={item.title}>
+                  <Box sx={{ my: 2, mx: 'auto', maxWidth: 280, textAlign: 'center' }}>
+                    <IconWrapperStyle>
+                      <Iconify icon={item.icon} width={36} height={36} />
+                    </IconWrapperStyle>
+                    <Typography variant="subtitle1" gutterBottom>
+                      {item.title}
+                    </Typography>
+                    <Typography sx={{ color: 'text.secondary' }}>{item.description}</Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </>
         )}
 

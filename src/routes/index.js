@@ -116,7 +116,7 @@ export default function Router() {
             { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
             { path: 'product/newgear', element: <UEcommerceProductCreate /> },
             { path: 'product/newparts', element: <UEcommerceProductCreate /> },
-            { path: 'product/newmoto/:id/edit', element: <EcommerceProductCreate /> },
+            { path: 'product/newmoto/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'product/newgear/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'product/newparts/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },

@@ -12,6 +12,7 @@ import { Box, Link, Stack, Button, Rating, Divider, IconButton, Typography, Avat
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
 import { fShortenNumber, fCurrency } from '../../../../utils/formatNumber';
+import { fToNow } from '../../../../utils/formatTime';
 // components
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
@@ -19,6 +20,7 @@ import SocialsButton from '../../../../components/SocialsButton';
 import { ColorSinglePicker } from '../../../../components/color-utils';
 import { FormProvider, RHFSelect } from '../../../../components/hook-form';
 import useAuth from '../../../../hooks/useAuth';
+import axios from '../../../../utils/axiossecondhand';
 
 // ----------------------------------------------------------------------
 
@@ -63,8 +65,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     avatarURLOfSeller,
     tradeableModels,
     bikeImageURLs,
-    createdDate
+    createdDate,
+    isGarage
   } = product;
+
 
   const defaultValues = {
     heartId: id,
@@ -75,7 +79,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     heartModelName: modelName,
     heartYear: year,
     heartMileage: mileage,
-    heartStatus: status,
+    heartIsGarage: isGarage,
   };
 
   const methods = useForm({
@@ -96,7 +100,12 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   };
 
   const handleAddHeart = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
     try {
+      await axios.get(`/biketrade/zzim/${id}`, {
+        headers: {
+          authorization: accessToken,
+        }});
       onAddHeart(values);
       enqueueSnackbar('찜목록에 추가되었어요!')
     } catch (error) {
@@ -105,35 +114,46 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
   };
 
   const goEdit = () => {
-    navigate(`product/newmoto/${id}/edit`)
+    navigate(`/dashboard/used-e-commerce/product/newmoto/${id}/edit`)
   }
+
 
   return (
     <RootStyle {...other}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Box>
         <Label
-          variant='filled'
+          variant='outlined'
           color={status === 0 ? 'info' : 'error'}
-          sx={{mb:1}}
+          sx={{mb:1, mr:1}}
         >
         {status === 0 && '판매중'}
         {status === 1 && '예약중'}
         {status === 2 && '판매완료'}
         </Label> 
+        <Label
+          variant='outlined'
+          color={isGarage ? 'success' : 'info'}
+          sx={{mb:1}}
+        >
+        {isGarage  && '정비소'}
+        {!isGarage  && '개인'}
+        </Label> 
+        </Box>
 
         <Typography variant="h5" paragraph>
           {title}
         </Typography>
 
         <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{mb:2}}>
-          <Box>
+          <Stack direction='row' alignItems='center' spacing={2}>
           <Avatar alt={nicknameOfSeller}  src={avatarURLOfSeller} sizes='small'/>
           <Typography variant='subtitle2'>  
           {nicknameOfSeller} 
           </Typography>
-          </Box>
+          </Stack>
           <Typography variant='body2'>  
-          {createdDate}
+          {fToNow(createdDate)}
           </Typography>
         </Stack>
 
@@ -144,19 +164,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           {brand}/{modelName}
           </Typography>
           <Typography variant="subtitle2" >
-          {address}
-          </Typography>
-          <Typography variant="subtitle2" >
           {displacement}cc
-          </Typography>
-        </Stack>  
-
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-        <Typography variant="subtitle2" >
-            {year}년식
-        </Typography>
-        <Typography variant="subtitle2" >
-            {mileage}km
           </Typography>
           <Typography variant="subtitle2" >
           {gearbox ? '메뉴얼': '스쿠터'}
@@ -164,24 +172,46 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
         </Stack>  
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-          <Label variant='filled' color={negoable ? 'info' : 'error'} sx={{mb:1}} >
-          {negoable && '네고가능'}
-          {!negoable && '네고불가능'}
-          </Label> 
-          <Label variant='filled' color={tradeable ? 'info' : 'error'} sx={{mb:1}} >
-          {tradeable && '대차가능'}
-          {!tradeable && '대차불가능'}
-          </Label> 
-          <Label variant='filled' color={isCrashed ? 'info' : 'error'} sx={{mb:1}} >
-          {isCrashed && '무사고'}
-          {!isCrashed && '사고있음'}
-          </Label> 
+        <Typography variant="subtitle2" >
+          {address}
+          </Typography>
+        <Typography variant="subtitle2" >
+            {year}년식
+        </Typography>
+        <Typography variant="subtitle2" >
+            {mileage}km
+          </Typography>
+        </Stack>  
+
+        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
+        {negoable ?  
+          <Typography variant='body2' color='blue' sx={{mb:1}}>
+            네고가능
+          </Typography> :
+          <Typography variant='body2' color='red' sx={{mb:1}}>
+            네고불가능
+          </Typography> }
+          {tradeable ?  
+          <Typography variant='body2' color='blue' sx={{mb:1}}>
+            대차가능
+          </Typography> :
+          <Typography variant='body2' color='red' sx={{mb:1}}>
+            대차불가능
+          </Typography> }
+          {!isCrashed ?  
+          <Typography variant='body2' color='blue' sx={{mb:1}}>
+            무사고
+          </Typography> :
+          <Typography variant='body2' color='red' sx={{mb:1}}>
+            사고있음
+          </Typography> }
         </Stack> 
-        <Typography variant='body2' color='text.secondary' sx={{mb:1}}>대차 가능 모델</Typography> 
-        {tradeableModels.map((model)=> (<Chip key={model} label={model} sx={{mb:1}}/>))}
+        {tradeable &&
+        <><Typography variant='body2' color='text.secondary' sx={{mb:1}}>대차 가능 모델</Typography> 
+        {tradeableModels.map((model)=> (<Chip key={model} label={model} sx={{mb:2}}/>))}</>}
 
         <Typography variant="h4" sx={{ mb: 2 }}>
-          {price}원
+          {fCurrency(price)}원
         </Typography>
 
         <Divider  />
@@ -192,7 +222,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
           <Button
             fullWidth
             size="large"
-            color="warning"
+            color="info"
             variant="contained"
             startIcon={<Iconify icon={'ic:round-add-shopping-cart'} />}
             onClick={handleAddHeart}
@@ -201,12 +231,12 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
             찜하기
           </Button>
 
-          <Button fullWidth size="large" type="submit" variant="contained">
+          <Button fullWidth size="large" type="submit" variant="contained" color='inherit' >
             채팅하기
           </Button>
         </Stack>
         {nicknameOfSeller === user?.nickname &&
-        <Button fullWidth size="large" type="submit" variant="contained" onClick={goEdit}>
+        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={goEdit} sx={{mt:2, color:'text.primary'}}>
             수정하기
         </Button>}
       </FormProvider>

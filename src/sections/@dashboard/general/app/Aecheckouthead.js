@@ -33,11 +33,15 @@ export default function Aecheckouthead() {
       component: <EcommercePaymentList />,
     },
   ];
-
+  const valueStyle = {
+    borderBottom:2, 
+    borderBottomColor:'text.primary'
+  }
   return (
     <>
       <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
         <BottomNavigationAction
+        sx={{...(value === 'new') && valueStyle}}
           label={
             <Typography variant="subtitle2" color={value === 'new' ? "text.primary" : 'disabled'}>
               신품
@@ -46,22 +50,25 @@ export default function Aecheckouthead() {
           value="new"
         />
         <BottomNavigationAction
+        sx={{...(value === 'like') && valueStyle}}
           label={
             <Typography variant="subtitle2" color={value === 'like' ? "text.primary" : 'disabled'}>
-              찜
+              신품찜
             </Typography>
           }
           value="like"
         />
         <BottomNavigationAction
+        sx={{...(value === 'used') && valueStyle}}
           label={
             <Typography variant="subtitle2" color={value === 'used' ? "text.primary" : 'disabled'}>
-              중고
+              중고찜
             </Typography>
           }
           value="used"
         />
         <BottomNavigationAction
+        sx={{...(value === 'check') && valueStyle}}
           label={
             <Typography variant="subtitle2" color={value === 'check' ? "text.primary" : 'disabled'}>
               결제목록

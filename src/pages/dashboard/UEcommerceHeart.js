@@ -1,6 +1,7 @@
+import { useNavigate } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Box, Grid, Container, Typography, Link, Button, Card, Stack } from '@mui/material';
+import { Box, Grid, Container, Typography, Link, Button, Card, Stack, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 // redux
@@ -21,9 +22,12 @@ import Label from '../../components/Label';
 export default function UEcommerceHeart() {
   const { themeStretch } = useSettings(); 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { usedHeart } = useSelector((state) => state.product);
 
-  const linkTo = `${PATH_DASHBOARD.usedeCommerce.root}/product/detail/${usedHeart?.id}`
+  const gotoDetail = (id) => {
+    navigate(`${PATH_DASHBOARD.usedeCommerce.root}/product/detail/${id}`)
+  }
 
   const onClick = (id) => {
     dispatch(deleteHeartUsed(id))
@@ -36,7 +40,7 @@ export default function UEcommerceHeart() {
 
 
   return (
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
+      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}} disableGutters>
       <Grid container spacing={1}>
       <Grid item xs={12} lg={12} >
       <Stack direction='row' justifyContent='space-between'>
@@ -51,18 +55,28 @@ export default function UEcommerceHeart() {
       </Stack> 
       </Grid>
        {usedHeart?.map((item)=> 
-        <Grid item xs={6} lg={6} key={item.name} sx={{mt:1}}>
+        <Grid item xs={6} lg={3} key={item.name} sx={{mt:1}}>
           <Card>
-            <Link component={RouterLink} to={linkTo}>
-            <Box>
-            <Image alt={item.name} src={item.heartImageURLs} sx={{mb:1}}/>
-            <Label sx={{mb:1}}>{item.heartStatus} / {item.heartAddress}</Label>
-            <Typography variant='subtitle2' sx={{mb:1}} noWrap >{item.heartTitle}</Typography>
+            <Link underline='none' onClick={()=>gotoDetail(item.heartId)}> 
+            <Box >
+            <Image alt={item.name} src={item.heartImageURLs} sx={{mb:1}} ratio='1/1'/>
+            <Typography variant='subtitle1' sx={{mb:3, ml:1}} noWrap lineHeight={2} >{item.heartTitle}</Typography>
+            <Stack direction='row' justifyContent='space-between' sx={{mx:1}}>
+             <Stack direction='column' >    
+            {item.heartIsGarage 
+            ?  <Typography variant='body2' sx={{mb:1}}>정비소</Typography> 
+            : <Typography variant='body2' sx={{mb:1}}>개인</Typography>}
+            <Typography variant='body2' sx={{mb:1}}>{item.heartAddress}</Typography>
+            </Stack>
+             <Stack direction='column' >   
             <Typography variant='body2' sx={{mb:1}}>{item.heartBrand} / {item.heartModelName}</Typography>
             <Typography variant='body2' sx={{mb:1}}>{item.heartYear}년식 / {item.heartMileage}km</Typography>
-            </Box>
+            </Stack>
+            </Stack>           
+             </Box>
             </Link>
-            <Button size="small" fullWidth variant="text" onClick={() => onClick(item.heartId)}>
+            <Divider  sx={{my:2}}/>
+            <Button size="small" fullWidth variant="text" onClick={() => onClick(item.heartId)} sx={{mb:1}}>
             <DeleteIcon />
             </Button>
           </Card>

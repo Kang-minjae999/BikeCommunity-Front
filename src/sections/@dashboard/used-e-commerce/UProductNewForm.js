@@ -77,8 +77,17 @@ const YEAR_OPTION = [
   '1992',
   '1991',
   '1990',
-];
-// ----------------------------------------------------------------------
+  '1989',
+  '1988',
+  '1987',
+  '1986',
+  '1985',
+  '1984',
+  '1983',
+  '1982',
+  '1981',
+  '1980',
+];// ----------------------------------------------------------------------
 
 UProductNewForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -89,6 +98,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   const [MODEL_OPTION, SETMODEL_OPTION] = useState([]);
   const TRADEMODEL_OPTION = [];
   const [tradechecked, settradeChecked] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -119,11 +129,11 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       title: currentProduct?.title || '',
       content: currentProduct?.content || '',
       images: currentProduct?.bikeImageURLs || [],
-      address: currentProduct?.address || '',
-      gearbox: currentProduct?.gearbox || null,
+      address: currentProduct?.address || '', // 수정 null
+      gearbox: currentProduct?.gearbox || null, // 수정 null
       brand: currentProduct?.brand || null,
-      modelName: currentProduct?.modelName || null,
-      year: currentProduct?.year || 0,
+      modelName: currentProduct?.modelName || null, // 수정 null
+      year: currentProduct?.year || 0, // 수정 null
       displacement: currentProduct?.displacement || 0,
       mileage: currentProduct?.mileage || 0,
       price: currentProduct?.price || 0,
@@ -152,6 +162,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const values = watch();
 
+
   useEffect(() => {
     if (isEdit && currentProduct) {
       reset(defaultValues);
@@ -175,10 +186,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       setGearboxPost(false);
     }
   }, [values]);
-
-  useEffect(() => {
-    setTitlePost(`[${values.modelName}] ${values.title}`);
-  }, [values.title, values.modelName]);
 
   useEffect(() => {
     if (values.tradeable) {
@@ -275,7 +282,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
-      formData.append('title', titlePost);
+      formData.append('title', data.title);
       formData.append('content', data.content);
       formData.append('address', data.address);
       formData.append('gearbox', gearboxPost);
@@ -341,11 +348,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   };
 
   const handleDrop = useCallback(
-    (acceptedFiles) => {
+     (acceptedFiles) => {
+      console.log(acceptedFiles)
       setValue(
         'images',
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
+         acceptedFiles.map((file) =>
+         Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
@@ -402,7 +410,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ mb:5 }}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>

@@ -55,15 +55,17 @@ export default function EcommerceProductCreate() {
         setcurrentProduct(response.data.data);
       }
     } catch (error) {
-      alert(error);
+      console.log(error);
     }
   }, [isMountedRef, id, api]);
 
   useEffect(() => {
-    if(id){
-      getProduct();
+    if(api){
+      if(id){
+        getProduct();
+      }
     }
-  }, [getProduct, id]);
+  }, [getProduct, id, api]);
 
   useEffect(() => {
     if (isEdit && currentProduct) {
