@@ -6,7 +6,6 @@ import { Typography, Paper, Box } from '@mui/material';
 import AppRidingHome from './AppRidinghome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
-import Generalgarage from '../../../../pages/dashboard/GeneralGarage';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';

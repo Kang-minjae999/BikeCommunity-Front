@@ -267,7 +267,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   // ---------------------------------------------------------------
   const onSubmit = async (data) => {
-    if (isEdit) {
+    if (!isEdit) {
       if (!Array.isArray(watch('tradeableModel'))) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
@@ -344,7 +344,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     (acceptedFiles) => {
       setValue(
         'images',
-        ...acceptedFiles.map((file) =>
+        acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
@@ -353,6 +353,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     },
     [setValue]
   );
+
 
   const handleRemoveAll = () => {
     setValue('images', []);
@@ -424,7 +425,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3} mt={1} mb={1}>
-                <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%', mb: 1 }}>
+                <Button onClick={onChangeOpenPost} variant="outlined" color='inherit' sx={{ width: '100%', mb: 1 , color:'text.primary'}}>
                   지역찾기
                 </Button>
                 {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
@@ -586,7 +587,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
               )}
             </Card>
 
-            <LoadingButton type="submit" variant="outlined" size="large" loading={isSubmitting}>
+            <LoadingButton type="submit" variant="outlined" color='inherit' size="large" loading={isSubmitting} sx={{color:'text.primary'}} >
               {!isEdit ? '상품 올리기' : '상품 수정하기'}
             </LoadingButton>
           </Stack>
