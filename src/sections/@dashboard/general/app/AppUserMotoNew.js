@@ -468,12 +468,12 @@ export default function AppUserMotoNew({ isEdit, currentProduct }) {
                     type: 'number',
                   }}
                 />
-              </Stack>
-            </Card>
-
+  
             <LoadingButton type="submit" variant="outlined" color='inherit' size="large" loading={isSubmitting}>
             {!isEdit ? '바이크 등록하기' : '바이크 수정하기'}
             </LoadingButton>
+              </Stack>
+            </Card>
           </Stack>
         </Grid>
       </Grid>

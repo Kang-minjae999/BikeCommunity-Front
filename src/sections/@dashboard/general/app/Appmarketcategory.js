@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 // ----------------------------------------
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -11,19 +11,17 @@ import { Typography, Stack } from '@mui/material';
 
 export default function Appmarketcategory() {
   const { option = '' } = useParams();
-  const [value, setValue] = useState(option);
   const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-    navigate(`/dashboard/market/${value}`)
-  };
+    navigate(`/dashboard/market/${newValue}`)
+  }
 
   
   return (
     <>
     <Stack spacing={1}>
-    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
         label={<Typography variant='h6' color='text.primary' fontWeight='bold'>신차</Typography>}
         value="신차"
@@ -68,7 +66,7 @@ export default function Appmarketcategory() {
      </Stack>
 
          <Stack spacing={1}>
-         <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+         <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
            <BottomNavigationAction
              label={<Typography variant='h6' color='text.primary' fontWeight='bold'>슈트</Typography>}
              value="슈트"

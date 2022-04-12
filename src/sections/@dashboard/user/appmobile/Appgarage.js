@@ -61,9 +61,7 @@ export default function Appgarage() {
   };
 
   return (
-    <Grid container spacing={1}>
-     <Grid item xs={12} md={12}>
-       <Stack spacing={1} sx={{mt:1}}>
+    <>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         sx={{ ...(value === 'list' && valueStyle) }}
@@ -96,13 +94,11 @@ export default function Appgarage() {
         icon={<ListIcon color={value === 'review' ? 'action' : 'disabled'} />}
       />
     </BottomNavigation>
-    <Divider/>
-    {ACCOUNT_TABS.map((button) => {
-        const isMatched = button.value === value;
-        return isMatched && <div key={button.value}>{button.component}</div>;
-      })}
-    </Stack>
-    </Grid>
-    </Grid>
+      <Divider/>
+      {ACCOUNT_TABS.map((button) => {
+          const isMatched = button.value === value;
+          return isMatched && <div key={button.value}>{button.component}</div>;
+        })}
+    </>
   );
 }

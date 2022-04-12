@@ -17,7 +17,7 @@ export default function GeneralUser() {
 
   return (
     <Page title="라이더타운">
-      <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
+      <Container disableGutters maxWidth={themeStretch ? false : 'md'}>
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
          <AppUserHeader />  

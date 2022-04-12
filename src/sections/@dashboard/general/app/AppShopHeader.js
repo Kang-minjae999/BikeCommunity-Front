@@ -78,7 +78,7 @@ export default function AppUserHeader() {
     <AppHeaderSpace />
         {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;
-          return isMatched && <div key={button.value} sx={{position:'relative', top:40}}>{button.component}</div>;
+          return isMatched && <div key={button.value}>{button.component}</div>;
         })}
     </>
   );

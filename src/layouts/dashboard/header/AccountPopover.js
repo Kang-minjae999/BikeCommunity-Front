@@ -78,7 +78,7 @@ const MENU_OPTIONS = [
   },
   {
     label: '설정',
-    linkTo: PATH_DASHBOARD.user.account,
+    linkTo: '/dashboard/mypage',
   },
   {
     label: '프로필',
