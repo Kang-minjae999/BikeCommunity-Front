@@ -37,7 +37,6 @@ export default function Router() {
             <GuestGuard>
               <Login />
             </GuestGuard>
-            
           ),
         },
         {
@@ -48,7 +47,7 @@ export default function Router() {
             </GuestGuard>
           ),
         },
-        { path: 'kakaologin/callback', element: <Kakaologincallback /> },      
+        { path: 'kakaologin/callback', element: <Kakaologincallback /> },
         { path: 'login-unprotected', element: <Login /> },
         { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
@@ -57,7 +56,7 @@ export default function Router() {
     },
 
     // Dashboard Routes
-/*     {
+    /*     {
       path: 'dashboard',
       element: (
         <>
@@ -66,15 +65,15 @@ export default function Router() {
         </AuthGuard>   --------------------------> axios.post 는 모두 어스가드
         </>
       ), */
-      {
-        path: 'dashboard',
-        element: (
-          <>
-            <DashboardLayout />
-          </>
-        ),
+    {
+      path: 'dashboard',
+      element: (
+        <>
+          <DashboardLayout />
+        </>
+      ),
       children: [
-        { element: <Navigate to='/dashboard/app' replace />, index: true },
+        { element: <Navigate to="/dashboard/app" replace />, index: true },
         { path: 'app', element: <GeneralApp /> }, // ok
         { path: 'map', element: <GeneralMap /> }, // ok
         { path: 'riding', element: <GeneralRiding /> }, // ok
@@ -90,8 +89,8 @@ export default function Router() {
           path: 'e-commerce',
           children: [
             { element: <Navigate to="/dashboard/e-commerce/shop" replace />, index: true },
-            { path: 'shop', element: <EcommerceShop /> },            
-            { path: 'motocycle', element: <Emotocycle /> },            
+            { path: 'shop', element: <EcommerceShop /> },
+            { path: 'motocycle', element: <Emotocycle /> },
             { path: 'motocyclegear', element: <Emotocyclegear /> },
             { path: 'motocycleparts', element: <Emotocycleparts /> },
             { path: 'product/:name', element: <EcommerceProductDetails /> },
@@ -102,7 +101,7 @@ export default function Router() {
             { path: 'invoice', element: <EcommerceInvoice /> },
           ],
         },
-        
+
         {
           path: 'used-e-commerce',
           children: [
@@ -110,14 +109,14 @@ export default function Router() {
             { path: 'shop', element: <EcommerceShop /> },
             { path: 'motocycle', element: <UEmotocycle /> },
             { path: 'motocyclegarage', element: <UEmotocyclegarage /> },
-            { path: 'motocyclegear', element: <UEmotocyclegear /> },          
-            { path: 'motocycleparts', element: <UEmotocycleparts /> },        
+            { path: 'motocyclegear', element: <UEmotocyclegear /> },
+            { path: 'motocycleparts', element: <UEmotocycleparts /> },
             { path: 'product/detail/:id', element: <UEcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
             { path: 'product/newgear', element: <UEcommerceProductCreate /> },
             { path: 'product/newparts', element: <UEcommerceProductCreate /> },
-            { path: 'product/newmoto/:id/edit', element: <EcommerceProductCreate /> },  
+            { path: 'product/newmoto/:id/edit', element: <EcommerceProductCreate /> },
             { path: 'product/newgear/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'product/newparts/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },
@@ -138,7 +137,7 @@ export default function Router() {
           ],
         },
         {
-          path: 'garage', 
+          path: 'garage',
           children: [
             { element: <Navigate to="/dashboard/garage/profile" replace />, index: true },
             { path: 'profile', element: <GarageProfile /> },
@@ -160,35 +159,63 @@ export default function Router() {
           path: 'blog',
           children: [
             { element: <Navigate to="/dashboard/blog/posts" replace />, index: true },
-            { path: 'notices', element: <Blognotices /> },   // ok                   
-            { path: 'posts', element: <BlogPosts /> },     // ok                  
-            { path: 'dingstas', element: <BlogDingstas /> },          
-            { path: 'reports', element: <BlogReports /> },    
+            { path: 'notices', element: <Blognotices /> }, // ok
+            { path: 'posts', element: <BlogPosts /> }, // ok
+            { path: 'dingstas', element: <BlogDingstas /> },
+            { path: 'reports', element: <BlogReports /> },
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
             { path: 'report/:id', element: <BlogReport /> },
-            { path: 'new-post', element: <AuthGuard><BlogNewPost /></AuthGuard> },
-            { path: 'new-notice', element: <AuthGuard><BlogNewPost /></AuthGuard> },
-            { path: 'new-dingsta', element: <AuthGuard><BlogNewPost /></AuthGuard> },
-            { path: 'new-report', element: <BlogNewPost />},
+            {
+              path: 'new-post',
+              element: (
+                <AuthGuard>
+                  <BlogNewPost />
+                </AuthGuard>
+              ),
+            },
+            {
+              path: 'new-notice',
+              element: (
+                <AuthGuard>
+                  <BlogNewPost />
+                </AuthGuard>
+              ),
+            },
+            {
+              path: 'new-dingsta',
+              element: (
+                <AuthGuard>
+                  <BlogNewPost />
+                </AuthGuard>
+              ),
+            },
+            { path: 'new-report', element: <BlogNewPost /> },
           ],
         },
         {
           path: 'club',
           children: [
             { element: <Navigate to="/dashboard/club/club" replace />, index: true },
-            { path: 'club', element: <Club /> },  
-            { path: 'clubroom/:id', element: <Clubroom /> },            
+            { path: 'club', element: <Club /> },
+            { path: 'clubroom/:id', element: <Clubroom /> },
             { path: 'clubdetail/:id', element: <ClubDetails /> },
             { path: 'list', element: <ClubList /> },
             { path: 'clubnew', element: <ClubCreate /> },
-            { path: 'clubnew/:id/edit', element: <AuthGuard><ClubCreate /></AuthGuard> },
+            {
+              path: 'clubnew/:id/edit',
+              element: (
+                <AuthGuard>
+                  <ClubCreate />
+                </AuthGuard>
+              ),
+            },
             { path: 'checkout', element: <ClubCheckout /> },
             { path: 'invoice', element: <ClubInvoice /> },
           ],
         },
-        
+
         {
           path: 'mail',
           children: [
@@ -248,7 +275,6 @@ const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMark
 const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));
 const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
 
-
 const AEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AEcommerceCheckout')));
 // 신품거래
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
@@ -278,7 +304,6 @@ const UEmotocycleparts = Loadable(lazy(() => import('../pages/dashboard/UEmotocy
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
 const UEcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetails')));
 
-
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
 const BlogDingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
@@ -307,7 +332,6 @@ const GarageList = Loadable(lazy(() => import('../pages/dashboard/GarageList')))
 const GarageAccount = Loadable(lazy(() => import('../pages/dashboard/GarageAccount')));
 const GarageCreate = Loadable(lazy(() => import('../pages/dashboard/GarageCreate')));
 const GarageSetting = Loadable(lazy(() => import('../pages/dashboard/GarageSetting')));
-
 
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));

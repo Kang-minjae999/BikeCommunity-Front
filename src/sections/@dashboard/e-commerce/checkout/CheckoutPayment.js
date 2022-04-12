@@ -16,12 +16,11 @@ import { FormProvider } from '../../../../components/hook-form';
 import CheckoutSummary from './CheckoutSummary';
 import CheckoutBillingInfo from './CheckoutBillingInfo';
 import CheckoutPaymentMethods from './CheckoutPaymentMethods';
-import Pay from '../../../paymentport/Pay';
 import { fCurrency } from '../../../../utils/formatNumber';
 import useResponsive from '../../../../hooks/useResponsive';
+import { Pay } from '../../../Paymentport';
 
 // ----------------------------------------------------------------------
-
 const DELIVERY_OPTIONS = [
   {
     value: 0,
@@ -98,11 +97,11 @@ const CARDS_OPTIONS = [
 export default function CheckoutPayment() {
   const dispatch = useDispatch();
 
-  const isDesktop = useResponsive('up','lg')
+  const isDesktop = useResponsive('up', 'lg');
 
   const { checkout } = useSelector((state) => state.product);
 
-  const { cart ,total, discount, subtotal, shipping } = checkout;
+  const { cart, total, discount, subtotal, shipping } = checkout;
 
   const handleNextStep = () => {
     dispatch(onNextStep());
@@ -124,7 +123,7 @@ export default function CheckoutPayment() {
     payment: Yup.string().required('결제방법을 선택해주세요!'),
   });
 
-  const defaultValues = { 
+  const defaultValues = {
     delivery: shipping,
     payment: 'card',
   };
@@ -149,67 +148,64 @@ export default function CheckoutPayment() {
     }
   };
 
-  const [name, setname] = useState()
+  const [name, setname] = useState();
 
   useEffect(() => {
-    if(cart.length === 1)
-    setname(cart[0].name)
-    else{
-    setname(`${cart[0].name} 포함 ${cart.length}건`)
+    if (cart.length === 1) setname(cart[0].name);
+    else {
+      setname(`${cart[0].name} 포함 ${cart.length}건`);
     }
-  }, [cart])
-  
+  }, [cart]);
 
   const pay = {
-    price : fCurrency(total),
-    payment : watch('payment'),
-    names : name
-  }
-
-
+    price: fCurrency(total),
+    payment: watch('payment'),
+    names: name,
+  };
 
   const asdsa = () => {
-    console.log(cart)
-    console.log('sd',checkout)
-    console.log('ssss',pay)
-    console.log('지불수단',watch('payment'))
-    console.log('이름', name)
-  }
-
+    console.log(cart);
+    console.log('sd', checkout);
+    console.log('ssss', pay);
+    console.log('지불수단', watch('payment'));
+    console.log('이름', name);
+  };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-        {!isDesktop && <Button
-            size="small"
-            color="inherit"
-            onClick={handleBackStep}
-            startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} />}
-          >
-            주소 다시 설정하기
-          </Button>}
+          <Stack direction="row" justifyContent="center" alignItems="center" spacing={2}>
+            {!isDesktop && (
+              <Button
+                size="small"
+                color="inherit"
+                onClick={handleBackStep}
+                startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} />}
+              >
+                주소 다시 설정하기
+              </Button>
+            )}
           </Stack>
           {/* <CheckoutDelivery onApplyShipping={handleApplyShipping} deliveryOptions={DELIVERY_OPTIONS} /> */}
 
-          <CheckoutPaymentMethods cardOptions={CARDS_OPTIONS} paymentOptions={PAYMENT_OPTIONS} paymentOptions2={PAYMENT_OPTIONS2} />
-          
-          {isDesktop && <Button
-            size="small"
-            color="inherit"
-            onClick={handleBackStep}
-            startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} />}
-          >
-            돌아가기
-          </Button>}
-        </Grid>
+          <CheckoutPaymentMethods
+            cardOptions={CARDS_OPTIONS}
+            paymentOptions={PAYMENT_OPTIONS}
+            paymentOptions2={PAYMENT_OPTIONS2}
+          />
 
+          {isDesktop && (
+            <Button
+              size="small"
+              color="inherit"
+              onClick={handleBackStep}
+              startIcon={<Iconify icon={'eva:arrow-ios-back-fill'} />}
+            >
+              돌아가기
+            </Button>
+          )}
+        </Grid>
 
         <Grid item xs={12} md={4}>
           <CheckoutBillingInfo onBackStep={handleBackStep} />
@@ -225,8 +221,8 @@ export default function CheckoutPayment() {
           <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
             주문하기
           </LoadingButton>
-          <Button onClick={asdsa}>  sadsadsa</Button>
-          <Pay pay={pay}/>
+          <Button onClick={asdsa}> sadsadsa</Button>
+          <Pay pay={pay} />
         </Grid>
       </Grid>
     </FormProvider>

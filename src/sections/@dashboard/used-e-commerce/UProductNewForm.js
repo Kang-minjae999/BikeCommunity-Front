@@ -130,7 +130,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       negoable: currentProduct?.negoable || false,
       tradeable: currentProduct?.tradeable || false,
       isCrashed: currentProduct?.isCrashed || false,
-      tradeableModel: currentProduct?.tradeableModel || [],
+      tradeableModels: currentProduct?.tradeableModels || [],
     }),
     [currentProduct]
   );
@@ -268,7 +268,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   // ---------------------------------------------------------------
   const onSubmit = async (data) => {
     if (!isEdit) {
-      if (!Array.isArray(watch('tradeableModel'))) {
+      if (!Array.isArray(watch('tradeableModels'))) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
       }
@@ -288,7 +288,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       formData.append('negoable', data.negoable);
       formData.append('tradeable', data.tradeable);
       formData.append('isCrashed', data.isCrashed);
-      data.tradeableModel.map((model) => formData.append('tradeableModel', model));
+      data.tradeableModels.map((model) => formData.append('tradeableModels', model));
       try {
         await axios.post('/biketrade', formData, {
           headers: {
@@ -303,7 +303,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
         console.error(error);
       }
     } else {
-      if (!Array.isArray(watch('tradeableModel'))) {
+      if (!Array.isArray(watch('tradeableModels'))) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
       }
@@ -323,7 +323,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       formData.append('negoable', data.negoable);
       formData.append('tradeable', data.tradeable);
       formData.append('isCrashed', data.isCrashed);
-      data.tradeableModel.map((model) => formData.append('tradeableModel', model));
+      data.tradeableModels.map((model) => formData.append('tradeableModels', model));
       try {
         await axios.put('/biketrade', formData, {
           headers: {
@@ -353,7 +353,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     },
     [setValue]
   );
-
 
   const handleRemoveAll = () => {
     setValue('images', []);
@@ -425,7 +424,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3} mt={1} mb={1}>
-                <Button onClick={onChangeOpenPost} variant="outlined" color='inherit' sx={{ width: '100%', mb: 1 , color:'text.primary'}}>
+                <Button
+                  onClick={onChangeOpenPost}
+                  variant="outlined"
+                  color="inherit"
+                  sx={{ width: '100%', mb: 1, color: 'text.primary' }}
+                >
                   지역찾기
                 </Button>
                 {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
@@ -563,7 +567,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
               ) : (
                 <>
                   <Controller
-                    name="tradeableModel"
+                    name="tradeableModels"
                     control={control}
                     render={({ field }) => (
                       <Autocomplete
@@ -578,7 +582,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                           ))
                         }
                         renderInput={(params) => (
-                          <RHFTextField name="tradeableModel" label="대차가능모델" {...params} />
+                          <RHFTextField name="tradeableModels" label="대차가능모델" {...params} />
                         )}
                       />
                     )}
@@ -587,7 +591,14 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
               )}
             </Card>
 
-            <LoadingButton type="submit" variant="outlined" color='inherit' size="large" loading={isSubmitting} sx={{color:'text.primary'}} >
+            <LoadingButton
+              type="submit"
+              variant="outlined"
+              color="inherit"
+              size="large"
+              loading={isSubmitting}
+              sx={{ color: 'text.primary' }}
+            >
               {!isEdit ? '상품 올리기' : '상품 수정하기'}
             </LoadingButton>
           </Stack>
