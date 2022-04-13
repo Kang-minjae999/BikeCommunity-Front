@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import {  useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from '../../../redux/store';
@@ -8,36 +8,39 @@ import NotificationsPopover from './NotificationsPopover';
 import useAuth from '../../../hooks/useAuth';
 
 const Notification = () => {
-  const {user} = useAuth()
+  const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const read = (event) => {
-    dispatch(readAlert(event))
-   /*  navigate('/dashboard/club') */
-  }
+    dispatch(readAlert(event));
+    /*  navigate('/dashboard/club') */
+  };
 
-  const notificationSnack = (event) =>  {
-    if(event.data !== 'dummy'){
-      dispatch(addAlert(event.data))
-      enqueueSnackbar(<Button onClick={() => read(event.data)} sx={{color:'text.primary'}}>{event.data}</Button>,  
-      {variant:'info', autoHideDuration:null,})
-      dispatch(getAlert())  
-    }     
-  }
-
-  useEffect (() => {
-    if(user?.nickname){
-      const eventSource = new EventSource(`http://localhost:8000/user-service/sse/${user.nickname}`);
-      eventSource.addEventListener('sse', notificationSnack)
+  const notificationSnack = (event) => {
+    if (event.data !== 'dummy') {
+      dispatch(addAlert(event.data));
+      enqueueSnackbar(
+        <Button onClick={() => read(event.data)} sx={{ color: 'text.primary' }}>
+          {event.data}
+        </Button>,
+        { variant: 'info', autoHideDuration: null }
+      );
+      dispatch(getAlert());
     }
-  }, [user])
-  
-  
-  
- /*  (event) => {
+  };
+
+  useEffect(() => {
+    if (user?.nickname) {
+      const eventSource = new EventSource(`http://localhost:8000/sse-alarm-service/sub/${user.nickname}`);
+
+      eventSource.addEventListener('sse', notificationSnack);
+    }
+  }, [user]);
+
+  /*  (event) => {
     const datas = event.data;
     enqueueSnackbar(event.data)
     setdatas(event.data)
@@ -76,8 +79,8 @@ const Notification = () => {
       notificationRef.current.close();
     };
   }; */
-  
-/*   const fireNotification = () => {
+
+  /*   const fireNotification = () => {
     
     // notificationRef에 Notification을 넣어준다. 이 친구는 이렇게 할당만해도 바로 실행된다.
     notificationRef.current = new Notification('알림', datas)
@@ -86,19 +89,20 @@ const Notification = () => {
     setNotificationClickEvent(); 
     
   } */
-  const [s, sets] = useState(0)
+  const [s, sets] = useState(0);
 
   const alerttest = {
-    data: `안녕하세여${s}`
-  }
-
+    data: `안녕하세여${s}`,
+  };
 
   return (
     <>
-    <Button onClick={() => notificationSnack(alerttest)+ sets(s+1)} sx={{color:'text.primary'}}>알림추가</Button>
-    <NotificationsPopover />
+      <Button onClick={() => notificationSnack(alerttest) + sets(s + 1)} sx={{ color: 'text.primary' }}>
+        알림추가
+      </Button>
+      <NotificationsPopover />
     </>
-  )
+  );
 };
 
 export default Notification;

@@ -16,17 +16,16 @@ export default function AppUserHeader() {
   };
 
   useEffect(() => {
-    if(sessionStorage.getItem('shopheader')){
-    setValue(sessionStorage.getItem('shopheader'))
+    if (sessionStorage.getItem('shopheader')) {
+      setValue(sessionStorage.getItem('shopheader'));
     } else {
-      setValue('all')
+      setValue('all');
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    sessionStorage.setItem('shopheader', value)
-  }, [value])
-  
+    sessionStorage.setItem('shopheader', value);
+  }, [value]);
 
   const ACCOUNT_TABS = [
     {

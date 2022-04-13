@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Paper, Box } from '@mui/material';
-import AppRidingHome from './AppRidinghome';
+import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import AppHeaderSpace from './AppHeaderSpace';
@@ -20,14 +20,14 @@ export default function AppRidingHeader() {
   };
 
   useEffect(() => {
-    if(sessionStorage.getItem('ridingheader')){
-    setValue(sessionStorage.getItem('ridingheader'))
+    if (sessionStorage.getItem('ridingheader')) {
+      setValue(sessionStorage.getItem('ridingheader'));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
-    sessionStorage.setItem('ridingheader', value)
-  }, [value])
+    sessionStorage.setItem('ridingheader', value);
+  }, [value]);
 
   const ACCOUNT_TABS = [
     {

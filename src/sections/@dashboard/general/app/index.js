@@ -25,7 +25,7 @@ export { default as AppHomeSaleFeatured } from './AppHomeSaleFeatured';
 export { default as AppRiderHeader } from './AppRiderHeader';
 
 export { default as AppRidingHeader } from './AppRidingHeader';
-export { default as AppRidingHome } from './AppRidinghome';
+export { default as AppRidingHome } from './AppRidingHome';
 export { default as AppRidingClub } from './AppRidingClub';
 
 export { default as AppUserHeader } from './AppUserHeader';
@@ -49,7 +49,6 @@ export { default as Appmarketcategory } from './Appmarketcategory';
 export { default as Appmarketcategory2 } from './Appmarketcategory2';
 export { default as Appmarketcategorymobile } from './Appmarketcategorymobile';
 export { default as Appmarketcategory2mobile } from './Appmarketcategory2mobile';
-
 
 export { default as AppTopAuthors } from './AppTopAuthors';
 export { default as AppTopRelated } from './AppTopRelated';

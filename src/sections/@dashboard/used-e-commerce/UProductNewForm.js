@@ -87,7 +87,7 @@ const YEAR_OPTION = [
   '1982',
   '1981',
   '1980',
-];// ----------------------------------------------------------------------
+]; // ----------------------------------------------------------------------
 
 UProductNewForm.propTypes = {
   isEdit: PropTypes.bool,
@@ -98,7 +98,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   const [MODEL_OPTION, SETMODEL_OPTION] = useState([]);
   const TRADEMODEL_OPTION = [];
   const [tradechecked, settradeChecked] = useState(false);
-
 
   const navigate = useNavigate();
 
@@ -161,7 +160,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   } = methods;
 
   const values = watch();
-
 
   useEffect(() => {
     if (isEdit && currentProduct) {
@@ -348,12 +346,12 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
   };
 
   const handleDrop = useCallback(
-     (acceptedFiles) => {
-      console.log(acceptedFiles)
+    (acceptedFiles) => {
+      console.log(acceptedFiles);
       setValue(
         'images',
-         acceptedFiles.map((file) =>
-         Object.assign(file, {
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
         )
@@ -410,7 +408,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={2} sx={{ mb:5 }}>
+      <Grid container spacing={2} sx={{ mb: 5 }}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
