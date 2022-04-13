@@ -110,8 +110,9 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       } catch (error) {
         console.error(error);
       }
+    } else {
+      enqueueSnackbar('이미 찜목록에 있어요!')
     }
-    enqueueSnackbar('이미 찜목록에 있어요!')
   };
 
   const goEdit = () => {
