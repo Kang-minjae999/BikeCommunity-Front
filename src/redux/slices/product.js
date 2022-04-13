@@ -17,6 +17,7 @@ const initialState = {
   search:[],
   heart:[],
   usedHeart:[],
+  usedzzim:true,
   filters: {
     gender: [],
     category: 'All',
@@ -88,15 +89,11 @@ const slice = createSlice({
 
     checkHeartUsed(state, action) {
       const before = state.usedHeart.filter((item) => item.heartId !== action.payload.heartId)
-      if(state.usedHeart.length === 0){
-        return true
+      if(state.usedHeart === before){
+        state.usedzzim = true
+      } else{
+        state.usedzzim = false       
       }
-      if(state.usedHeart.length > 0) {
-        if(state.usedHeart.length === before.length){
-          return true
-        }
-      } 
-      return false
     },
 
     deleteHeartUsed(state, action) {
