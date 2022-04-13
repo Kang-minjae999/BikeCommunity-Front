@@ -97,6 +97,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
     }
   };
 
+  console.log(checkHeart(values))
   const handleAddHeart = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     if(checkHeart(values)){
