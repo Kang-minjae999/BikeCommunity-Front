@@ -96,10 +96,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       console.error(error);
     }
   };
-  console.log(checkHeart)
+
   const handleAddHeart = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
-    if(checkHeart){
+    if(checkHeart(values)){
       try {
         await axios.get(`/biketrade/zzim/${id}`, {
           headers: {

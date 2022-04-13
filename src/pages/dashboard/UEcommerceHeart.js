@@ -55,11 +55,11 @@ export default function UEcommerceHeart() {
       </Stack> 
       </Grid>
        {usedHeart?.map((item)=> 
-        <Grid item xs={6} lg={3} key={item.name} sx={{mt:1}}>
+        <Grid item xs={6} lg={3} key={item.heartTitle} sx={{mt:1}}>
           <Card>
             <Link underline='none' onClick={()=>gotoDetail(item.heartId)}> 
             <Box >
-            <Image alt={item.name} src={item.heartImageURLs} sx={{mb:1}} ratio='1/1'/>
+            <Image alt={item.heartTitle} src={item.heartImageURLs} sx={{mb:1}} ratio='1/1'/>
             <Typography variant='subtitle1' sx={{mb:3, ml:1}} noWrap lineHeight={2} >{item.heartTitle}</Typography>
             <Stack direction='row' justifyContent='space-between' sx={{mx:1}}>
              <Stack direction='column' >    
