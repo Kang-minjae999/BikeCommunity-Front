@@ -8,7 +8,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import axios from '../../utils/axiossecondhand';
 import { useDispatch, useSelector } from '../../redux/store';
-import { addHeartUsed, addCart, onGotoStep } from '../../redux/slices/product';
+import { addHeartUsed, checkHeartUsed, onGotoStep } from '../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -99,6 +99,10 @@ export default function UEcommerceProductDetails() {
     dispatch(addHeartUsed(product));
   };
 
+  const handleCheckHeart = (product) => {
+    dispatch(checkHeartUsed(product));
+  };
+
   const handleGotoStep = (step) => {
     dispatch(onGotoStep(step));
   };
@@ -118,6 +122,7 @@ export default function UEcommerceProductDetails() {
                    <ProductDetailsSummary
                     product={product}
                     onAddHeart={handleAddHeart}
+                    checkHeart={handleCheckHeart}
                     onGotoStep={handleGotoStep}
                   /> 
                 </Grid>

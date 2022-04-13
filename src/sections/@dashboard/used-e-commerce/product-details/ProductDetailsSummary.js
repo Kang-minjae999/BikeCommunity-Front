@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSnackbar } from 'notistack';
-import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 // form
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Box, Link, Stack, Button, Rating, Divider, IconButton, Typography, Avatar, Chip } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Box, Stack, Button, Divider, Modal, Typography, Avatar, Chip } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
-import { fShortenNumber, fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../../../utils/formatNumber';
 import { fToNow } from '../../../../utils/formatTime';
 // components
 import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
-import SocialsButton from '../../../../components/SocialsButton';
-import { ColorSinglePicker } from '../../../../components/color-utils';
-import { FormProvider, RHFSelect } from '../../../../components/hook-form';
+import { FormProvider } from '../../../../components/hook-form';
 import useAuth from '../../../../hooks/useAuth';
 import axios from '../../../../utils/axiossecondhand';
 
@@ -35,13 +32,14 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 ProductDetailsSummary.propTypes = {
   onAddHeart: PropTypes.func,
+  checkHeart: PropTypes.func,
   onGotoStep: PropTypes.func,
   product: PropTypes.object
 }
 
 
 
-export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep, ...other }) {
+export default function ProductDetailsSummary({ product, onAddHeart, checkHeart, onGotoStep, ...other }) {
   const navigate = useNavigate();
   const {user} = useAuth()
   const { enqueueSnackbar } = useSnackbar();
@@ -86,11 +84,11 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
     defaultValues,
   });
 
-  const { watch, control, setValue, handleSubmit } = methods;
+  const { watch, handleSubmit } = methods;
 
   const values = watch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       onGotoStep(0);
       navigate(PATH_DASHBOARD.eCommerce.checkout);
@@ -101,21 +99,53 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
 
   const handleAddHeart = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
-    try {
-      await axios.get(`/biketrade/zzim/${id}`, {
-        headers: {
-          authorization: accessToken,
-        }});
-      onAddHeart(values);
-      enqueueSnackbar('찜목록에 추가되었어요!')
-    } catch (error) {
-      console.error(error);
+    if(checkHeart){
+      try {
+        await axios.get(`/biketrade/zzim/${id}`, {
+          headers: {
+            authorization: accessToken,
+          }});
+        onAddHeart(values);
+        enqueueSnackbar('찜목록에 추가되었어요!')
+      } catch (error) {
+        console.error(error);
+      }
     }
+    enqueueSnackbar('이미 찜목록에 있어요!')
   };
 
   const goEdit = () => {
     navigate(`/dashboard/used-e-commerce/product/newmoto/${id}/edit`)
   }
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const jaeUp = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+      try {
+        await axios.get(`/biketrade/refresh/${id}`, {
+          headers: {
+            authorization: accessToken,
+          }});
+        enqueueSnackbar('재업하기가 완료됐어요!')
+      } catch (error) {
+        console.error(error);
+    }
+  };
 
 
   return (
@@ -160,9 +190,14 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
         <Divider sx={{ mb: 2 }} />
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
+          <Stack direction='column' justifyContent='center'>
           <Typography variant="subtitle2" >
-          {brand}/{modelName}
+          {brand}
           </Typography>
+          <Typography variant="subtitle2" >
+          {modelName}
+          </Typography>
+          </Stack>
           <Typography variant="subtitle2" >
           {displacement}cc
           </Typography>
@@ -231,14 +266,42 @@ export default function ProductDetailsSummary({ product, onAddHeart, onGotoStep,
             찜하기
           </Button>
 
-          <Button fullWidth size="large" type="submit" variant="contained" color='inherit' >
+          <Button fullWidth size="large" type="submit" variant="contained" color='inherit' onClick={onSubmit}>
             채팅하기
           </Button>
         </Stack>
-        {nicknameOfSeller === user?.nickname &&
+        {nicknameOfSeller === user?.nickname && 
+        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={goEdit} sx={{mt:2, color:'text.primary'}}>
             수정하기
-        </Button>}
+        </Button>
+        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={handleOpen} sx={{mt:2, color:'text.primary'}}>
+            재업하기
+        </Button>
+        </Stack>}
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            재업하기
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            재업하기를 하시면 최신 글로 올라갑니다. 재업하기는 하루에 1번 가능합니다. 
+          </Typography>
+          <Stack direction='row' spacing={2}>
+          <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={jaeUp} sx={{mt:2, color:'text.primary'}}>
+            재업하기
+         </Button>
+          <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={handleClose} sx={{mt:2, color:'text.primary'}}>
+            나가기
+          </Button>
+          </Stack>
+        </Box>
+      </Modal>
       </FormProvider>
     </RootStyle>
   );

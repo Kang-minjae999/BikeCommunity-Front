@@ -86,6 +86,14 @@ const slice = createSlice({
       }
     },
 
+    checkHeartUsed(state, action) {
+      const beforeLength = state.usedHeart.filter((item) => item.heartId !== action.payload.heartId).length
+      if(state.usedHeart.length === beforeLength){
+        return true
+      } 
+      return false
+    },
+
     deleteHeartUsed(state, action) {
       const updateProduct = state.usedHeart.filter((item) => item.heartId !== action.payload);
       state.usedHeart = updateProduct;
@@ -249,6 +257,7 @@ export default slice.reducer;
 export const {
   addHeart,
   deleteHeart,
+  checkHeartUsed,
   addHeartUsed,
   deleteHeartUsed,
   deleteAllHeartUsed,
