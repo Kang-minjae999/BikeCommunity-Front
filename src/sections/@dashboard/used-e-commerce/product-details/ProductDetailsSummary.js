@@ -100,17 +100,24 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
   };
 
   const handleAddHeart = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-      try {
-        await axios.get(`/biketrade/zzim/${id}`, {
-          headers: {
-            authorization: accessToken,
-          }});
-        onAddHeart(values);
-        enqueueSnackbar('찜목록에 추가되었어요!')
-      } catch (error) {
-        console.error(error);
+    try{
+      checkHeart(values)
+      const accessToken = window.localStorage.getItem('accessToken');
+      if(usedzzim){
+        try {
+          await axios.get(`/biketrade/zzim/${id}`, {
+            headers: {
+              authorization: accessToken,
+            }});
+          onAddHeart(values);
+          enqueueSnackbar('찜목록에 추가되었어요!')
+        } catch (error) {
+          console.error(error);
+        }
       }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const goEdit = () => {
