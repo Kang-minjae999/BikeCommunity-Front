@@ -100,10 +100,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
   };
 
   const handleAddHeart = async () => {
-    checkHeart(values)
-    console.log(usedzzim)
     const accessToken = window.localStorage.getItem('accessToken');
-    if(usedzzim){
       try {
         await axios.get(`/biketrade/zzim/${id}`, {
           headers: {
@@ -114,9 +111,6 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       } catch (error) {
         console.error(error);
       }
-    } else {
-      enqueueSnackbar('이미 찜목록에 있어요!')
-    }
   };
 
   const goEdit = () => {
