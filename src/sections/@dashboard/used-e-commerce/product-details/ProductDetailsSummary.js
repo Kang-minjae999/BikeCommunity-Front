@@ -18,6 +18,7 @@ import Iconify from '../../../../components/Iconify';
 import { FormProvider } from '../../../../components/hook-form';
 import useAuth from '../../../../hooks/useAuth';
 import axios from '../../../../utils/axiossecondhand';
+import { useSelector } from '../../../../redux/store';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +44,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
   const navigate = useNavigate();
   const {user} = useAuth()
   const { enqueueSnackbar } = useSnackbar();
+  const { usedzzim } = useSelector((state) => state.product);
 
   const {
     id,
@@ -99,8 +101,9 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
 
   console.log(checkHeart(values))
   const handleAddHeart = async () => {
+    checkHeart(values)
     const accessToken = window.localStorage.getItem('accessToken');
-    if(checkHeart(values)){
+    if(usedzzim){
       try {
         await axios.get(`/biketrade/zzim/${id}`, {
           headers: {
