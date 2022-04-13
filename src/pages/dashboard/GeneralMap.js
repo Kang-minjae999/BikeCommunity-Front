@@ -115,42 +115,45 @@ export default function GeneralMap() {
 
   return (
      <Page title="라이딩맵">
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
-      <HeaderBreadcrumbs
+      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}} disableGutters>
+      {/* <HeaderBreadcrumbs
           heading="RidingMap"
           links={[
             { name: '' },
           ]}
-        />
+        /> */}
         
         <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-        <Card>
-            <Button variant='outlined' color="inherit" size='small' type='button' id="allMenu"  onClick={all} sx={{mt:1, ml:1 ,mb:2}}>
-              <Typography variant="body2">
+        <Card >
+          <Stack direction='row' justifyContent='center' >
+            <Button variant='outlined' color="inherit" size='small' type='button' id="allMenu"  onClick={all} sx={{mt:1, ml:1}}>
+              <Typography variant="body2"sx={{my:1}}>
               전체보기
               </Typography>
             </Button>
-            <Button  variant='outlined' color="inherit" size='small' type='button' id="roadMenu" onClick={road} sx={{mt:1,ml:1,mb:2}}>
+            <Button  variant='outlined' color="inherit" size='small' type='button' id="roadMenu" onClick={road} sx={{mt:1,ml:1}}>
             <Typography variant="body2">
               도로
               </Typography>
             </Button>
-            <Button  variant='outlined' color="inherit"size='small' type='button' id="coffeeMenu" onClick={coffee} sx={{mt:1,ml:1,mb:2}}>
+            <Button  variant='outlined' color="inherit"size='small' type='button' id="coffeeMenu" onClick={coffee} sx={{mt:1,ml:1}}>
             <Typography variant="body2">
               카페
               </Typography>
             </Button>
-            <Button  variant='outlined' color="inherit" size='small' type='button' id="attractionMenu" onClick={attraction} sx={{mt:1,ml:1,mb:2}}>
+            <Button  variant='outlined' color="inherit" size='small' type='button' id="attractionMenu" onClick={attraction} sx={{mt:1,ml:1}}>
             <Typography variant="body2">
               명소
               </Typography>
             </Button>
-            <Button  variant='outlined' color="inherit" size='small' type='button' id="garagemenu" onClick={garage} sx={{mt:1,ml:1,mb:2}}>
+            <Button  variant='outlined' color="inherit" size='small' type='button' id="garagemenu" onClick={garage} sx={{mt:1,ml:1}}>
             <Typography variant="body2">
               정비소
               </Typography>
-            </Button><br/>
+            </Button>
+            </Stack> 
+            <br/>
         <Map // 지도를 표시할 Container
           id={`map`}
           center={state.center}

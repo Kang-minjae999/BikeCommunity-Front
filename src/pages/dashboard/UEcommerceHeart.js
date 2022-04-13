@@ -45,7 +45,7 @@ export default function UEcommerceHeart() {
       <Grid item xs={12} lg={12} >
       <Stack direction='row' justifyContent='space-between'>
       <Box>
-      <Link component={RouterLink} to='/dashboard/marketu/all'>
+      <Link component={RouterLink} to='/dashboard/marketu'>
       <Button ><AddIcon />더 둘러보기</Button> 
       </Link>
       </Box>

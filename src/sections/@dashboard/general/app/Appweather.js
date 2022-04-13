@@ -1,6 +1,6 @@
 import react, {useEffect, useState} from 'react'
 import axios from 'axios';
-import { Alert, Box, Button, Card, Divider, Grid, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, Divider, Grid, Stack, Typography } from '@mui/material';
 // -----------------------------------------
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import AlarmIcon from '@mui/icons-material/Alarm';
@@ -283,6 +283,18 @@ const onClickRiding = () => {
   {weatheralert3 !== null &&
    <Alert severity="warning" sx={{ml:1,mr:1}}>{weatheralert3}</Alert>}
   </Grid>}
+  </>}
+  {!weather && 
+  <>
+  <Grid item xs={12} xl={12}>
+  <Card  sx={{height:200, alignItems:'center', justifyContent:'center'}}>
+    <Stack direction='column' alignItems='center' justifyContent='center'>
+      <Alert severity="info" >
+      날씨를 불러오고 있어요
+      </Alert>
+    </Stack>
+  </Card>
+  </Grid>
   </>}
 </Grid>
 </> 

@@ -77,11 +77,12 @@ export default function Router() {
         { path: 'app', element: <GeneralApp /> }, // ok
         { path: 'map', element: <GeneralMap /> }, // ok
         { path: 'riding', element: <GeneralRiding /> }, // ok
+        { path: 'rider', element: <GeneralRider /> }, // ok
         { path: 'clubs', element: <Generalclub /> }, // ok
         { path: 'garages', element: <Generalgarage /> }, // ok
         { path: 'shop', element: <Generalshop /> }, // ok
-        { path: 'market/:option', element: <Generalmarket /> }, // ok
-        { path: 'marketu/:option', element: <Generalmarketu /> }, // ok
+        { path: 'market', element: <Generalmarket /> }, // ok
+        { path: 'marketu', element: <Generalmarketu /> }, // ok
         { path: 'clubmy', element: <ClubMy /> }, // ok
         { path: 'mypage', element: <GeneralUser /> }, // ok
         { path: 'checkout', element: <AEcommerceCheckout /> }, // ok
@@ -267,6 +268,7 @@ const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
 const GeneralMap = Loadable(lazy(() => import('../pages/dashboard/GeneralMap')));
+const GeneralRider = Loadable(lazy(() => import('../pages/dashboard/GeneralRider')));
 const GeneralRiding = Loadable(lazy(() => import('../pages/dashboard/GeneralRiding')));
 const Generalclub = Loadable(lazy(() => import('../pages/dashboard/GeneralClub')));
 const Generalgarage = Loadable(lazy(() => import('../pages/dashboard/GeneralGarage')));

@@ -6,7 +6,6 @@ import { Typography, Paper, Box } from '@mui/material';
 import AppRidingHome from './AppRidinghome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
-import GeneralMap from '../../../../pages/dashboard/GeneralMap';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
@@ -36,10 +35,6 @@ export default function AppRidingHeader() {
       component: <AppRidingHome />,
     },
     {
-      value: 'club',
-      component: <AppRidingClub />,
-    },
-    {
       value: 'dingsta',
       component: <BlogDingstas />,
     },
@@ -48,8 +43,12 @@ export default function AppRidingHeader() {
       component: <BlogPosts />,
     },
     {
-      value: 'map',
-      component: <GeneralMap />,
+      value: 'club',
+      component: <AppRidingClub />,
+    },
+    {
+      value: 'garage',
+      component: <Appgarage />,
     },
   ];
 
@@ -65,7 +64,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" fontWeight="bold">
-                라이딩
+                정비
               </Typography>
             }
             value="home"
@@ -73,7 +72,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" fontWeight="bold">
-                딩스타
+                커스텀
               </Typography>
             }
             value="dingsta"
@@ -81,7 +80,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" fontWeight="bold">
-                포스트
+                면허
               </Typography>
             }
             value="post"
@@ -89,18 +88,18 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" fontWeight="bold">
-                클럽
+                교육
+              </Typography>
+            }
+            value="garage"
+          />
+          <BottomNavigationAction
+            label={
+              <Typography variant="body2" color="text.primary" fontWeight="bold">
+                보험
               </Typography>
             }
             value="club"
-          />
-                    <BottomNavigationAction
-            label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
-                지도
-              </Typography>
-            }
-            value="map"
           />
         </BottomNavigation>
       )}
@@ -111,25 +110,16 @@ export default function AppRidingHeader() {
               sx={{ ...(value === 'home' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  라이딩
+                  정비
                 </Typography>
               }
               value="home"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'club' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  클럽
-                </Typography>
-              }
-              value="club"
-            />
-            <BottomNavigationAction
               sx={{ ...(value === 'dingsta' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  딩스타
+                  커스텀
                 </Typography>
               }
               value="dingsta"
@@ -138,19 +128,28 @@ export default function AppRidingHeader() {
               sx={{ ...(value === 'post' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  포스트
+                  면허
                 </Typography>
               }
               value="post"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'map' && valueStyle) }}
+              sx={{ ...(value === 'garage' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  지도
+                  교육
                 </Typography>
               }
-              value="map"
+              value="garage"
+            />
+            <BottomNavigationAction
+              sx={{ ...(value === 'club' && valueStyle) }}
+              label={
+                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                  보험
+                </Typography>
+              }
+              value="club"
             />
           </BottomNavigation>
         </Paper>

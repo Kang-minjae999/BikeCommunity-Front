@@ -18,7 +18,7 @@ import CheckoutBillingInfo from './CheckoutBillingInfo';
 import CheckoutPaymentMethods from './CheckoutPaymentMethods';
 import { fCurrency } from '../../../../utils/formatNumber';
 import useResponsive from '../../../../hooks/useResponsive';
-import { Pay } from '../../../Paymentport';
+import { Pay } from '../../../paymentport';
 
 // ----------------------------------------------------------------------
 const DELIVERY_OPTIONS = [

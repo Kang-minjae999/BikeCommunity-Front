@@ -50,12 +50,13 @@ const [pagenation, setpagenation] = useState(1);
 const [value, setValue] = useState('biketrade');
 
 useEffect(() => {
-  setValue(localStorage.getItem('uMarket'))
+  if(sessionStorage.getItem('shopmarketu')){
+  setValue(sessionStorage.getItem('shopmarketu'))
+  }
 }, [])
 
-
 useEffect(() => {
-  localStorage.setItem('uMarket', value)
+  sessionStorage.setItem('shopmarketu', value)
 }, [value])
 
 

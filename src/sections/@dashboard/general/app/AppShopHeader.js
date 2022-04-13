@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Paper } from '@mui/material';
@@ -9,11 +9,24 @@ import Generalmarket from '../../../../pages/dashboard/GeneralMarket';
 import Generalmarketu from '../../../../pages/dashboard/GeneralMarketu';
 
 export default function AppUserHeader() {
-  const [value, setValue] = useState('all');
+  const [value, setValue] = useState(sessionStorage.getItem('shopheader'));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    if(sessionStorage.getItem('shopheader')){
+    setValue(sessionStorage.getItem('shopheader'))
+    } else {
+      setValue('all')
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('shopheader', value)
+  }, [value])
+  
 
   const ACCOUNT_TABS = [
     {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {  Typography, Stack, Paper, Box } from '@mui/material';
@@ -16,6 +16,16 @@ export default function AppHomeHeader() {
     setValue(newValue);
   };
 
+  useEffect(() => {
+    if(sessionStorage.getItem('homeheader')){
+      setValue(sessionStorage.getItem('homeheader'))
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('homeheader', value)
+  }, [value])
+  
 
   const ACCOUNT_TABS = [
     {

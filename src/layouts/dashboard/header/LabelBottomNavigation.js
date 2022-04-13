@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 // ------------------------------------------
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import AutoAwesomeMotionIcon from '@mui/icons-material/AutoAwesomeMotion';
+import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
 import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -20,6 +20,16 @@ export default function LabelBottomNavigation() {
     setValue(newValue);
     setGo(true)
   };
+
+  useEffect(() => {
+    if(sessionStorage.getItem('first') !== 'yes'){
+      sessionStorage.setItem('first', 'yes')
+      sessionStorage.setItem('homeheader', 'home')
+      sessionStorage.setItem('shopheader', 'all')
+      sessionStorage.setItem('ridingheader', 'home')
+      sessionStorage.setItem('riderheader', 'home')
+    } 
+}, [])
 
   useEffect(() => {
     if(go){
@@ -43,14 +53,14 @@ export default function LabelBottomNavigation() {
         icon={<StoreIcon  color='action'/>}
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='text.primary'>모아보기</Typography>}
-        value="blog/reports"
-        icon={<AutoAwesomeMotionIcon color='action' />}
+        label={<Typography variant='body2' color='text.primary'>라이딩</Typography>}
+        value="riding"
+        icon={<TwoWheelerIcon color='action' />}
       />
       <BottomNavigationAction
         label={<Typography variant='body2' color='text.primary'>라이더</Typography>}
-        value="riding"
-        icon={<TwoWheelerIcon color='action' />}
+        value="rider"
+        icon={<SportsMotorsportsIcon color='action' />}
       />
       <BottomNavigationAction 
         label={<Typography variant='body2' color='text.primary'>마이페이지</Typography>}

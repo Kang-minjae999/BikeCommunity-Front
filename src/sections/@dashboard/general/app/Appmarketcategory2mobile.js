@@ -16,32 +16,44 @@ export default function Appmarketcategory2mobile({value, setValue}) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    localStorage.setItem('uMarket', newValue)
+    sessionStorage.setItem('shopmarketu', newValue)
   };
-  
+  const valueStyle = {
+    borderBottom:2, 
+    borderBottomColor:'text.primary'
+  }
+
   return (
     <>
       <> <Stack spacing={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='text.primary' >바이크</Typography>}
+        sx={{...(value === 'biketrade') && valueStyle}}
+        label={<Typography variant='subtitle2'color='text.primary'>바이크</Typography>}
         value="biketrade"
       />
       <BottomNavigationAction
-        label={<Typography variant='subtitle2'color='text.primary'>센터매물</Typography>}
+        sx={{...(value === 'userbiketrade') && valueStyle}}
+        label={<Typography variant='subtitle2'color='text.primary'>개인</Typography>}
+        value="userbiketrade"
+      />
+      <BottomNavigationAction
+        sx={{...(value === 'garagebiketrade') && valueStyle}}
+        label={<Typography variant='subtitle2'color='text.primary'>정비소</Typography>}
         value="garagebiketrade"
       />
       <BottomNavigationAction
+        sx={{...(value === 'gear') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>장비</Typography>}
         value="gear"
       />
       <BottomNavigationAction
+        sx={{...(value === 'parts') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>부품용품</Typography>}
         value="parts"
       />
          </BottomNavigation>
-        </Stack> </>
-
+      </Stack> </>
 </>
   );
 

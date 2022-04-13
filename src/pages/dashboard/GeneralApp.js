@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 // @mui
 import { Container, Grid} from '@mui/material';
 // hooks
@@ -7,23 +8,27 @@ import Page from '../../components/Page';
 // sections
 
 import MainFooter from '../../layouts/main/MainFooter';
-import { AppHeaderSpace, AppHomeHeader } from '../../sections/@dashboard/general/app';
+import { AppHeaderSpace, AppHomeHeader, AppHomeMain } from '../../sections/@dashboard/general/app';
 import GeneralAppChan from './GeneralAppChan';
+import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
 export default function GeneralApp() {
   const { themeStretch } = useSettings();
-
+  const isDesktop = useResponsive('up', 'lg')
 
   return (
     <Page title="라이더타운">
       <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
-         <AppHomeHeader />  
+          {isDesktop && <AppHomeMain />}
+         {!isDesktop && 
+         <>
+         <AppHomeHeader /> 
          <AppHeaderSpace />
-        {/*  <GeneralAppChan />  */}
+         </>}
         </Grid>  
          <Grid item xs={12} lg={12}>
           <MainFooter />
