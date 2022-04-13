@@ -99,9 +99,9 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
     }
   };
 
-  console.log(checkHeart(values))
   const handleAddHeart = async () => {
     checkHeart(values)
+    console.log(usedzzim)
     const accessToken = window.localStorage.getItem('accessToken');
     if(usedzzim){
       try {
@@ -258,6 +258,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
+        {nicknameOfSeller !== user?.nickname && 
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
           <Button
             fullWidth
@@ -274,7 +275,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
           <Button fullWidth size="large" type="submit" variant="contained" color='inherit' onClick={onSubmit}>
             채팅하기
           </Button>
-        </Stack>
+        </Stack>}
         {nicknameOfSeller === user?.nickname && 
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={goEdit} sx={{mt:2, color:'text.primary'}}>
