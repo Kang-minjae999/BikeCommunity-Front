@@ -98,10 +98,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       console.error(error);
     }
   };
-
   const handleAddHeart = async () => {
     try{
       checkHeart(values)
+      console.log(usedzzim)
       const accessToken = window.localStorage.getItem('accessToken');
       if(usedzzim){
         try {
@@ -159,7 +159,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Box>
         <Label
-          variant='outlined'
+          variant='ghost'
           color={status === 0 ? 'info' : 'error'}
           sx={{mb:1, mr:1}}
         >
@@ -168,7 +168,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
         {status === 2 && '판매완료'}
         </Label> 
         <Label
-          variant='outlined'
+          variant='ghost'
           color={isGarage ? 'success' : 'info'}
           sx={{mb:1}}
         >
@@ -196,19 +196,14 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
         <Divider sx={{ mb: 2 }} />
 
         <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-          <Stack direction='column' justifyContent='center'>
           <Typography variant="subtitle2" >
           {brand}
           </Typography>
           <Typography variant="subtitle2" >
           {modelName}
           </Typography>
-          </Stack>
           <Typography variant="subtitle2" >
           {displacement}cc
-          </Typography>
-          <Typography variant="subtitle2" >
-          {gearbox ? '메뉴얼': '스쿠터'}
           </Typography>
         </Stack>  
 
@@ -279,10 +274,10 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
         </Stack>}
         {nicknameOfSeller === user?.nickname && 
         <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={goEdit} sx={{mt:2, color:'text.primary'}}>
+        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={goEdit} sx={{ color:'text.primary'}}>
             수정하기
         </Button>
-        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={handleOpen} sx={{mt:2, color:'text.primary'}}>
+        <Button fullWidth size="large" type="submit" variant="outlined" color='inherit' onClick={handleOpen} sx={{color:'text.primary'}}>
             재업하기
         </Button>
         </Stack>}

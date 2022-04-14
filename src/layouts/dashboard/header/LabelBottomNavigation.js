@@ -49,7 +49,7 @@ export default function LabelBottomNavigation() {
       />
       <BottomNavigationAction
         label={<Typography variant='body2' color='text.primary'>거래</Typography>}
-        value="shop"
+        value="shop/all/all/0"
         icon={<StoreIcon  color='action'/>}
       />
       <BottomNavigationAction

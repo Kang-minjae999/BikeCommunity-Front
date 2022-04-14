@@ -89,9 +89,12 @@ const slice = createSlice({
 
     checkHeartUsed(state, action) {
       const before = state.usedHeart.filter((item) => item.heartId !== action.payload.heartId)
-      if(state.usedHeart === before){
+      if(state.usedHeart.length === 0){
         state.usedzzim = true
-      } else{
+      } else {
+        if(state.usedHeart === before){
+          state.usedzzim = true
+        }
         state.usedzzim = false       
       }
     },

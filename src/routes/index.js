@@ -54,23 +54,10 @@ export default function Router() {
         { path: 'verify', element: <VerifyCode /> },
       ],
     },
-
-    // Dashboard Routes
-    /*     {
+      {
       path: 'dashboard',
       element: (
-        <>
-        <AuthGuard>
           <DashboardLayout />
-        </AuthGuard>   --------------------------> axios.post 는 모두 어스가드
-        </>
-      ), */
-    {
-      path: 'dashboard',
-      element: (
-        <>
-          <DashboardLayout />
-        </>
       ),
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
@@ -80,9 +67,9 @@ export default function Router() {
         { path: 'rider', element: <GeneralRider /> }, // ok
         { path: 'clubs', element: <Generalclub /> }, // ok
         { path: 'garages', element: <Generalgarage /> }, // ok
-        { path: 'shop', element: <Generalshop /> }, // ok
+        { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, // ok
         { path: 'market', element: <Generalmarket /> }, // ok
-        { path: 'marketu', element: <Generalmarketu /> }, // ok
+        { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, // ok
         { path: 'clubmy', element: <ClubMy /> }, // ok
         { path: 'mypage', element: <GeneralUser /> }, // ok
         { path: 'checkout', element: <AEcommerceCheckout /> }, // ok

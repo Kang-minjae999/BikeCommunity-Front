@@ -588,7 +588,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
                           ))
                         }
                         renderInput={(params) => (
-                          <RHFTextField name="tradeableModels" label="대차가능모델" {...params} />
+                          <RHFTextField name="tradeableModels" label="대차가능모델" {...params} sx={{mt:2}}/>
                         )}
                       />
                     )}
@@ -603,7 +603,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
               color="inherit"
               size="large"
               loading={isSubmitting}
-              sx={{ color: 'text.primary' }}
+              sx={{ color: 'text.primary' , mb:5}}
             >
               {!isEdit ? '상품 올리기' : '상품 수정하기'}
             </LoadingButton>

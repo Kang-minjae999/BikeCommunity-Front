@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import {useState} from 'react';
+import {useNavigate, useParams} from 'react-router';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // --------------------------------------------------------------
@@ -13,11 +14,12 @@ Appmarketcategory2mobile.propTypes = {
 };
 
 export default function Appmarketcategory2mobile({value, setValue}) {
+  const { tab = '' } = useParams();
+  const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    sessionStorage.setItem('shopmarketu', newValue)
-  };
+    navigate(`/dashboard/shop/used/${newValue}/0`)
+  }
   const valueStyle = {
     borderBottom:2, 
     borderBottomColor:'text.primary'
@@ -28,27 +30,27 @@ export default function Appmarketcategory2mobile({value, setValue}) {
       <> <Stack spacing={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        sx={{...(value === 'biketrade') && valueStyle}}
+        sx={{...(tab === 'biketrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>바이크</Typography>}
         value="biketrade"
       />
       <BottomNavigationAction
-        sx={{...(value === 'userbiketrade') && valueStyle}}
+        sx={{...(tab === 'userbiketrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>개인</Typography>}
         value="userbiketrade"
       />
       <BottomNavigationAction
-        sx={{...(value === 'garagebiketrade') && valueStyle}}
+        sx={{...(tab === 'garagebiketrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>정비소</Typography>}
         value="garagebiketrade"
       />
       <BottomNavigationAction
-        sx={{...(value === 'gear') && valueStyle}}
+        sx={{...(tab === 'gear') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>장비</Typography>}
         value="gear"
       />
       <BottomNavigationAction
-        sx={{...(value === 'parts') && valueStyle}}
+        sx={{...(tab === 'parts') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>부품용품</Typography>}
         value="parts"
       />

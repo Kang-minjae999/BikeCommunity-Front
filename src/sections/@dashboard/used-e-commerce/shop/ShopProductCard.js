@@ -32,13 +32,6 @@ export default function ShopProductCard({ product }) {
           <Link to={linkTo} component={RouterLink} underline="none">
             <Box sx={{ position: 'relative' }}>
               <Image alt={title} src={thumbnailImageURLs} ratio="1/1" />
-              {/* {isGarage ? 
-              <LabelProduct variant="subtitle2" color='primary' sx={{top:5, left:5, position:'absolute', zIndex:99}}>
-                정비소
-              </LabelProduct> : 
-              <LabelProduct variant="subtitle2" color='primary' sx={{top:5, left:5, position:'absolute', zIndex:99}}>
-                개인
-              </LabelProduct>} */}
             </Box>
 
             <Stack spacing={2} sx={{ my: 1, mx: 2 }}>
@@ -47,8 +40,11 @@ export default function ShopProductCard({ product }) {
                   {title}
                 </Typography>
               </Stack>
-              <Stack direction="row" justifyContent="space-between" sx={{ mx: 2 }}>
-                <Stack direction="column">
+              <Stack direction="column" sx={{ mx: 2 }}>
+                <Stack direction="row" justifyContent="space-between">
+                <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+                    {address}
+                  </Typography>
                   {isGarage ? (
                     <Typography variant="subtitle2" color="green">
                       정비소
@@ -58,21 +54,21 @@ export default function ShopProductCard({ product }) {
                       개인
                     </Typography>
                   )}
-                  <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                    {address}
-                  </Typography>
                 </Stack>
-                <Stack direction="column">
-                  <Stack direction="row">
+                <Stack direction="row" justifyContent="space-between">
                     <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                      {brand}/
+                      {brand}
                     </Typography>
                     <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
                       {modelName}
                     </Typography>
-                  </Stack>
+                </Stack>
+                <Stack direction="row" justifyContent="space-between">
+                    <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
+                    {year}년식
+                  </Typography>
                   <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                    {year}년식/{mileage}km
+                    {mileage}km
                   </Typography>
                 </Stack>
               </Stack>

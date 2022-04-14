@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Paper } from '@mui/material';
@@ -9,23 +10,26 @@ import Generalmarket from '../../../../pages/dashboard/GeneralMarket';
 import Generalmarketu from '../../../../pages/dashboard/GeneralMarketu';
 
 export default function AppUserHeader() {
-  const [value, setValue] = useState(sessionStorage.getItem('shopheader'));
+  const {value} = useParams()
+  const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  useEffect(() => {
-    if (sessionStorage.getItem('shopheader')) {
-      setValue(sessionStorage.getItem('shopheader'));
-    } else {
-      setValue('all');
+    if(newValue === 'all'){
+      navigate(`/dashboard/shop/${newValue}/all/0`);
     }
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem('shopheader', value);
-  }, [value]);
+    if(newValue === 'market'){
+      navigate(`/dashboard/shop/${newValue}/all/0`);
+    }
+    if(newValue === 'brand'){
+      navigate(`/dashboard/shop/${newValue}/all/0`);
+    }
+    if(newValue === 'newmoto'){
+      navigate(`/dashboard/shop/${newValue}/all/0`);
+    }
+    if(newValue === 'used'){
+      navigate(`/dashboard/shop/${newValue}/biketrade/0`);
+    }
+  };
 
   const ACCOUNT_TABS = [
     {

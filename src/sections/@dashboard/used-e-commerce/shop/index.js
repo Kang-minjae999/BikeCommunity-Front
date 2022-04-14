@@ -4,4 +4,7 @@ export { default as ShopProductList } from './ShopProductList';
 export { default as ShopProductListmobile } from './ShopProductListmobile';
 export { default as ShopProductSort } from './ShopProductSort';
 export { default as ShopFilterSidebar } from './ShopFilterSidebar';
+export { default as ShopFilterSidebarSlider } from './ShopFilterSidebarSlider';
+export { default as ShopFilterSidebarSliderPrice } from './ShopFilterSidebarSliderPrice';
+export { default as ShopFilterSidebarSliderDisplacement } from './ShopFilterSidebarSliderDisplacement';
 export { default as ShopProductSearch } from './ShopProductSearch';

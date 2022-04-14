@@ -1,8 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router';
+import { useLocation } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 // @mui
-import { Container, Stack, Pagination, Divider, Box, Chip } from '@mui/material';
+import { Container, Stack, Pagination, Divider, Box, Chip, Button, CardHeader, Typography } from '@mui/material';
 import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
@@ -30,55 +32,56 @@ import SimpleDialogDemo from './Generalmarketunewbutton';
 
 export default function GeneralMarketu() {
   const { themeStretch } = useSettings();
+
+  const navigate = useNavigate()
+
+  const { pathname } = useLocation();
+
+  const {tab, paging} = useParams()
+
+  const [page, setPage] = useState(parseInt(paging, 10))
+
+  useEffect(()=>{
+    setProducts([])
+  },[tab])
+
+  useEffect(()=>{
+    setPage(parseInt(paging, 10))
+  }, [paging])
   
-  const isDesktop = useResponsive('up','lg')
+  const isDesktop = useResponsive('up','lg')    
 
   const isMountedRef = useIsMountedRef();
 
   const dispatch = useDispatch();
 
   const { search } = useSelector((state) => state.product);
-
-const [products, setProducts] = useState([]);
-
-
-const [page, setpage] = useState(0);
-const [totalpage, settotalpage] = useState(0);
-const [pagenation, setpagenation] = useState(1);
-
+  const [products, setProducts] = useState([]);
+  const [productsPC, setProductsPC] = useState([]);
+  const [totalpage, settotalpage] = useState(0);
+  const [pagenation, setpagenation] = useState(1);
 
 const [value, setValue] = useState('biketrade');
 
-useEffect(() => {
-  if(sessionStorage.getItem('shopmarketu')){
-  setValue(sessionStorage.getItem('shopmarketu'))
-  }
-}, [])
-
-useEffect(() => {
-  sessionStorage.setItem('shopmarketu', value)
-}, [value])
-
-
-
 const getAllProducts = useCallback(async () => {
   try {
-    const response = await axios.get(`/${value}?page=${page}&size=12`);
-
+    const response = await axios.get(`/${tab}?page=${page}&size=2`);
     if (isMountedRef.current) {
-      setProducts(response.data.data.content);
-      settotalpage(response.data.data.totalPages);
+      if(paging > -1){
+        setProductsPC(response.data.data.content);
+      } if(paging < 1) {
+        setProducts(product => [...product, ...response.data.data.content]);
+        settotalpage(response.data.data.totalPages);
+      }
     }
   } catch (error) {
     console.error(error);
   }
-}, [isMountedRef,page, value]);
-
+}, [isMountedRef,tab, page, paging]);
 
 const [param, setparam] = useState('')
 
-
-  const getAllProducts2 = useCallback(async () => {
+  const getAllProductsTitle = useCallback(async () => {
     try {
       const response = await axios.get(`/biketrade/search/?title=${param}`);
       if (isMountedRef.current) {
@@ -95,21 +98,28 @@ const [param, setparam] = useState('')
       getAllProducts();
     }
     if(param){
-      getAllProducts2();
+      getAllProductsTitle();
     }
-  }, [getAllProducts, getAllProducts2, param]);
+  }, [getAllProducts, getAllProductsTitle, param]);
 
   
 
-  const handleChange = useCallback(
-    (event, value) => {
-      setpagenation(value);
-      setpage(value - 1);
-      getAllProducts(page);
-    },
-    [getAllProducts, page]
+  const handleChange = ((event, value) => {
+    setpagenation(value)
+    if(pathname.includes('shop')){
+     navigate(`/dashboard/shop/used/${tab}/${value-1}`)
+    } else {
+     navigate(`/dashboard/marketu/${tab}/${value-1}`)
+    }
+   }
   );
 
+  const handleButton = (() => {
+    const go = parseInt(paging, 10)+1
+    setPage(page+1)
+    setpagenation(go)
+   }
+  );
 
   // -----------------------------------------------------------
 
@@ -131,7 +141,14 @@ const [param, setparam] = useState('')
     defaultValues,
   });
 
-  const { reset } = methods;
+  const {
+    reset,
+    watch,
+    control,
+    getValues,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -145,7 +162,6 @@ const [param, setparam] = useState('')
 
   const handleResetFilter = () => {
     reset();
-    handleCloseFilter();
   };
 
   const handleRemoveSearch = (item) => {
@@ -184,7 +200,6 @@ const [param, setparam] = useState('')
                 onClose={handleCloseFilter}
               />
             </FormProvider>
-            <ShopProductSort />
           </Stack>
         </Stack>
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
@@ -194,14 +209,14 @@ const [param, setparam] = useState('')
         <Appmarketcategory2/>
           <Divider sx={{mt:1, mb:2}} />
 
-        <ShopProductList products={products} loading={!products.length} />
+        <ShopProductList products={productsPC} loading={!products.length} />
         <Stack
           direction="row"
           justifyContent="center"
           alignItems="center"
           spacing={2}
           >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Pagination hideNextButton hidePrevButton showFirstButton={false} showLastButton={false} count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
         </Stack>
         </>}
         
@@ -216,6 +231,7 @@ const [param, setparam] = useState('')
         >
             <Stack direction="row" spacing={1} flexShrink={0}
             justifyContent="space-between" sx={{ my: 1 }}>
+              <Typography variant='h6'>중고거래</Typography>
               <FormProvider methods={methods}>
                 <ShopFilterSidebar
                   onResetAll={handleResetFilter}
@@ -224,7 +240,6 @@ const [param, setparam] = useState('')
                   onClose={handleCloseFilter}
                 />
               </FormProvider> 
-              <ShopProductSort />
             </Stack>
           <ShopProductSearch setparam={setparam} />
           <Box sx={{  whiteSpace: 'nowrap',
@@ -243,7 +258,7 @@ const [param, setparam] = useState('')
           alignItems="center"
           spacing={2}
           >
-        <Pagination count={totalpage} page={pagenation} onChange={handleChange} shape="rounded" color="primary" size="large" sx={{mt:2}}/>
+        <Button onClick={handleButton} variant='outlined' sx={{my:4}}>더보기</Button>
         </Stack>
         </>}      
         </Container>

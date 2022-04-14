@@ -8,13 +8,11 @@ import { Typography, Stack } from '@mui/material';
 
 
 export default function Appmarketcategory2() {
-  const { option = '' } = useParams();
+  const { tab = '' } = useParams();
   const navigate = useNavigate()
-  const [value, setValue] = useState()
 
   const handleChange = (event, newValue) => {
-    navigate(`/dashboard/marketu/${newValue}`)
-    setValue(newValue)
+    navigate(`/dashboard/marketu/${newValue}/0`)
   }
   const valueStyle = {
     borderBottom:2, 
@@ -25,27 +23,27 @@ export default function Appmarketcategory2() {
     <Stack spacing={1}>
       <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
-        sx={{...(value === 'biketrade') && valueStyle}}
+        sx={{...(tab === 'biketrade') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>바이크</Typography>}
           value="biketrade"
         />
         <BottomNavigationAction
-        sx={{...(value === 'usermoto') && valueStyle}}
+        sx={{...(tab === 'usermoto') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>개인</Typography>}
           value="usermoto"
         />
         <BottomNavigationAction
-        sx={{...(value === 'garagemoto') && valueStyle}}
+        sx={{...(tab === 'garagemoto') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>정비소</Typography>}
           value="garagemoto"
         />
         <BottomNavigationAction
-        sx={{...(value === 'gear') && valueStyle}}
+        sx={{...(tab === 'gear') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>장비</Typography>}
           value="gear"
         />
         <BottomNavigationAction
-        sx={{...(value === 'parts') && valueStyle}}
+        sx={{...(tab === 'parts') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>부품용품</Typography>}
           value="parts"
         />

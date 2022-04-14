@@ -94,6 +94,11 @@ export default function UEcommerceProductDetails() {
     getProduct();
   }, [getProduct]);
 
+  useEffect(() => {
+    sessionStorage.setItem('shopmarketuisopen', 'yes')
+  }, []);
+
+
 
   const handleAddHeart = (product) => {
     dispatch(addHeartUsed(product));
