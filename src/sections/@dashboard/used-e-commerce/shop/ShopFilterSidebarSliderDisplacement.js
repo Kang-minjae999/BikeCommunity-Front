@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import {useState} from 'react';
 import Box from '@mui/material/Box';
@@ -6,13 +7,12 @@ import Slider from '@mui/material/Slider';
 function valuetext(value) {
   return `${value}cc`;
 }
+ShopFilterSidebarSliderDisplacement.propTypes = {
+  field: PropTypes.object,
+};
+export default function ShopFilterSidebarSliderDisplacement({field}) {
+  const [value, setValue] = useState([0, 0]);
 
-export default function ShopFilterSidebarSliderDisplacement() {
-  const [value, setValue] = useState([0, 2000]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  };
   const marks = [
     {
       value: 0,
@@ -24,11 +24,11 @@ export default function ShopFilterSidebarSliderDisplacement() {
     },
     {
       value: 1000,
-      label: '1500cc',
+      label: '1000cc',
     },
     {
-      value: 2000,
-      label: '2000cc',
+      value: 1500,
+      label: '1500cc',
     },
   ];
 
@@ -37,13 +37,13 @@ export default function ShopFilterSidebarSliderDisplacement() {
       <Slider
         size='medium'
         marks={marks}
+        value={field.value}
         getAriaLabel={() => 'Temperature range'}
-        value={value}
-        onChange={handleChange}
-        getAriaValueText={valuetext}
+        onChange={(event, newValue) => field.onChange(newValue) + setValue(newValue)}
+        valueLabelFormat={valuetext}
         valueLabelDisplay="auto"
         step={100}
-        max={2000}
+        max={1500}
         color='secondary'
       />
     </Box>

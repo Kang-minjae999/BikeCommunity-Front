@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as React from 'react';
 import {useState} from 'react';
 import Box from '@mui/material/Box';
@@ -6,13 +7,12 @@ import Slider from '@mui/material/Slider';
 function valuetext(value) {
   return `${value}만원`;
 }
+ShopFilterSidebarSliderPrice.propTypes = {
+  field: PropTypes.object,
+};
+export default function ShopFilterSidebarSliderPrice({field}) {
+  const [value, setValue] = useState([0, 0]);
 
-export default function ShopFilterSidebarSliderPrice() {
-  const [value, setValue] = useState([0, 5000]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  };
   const marks = [
     {
       value: 0,
@@ -20,15 +20,15 @@ export default function ShopFilterSidebarSliderPrice() {
     },
     {
       value: 1000,
-      label: '천만원',
+      label: '1000만원',
     },
     {
-      value: 2500,
-      label: '2천5백만원',
+      value: 2000,
+      label: '2000만원',
     },
     {
-      value: 5000,
-      label: '5천만원',
+      value: 3000,
+      label: '3000만원',
     },
   ];
 
@@ -37,13 +37,12 @@ export default function ShopFilterSidebarSliderPrice() {
       <Slider
         size='medium'
         marks={marks}
-        getAriaLabel={() => 'Temperature range'}
-        value={value}
-        onChange={handleChange}
-        getAriaValueText={valuetext}
+        value={field.value}
+        onChange={(event, newValue) => field.onChange(newValue) + setValue(newValue)}
+        valueLabelFormat={valuetext}
         valueLabelDisplay="auto"
         step={100}
-        max={5000}
+        max={3000}
         color='secondary'
       />
     </Box>

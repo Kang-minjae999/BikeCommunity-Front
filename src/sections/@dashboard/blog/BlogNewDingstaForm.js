@@ -11,7 +11,7 @@ import { Grid, Chip, Stack, Autocomplete } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { RHFSwitch, FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';

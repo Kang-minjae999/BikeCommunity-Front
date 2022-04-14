@@ -8,12 +8,8 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Stack } from '@mui/material';
 // --------------------------------------------------------------
 
-Appmarketcategory2mobile.propTypes = {
-  value: PropTypes.string,
-  setValue: PropTypes.func,
-};
 
-export default function Appmarketcategory2mobile({value, setValue}) {
+export default function Appmarketcategory2mobile() {
   const { tab = '' } = useParams();
   const navigate = useNavigate()
 
@@ -28,10 +24,10 @@ export default function Appmarketcategory2mobile({value, setValue}) {
   return (
     <>
       <> <Stack spacing={1}>
-    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
         sx={{...(tab === 'biketrade') && valueStyle}}
-        label={<Typography variant='subtitle2'color='text.primary'>바이크</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>전체</Typography>}
         value="biketrade"
       />
       <BottomNavigationAction
@@ -46,15 +42,10 @@ export default function Appmarketcategory2mobile({value, setValue}) {
       />
       <BottomNavigationAction
         sx={{...(tab === 'gear') && valueStyle}}
-        label={<Typography variant='subtitle2'color='text.primary'>장비</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>상세검색</Typography>}
         value="gear"
       />
-      <BottomNavigationAction
-        sx={{...(tab === 'parts') && valueStyle}}
-        label={<Typography variant='subtitle2'color='text.primary'>부품용품</Typography>}
-        value="parts"
-      />
-         </BottomNavigation>
+      </BottomNavigation>
       </Stack> </>
 </>
   );

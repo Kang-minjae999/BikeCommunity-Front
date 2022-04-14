@@ -174,8 +174,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
 
   const [gearboxPost, setGearboxPost] = useState();
 
-  const [titlePost, setTitlePost] = useState();
-
   useEffect(() => {
     if (values.gearbox === '메뉴얼') {
       setGearboxPost(true);
@@ -315,7 +313,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
-      formData.append('title', titlePost);
+      formData.append('title', data.title);
       formData.append('content', data.content);
       formData.append('address', data.address);
       formData.append('gearbox', gearboxPost);

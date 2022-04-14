@@ -61,8 +61,6 @@ export default function GeneralMarketu() {
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
 
-const [value, setValue] = useState('biketrade');
-
 const getAllProducts = useCallback(async () => {
   try {
     const response = await axios.get(`/${tab}?page=${page}&size=2`);
@@ -123,7 +121,7 @@ const [param, setparam] = useState('')
 
   // -----------------------------------------------------------
 
-  const defaultValues = {
+/*   const defaultValues = {
     gearbox: null,
     displacement: null,
     isCrash: null,
@@ -137,9 +135,8 @@ const [param, setparam] = useState('')
     tradeModel: undefined,
   };
 
-  const methods = useForm({
-    defaultValues,
-  });
+  const methods = useForm(
+    defaultValues);
 
   const {
     reset,
@@ -148,7 +145,7 @@ const [param, setparam] = useState('')
     getValues,
     handleSubmit,
     formState: { isSubmitting },
-  } = methods;
+  } = methods; */
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -160,13 +157,11 @@ const [param, setparam] = useState('')
     setOpenFilter(false);
   };
 
-  const handleResetFilter = () => {
-    reset();
-  };
 
   const handleRemoveSearch = (item) => {
     dispatch(deleteSearch(item));
   };
+
   
     return (
     <Page title="중고마켓">
@@ -192,14 +187,11 @@ const [param, setparam] = useState('')
             <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <FormProvider  methods={methods} >
               <ShopFilterSidebar
-                onResetAll={handleResetFilter}
                 isOpen={openFilter}
                 onOpen={handleOpenFilter}
                 onClose={handleCloseFilter}
               />
-            </FormProvider>
           </Stack>
         </Stack>
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
@@ -232,14 +224,11 @@ const [param, setparam] = useState('')
             <Stack direction="row" spacing={1} flexShrink={0}
             justifyContent="space-between" sx={{ my: 1 }}>
               <Typography variant='h6'>중고거래</Typography>
-              <FormProvider methods={methods}>
                 <ShopFilterSidebar
-                  onResetAll={handleResetFilter}
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
                 />
-              </FormProvider> 
             </Stack>
           <ShopProductSearch setparam={setparam} />
           <Box sx={{  whiteSpace: 'nowrap',
@@ -248,7 +237,7 @@ const [param, setparam] = useState('')
         </Stack>
 
         <Divider sx={{mt:1, mb:1}} />
-        <Appmarketcategory2mobile value={value} setValue={setValue}/>
+        <Appmarketcategory2mobile />
           <Divider sx={{mt:1, mb:2}} />
 
         <ShopProductList products={products} loading={!products.length} />

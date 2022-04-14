@@ -24,7 +24,7 @@ export default function Appmarketcategory2() {
       <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
         sx={{...(tab === 'biketrade') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>바이크</Typography>}
+          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>전체</Typography>}
           value="biketrade"
         />
         <BottomNavigationAction
@@ -39,13 +39,8 @@ export default function Appmarketcategory2() {
         />
         <BottomNavigationAction
         sx={{...(tab === 'gear') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>장비</Typography>}
+          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>상세검색</Typography>}
           value="gear"
-        />
-        <BottomNavigationAction
-        sx={{...(tab === 'parts') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>부품용품</Typography>}
-          value="parts"
         />
       </BottomNavigation>
     </Stack> 
