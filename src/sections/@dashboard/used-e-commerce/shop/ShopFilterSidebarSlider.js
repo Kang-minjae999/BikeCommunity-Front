@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
@@ -9,9 +8,10 @@ function valuetext(value) {
 }
 ShopFilterSidebarSlider.propTypes = {
   field: PropTypes.object,
+  value: PropTypes.array,
+  setValue: PropTypes.func,
 };
-export default function ShopFilterSidebarSlider({field}) {
-  const [value, setValue] = useState([0, 0]);
+export default function ShopFilterSidebarSlider({field, value, setValue}) {
 
   const marks = [
     {
@@ -38,8 +38,9 @@ export default function ShopFilterSidebarSlider({field}) {
       <Slider
         size='medium'
         marks={marks}
-        value={field.value}
-        onChange={(event, newValue) => field.onChange(newValue) + setValue(newValue)}
+        value={value}
+        onChange={(event, newValue) => setValue(newValue)}
+        onChangeCommitted={(event, newValue) => field.onChange(newValue)}
         valueLabelFormat={valuetext}
         valueLabelDisplay="auto"
         step={1000}

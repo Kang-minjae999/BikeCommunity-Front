@@ -39,14 +39,11 @@ export default function Appmarketcategory2() {
         />
         <BottomNavigationAction
         sx={{...(tab === 'gear') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>상세검색</Typography>}
+          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>용품부품</Typography>}
           value="gear"
         />
       </BottomNavigation>
     </Stack> 
-
-
 </>
   );
-
 }

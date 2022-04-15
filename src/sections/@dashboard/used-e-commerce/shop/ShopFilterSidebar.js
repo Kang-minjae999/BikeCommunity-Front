@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 // form
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 
 // @mui
 import {
-  Box,
   Stack,
   Button,
   Drawer,
@@ -20,43 +17,20 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
-import { RHFRadioGroup, RHFTextField, FormProvider, RHFCheckbox } from '../../../../components/hook-form';
+import { RHFTextField, FormProvider, RHFCheckbox, RHFRadioGroupForSearch } from '../../../../components/hook-form';
 import ShopFilterSidebarSlider from './ShopFilterSidebarSlider';
 import ShopFilterSidebarSliderPrice from './ShopFilterSidebarSliderPrice';
 import ShopFilterSidebarSliderDisplacement from './ShopFilterSidebarSliderDisplacement';
-import axios from '../../../../utils/axiosuser';
+import useResponsive from '../../../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
+export const FILTER_GEARBOX_OPTIONS = [{ value: true, label: '메뉴얼' }, { value: false, label: '스쿠터' }];
 
-export const SORT_BY_OPTIONS = [
-  { value: 'featured', label: 'Featured' },
-  { value: 'newest', label: 'Newest' },
-  { value: 'priceDesc', label: 'Price: High-Low' },
-  { value: 'priceAsc', label: 'Price: Low-High' },
-];
+export const FILTER_NEGO_OPTIONS = [{ value: true, label: '가능' }, { value: false, label: '불가능' }];
 
-export const FILTER_GEARBOX_OPTIONS = ['메뉴얼', '스쿠터'];
+export const FILTER_TRADE_OPTIONS = [{ value: true, label: '가능' }, { value: false, label: '불가능' }];
 
-export const FILTER_DISPLACEMENT_OPTIONS = ['50~250', '250~500', '500~900', '900~'];
-
-export const FILTER_MILEAGE_OPTIONS = ['0~5000', '5000~10000', '10000~15000', '15000~20000', '20000~25000', '25000~'];
-
-export const FILTER_PRICE_OPTIONS = ['~300', '300~600','600~900','900~1200','1200~1500','1500~'];
-
-export const FILTER_NEGO_OPTIONS = ['가능', '불가능'];
-
-export const FILTER_TRADE_OPTIONS = ['가능', '불가능'];
-
-export const FILTER_CRASH_OPTIONS = ['사고있음', '무사고'];
-
-
-export const FILTER_GENDER_OPTIONS = ['Men', 'Women', 'Kids'];
-
-export const FILTER_CATEGORY_OPTIONS = ['All', 'Shose', 'Apparel', 'Accessories'];
-
-export const FILTER_RATING_OPTIONS = ['up4Star', 'up3Star', 'up2Star', 'up1Star'];
-
-
+export const FILTER_CRASH_OPTIONS = [{ value: true, label: '사고있음' }, { value: false, label: '무사고' }];
 // ----------------------------------------------------------------------
 
 
@@ -64,11 +38,14 @@ ShopFilterSidebar.propTypes = {
   isOpen: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
+  setApi: PropTypes.func,
+  setProducts: PropTypes.func,
 };
 
-export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
+export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, setProducts }) {
+  const isDesktop = useResponsive('up', 'lg')
  
-  const defaultValues = {
+  const defaultValues = useMemo(() => ({
     gearbox: null,
     displacement: [0,0],
     maxDisplacement: false,
@@ -83,9 +60,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
     nego: null,
     trade: null,
     tradeModel: '',
-  };
-
-
+  }),[]);
 
   const methods = useForm({
     defaultValues,
@@ -104,50 +79,101 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
 
   const resetAll = () => {
     reset();
+    setValueD([0,0])
+    setValueP([0,0])
+    setValueM([0,0])
+    setApi('')
+    setSub('')
   };
 
+  const [sub, setSub] = useState('')
+
+  const [valueD, setValueD] = useState([0, 0]);
+  const [valueP, setValueP] = useState([0, 0]);
+  const [valueM, setValueM] = useState([0, 0]);
 
   useEffect(() => {
     if(values.maxDisplacement){
       setValue('displacement', [1500, 1500])
+      setValueD([1500, 1500])
     }
     if(values.maxMileage){
       setValue('mileage', [30000, 30000])
+      setValueM([30000, 30000])
     }
     if(values.maxPrice){
       setValue('price', [3000, 3000])
+      setValueP([3000, 3000])
     }
   }, [values.maxDisplacement,values.maxMileage, values.maxPrice, setValue]);
 
-  
-   /* useEffect(() => {
-    if(values.displacement !== [1500, 1500]){
+  useEffect(() => {
+    if(+parseInt(values.displacement.map((d) => +d), 10) < 1499){
       setValue('maxDisplacement', false)
     }
-    if(values.mileage !== [30000, 30000]){
+    if(+parseInt(values.mileage.map((d) => +d), 10) < 29999){
       setValue('maxMileage', false)
     }
-    if(values.price !== [3000, 3000]){
+    if(+parseInt(values.price.map((d) => +d), 10) < 2999){
       setValue('maxPrice', false)
     }
-   }, [values.displacement,values.mileage, values.price, setValue])  */
+  }, [values.displacement,values.mileage, values.price, setValue]);
   
-   console.log(values)
+  const submit =  useCallback(() => {
+    setSub(() => '')
+    if(values.gearbox !== defaultValues.gearbox){
+      setSub(sub => `${sub}&gearbox=${values.gearbox}`)
+    }
+    if(values.displacement !== defaultValues.displacement){
+      if(+parseInt(values.displacement.map((d) => +d), 10) !== 0){
+        setSub(sub=> `${sub}&displacement=${values.displacement}`)
+      }
+    }
+    if(values.isCrash !== defaultValues.isCrash){
+      setSub(sub=> `${sub}&isCrash=${values.isCrash}`)    
+    }
+    if(values.address !== defaultValues.address){
+      setSub(sub=> `${sub}&address=${values.address}`)    
+    }
+    if(values.modelName !== defaultValues.modelName){
+      setSub(sub=> `${sub}&modelName=${values.modelName}`)    
+    }
+    if(values.year !== defaultValues.year){
+      setSub(sub=> `${sub}&year=${values.year}`)    
+    }
+    if(values.mileage !== defaultValues.mileage){
+      if(+parseInt(values.mileage.map((d) => +d), 10) !== 0){
+      setSub(sub=> `${sub}&mileage=${values.mileage}`)
+      }
+    }
+    if(values.price !== defaultValues.price){
+      if(+parseInt(values.price.map((d) => +d), 10) !== 0){
+      setSub(sub=> `${sub}&price=${values.price}`)
+      }
+    }
+    if(values.nego !== defaultValues.nego){
+      setSub(sub=> `${sub}&nego=${values.nego}`)
+    }
+    if(values.trade !== defaultValues.trade){
+      setSub(sub=> `${sub}&trade=${values.trade}`)
+    }
+    if(values.tradeModel !== defaultValues.tradeModel){
+      setSub(sub=> `${sub}&tradeModel=${values.tradeModel}`)
+    } 
+    return sub;
+  },[values,defaultValues, sub])
 
-    const onSubmit = async (data) => {
-    console.log(data)
-    const accessToken = window.localStorage.getItem('accessToken');
-    try {
-      await axios.post('/posts', {
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    };
-  };
-  
+  useEffect(() => {
+    submit();
+  }, [submit])
+
+  const onSubmit = () => {
+    setProducts([])
+    submit();
+    setApi(sub) 
+    onClose()
+  }
+
   return (
     <>            
       <Button disableRipple color="inherit" endIcon={<Iconify icon={'ic:round-filter-list'} />} onClick={onOpen}>
@@ -155,11 +181,11 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
       </Button>
 
       <Drawer
-        anchor="bottom"
+        anchor={!isDesktop ? 'bottom' : 'left'}
         open={isOpen}
         onClose={onClose}
         PaperProps={{
-          sx: { width: '100%', height:'85vh'},
+          sx: { ...(isDesktop ?{ width: '40%',height:'100vh'} : {width: '100%',height:'85vh'})},
         }}
       >
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}> 
@@ -180,21 +206,21 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
             <Stack direction="column" alignItems="flex-start" justifyContent="flex-start" sx={{ px: 1 }} spacing={2}>
               <Stack spacing={1}>
                 <Typography variant="subtitle1">종류</Typography>
-                <RHFRadioGroup name="gearbox" options={FILTER_GEARBOX_OPTIONS} row={false}/>
+                <RHFRadioGroupForSearch name="gearbox" options={FILTER_GEARBOX_OPTIONS} row={false}/>
               </Stack>
               <Stack spacing={1}>
                   <Typography variant="subtitle1">사고</Typography>
-                  <RHFRadioGroup name="isCrash" options={FILTER_CRASH_OPTIONS} row={false} />
+                  <RHFRadioGroupForSearch name="isCrash" options={FILTER_CRASH_OPTIONS} row={false} />
                 </Stack>
                 <Stack spacing={1}>
                 <Typography variant="subtitle1">대차</Typography>
-                  <RHFRadioGroup name="trade" options={FILTER_TRADE_OPTIONS} row />
+                  <RHFRadioGroupForSearch name="trade" options={FILTER_TRADE_OPTIONS} row />
                 </Stack>
             </Stack>  
             <Stack direction="column" alignItems="flex-start" justifyContent="flex-start" sx={{ px: 1 }} spacing={2}>
               <Stack spacing={1}>
                 <Typography variant="subtitle1">지역</Typography>
-                <RHFTextField name="address"  size='small'/>
+                <RHFTextField name="address"  size='small' autoComplete='off' />
                 </Stack>
               <Stack spacing={1}>
                 <Typography variant="subtitle1">모델명</Typography>
@@ -220,7 +246,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
                     name="displacement"
                     control={control}
                     render={({ field }) => (
-                  <ShopFilterSidebarSliderDisplacement field={field}/>)}/>
+                  <ShopFilterSidebarSliderDisplacement field={field} value={valueD} setValue={setValueD}/>)}/>
                   <RHFCheckbox name="maxDisplacement" label="1500cc이상" labelPlacement="top" sx={{mr:3}}/>
                 </Stack>
                 <Typography variant="subtitle1">키로수</Typography>
@@ -229,7 +255,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
                     name="mileage"
                     control={control}
                     render={({ field }) => (
-                  <ShopFilterSidebarSlider field={field}/>)}/>
+                  <ShopFilterSidebarSlider field={field} value={valueM} setValue={setValueM}/>)}/>
                   <RHFCheckbox name="maxMileage" label="30000km이상" labelPlacement="top"/>
                 </Stack>
                 <Typography variant="subtitle1">가격</Typography>
@@ -238,7 +264,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
                     name="price"
                     control={control}
                     render={({ field }) => (
-                  <ShopFilterSidebarSliderPrice field={field}/>)}/> 
+                  <ShopFilterSidebarSliderPrice field={field} value={valueP} setValue={setValueP}/>)}/> 
                 <RHFCheckbox name="maxPrice" label="3000만원이상" labelPlacement="top" />
               </Stack>  
               </Stack>

@@ -42,7 +42,7 @@ export default function Appmarketcategory2mobile() {
       />
       <BottomNavigationAction
         sx={{...(tab === 'gear') && valueStyle}}
-        label={<Typography variant='subtitle2'color='text.primary'>상세검색</Typography>}
+        label={<Typography variant='subtitle2'color='text.primary'>용품부품</Typography>}
         value="gear"
       />
       </BottomNavigation>

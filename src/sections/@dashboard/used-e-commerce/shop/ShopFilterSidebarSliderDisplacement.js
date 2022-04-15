@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import {useState} from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
@@ -9,9 +8,10 @@ function valuetext(value) {
 }
 ShopFilterSidebarSliderDisplacement.propTypes = {
   field: PropTypes.object,
+  value: PropTypes.array,
+  setValue: PropTypes.func,
 };
-export default function ShopFilterSidebarSliderDisplacement({field}) {
-  const [value, setValue] = useState([0, 0]);
+export default function ShopFilterSidebarSliderDisplacement({field, value, setValue}) {
 
   const marks = [
     {
@@ -37,9 +37,10 @@ export default function ShopFilterSidebarSliderDisplacement({field}) {
       <Slider
         size='medium'
         marks={marks}
-        value={field.value}
+        value={value}
         getAriaLabel={() => 'Temperature range'}
-        onChange={(event, newValue) => field.onChange(newValue) + setValue(newValue)}
+        onChange={(event, newValue) => setValue(newValue)}
+        onChangeCommitted={(event, newValue) => field.onChange(newValue)}
         valueLabelFormat={valuetext}
         valueLabelDisplay="auto"
         step={100}

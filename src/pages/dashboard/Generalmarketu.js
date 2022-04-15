@@ -2,9 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 // form
-import { useForm } from 'react-hook-form';
 // @mui
-import { Container, Stack, Pagination, Divider, Box, Chip, Button, CardHeader, Typography } from '@mui/material';
+import { Container, Stack, Pagination, Divider, Box, Chip, Button, Typography } from '@mui/material';
 import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
@@ -17,10 +16,8 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { FormProvider } from '../../components/hook-form';
 // sections
 import {
-  ShopProductSort,
   ShopProductList,
   ShopFilterSidebar,
   ShopProductSearch,
@@ -60,10 +57,11 @@ export default function GeneralMarketu() {
   const [productsPC, setProductsPC] = useState([]);
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
+  const [api, setApi] = useState('')
 
 const getAllProducts = useCallback(async () => {
   try {
-    const response = await axios.get(`/${tab}?page=${page}&size=2`);
+    const response = await axios.get(`/${tab}?page=${page}&size=2${api}`);
     if (isMountedRef.current) {
       if(paging > -1){
         setProductsPC(response.data.data.content);
@@ -75,32 +73,30 @@ const getAllProducts = useCallback(async () => {
   } catch (error) {
     console.error(error);
   }
-}, [isMountedRef,tab, page, paging]);
+}, [isMountedRef,tab, page, paging, api]);
 
 const [param, setparam] = useState('')
 
-  const getAllProductsTitle = useCallback(async () => {
-    try {
-      const response = await axios.get(`/biketrade/search/?title=${param}`);
-      if (isMountedRef.current) {
-        setProducts(response.data.data.content);
-        settotalpage(response.data.data.totalPages);
-      }
-    } catch (error) {
-      console.error(error);
+const getAllProductsTitle = useCallback(async () => {
+  try {
+    const response = await axios.get(`/biketrade/search/?title=${param}`);
+    if (isMountedRef.current) {
+      setProducts(response.data.data.content);
+      settotalpage(response.data.data.totalPages);
     }
-  }, [isMountedRef,param]);
+  } catch (error) {
+    console.error(error);
+  }
+}, [isMountedRef,param]);
 
-  useEffect(() => {
-    if(!param){
-      getAllProducts();
-    }
-    if(param){
-      getAllProductsTitle();
-    }
-  }, [getAllProducts, getAllProductsTitle, param]);
-
-  
+useEffect(() => {
+  if(!param){
+    getAllProducts();
+  }
+  if(param){
+    getAllProductsTitle();
+  }
+}, [getAllProducts, getAllProductsTitle, param]);
 
   const handleChange = ((event, value) => {
     setpagenation(value)
@@ -118,34 +114,6 @@ const [param, setparam] = useState('')
     setpagenation(go)
    }
   );
-
-  // -----------------------------------------------------------
-
-/*   const defaultValues = {
-    gearbox: null,
-    displacement: null,
-    isCrash: null,
-    address: undefined,
-    modelName: undefined,
-    year: undefined,
-    mileage: null,
-    price: null,
-    nego: null,
-    trade: null,
-    tradeModel: undefined,
-  };
-
-  const methods = useForm(
-    defaultValues);
-
-  const {
-    reset,
-    watch,
-    control,
-    getValues,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods; */
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -187,11 +155,14 @@ const [param, setparam] = useState('')
             <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+          {tab !== 'gear' &&
               <ShopFilterSidebar
-                isOpen={openFilter}
-                onOpen={handleOpenFilter}
-                onClose={handleCloseFilter}
-              />
+                  isOpen={openFilter}
+                  onOpen={handleOpenFilter}
+                  onClose={handleCloseFilter}
+                  setProducts={setProducts}
+                  setApi={setApi}
+              />}
           </Stack>
         </Stack>
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
@@ -224,11 +195,14 @@ const [param, setparam] = useState('')
             <Stack direction="row" spacing={1} flexShrink={0}
             justifyContent="space-between" sx={{ my: 1 }}>
               <Typography variant='h6'>중고거래</Typography>
+                {tab !== 'gear' &&
                 <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-                />
+                  setProducts={setProducts}
+                  setApi={setApi}
+                />}
             </Stack>
           <ShopProductSearch setparam={setparam} />
           <Box sx={{  whiteSpace: 'nowrap',
