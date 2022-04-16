@@ -100,6 +100,7 @@ export default function Router() {
             { path: 'motocyclegear', element: <UEmotocyclegear /> },
             { path: 'motocycleparts', element: <UEmotocycleparts /> },
             { path: 'product/detail/:id', element: <UEcommerceProductDetails /> },
+            { path: 'productetc/detail/:id', element: <UEcommerceProductDetailsEtc /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
             { path: 'product/newetc', element: <UEcommerceProductCreate /> },
@@ -290,6 +291,7 @@ const UEmotocyclegear = Loadable(lazy(() => import('../pages/dashboard/UEmotocyc
 const UEmotocycleparts = Loadable(lazy(() => import('../pages/dashboard/UEmotocycleparts')));
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
 const UEcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetails')));
+const UEcommerceProductDetailsEtc = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetailsEtc')));
 
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));

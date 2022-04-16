@@ -50,21 +50,12 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
     id,
     title,
     address,
-    gearbox,
     brand,
-    modelName,
     price,
-    year,
-    mileage,
-    displacement,
     status,
-    negoable,
-    tradeable,
-    isCrashed,
     nicknameOfSeller,
     avatarURLOfSeller,
-    tradeableModels,
-    bikeImageURLs,
+    ImageURLs,
     createdDate,
     isGarage
   } = product;
@@ -72,14 +63,11 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
 
   const defaultValues = {
     heartId: id,
-    heartType: 'moto',
+    heartType: 'etc',
     heartTitle: title,
     heartAddress: address,
-    heartImageURLs: bikeImageURLs[0],
+    heartImageURLs: ImageURLs[0],
     heartBrand: brand,
-    heartModelName: modelName,
-    heartYear: year,
-    heartMileage: mileage,
     heartIsGarage: isGarage,
     heartPrice: price,
   };
@@ -100,6 +88,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       console.error(error);
     }
   };
+
   const handleAddHeart = async () => {
     try{
       checkHeart(values)
@@ -202,52 +191,9 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
           {brand}
           </Typography>
           <Typography variant="subtitle2" >
-          {modelName}
-          </Typography>
-          <Typography variant="subtitle2" >
-          {displacement}cc
-          </Typography>
-        </Stack>  
-
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-        <Typography variant="subtitle2" >
           {address}
           </Typography>
-        <Typography variant="subtitle2" >
-            {year}년식
-        </Typography>
-        <Typography variant="subtitle2" >
-            {mileage}km
-          </Typography>
         </Stack>  
-
-        <Stack direction="row"  justifyContent="space-between" sx={{ mb: 2 }} >
-        {negoable ?  
-          <Typography variant='body2' color='blue' sx={{mb:1}}>
-            네고가능
-          </Typography> :
-          <Typography variant='body2' color='red' sx={{mb:1}}>
-            네고불가능
-          </Typography> }
-          {tradeable ?  
-          <Typography variant='body2' color='blue' sx={{mb:1}}>
-            대차가능
-          </Typography> :
-          <Typography variant='body2' color='red' sx={{mb:1}}>
-            대차불가능
-          </Typography> }
-          {!isCrashed ?  
-          <Typography variant='body2' color='blue' sx={{mb:1}}>
-            무사고
-          </Typography> :
-          <Typography variant='body2' color='red' sx={{mb:1}}>
-            사고있음
-          </Typography> }
-        </Stack> 
-        {tradeable &&
-        <><Typography variant='body2' color='text.secondary' sx={{mb:1}}>대차 가능 모델</Typography> 
-        {tradeableModels.map((model)=> (<Chip key={model} label={model} sx={{mb:2}}/>))}</>}
-
         <Typography variant="h4" sx={{ mb: 2 }}>
           {fCurrency(price)}원
         </Typography>

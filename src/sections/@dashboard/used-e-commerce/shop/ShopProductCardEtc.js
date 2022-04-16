@@ -20,10 +20,9 @@ ShopProductCard.propTypes = {
 };
 
 export default function ShopProductCard({ product }) {
-  const { id, title, brand, modelName, thumbnailImageURLs, address, createdDate, price, year, mileage, isGarage } =
-    product;
+  const { id, title, thumbnailImageURLs, address, createdDate, price, isGarage } = product;
 
-  const linkTo = `${PATH_DASHBOARD.usedeCommerce.root}/product/detail/${id}`;
+  const linkTo = `${PATH_DASHBOARD.usedeCommerce.root}/productetc/detail/${id}`;
 
   return (
     <Card>
@@ -54,22 +53,6 @@ export default function ShopProductCard({ product }) {
                       개인
                     </Typography>
                   )}
-                </Stack>
-                <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                      {brand}
-                    </Typography>
-                    <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                      {modelName}
-                    </Typography>
-                </Stack>
-                <Stack direction="row" justifyContent="space-between">
-                    <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                    {year}년식
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
-                    {mileage}km
-                  </Typography>
                 </Stack>
               </Stack>
               <Divider />
