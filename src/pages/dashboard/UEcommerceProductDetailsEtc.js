@@ -64,7 +64,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function UEcommerceProductDetails() {
+export default function UEcommerceProductDetailsEtc() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
 
@@ -80,7 +80,7 @@ export default function UEcommerceProductDetails() {
 
   const getProduct = useCallback(async () => {
     try {
-      const response = await axios.get(`/biketrade/${id}`);
+      const response = await axios.get(`/etctrade/${id}`);
   
       if (isMountedRef.current) {
         setProduct(response.data.data);

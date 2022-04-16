@@ -1,5 +1,6 @@
 export { default as ShopTagFiltered } from './ShopTagFiltered';
 export { default as ShopProductCard } from './ShopProductCard';
+export { default as ShopProductCardEtc } from './ShopProductCardEtc';
 export { default as ShopProductList } from './ShopProductList';
 export { default as ShopProductListmobile } from './ShopProductListmobile';
 export { default as ShopProductSort } from './ShopProductSort';

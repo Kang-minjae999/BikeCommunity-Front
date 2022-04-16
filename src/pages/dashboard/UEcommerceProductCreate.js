@@ -28,9 +28,8 @@ export default function EcommerceProductCreate() {
 
   const isEdit = pathname.includes('edit');
 
-  const ismoto = pathname.includes('moto');
-  const isgear = pathname.includes('gear');
-  const isparts = pathname.includes('parts');
+  const ismoto = pathname.includes('newmoto');
+  const isgear = pathname.includes('newetc');
 
   const [api, setApi] = useState();
   const [currentProduct, setcurrentProduct] = useState(null);
@@ -40,24 +39,21 @@ export default function EcommerceProductCreate() {
       setApi('biketrade');
     }
     if (isgear) {
-      setApi('biketrade');
+      setApi('etctrade');
     }
-    if (isparts) {
-      setApi('biketrade');
-    }
-  }, [ismoto, isgear, isparts]);
+  }, [ismoto, isgear]);
 
   const getProduct = useCallback(async () => {
+    if(isEdit){
     try {
       const response = await axios.get(`/${api}/${id}`);
-
       if (isMountedRef.current) {
         setcurrentProduct(response.data.data);
       }
     } catch (error) {
       console.log(error);
     }
-  }, [isMountedRef, id, api]);
+  }}, [isMountedRef, id, api, isEdit]);
 
   useEffect(() => {
     if(api){
@@ -86,7 +82,6 @@ export default function EcommerceProductCreate() {
 
         {ismoto && <UProductNewForm isEdit={isEdit} currentProduct={currentProduct} />}
         {isgear && <UProductNewFormgear isEdit={isEdit} currentProduct={currentProduct} />}
-        {isparts && <UProductNewFormparts isEdit={isEdit} currentProduct={currentProduct} />}
       </Container>
     </Page>
   );

@@ -79,7 +79,7 @@ const [param, setparam] = useState('')
 
 const getAllProductsTitle = useCallback(async () => {
   try {
-    const response = await axios.get(`/biketrade/search/?title=${param}`);
+    const response = await axios.get(`/${tab}/search/?page=${page}&size=2&title=${param}`);
     if (isMountedRef.current) {
       setProducts(response.data.data.content);
       settotalpage(response.data.data.totalPages);
@@ -87,7 +87,7 @@ const getAllProductsTitle = useCallback(async () => {
   } catch (error) {
     console.error(error);
   }
-}, [isMountedRef,param]);
+}, [isMountedRef,param,tab]);
 
 useEffect(() => {
   if(!param){
@@ -155,7 +155,7 @@ useEffect(() => {
             <SimpleDialogDemo />
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-          {tab !== 'gear' &&
+          {tab !== 'etctrade' &&
               <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
@@ -195,11 +195,12 @@ useEffect(() => {
             <Stack direction="row" spacing={1} flexShrink={0}
             justifyContent="space-between" sx={{ my: 1 }}>
               <Typography variant='h6'>중고거래</Typography>
-                {tab !== 'gear' &&
+                {tab !== 'etctrade' &&
                 <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
+                  products={products}
                   setProducts={setProducts}
                   setApi={setApi}
                 />}

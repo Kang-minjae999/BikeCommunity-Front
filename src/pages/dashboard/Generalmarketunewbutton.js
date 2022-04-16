@@ -32,12 +32,9 @@ function SimpleDialog(props) {
   };
 
   const handleListItemClick2 = () => {
-    navigate('/dashboard/used-e-commerce/product/newgear');
+    navigate('/dashboard/used-e-commerce/product/newetc');
   }; 
 
-  const handleListItemClick3 = () => {
-    navigate('/dashboard/used-e-commerce/product/newparts');
-  };
 
   return (
     <Dialog onClose={handleClose} open={open}>
@@ -59,16 +56,7 @@ function SimpleDialog(props) {
                 <SportsMotorsportsIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText >장비</ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem button onClick={() => handleListItemClick3()}>
-            <ListItemAvatar>
-              <Avatar sx={{ color: 'black' }}>
-                <ConstructionIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText >부품용품</ListItemText>
+            <ListItemText>장비/부품/용품</ListItemText>
           </ListItem>
       </List>
     </Dialog>
