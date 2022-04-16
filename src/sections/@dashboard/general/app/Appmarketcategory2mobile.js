@@ -31,17 +31,17 @@ export default function Appmarketcategory2mobile() {
         value="biketrade"
       />
       <BottomNavigationAction
-        sx={{...(tab === 'userbiketrade') && valueStyle}}
+        sx={{...(tab === 'biketrade-user') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>개인</Typography>}
-        value="biketrade/user"
+        value="biketrade-user"
       />
       <BottomNavigationAction
-        sx={{...(tab === 'garagebiketrade') && valueStyle}}
+        sx={{...(tab === 'biketrade-garage') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>정비소</Typography>}
-        value="biketrade/garage"
+        value="biketrade-garage"
       />
       <BottomNavigationAction
-        sx={{...(tab === 'gear') && valueStyle}}
+        sx={{...(tab === 'etctrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>용품부품</Typography>}
         value="etctrade"
       />

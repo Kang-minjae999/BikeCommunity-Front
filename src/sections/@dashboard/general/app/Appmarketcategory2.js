@@ -28,17 +28,17 @@ export default function Appmarketcategory2() {
           value="biketrade"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'usermoto') && valueStyle}}
+        sx={{...(tab === 'biketrade-user') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>개인</Typography>}
-          value="biketrade/user"
+          value="biketrade-user"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'garagemoto') && valueStyle}}
+        sx={{...(tab === 'biketrade-garage') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>정비소</Typography>}
-          value="biketrade/garage"
+          value="biketrade-garage"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'gear') && valueStyle}}
+        sx={{...(tab === 'etctrade') && valueStyle}}
           label={<Typography variant='h6'color='text.primary' fontWeight='bold'>용품부품</Typography>}
           value="etctrade"
         />

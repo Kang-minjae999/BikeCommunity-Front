@@ -106,6 +106,8 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
 
   const [submitCate, setSubmitCate] = useState()
 
+  console.log(submitCate)
+
   useEffect(() => {
     if (values.etcCategory === '부품') {
       setSubmitCate(0);
@@ -129,7 +131,6 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
       formData.append('brand', data.brand);
       formData.append('price', data.price);
       formData.append('etcCategory', submitCate);
-      formData.append('negoable', data.negoable);
       try {
         await axios.post('/etctrade', formData, {
           headers: {
@@ -153,7 +154,6 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
       formData.append('brand', data.brand);
       formData.append('price', data.price);
       formData.append('etcCategory', submitCate);
-      formData.append('negoable', data.negoable);
       try {
         await axios.put('/etctrade', formData, {
           headers: {
@@ -219,7 +219,7 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{mb:5}}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>        
@@ -302,10 +302,6 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
                   }}
                 />
               </Stack>
-
-              <RHFSwitch name='negoable' label='네고' labelPlacement='start'/> 
-
-
             </Card>
 
             <LoadingButton type="submit" variant="outlined" color='inherit' size="large" loading={isSubmitting}>
