@@ -22,6 +22,7 @@ import ShopFilterSidebarSlider from './ShopFilterSidebarSlider';
 import ShopFilterSidebarSliderPrice from './ShopFilterSidebarSliderPrice';
 import ShopFilterSidebarSliderDisplacement from './ShopFilterSidebarSliderDisplacement';
 import useResponsive from '../../../../hooks/useResponsive';
+import ShopFilterSidebarSliderYear from './ShopFilterSidebarSliderYear';
 
 // ----------------------------------------------------------------------
 export const FILTER_GEARBOX_OPTIONS = [{ value: true, label: '메뉴얼' }, { value: false, label: '스쿠터' }];
@@ -82,6 +83,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
     setValueD([0,0])
     setValueP([0,0])
     setValueM([0,0])
+    setValueY([0,0])
     setApi('')
     setSub('')
   };
@@ -91,6 +93,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
   const [valueD, setValueD] = useState([0, 0]);
   const [valueP, setValueP] = useState([0, 0]);
   const [valueM, setValueM] = useState([0, 0]);
+  const [valueY, setValueY] = useState([0, 0]);
 
   useEffect(() => {
     if(values.maxDisplacement){
@@ -119,6 +122,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
     }
   }, [values.displacement,values.mileage, values.price, setValue]);
   
+
   const submit =  useCallback(() => {
     setSub(() => '')
     if(values.gearbox !== defaultValues.gearbox){
@@ -126,7 +130,11 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
     }
     if(values.displacement !== defaultValues.displacement){
       if(+parseInt(values.displacement.map((d) => +d), 10) !== 0){
-        setSub(sub=> `${sub}&displacement=${values.displacement}`)
+        if(+parseInt(values.displacement.map((d) => +d), 10) === 1500){
+          setSub(sub=> `${sub}&displacement=1500,10000`)
+        } else {
+          setSub(sub=> `${sub}&displacement=${values.displacement}`)
+        }
       }
     }
     if(values.isCrash !== defaultValues.isCrash){
@@ -139,23 +147,33 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
       setSub(sub=> `${sub}&modelName=${values.modelName}`)    
     }
     if(values.year !== defaultValues.year){
-      setSub(sub=> `${sub}&year=${values.year}`)    
+      if(+parseInt(values.year.map((d) => +d), 10) !== 0){
+        setSub(sub=> `${sub}&year=${values.year}`)  
+      }  
     }
     if(values.mileage !== defaultValues.mileage){
       if(+parseInt(values.mileage.map((d) => +d), 10) !== 0){
-      setSub(sub=> `${sub}&mileage=${values.mileage}`)
+        if(+parseInt(values.mileage.map((d) => +d), 10) === 30000){
+          setSub(sub=> `${sub}&mileage=30000,1000000`)
+        } else {
+          setSub(sub=> `${sub}&mileage=${values.mileage}`)
+        }
       }
     }
     if(values.price !== defaultValues.price){
       if(+parseInt(values.price.map((d) => +d), 10) !== 0){
-      setSub(sub=> `${sub}&price=${values.price}`)
+        if(+parseInt(values.price.map((d) => +d), 10) === 3000){
+          setSub(sub=> `${sub}&price=3000,30000`)
+        } else {
+          setSub(sub=> `${sub}&price=${values.mileage}`)
+        }
       }
     }
     if(values.nego !== defaultValues.nego){
-      setSub(sub=> `${sub}&nego=${values.nego}`)
+      setSub(sub=> `${sub}&negoable=${values.nego}`)
     }
     if(values.trade !== defaultValues.trade){
-      setSub(sub=> `${sub}&trade=${values.trade}`)
+      setSub(sub=> `${sub}&tradeable=${values.trade}`)
     }
     if(values.tradeModel !== defaultValues.tradeModel){
       setSub(sub=> `${sub}&tradeModel=${values.tradeModel}`)
@@ -185,7 +203,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
         open={isOpen}
         onClose={onClose}
         PaperProps={{
-          sx: { ...(isDesktop ?{ width: '40%',height:'100vh'} : {width: '100%',height:'85vh'})},
+          sx: { ...(isDesktop ?{ width: '40%',height:'100vh'} : {width: '100%',height:'95vh'})},
         }}
       >
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}> 
@@ -224,23 +242,29 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
                 </Stack>
               <Stack spacing={1}>
                 <Typography variant="subtitle1">모델명</Typography>
-                <RHFTextField name="modelName"  size='small'/>
-              </Stack>
-              <Stack spacing={1}>
-                <Typography variant="subtitle1">연식</Typography>
-                <RHFTextField name="year" size='small'/>
+                <RHFTextField name="modelName"  size='small' autoComplete='off'/>
               </Stack>
               <Stack spacing={1}>
               <Typography variant="subtitle1">대차 가능 모델</Typography>
-                  <RHFTextField name='tradeModel' size='small'/>
+                  <RHFTextField name='tradeModel' size='small' autoComplete='off'/>
               </Stack>
-
+              <Stack spacing={1} sx={{mt:1}}>
+                <Typography variant="subtitle1" >네고</Typography>
+                  <RHFRadioGroupForSearch name="nego" options={FILTER_TRADE_OPTIONS} row />
+                </Stack>
               </Stack>
-            </Stack>
-            
+            </Stack>       
             <Stack direction="column"  sx={{ px: 2, width:'100%' }} spacing={2}>
               <Stack spacing={1} direction='column' sx={{ width:'100%' }} >
-                <Typography variant="subtitle1">배기량</Typography>
+              <Typography variant="subtitle1">연식</Typography>
+                <Stack direction='row' justifyContent='space-between'>
+                  <Controller
+                    name="year"
+                    control={control}
+                    render={({ field }) => (
+                  <ShopFilterSidebarSliderYear field={field} value={valueY} setValue={setValueY}/>)}/>
+                </Stack>
+              <Typography variant="subtitle1">배기량</Typography>
                 <Stack direction='row' justifyContent='space-between'>
                   <Controller
                     name="displacement"
