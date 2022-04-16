@@ -80,7 +80,7 @@ export default function UEcommerceProductDetailsEtc() {
 
   const getProduct = useCallback(async () => {
     try {
-      const response = await axios.get(`/biketrade/${id}`);
+      const response = await axios.get(`/etctrade/${id}`);
   
       if (isMountedRef.current) {
         setProduct(response.data.data);
@@ -93,12 +93,6 @@ export default function UEcommerceProductDetailsEtc() {
   useEffect(() => {
     getProduct();
   }, [getProduct]);
-
-  useEffect(() => {
-    sessionStorage.setItem('shopmarketuisopen', 'yes')
-  }, []);
-
-
 
   const handleAddHeart = (product) => {
     dispatch(addHeartUsed(product));

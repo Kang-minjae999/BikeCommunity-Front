@@ -62,7 +62,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
 
 
   const defaultValues = {
-    heartId: id,
+    heartId: `etc/detail/${id}`,
     heartType: 'etc',
     heartTitle: title,
     heartAddress: address,

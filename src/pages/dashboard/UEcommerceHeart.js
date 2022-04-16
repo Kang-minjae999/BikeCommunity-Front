@@ -14,7 +14,6 @@ import useSettings from '../../hooks/useSettings';
 // components
 // sections
 import Image from '../../components/Image';
-import Label from '../../components/Label';
 
 // ----------------------------------------------------------------------
 
@@ -26,11 +25,11 @@ export default function UEcommerceHeart() {
   const { usedHeart } = useSelector((state) => state.product);
 
   const gotoDetail = (id) => {
-    navigate(`${PATH_DASHBOARD.usedeCommerce.root}/product/detail/${id}`)
+    navigate(`${PATH_DASHBOARD.usedeCommerce.root}/product${id}`)
   }
 
   const gotoDetailEtc = (id) => {
-    navigate(`${PATH_DASHBOARD.usedeCommerce.root}/productetc/detail/${id}`)
+    navigate(`${PATH_DASHBOARD.usedeCommerce.root}/product${id}`)
   }
 
   const onClick = (id) => {
@@ -58,8 +57,9 @@ export default function UEcommerceHeart() {
       </Box>
       </Stack> 
       </Grid>
-       {usedHeart?.filter(data => data.heartType === "moto").map((item) => 
+       {usedHeart?.map((item) => 
           <Grid item xs={6} lg={3} key={item.heartTitle} sx={{mt:1}}>
+          {data.heartType === 'moto' ? 
           <Card>
             <Link underline='none' onClick={()=>gotoDetail(item.heartId)}> 
             <Box >
@@ -84,12 +84,9 @@ export default function UEcommerceHeart() {
             <Button size="small" fullWidth variant="text" onClick={() => onClick(item.heartId)} sx={{mb:1}}>
             <DeleteIcon />
             </Button>
-          </Card>
-        </Grid>)}
-        <CardHeader title='부품'/>
-        {usedHeart?.filter(data => data.heartType === "etc").map((item) => 
-        <Grid item xs={6} lg={3} key={item.heartTitle} sx={{mt:1}}>
-        <Card>
+          </Card> 
+          :           
+          <Card>
           <Link underline='none' onClick={()=>gotoDetailEtc(item.heartId)}> 
           <Box >
           <Image alt={item.heartTitle} src={item.heartImageURLs} sx={{mb:1}} ratio='1/1'/>
@@ -112,8 +109,8 @@ export default function UEcommerceHeart() {
           <Button size="small" fullWidth variant="text" onClick={() => onClick(item.heartId)} sx={{mb:1}}>
           <DeleteIcon />
           </Button>
-        </Card>
-      </Grid>)}
+        </Card>}
+        </Grid>)}
       </Grid>
       </Container>
   );
