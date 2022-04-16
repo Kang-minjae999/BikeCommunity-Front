@@ -42,7 +42,7 @@ ShopFilterSidebar.propTypes = {
   setProducts: PropTypes.func,
 };
 
-export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, setProducts }) {
+export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, products, setProducts }) {
   const isDesktop = useResponsive('up', 'lg')
  
   const defaultValues = useMemo(() => ({
@@ -170,6 +170,7 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
   const onSubmit = () => {
     setProducts([])
     submit();
+    console.log(sub)
     setApi(sub) 
     onClose()
   }

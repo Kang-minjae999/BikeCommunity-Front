@@ -200,6 +200,7 @@ useEffect(() => {
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
+                  products={products}
                   setProducts={setProducts}
                   setApi={setApi}
                 />}

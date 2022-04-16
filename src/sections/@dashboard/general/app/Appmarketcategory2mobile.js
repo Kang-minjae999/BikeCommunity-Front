@@ -33,17 +33,17 @@ export default function Appmarketcategory2mobile() {
       <BottomNavigationAction
         sx={{...(tab === 'userbiketrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>개인</Typography>}
-        value="userbiketrade"
+        value="biketrade/user"
       />
       <BottomNavigationAction
         sx={{...(tab === 'garagebiketrade') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>정비소</Typography>}
-        value="garagebiketrade"
+        value="biketrade/garage"
       />
       <BottomNavigationAction
         sx={{...(tab === 'gear') && valueStyle}}
         label={<Typography variant='subtitle2'color='text.primary'>용품부품</Typography>}
-        value="gear"
+        value="etctrade"
       />
       </BottomNavigation>
       </Stack> </>
