@@ -23,7 +23,7 @@ import { SkeletonProduct } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import {
-  ProductDetailsSummary,
+  ProductDetailsSummaryetc,
   ProductDetailsReview,
   ProductDetailsCarousel,
 } from '../../sections/@dashboard/used-e-commerce/product-details';
@@ -114,11 +114,11 @@ export default function UEcommerceProductDetailsEtc() {
             <Card>
               <Grid container>
                 <Grid item xs={12} md={6} lg={7}>
-                  <ProductDetailsCarousel images={product?.bikeImageURLs} /> 
+                  <ProductDetailsCarousel images={product?.imageURLs} /> 
                   <Divider />
                 </Grid>
                 <Grid item xs={12} md={6} lg={5}>
-                   <ProductDetailsSummary
+                   <ProductDetailsSummaryetc
                     product={product}
                     onAddHeart={handleAddHeart}
                     checkHeart={handleCheckHeart}

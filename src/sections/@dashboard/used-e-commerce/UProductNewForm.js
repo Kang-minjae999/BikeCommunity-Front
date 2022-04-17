@@ -386,7 +386,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
     display: 'block',
     position: 'relative',
     top: '0%',
-    width: '480px',
+    width: '100%',
     height: '490px',
     padding: '7px',
   };

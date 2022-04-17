@@ -34,7 +34,7 @@ export default function LabelBottomNavigation() {
   useEffect(() => {
     if(go){
       navigate(`/dashboard/${value}`)
-    }
+    } return () => setGo(false) + setValue('')
     }, [value, go]); 
 
 

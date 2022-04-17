@@ -61,6 +61,7 @@ export default function GeneralMarketu() {
 
 const getAllProducts = useCallback(async () => {
   try {
+    console.log(`/${tab}?page=${page}&size=2${api}`)
     const response = await axios.get(`/${tab}?page=${page}&size=2${api}`);
     if (isMountedRef.current) {
       if(paging > -1){
@@ -79,7 +80,7 @@ const [param, setparam] = useState('')
 
 const getAllProductsTitle = useCallback(async () => {
   try {
-    const response = await axios.get(`/${tab}/search/?page=${page}&size=2&title=${param}`);
+    const response = await axios.get(`/${tab}/search/title/?page=${page}&size=2&title=${param}`);
     if (isMountedRef.current) {
       setProducts(response.data.data.content);
       settotalpage(response.data.data.totalPages);
@@ -200,7 +201,6 @@ useEffect(() => {
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-                  products={products}
                   setProducts={setProducts}
                   setApi={setApi}
                 />}
