@@ -59,7 +59,7 @@ export default function UEcommerceHeart() {
       </Grid>
        {usedHeart?.map((item) => 
           <Grid item xs={6} lg={3} key={item.heartTitle} sx={{mt:1}}>
-          {data.heartType === 'moto' ? 
+          {item.heartType === 'moto' ? 
           <Card>
             <Link underline='none' onClick={()=>gotoDetail(item.heartId)}> 
             <Box >
