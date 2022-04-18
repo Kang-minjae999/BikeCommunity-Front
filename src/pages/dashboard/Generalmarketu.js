@@ -59,28 +59,43 @@ export default function GeneralMarketu() {
   const [pagenation, setpagenation] = useState(1);
   const [api, setApi] = useState('')
 
-const getAllProducts = useCallback(async () => {
-  try {
-    console.log(`/${tab}?page=${page}&size=2${api}`)
-    const response = await axios.get(`/${tab}?page=${page}&size=2${api}`);
-    if (isMountedRef.current) {
-      if(paging > -1){
-        setProductsPC(response.data.data.content);
-      } if(paging < 1) {
-        setProducts(product => [...product, ...response.data.data.content]);
-        settotalpage(response.data.data.totalPages);
+  const getAllProducts = useCallback(async () => {
+    try {
+      const response = await axios.get(`/${tab}?page=${page}&size=2`);
+      if (isMountedRef.current) {
+        if(paging > -1){
+          setProductsPC(response.data.data.content);
+        } if(paging < 1) {
+          setProducts(product => [...product, ...response.data.data.content]);
+          settotalpage(response.data.data.totalPages);
+        }
       }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
-  }
-}, [isMountedRef,tab, page, paging, api]);
+  }, [isMountedRef,tab, page, paging]);
 
+  const getSearchProducts = useCallback(async () => {
+    try {
+      const response = await axios.get(`/biketrade/search?page=${page}&size=2${api}`);
+      if (isMountedRef.current) {
+        if(paging > -1){
+          setProductsPC(response.data.data.content);
+        } if(paging < 1) {
+          setProducts(product => [...product, ...response.data.data.content]);
+          settotalpage(response.data.data.totalPages);
+        }
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef,tab, page, paging, api]);
+  
 const [param, setparam] = useState('')
 
 const getAllProductsTitle = useCallback(async () => {
   try {
-    const response = await axios.get(`/${tab}/search/title/?page=${page}&size=2&title=${param}`);
+    const response = await axios.get(`/${tab}/search/title?page=${page}&size=2&title=${param}`);
     if (isMountedRef.current) {
       setProducts(response.data.data.content);
       settotalpage(response.data.data.totalPages);
@@ -88,16 +103,21 @@ const getAllProductsTitle = useCallback(async () => {
   } catch (error) {
     console.error(error);
   }
-}, [isMountedRef,param,tab]);
+}, [isMountedRef,param,tab,page]);
 
 useEffect(() => {
   if(!param){
-    getAllProducts();
+    if(!api){
+      getAllProducts(); 
+    }    
+    if(api){
+      getSearchProducts(); 
+    }  
   }
   if(param){
     getAllProductsTitle();
   }
-}, [getAllProducts, getAllProductsTitle, param]);
+}, [getAllProducts, getAllProductsTitle, getSearchProducts, param, api]);
 
   const handleChange = ((event, value) => {
     setpagenation(value)

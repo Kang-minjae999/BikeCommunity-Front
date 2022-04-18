@@ -11,6 +11,7 @@ import useResponsive from '../../../../hooks/useResponsive';
 export default function AppHomeHeader() {
   const isDesktop = useResponsive('up', 'lg')
   const [value, setValue] = useState('home');
+  const [valuepc, setValuepc] = useState('homepc');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -49,6 +50,7 @@ export default function AppHomeHeader() {
       component: <AppHomeSale/>,
     },
   ];
+
   const PC_TABS = [
     {
       value: 'homepc',
@@ -86,7 +88,6 @@ export default function AppHomeHeader() {
       value: 'mota',
       component: <AppHomeSale/>,
     },
-    
   ];
 
   const valueStyle = {
@@ -100,37 +101,37 @@ export default function AppHomeHeader() {
       {isDesktop &&
       <> 
       <Divider />
-       <BottomNavigation showLabels sx={{ width: '100%'}} value={value} onChange={handleChange}>
+       <BottomNavigation showLabels sx={{ width: '100%'}} value={valuepc} onChange={handleChange}>
             <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'homepc') && valueStyle}}>메인</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'homepc') && valueStyle}}>메인</Typography>}
             value="homepc"
           />
           <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'brand') && valueStyle}}>BRAND</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'brand') && valueStyle}}>BRAND</Typography>}
             value="brand"
           />
           <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'replica') && valueStyle}}>레플리카</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'replica') && valueStyle}}>레플리카</Typography>}
             value="replica"
           />
           <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'naked') && valueStyle}}>네이키드</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'naked') && valueStyle}}>네이키드</Typography>}
             value="naked"
           />
           <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'hal') && valueStyle}}>할리/크루저</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'hal') && valueStyle}}>할리/크루저</Typography>}
             value="hal"
           />
           <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'classic') && valueStyle}}>클래식</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'classic') && valueStyle}}>클래식</Typography>}
             value="classic" 
             />
             <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'scoo') && valueStyle}}>스쿠터</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'scoo') && valueStyle}}>스쿠터</Typography>}
             value="scoo" 
             />
             <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'mota') && valueStyle}}>모타드</Typography>}
+            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'mota') && valueStyle}}>모타드</Typography>}
             value="mota" 
             />
         </BottomNavigation>
@@ -169,7 +170,7 @@ export default function AppHomeHeader() {
     <AppHeaderSpace />
     {isDesktop ? <>
       {PC_TABS.map((button) => {
-          const isMatched = button.value === value;
+          const isMatched = button.value === valuepc;
           return isMatched && <div key={button.value}>{button.component}</div>;
         })}
      </> : <>
