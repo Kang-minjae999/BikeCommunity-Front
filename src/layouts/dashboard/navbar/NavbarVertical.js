@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
-import { Box, Stack, Drawer, Paper } from '@mui/material';
+import { Box, Stack, Drawer, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 // hooks
 import useResponsive from '../../../hooks/useResponsive';
@@ -52,12 +52,18 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
 
-  useEffect(() => {
-    if (isOpenSidebar) {
-      onCloseSidebar();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+    useEffect(() => {
+      if (isOpenSidebar) {
+        onCloseSidebar();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname]);
+
+    useEffect(() => {
+      if(isDesktop){
+        onToggleCollapse();
+      }
+    }, [isDesktop]);
 
   const renderContent = (
     <Scrollbar
@@ -80,7 +86,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           {!isDesktop &&  (
             <CloseIcon onClick={onCloseSidebar} />
           )}
-          <Logo />
+          <Typography variant='h5'>RT</Typography>
 
           {isDesktop && !isCollapse && (
             <CollapseButton onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />

@@ -11,9 +11,11 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import ListIcon from '@mui/icons-material/List';
 // -----------------------------------------
 import { Stack, Grid, Typography,  Divider } from '@mui/material';
+import useResponsive from '../../../../hooks/useResponsive';
 
 
 export default function Appgarage() {
+  const isDesktop = useResponsive('up', 'lg')
   const [value, setValue] = useState('list');
   const [chvalue, setchvalue] = useState('');
   const [istrue, setistrue] = useState(false);
@@ -56,12 +58,40 @@ export default function Appgarage() {
   ];
 
   const valueStyle = {
-    borderBottom: 2,
+    borderBottom:(isDesktop ? 3 : 2),
     borderBottomColor: 'text.primary',
+    fontWeight:'bold'
   };
 
   return (
     <>
+    {isDesktop && 
+    <>
+    <Divider />
+    <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
+      <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'list' && valueStyle)}}>정비소</Typography>}
+        value="list"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'map' && valueStyle)}}>위치찾기</Typography>}
+        value="map"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'ask' && valueStyle)}}>정비질문</Typography>}
+        value="ask"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'reservation' && valueStyle)}}>정비예약</Typography>}
+        value="reservation"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'review' && valueStyle)}}>후기</Typography>}
+        value="review"
+      />
+    </BottomNavigation>
+    </>}
+    {!isDesktop && 
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         sx={{ ...(value === 'list' && valueStyle) }}
@@ -93,7 +123,7 @@ export default function Appgarage() {
         value="review"
         icon={<ListIcon color={value === 'review' ? 'action' : 'disabled'} />}
       />
-    </BottomNavigation>
+    </BottomNavigation>}
       <Divider/>
       {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;

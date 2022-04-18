@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box } from '@mui/material';
+import { Typography, Paper, Box, Divider } from '@mui/material';
 import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
@@ -54,17 +54,20 @@ export default function AppRidingHeader() {
   ];
 
   const valueStyle = {
-    borderBottom: 2,
+    borderBottom: (isDesktop ? 3 : 2),
     borderBottomColor: 'text.primary',
+    fontWeight: 'bold',
   };
 
   return (
     <>
       {isDesktop && (
-        <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
+        <>
+        <Divider />
+        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'home' && valueStyle)}}>
                 라이딩
               </Typography>
             }
@@ -72,7 +75,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'dingsta' && valueStyle)}}>
                 딩스타
               </Typography>
             }
@@ -80,7 +83,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'post' && valueStyle)}}>
                 포스트
               </Typography>
             }
@@ -88,7 +91,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'club' && valueStyle)}}>
                 클럽
               </Typography>
             }
@@ -96,13 +99,15 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'map' && valueStyle)}}>
                 지도
               </Typography>
             }
             value="map"
           />
         </BottomNavigation>
+        <Divider />
+        </>
       )}
       {!isDesktop && (
         <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 50 }} elevation={1}>
@@ -155,7 +160,7 @@ export default function AppRidingHeader() {
           </BottomNavigation>
         </Paper>
       )}
-      <AppHeaderSpace />
+      {!isDesktop && <AppHeaderSpace />}
       {ACCOUNT_TABS.map((button) => {
         const isMatched = button.value === value;
         return isMatched && <div key={button.value}>{button.component}</div>;

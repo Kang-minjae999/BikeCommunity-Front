@@ -8,6 +8,7 @@ import Page from '../../components/Page';
 // sectionss
 import MainFooter from '../../layouts/main/MainFooter';
 import Club from './Club';
+import { AppRidingClub } from '../../sections/@dashboard/general/app';
 
 // ----------------------------------------------------------------------
 
@@ -16,11 +17,10 @@ export default function GeneralClub() {
 
   return (
     <Page title="General: App">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
+      <Container maxWidth={themeStretch ? false : 'xl'}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
-              <Appclub />
-              <Club />
+              <AppRidingClub />
             </Grid>
             <Grid item xs={12} md={12} lg={12}>
               <MainFooter />

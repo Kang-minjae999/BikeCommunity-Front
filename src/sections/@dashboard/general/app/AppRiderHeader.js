@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box } from '@mui/material';
+import { Typography, Paper, Box, Divider } from '@mui/material';
 import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
@@ -53,17 +53,20 @@ export default function AppRidingHeader() {
   ];
 
   const valueStyle = {
-    borderBottom: 2,
+    borderBottom: (isDesktop ? 3 : 2),
     borderBottomColor: 'text.primary',
+    fontWeight: 'bold',
   };
 
   return (
     <>
       {isDesktop && (
-        <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
+        <>
+        <Divider />
+        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'home' && valueStyle)}}>
                 정비
               </Typography>
             }
@@ -71,7 +74,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'dingsta' && valueStyle)}}>
                 커스텀
               </Typography>
             }
@@ -79,7 +82,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'post' && valueStyle)}}>
                 면허
               </Typography>
             }
@@ -87,7 +90,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'garage' && valueStyle)}}>
                 교육
               </Typography>
             }
@@ -95,13 +98,15 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'club' && valueStyle)}}>
                 보험
               </Typography>
             }
             value="club"
           />
         </BottomNavigation>
+        <Divider />
+        </>
       )}
       {!isDesktop && (
         <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 50 }} elevation={1}>

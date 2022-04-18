@@ -23,12 +23,8 @@ export default function GeneralApp() {
       <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={1}>
         <Grid item xs={12} lg={12} >
-          {isDesktop && <AppHomeMain />}
-         {!isDesktop && 
-         <>
          <AppHomeHeader /> 
-         <AppHeaderSpace />
-         </>}
+         {!isDesktop && <AppHeaderSpace />}
         </Grid>  
          <Grid item xs={12} lg={12}>
           <MainFooter />

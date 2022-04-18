@@ -6,7 +6,8 @@ import useResponsive from '../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
 const initialState = {
-  collapseClick: false,
+  isCollapse: true, 
+  collapseClick: true,
   collapseHover: false,
   onToggleCollapse: () => {},
   onHoverEnter: () => {},
@@ -25,7 +26,7 @@ function CollapseDrawerProvider({ children }) {
   const isDesktop = useResponsive('up', 'lg');
 
   const [collapse, setCollapse] = useState({
-    click: false,
+    click: true,
     hover: false,
   });
 

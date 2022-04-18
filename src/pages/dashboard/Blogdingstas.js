@@ -110,7 +110,7 @@ export default function BlogDingstas() {
 
   return (
     <Page title="Posts">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
+      <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="딩스타그램"
           links={[{ name: '' }]}

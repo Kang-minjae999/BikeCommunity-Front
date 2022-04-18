@@ -60,8 +60,6 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
   const isDesktop = useResponsive('up', 'lg');
-
-
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
       <Toolbar
@@ -70,8 +68,8 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           border:"1px",
         }}
       >
-         {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />}
-          <Link component={RouterLink} to="/dashboard/app"underline="none" >         
+        {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />}
+          <Link component={RouterLink} to="/dashboard/app" underline="none" >         
           <Typography color="text.primary" variant='h3' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
           </Typography>

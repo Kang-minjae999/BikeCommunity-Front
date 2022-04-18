@@ -111,7 +111,7 @@ export default function Blognotice() {
 
   return (
     <Page title="공지사항">
-      <Container maxWidth={themeStretch ? false : 'lx'}>
+      <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="공지사항"
           links={[

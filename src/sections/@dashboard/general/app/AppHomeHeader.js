@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState, useEffect} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import {  Typography, Stack, Paper, Box } from '@mui/material';
+import {  Typography, Paper, Divider } from '@mui/material';
 import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine, AppHomeSale } from '.';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
@@ -27,7 +27,7 @@ export default function AppHomeHeader() {
   }, [value])
   
 
-  const ACCOUNT_TABS = [
+  const APP_TABS = [
     {
       value: 'home',
       component: <AppHomeMain />,
@@ -49,14 +49,93 @@ export default function AppHomeHeader() {
       component: <AppHomeSale/>,
     },
   ];
+  const PC_TABS = [
+    {
+      value: 'homepc',
+      component: <AppHomeMain />,
+    },
+    {
+      value: 'brand',
+      component: <AppHomeBest />,
+    },
+    {
+      value: 'replica',
+      component: <AppHomeBrand />,
+    },
+    {
+      value: 'naked',
+      component: <AppHomeMagazine/>,
+    },
+    {
+      value: 'sale',
+      component: <AppHomeSale/>,
+    },
+    {
+      value: 'hal',
+      component: <AppHomeMagazine/>,
+    },
+    {
+      value: 'classic',
+      component: <AppHomeSale/>,
+    },
+    {
+      value: 'scoo',
+      component: <AppHomeMagazine/>,
+    },
+    {
+      value: 'mota',
+      component: <AppHomeSale/>,
+    },
+    
+  ];
 
   const valueStyle = {
-    borderBottom:2, 
-    borderBottomColor:'text.primary'
+    borderBottom:(isDesktop ? 3 : 2), 
+    borderBottomColor:'text.primary', 
+    fontWeight:'bold'
   }
   
   return (
     <>
+      {isDesktop &&
+      <> 
+      <Divider />
+       <BottomNavigation showLabels sx={{ width: '100%'}} value={value} onChange={handleChange}>
+            <BottomNavigationAction
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'homepc') && valueStyle}}>메인</Typography>}
+            value="homepc"
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'brand') && valueStyle}}>BRAND</Typography>}
+            value="brand"
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'replica') && valueStyle}}>레플리카</Typography>}
+            value="replica"
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'naked') && valueStyle}}>네이키드</Typography>}
+            value="naked"
+          />
+          <BottomNavigationAction
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'hal') && valueStyle}}>할리/크루저</Typography>}
+            value="hal"
+          />
+          <BottomNavigationAction 
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'classic') && valueStyle}}>클래식</Typography>}
+            value="classic" 
+            />
+            <BottomNavigationAction 
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'scoo') && valueStyle}}>스쿠터</Typography>}
+            value="scoo" 
+            />
+            <BottomNavigationAction 
+            label={<Typography variant='body2' color='text.primary' sx={{...(value === 'mota') && valueStyle}}>모타드</Typography>}
+            value="mota" 
+            />
+        </BottomNavigation>
+      <Divider />
+        </>}
     {!isDesktop &&
       <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
@@ -67,7 +146,7 @@ export default function AppHomeHeader() {
       />
       <BottomNavigationAction
         sx={{...(value === 'best') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>BEST</Typography>}
+        label={<Typography  variant='subtitle2' color='text.primary'>장르</Typography>}
         value="best"
       />
       <BottomNavigationAction
@@ -88,10 +167,18 @@ export default function AppHomeHeader() {
     </BottomNavigation>
     </Paper>}
     <AppHeaderSpace />
-        {ACCOUNT_TABS.map((button) => {
+    {isDesktop ? <>
+      {PC_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value}>{button.component}</div>;
         })}
+     </> : <>
+      {APP_TABS.map((button) => {
+          const isMatched = button.value === value;
+          return isMatched && <div key={button.value}>{button.component}</div>;
+        })}
+     </>
+     }
      </>
   );
 }

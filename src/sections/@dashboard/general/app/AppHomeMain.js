@@ -7,7 +7,7 @@ import GeneralAppMarket from '../../../../pages/dashboard/GeneralAppMarket';
 export default function AppHomeMain() {
 
   return (
-    <>         
+    <>       
     <AppFeatured />
     <Divider sx={{my:3}}/>
      <GeneralAppMarket />

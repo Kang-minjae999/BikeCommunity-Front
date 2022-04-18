@@ -2,15 +2,12 @@ import * as React from 'react';
 import {useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import AddchartIcon from '@mui/icons-material/Addchart';
-import MapIcon from '@mui/icons-material/Map';
-import HelpCenterIcon from '@mui/icons-material/HelpCenter';
-import EngineeringIcon from '@mui/icons-material/Engineering';
 import { Divider, Typography } from '@mui/material';
-import AppHeaderSpace from './AppHeaderSpace';
+import useResponsive from '../../../../hooks/useResponsive';
 
 
 export default function AppRidingClub() {
+  const isDesktop = useResponsive('up', 'lg')
   const [value, setValue] = useState('clublist');
 
   const handleChange = (event, newValue) => {
@@ -36,38 +33,60 @@ export default function AppRidingClub() {
     ];
 
     const valueStyle = {
-      borderBottom: 2,
+      borderBottom:(isDesktop ? 3 :2),
       borderBottomColor: 'text.primary',
+      fontWeight:'bold'
     };
   return (
     <>    
+    {isDesktop && 
+    <>
+    <Divider />
+    <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
+    <BottomNavigationAction
+      label={<Typography variant='body2' color='text.primary' sx={{ ...(value === 'clublist' && valueStyle) }}>클럽목록</Typography>}
+      value="clublist"
+    />
+    <BottomNavigationAction
+      label={<Typography variant='body2' color='text.primary' sx={{ ...(value === 'clubmap' && valueStyle) }} >클럽지도</Typography>}
+      value="clubmap"
+    />
+    <BottomNavigationAction
+      label={<Typography variant='body2' color='text.primary' sx={{ ...(value === 'myclub' && valueStyle) }}>나의클럽</Typography>}
+      value="myclub"
+    />
+    <BottomNavigationAction
+      label={<Typography variant='body2' color='text.primary' sx={{ ...(value === 'newclub' && valueStyle) }}>클럽만들기</Typography>}
+      value="newclub"
+    />
+  </BottomNavigation>
+    </>}
+  {!isDesktop && 
+  <>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
     <BottomNavigationAction
       sx={{ ...(value === 'clublist' && valueStyle) }}
       label={<Typography variant='subtitle2' color={value === 'clublist' ? 'text.primary' : 'inherit'} fontWeight='bold'>클럽목록</Typography>}
       value="clublist"
-      icon={<AddchartIcon color={value === 'clublist' ? 'action' : 'disabled'}/>}
     />
     <BottomNavigationAction
       sx={{ ...(value === 'clubmap' && valueStyle) }}
       label={<Typography variant='subtitle2' color={value === 'clubmap' ? 'text.primary' : 'inherit'} fontWeight='bold'>클럽지도</Typography>}
       value="clubmap"
-      icon={<MapIcon color={value === 'clubmap' ? 'action' : 'disabled'}/>}
     />
     <BottomNavigationAction
       sx={{ ...(value === 'myclub' && valueStyle) }}
       label={<Typography variant='subtitle2' color={value === 'myclub' ? 'text.primary' : 'inherit'} fontWeight='bold'>나의클럽</Typography>}
       value="myclub"
-      icon={<HelpCenterIcon color={value === 'myclub' ? 'action' : 'disabled'}/>}
     />
     <BottomNavigationAction
       sx={{ ...(value === 'newclub' && valueStyle) }}
       label={<Typography variant='subtitle2' color={value === 'newclub' ? 'text.primary' : 'inherit'} fontWeight='bold'>클럽만들기</Typography>}
       value="newclub"
-      icon={<EngineeringIcon color={value === 'newclub' ? 'action' : 'disabled'}/>}
     />
   </BottomNavigation>
-    <Divider />
+  </>}
+  <Divider />
         {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value} >{button.component}</div>;

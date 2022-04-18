@@ -60,7 +60,7 @@ export default function DashboardLayout() {
         <Outlet />      
       </MainStyle>
       {!isDesktop &&
-    <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={1}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={1}>
       <LabelBottomNavigation/>
       </Paper>}
     </Box>

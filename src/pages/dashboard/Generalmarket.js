@@ -118,7 +118,7 @@ export default function GeneralMarket() {
 
   return (
     <Page title="SHOP">
-          <Container maxWidth={themeStretch ? false : 'lx'} sx={{mb:5}}>
+          <Container maxWidth={themeStretch ? false : 'xl'} sx={{mb:5}}>
           {isDesktop && <HeaderBreadcrumbs
           heading='Market'
           links={[

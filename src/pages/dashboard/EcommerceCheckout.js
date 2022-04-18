@@ -94,7 +94,8 @@ export default function EcommerceCheckout() {
   }, [dispatch, activeStep]);
 
   return (
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
+    <>
+      <Container maxWidth={themeStretch ? false : 'xl'} sx={{mt:2}}>
         <Grid container justifyContent={isComplete ? 'center' : 'flex-start'}>
           <Grid item xs={12} md={12} sx={{ mb: 5 }}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
@@ -127,5 +128,6 @@ export default function EcommerceCheckout() {
           <CheckoutOrderComplete open={isComplete} />
         )}
       </Container>
+    </>
   );
 }

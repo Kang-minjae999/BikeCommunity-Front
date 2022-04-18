@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Box, Grid, Container, Typography, Link, Button, Card, Stack, Divider, CardHeader } from '@mui/material';
+import { Box, Grid, Container, Typography, Link, Button, Card, Stack, Divider } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 // redux
@@ -14,12 +14,14 @@ import useSettings from '../../hooks/useSettings';
 // components
 // sections
 import Image from '../../components/Image';
+import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
 
 export default function UEcommerceHeart() {
   const { themeStretch } = useSettings(); 
+  const isDesktop = useResponsive('up', 'lg')
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { usedHeart } = useSelector((state) => state.product);
@@ -43,14 +45,18 @@ export default function UEcommerceHeart() {
 
 
   return (
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}} disableGutters>
+      <Container maxWidth={themeStretch ? false : 'xl'} disableGutters sx={{mt:2}}>
       <Grid container spacing={1}>
       <Grid item xs={12} lg={12} >
       <Stack direction='row' justifyContent='space-between'>
       <Box>
-      <Link component={RouterLink} to='/dashboard/marketu'>
+      {isDesktop ? 
+      <Link component={RouterLink} to='/dashboard/marketu/biketrade/0'>
       <Button ><AddIcon />더 둘러보기</Button> 
-      </Link>
+      </Link> :
+      <Link component={RouterLink} to='/dashboard/shop/marketu/biketrade/0'>
+      <Button ><AddIcon />더 둘러보기</Button> 
+      </Link>}
       </Box>
       <Box>
       <Button onClick={onClick2}>찜목록 초기화<DeleteIcon /></Button>

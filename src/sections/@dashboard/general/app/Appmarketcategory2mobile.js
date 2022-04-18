@@ -21,7 +21,7 @@ export default function Appmarketcategory2mobile() {
 
   return (
     <>
-      <> <Stack spacing={1}>
+      <> <Stack spacing={0}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
         sx={{...(tab === 'biketrade') && valueStyle}}

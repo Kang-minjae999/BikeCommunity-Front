@@ -2,7 +2,7 @@ import * as React from 'react';
 import {useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import {  Typography, Paper } from '@mui/material';
+import {  Typography, Paper, Divider } from '@mui/material';
 import { AppUserMoto,  AppUserProfile, AppUserClub } from '.';
 import UserAccount from '../../../../pages/dashboard/UserAccount';
 import AppHeaderSpace from './AppHeaderSpace';
@@ -41,36 +41,41 @@ export default function AppUserHeader() {
   ];
 
   const valueStyle = {
-    borderBottom:2, 
-    borderBottomColor:'text.primary'
+    borderBottom:(isDesktop ? 3 : 2), 
+    borderBottomColor:'text.primary',
+    fontWeight:'bold'
   }
 
   
   return (
     <>
     {isDesktop &&
-    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+    <>
+    <Divider />
+    <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
-        label={<Typography variant='subtitle2' color='text.primary'>프로필</Typography>}
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'profile') && valueStyle}}>프로필</Typography>}
         value="profile"
       />
       <BottomNavigationAction
-        label={<Typography  variant='subtitle2' color='text.primary'>장바구니</Typography>}
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'checkout') && valueStyle}}>장바구니</Typography>}
         value="checkout"
       />
       <BottomNavigationAction
-        label={<Typography  variant='subtitle2' color='text.primary'>바이크</Typography>}
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'moto') && valueStyle}}>바이크</Typography>}
         value="moto"
       />
       <BottomNavigationAction
-        label={<Typography  variant='subtitle2' color='text.primary'>클럽</Typography>}
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'club') && valueStyle}}>클럽</Typography>}
         value="club"
       />
       <BottomNavigationAction 
-        label={<Typography  variant='subtitle2' color='text.primary'>설정</Typography>}
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'setting') && valueStyle}}>설정</Typography>}
         value="setting" 
         />
-    </BottomNavigation>}
+    </BottomNavigation>
+    <Divider />
+    </>}
     {!isDesktop &&
     <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>

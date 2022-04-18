@@ -134,7 +134,7 @@ useEffect(() => {
   
     return (
     <Page title="중고마켓">
-          <Container maxWidth={themeStretch ? false : 'lx'}>
+          <Container maxWidth={themeStretch ? false : 'xl'}>
           {isDesktop && <HeaderBreadcrumbs
           heading='Secondhand Market'
           links={[
@@ -213,7 +213,7 @@ useEffect(() => {
 
         <Divider sx={{mt:1, mb:1}} />
         <Appmarketcategory2mobile />
-          <Divider sx={{mt:1, mb:2}} />
+          <Divider sx={{ mb:2}} />
 
         <ShopProductList products={products} loading={!products.length} />
         <Stack

@@ -32,7 +32,7 @@ export default function ClubCreate() {
 
   return (
     <Page title="클럽생성">
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
+      <Container maxWidth={themeStretch ? false : 'xl'} sx={{mt:2}}>
         <HeaderBreadcrumbs
           heading={!isEdit ? '클럽 만들기' : '클럽 수정하기'}
           links={[

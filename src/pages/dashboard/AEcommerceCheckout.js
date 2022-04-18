@@ -16,7 +16,7 @@ export default function AEcommerceCheckout() {
   const isDesktop = useResponsive('up', 'lg')
 
   return (
-      <Container maxWidth={themeStretch ? false : 'lx'} >
+      <Container maxWidth={themeStretch ? false : 'xl'} >
         {isDesktop && <HeaderBreadcrumbs
           heading="Checkout/Cart"
           links={[

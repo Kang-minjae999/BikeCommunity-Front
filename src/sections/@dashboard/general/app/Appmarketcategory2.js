@@ -15,31 +15,28 @@ export default function Appmarketcategory2() {
     navigate(`/dashboard/marketu/${newValue}/0`)
   }
   const valueStyle = {
-    borderBottom:2, 
-    borderBottomColor:'text.primary'
+    borderBottom: 3, 
+    borderBottomColor:'text.primary',
+    fontWeight:'bold'
   }
   return (
     <>
     <Stack spacing={1}>
       <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} onChange={handleChange}>
       <BottomNavigationAction
-        sx={{...(tab === 'biketrade') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>전체</Typography>}
+          label={<Typography variant='body2' color='text.primary' sx={{...(tab === 'biketrade') && valueStyle}} >전체</Typography>}
           value="biketrade"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'biketrade-user') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>개인</Typography>}
+          label={<Typography variant='body2'color='text.primary' sx={{...(tab === 'biketrade-user') && valueStyle}} >개인</Typography>}
           value="biketrade-user"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'biketrade-garage') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>정비소</Typography>}
+          label={<Typography variant='body2'color='text.primary' sx={{...(tab === 'biketrade-garage') && valueStyle}} >정비소</Typography>}
           value="biketrade-garage"
         />
         <BottomNavigationAction
-        sx={{...(tab === 'etctrade') && valueStyle}}
-          label={<Typography variant='h6'color='text.primary' fontWeight='bold'>용품부품</Typography>}
+          label={<Typography variant='body2'color='text.primary' sx={{...(tab === 'etctrade') && valueStyle}} >용품부품</Typography>}
           value="etctrade"
         />
       </BottomNavigation>
