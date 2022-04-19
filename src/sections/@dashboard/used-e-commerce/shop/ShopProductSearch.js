@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { Link as  useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
@@ -31,8 +31,10 @@ ShopProductSearch.propTypes = {
 
 export default function ShopProductSearch({setparam}) {
   const dispatch = useDispatch();
-
+  const {tab = ''} = useParams();
   const isDeskTop = useResponsive('up','lg')
+
+  const navigate = useNavigate()
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -42,16 +44,32 @@ export default function ShopProductSearch({setparam}) {
   const handleChangeSearch = (value) => {
       setSearchQuery(value);
   };
-
-
   const handleClick = () => {
-    
-  };
+
+  }
+
+  const goSearch = (searchQuery) => {
+    if(!isDeskTop){
+      if(tab !== 'etctrade'){
+      navigate(`/dashboard/shop/used/biketrade/0/&title=${searchQuery}`)   
+      } else {
+      navigate(`/dashboard/shop/used/etctrade/0/&title=${searchQuery}`)   
+      }
+    }
+    if(isDeskTop){
+      if(tab !== 'etctrade'){
+        navigate(`/dashboard/marketu/biketrade/0/&title=${searchQuery}`)   
+        } else {
+        navigate(`/dashboard/marketu/etctrade/0/&title=${searchQuery}`)   
+        }
+    }
+  }
+
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
+      goSearch(searchQuery)
       dispatch(addSearch(searchQuery))
-      setparam(searchQuery)
       document.activeElement.blur()
     }
   };

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router';
 // form
 import { Controller, useForm } from 'react-hook-form';
 
@@ -39,24 +40,22 @@ ShopFilterSidebar.propTypes = {
   isOpen: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
-  setApi: PropTypes.func,
-  setProducts: PropTypes.func,
 };
 
-export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, setProducts }) {
+export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
   const isDesktop = useResponsive('up', 'lg')
- 
+  const navigate = useNavigate()
   const defaultValues = useMemo(() => ({
     gearbox: null,
-    displacement: [0,0],
+    displacement: [1,1],
     maxDisplacement: false,
     isCrash: null,
     address: '',
     modelName: '',
     year: '',
-    mileage: [0,0],
+    mileage: [1,1],
     maxMileage: false,
-    price: [0,0],
+    price: [1,1],
     maxPrice: false,
     nego: null,
     trade: null,
@@ -84,8 +83,8 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
     setValueP([0,0])
     setValueM([0,0])
     setValueY([0,0])
-    setApi('')
     setSub('')
+    goBack()
   };
 
   const [sub, setSub] = useState('')
@@ -121,7 +120,6 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
       setValue('maxPrice', false)
     }
   }, [values.displacement,values.mileage, values.price, setValue]);
-  
 
   const submit =  useCallback(() => {
     setSub(() => '')
@@ -129,16 +127,21 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
       setSub(sub => `${sub}&gearbox=${values.gearbox}`)
     }
     if(values.displacement !== defaultValues.displacement){
-      if(+parseInt(values.displacement.map((d) => +d), 10) !== 0){
+      if(+parseInt(values.displacement.map((d) => +d), 10) !== 1){
         if(+parseInt(values.displacement.map((d) => +d), 10) === 1500){
           setSub(sub=> `${sub}&displacement=1500,10000`)
-        } else {
-          setSub(sub=> `${sub}&displacement=${values.displacement}`)
+        } 
+        if(+parseInt(values.displacement.map((d) => +d), 10) !== 1500) {
+          if(values.displacement[0] === 0){
+            setSub(sub=> `${sub}&displacement=0,${parseInt(values.displacement[1],10)}`)
+          } else {
+            setSub(sub=> `${sub}&displacement=${parseInt(values.displacement[0],10)},${parseInt(values.displacement[1],10)}`)
+          }
         }
       }
     }
     if(values.isCrash !== defaultValues.isCrash){
-      setSub(sub=> `${sub}&isCrash=${values.isCrash}`)    
+      setSub(sub=> `${sub}&isCrashed=${values.isCrash}`)    
     }
     if(values.address !== defaultValues.address){
       setSub(sub=> `${sub}&address=${values.address}`)    
@@ -152,20 +155,25 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
       }  
     }
     if(values.mileage !== defaultValues.mileage){
-      if(+parseInt(values.mileage.map((d) => +d), 10) !== 0){
+      if(+parseInt(values.mileage.map((d) => +d), 10) !== 1){
         if(+parseInt(values.mileage.map((d) => +d), 10) === 30000){
           setSub(sub=> `${sub}&mileage=30000,1000000`)
-        } else {
-          setSub(sub=> `${sub}&mileage=${values.mileage}`)
+        } 
+        if(+parseInt(values.mileage.map((d) => +d), 10) !== 30000) {
+          setSub(sub=> `${sub}&mileage=${parseInt(values.mileage[0],10)},${parseInt(values.mileage[1],10)}`)
         }
       }
     }
     if(values.price !== defaultValues.price){
-      if(+parseInt(values.price.map((d) => +d), 10) !== 0){
+      if(+parseInt(values.price.map((d) => +d), 10) !== 1){
         if(+parseInt(values.price.map((d) => +d), 10) === 3000){
-          setSub(sub=> `${sub}&price=3000,30000`)
-        } else {
-          setSub(sub=> `${sub}&price=${values.mileage}`)
+          setSub(sub=> `${sub}&price=3000,15000`)
+        } if(+parseInt(values.price.map((d) => +d), 10) !== 3000) {
+          if(values.mileage[0] === 0){
+            setSub(sub=> `${sub}&price=0,${parseInt(values.price[1],10)}0000`)
+          } else {
+            setSub(sub=> `${sub}&price=${parseInt(values.price[0],10)}0000,${parseInt(values.price[1],10)}0000`)
+          }
         }
       }
     }
@@ -185,10 +193,27 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose, setApi, set
     submit();
   }, [submit])
 
+  const goSearch = () => {
+    if(!isDesktop){
+      navigate(`/dashboard/shop/used/biketrade/0/${sub}`)
+    }
+    if(isDesktop){
+      navigate(`/dashboard/marketu/biketrade/0/${sub}`)
+    }
+  }
+
+  const goBack = () => {
+    if(!isDesktop){
+      navigate(`/dashboard/shop/used/biketrade/0`)
+    }
+    if(isDesktop){
+      navigate(`/dashboard/marketu/biketrade/0`)
+    }
+  }
+
   const onSubmit = () => {
-    setProducts([])
     submit();
-    setApi(sub) 
+    goSearch();
     onClose()
   }
 

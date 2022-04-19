@@ -68,8 +68,10 @@ export default function Router() {
         { path: 'clubs', element: <Generalclub /> }, // ok
         { path: 'garages', element: <Generalgarage /> }, // ok
         { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, // ok
+        { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, // ok
         { path: 'market/:tab/:paging', element: <Generalmarket /> }, // ok
         { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, // ok
+        { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, // ok
         { path: 'clubmy', element: <ClubMy /> }, // ok
         { path: 'mypage', element: <GeneralUser /> }, // ok
         { path: 'checkout', element: <AEcommerceCheckout /> }, // ok

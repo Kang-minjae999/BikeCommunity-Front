@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 function valuetext(value) {
-  return `${value}km`;
+  return `${value}년식`;
 }
 ShopFilterSidebarSliderYear.propTypes = {
   field: PropTypes.object,

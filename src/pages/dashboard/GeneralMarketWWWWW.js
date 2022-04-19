@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 // form
 // @mui
 import { Container, Stack, Pagination, Divider, Box, Chip, Button, Typography } from '@mui/material';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
@@ -55,8 +54,14 @@ export default function GeneralMarketu() {
 
   const [pagenation, setpagenation] = useState(1);
 
+  const [api, setApi] = useState('')
+
   const [param, setparam] = useState('')
 
+  useEffect(()=>{
+    setparam('')
+    setProducts([])
+  },[tab])
 
   useEffect(()=>{
     setPage(parseInt(paging, 10))
@@ -67,10 +72,13 @@ export default function GeneralMarketu() {
       try {
         const response = await axios.get(`/${tab}?page=${page}&size=2`);
         if (isMountedRef.current) {
-          setProductsPC(response.data.data.content);
-          setProducts(response.data.data.content);
-          settotalpage(response.data.data.totalPages);
-      }
+          if(paging > -1){
+            setProductsPC(response.data.data.content);
+          } if(paging < 1) {
+            setProducts(product => [...product, ...response.data.data.content]);
+            settotalpage(response.data.data.totalPages);
+          }
+        }
       } catch (error) {
         console.error(error);
       }
@@ -78,19 +86,22 @@ export default function GeneralMarketu() {
       try {
         const response = await axios.get(`/${tab}/search?page=${page}&size=2${option}`);
         if (isMountedRef.current) {
+          if(paging > -1){
             setProductsPC(response.data.data.content);
-            setProducts(response.data.data.content);
+          } if(paging < 1) {
+            setProducts(product => [...product, ...response.data.data.content]);
             settotalpage(response.data.data.totalPages);
+          }
         }
       } catch (error) {
         console.error(error);
       }
     }
-  }, [isMountedRef,tab, page, option]);
+  }, [isMountedRef,tab, page, paging, option]);
 
-  useEffect(() => {
-        getAllProducts();  
-  }, [getAllProducts, param, tab]);
+useEffect(() => {
+      getAllProducts();  
+}, [getAllProducts, param, api, tab]);
 
   const handleChange = ((event, value) => {
     setpagenation(value)
@@ -103,41 +114,11 @@ export default function GeneralMarketu() {
   );
 
   const handleButton = (() => {
-    navigate(`/dashboard/shop/used/${tab}/${page+1}`)
+    const go = parseInt(paging, 10)+1
+    setPage(page+1)
+    setpagenation(go)
    }
   );
-
-
-  const handleChip = ((item) => {
-    if(isDesktop){
-      if(tab !== 'etctrade'){
-        navigate(`/dashboard/marketu/biketrade/0/&title=${item}`)           
-      }
-      if(tab === 'etctrade'){
-        navigate(`/dashboard/marketu/etctrade/0/&title=${item}`)           
-      }  
-    }
-    if(!isDesktop){
-      if(tab !== 'etctrade'){
-        navigate(`/dashboard/shop/used/biketrade/0/&title=${item}`)       
-      }
-      if(tab === 'etctrade'){
-        navigate(`/dashboard/shop/used/etctrade/0/&title=${item}`)           
-      }  
-    }
-   }
-  );
-
-  const handleReset = (() => {
-    if(!isDesktop){
-      navigate(`/dashboard/shop/used/${tab}/0`)
-    }    
-    if(isDesktop){
-      navigate(`/dashboard/marketu/${tab}/0`)
-    }
-  }
-  );
-
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -180,20 +161,18 @@ export default function GeneralMarketu() {
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
           {tab !== 'etctrade' &&
-          <div>                
-            {option && 
-            <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
               <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-              /></div>}
-          {((tab === 'etctrade') && option) &&
-              <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
+                  setProducts={setProducts}
+                  setApi={setApi}
+                  setPage={setPage}
+              />}
           </Stack>
         </Stack>
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
-          {search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
+          {search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
         </Box>  
         <Divider sx={{mt:1, mb:1}} />
         <Appmarketcategory2/>
@@ -223,20 +202,18 @@ export default function GeneralMarketu() {
             justifyContent="space-between" sx={{ my: 1 }}>
               <Typography variant='h6'>중고거래</Typography>
                 {tab !== 'etctrade' &&
-                <div>
-                {option && 
-                <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
                 <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-                /></div>}
-               {((tab === 'etctrade') && option) &&
-              <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
+                  setProducts={setProducts}
+                  setApi={setApi}
+                  setPage={setPage}
+                />}
             </Stack>
           <ShopProductSearch setparam={setparam} />
           <Box sx={{  whiteSpace: 'nowrap',
-          overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
+          overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)+setparam('')} sx={{mr:1, mb:1}}/>))}</Box>
           <SimpleDialogDemo />
         </Stack>
 
@@ -251,7 +228,7 @@ export default function GeneralMarketu() {
           alignItems="center"
           spacing={2}
           >
-        {totalpage > page && <Button onClick={handleButton} variant='outlined' sx={{my:4}}>더보기</Button>}
+        <Button onClick={handleButton} variant='outlined' sx={{my:4}}>더보기</Button>
         </Stack>
         </>}      
         </Container>

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 // form
 // @mui
 import { Container, Stack, Pagination, Divider, Box, Chip, Button, Typography } from '@mui/material';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
@@ -34,18 +35,10 @@ export default function GeneralMarketu() {
 
   const { pathname } = useLocation();
 
-  const {tab, paging} = useParams()
+  const {tab='', paging='', option=''} = useParams()
 
   const [page, setPage] = useState(parseInt(paging, 10))
 
-  useEffect(()=>{
-    setProducts([])
-  },[tab])
-
-  useEffect(()=>{
-    setPage(parseInt(paging, 10))
-  }, [paging])
-  
   const isDesktop = useResponsive('up','lg')    
 
   const isMountedRef = useIsMountedRef();
@@ -53,71 +46,51 @@ export default function GeneralMarketu() {
   const dispatch = useDispatch();
 
   const { search } = useSelector((state) => state.product);
+
   const [products, setProducts] = useState([]);
+
   const [productsPC, setProductsPC] = useState([]);
+
   const [totalpage, settotalpage] = useState(0);
+
   const [pagenation, setpagenation] = useState(1);
-  const [api, setApi] = useState('')
+
+  const [param, setparam] = useState('')
+
+
+  useEffect(()=>{
+    setPage(parseInt(paging, 10))
+  }, [paging])
 
   const getAllProducts = useCallback(async () => {
-    try {
-      const response = await axios.get(`/${tab}?page=${page}&size=2`);
-      if (isMountedRef.current) {
-        if(paging > -1){
+    if(!option){
+      try {
+        const response = await axios.get(`/${tab}?page=${page}&size=2`);
+        if (isMountedRef.current) {
           setProductsPC(response.data.data.content);
-        } if(paging < 1) {
-          setProducts(product => [...product, ...response.data.data.content]);
+          setProducts(response.data.data.content);
           settotalpage(response.data.data.totalPages);
-        }
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef,tab, page, paging]);
-
-  const getSearchProducts = useCallback(async () => {
-    try {
-      const response = await axios.get(`/biketrade/search?page=${page}&size=2${api}`);
-      if (isMountedRef.current) {
-        if(paging > -1){
-          setProductsPC(response.data.data.content);
-        } if(paging < 1) {
-          setProducts(product => [...product, ...response.data.data.content]);
-          settotalpage(response.data.data.totalPages);
-        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      try {
+        const response = await axios.get(`/${tab}/search?page=${page}&size=2${option}`);
+        if (isMountedRef.current) {
+            setProductsPC(response.data.data.content);
+            setProducts(response.data.data.content);
+            settotalpage(response.data.data.totalPages);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
-  }, [isMountedRef,tab, page, paging, api]);
-  
-const [param, setparam] = useState('')
+  }, [isMountedRef,tab, page, option]);
 
-const getAllProductsTitle = useCallback(async () => {
-  try {
-    const response = await axios.get(`/${tab}/search/title?page=${page}&size=2&title=${param}`);
-    if (isMountedRef.current) {
-      setProducts(response.data.data.content);
-      settotalpage(response.data.data.totalPages);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}, [isMountedRef,param,tab,page]);
-
-useEffect(() => {
-  if(!param){
-    if(!api){
-      getAllProducts(); 
-    }    
-    if(api){
-      getSearchProducts(); 
-    }  
-  }
-  if(param){
-    getAllProductsTitle();
-  }
-}, [getAllProducts, getAllProductsTitle, getSearchProducts, param, api]);
+  useEffect(() => {
+        getAllProducts();  
+  }, [getAllProducts, param, tab]);
 
   const handleChange = ((event, value) => {
     setpagenation(value)
@@ -130,11 +103,41 @@ useEffect(() => {
   );
 
   const handleButton = (() => {
-    const go = parseInt(paging, 10)+1
-    setPage(page+1)
-    setpagenation(go)
+    navigate(`/dashboard/shop/used/${tab}/${page+1}`)
    }
   );
+
+
+  const handleChip = ((item) => {
+    if(isDesktop){
+      if(tab !== 'etctrade'){
+        navigate(`/dashboard/marketu/biketrade/0/&title=${item}`)           
+      }
+      if(tab === 'etctrade'){
+        navigate(`/dashboard/marketu/etctrade/0/&title=${item}`)           
+      }  
+    }
+    if(!isDesktop){
+      if(tab !== 'etctrade'){
+        navigate(`/dashboard/shop/used/biketrade/0/&title=${item}`)       
+      }
+      if(tab === 'etctrade'){
+        navigate(`/dashboard/shop/used/etctrade/0/&title=${item}`)           
+      }  
+    }
+   }
+  );
+
+  const handleReset = (() => {
+    if(!isDesktop){
+      navigate(`/dashboard/shop/used/${tab}/0`)
+    }    
+    if(isDesktop){
+      navigate(`/dashboard/marketu/${tab}/0`)
+    }
+  }
+  );
+
   
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -177,17 +180,20 @@ useEffect(() => {
             </>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
           {tab !== 'etctrade' &&
+          <div>                
+            {option && 
+            <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
               <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-                  setProducts={setProducts}
-                  setApi={setApi}
-              />}
+              /></div>}
+          {((tab === 'etctrade') && option) &&
+              <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
           </Stack>
         </Stack>
         <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
-          {search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
+          {search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
         </Box>  
         <Divider sx={{mt:1, mb:1}} />
         <Appmarketcategory2/>
@@ -217,17 +223,20 @@ useEffect(() => {
             justifyContent="space-between" sx={{ my: 1 }}>
               <Typography variant='h6'>중고거래</Typography>
                 {tab !== 'etctrade' &&
+                <div>
+                {option && 
+                <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
                 <ShopFilterSidebar
                   isOpen={openFilter}
                   onOpen={handleOpenFilter}
                   onClose={handleCloseFilter}
-                  setProducts={setProducts}
-                  setApi={setApi}
-                />}
+                /></div>}
+               {((tab === 'etctrade') && option) &&
+              <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
             </Stack>
           <ShopProductSearch setparam={setparam} />
           <Box sx={{  whiteSpace: 'nowrap',
-          overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => setparam(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
+          overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
           <SimpleDialogDemo />
         </Stack>
 
@@ -242,7 +251,7 @@ useEffect(() => {
           alignItems="center"
           spacing={2}
           >
-        <Button onClick={handleButton} variant='outlined' sx={{my:4}}>더보기</Button>
+        {totalpage > page && <Button onClick={handleButton} variant='outlined' sx={{my:4}}>더보기</Button>}
         </Stack>
         </>}      
         </Container>
