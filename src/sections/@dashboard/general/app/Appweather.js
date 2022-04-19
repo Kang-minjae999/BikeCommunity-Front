@@ -268,28 +268,26 @@ const onClickRiding = () => {
   return (
 <>
 <Grid container >
-<Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:1, mb:2, width:'100%', color:'text.primary'}} >라이딩 시작하기</Button>
+{window.ReactNativeWebView && <Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:1, mb:2, width:'100%', color:'text.primary'}} >라이딩 시작하기</Button>}
   {weather && 
-  <>
-  <Grid item xs={6} xl={6}>
+  <Card sx={{width:'100%' , border:1, borderColor:'darkgray'}}>
+  <Stack direction='row'>
   <Appweathercontent weather={weather} weathername={weathername} weathericon={weathericon}/>
-  </Grid>
-  <Grid item xs={6} xl={6}>
   <Appweathercontent2 weather={weather2} weathername={weathername2} weathericon={weathericon2}/>
-  </Grid>
   {walert && <Grid item xs={12} xl={12}>
   {weathername !== weathername2 
   && <Alert severity="info" sx={{ml:1,mr:1,mb:1}}>3시간뒤에 날씨가 달라질 수 있어요!</Alert>}      
   {weatheralert3 !== null &&
    <Alert severity="warning" sx={{ml:1,mr:1}}>{weatheralert3}</Alert>}
   </Grid>}
-  </>}
+  </Stack>
+  </Card>}
   {!weather && 
   <>
   <Grid item xs={12} xl={12}>
   <Card  sx={{height:200, alignItems:'center', justifyContent:'center'}}>
     <Stack direction='column' alignItems='center' justifyContent='center'>
-      <Alert severity="info" >
+      <Alert severity="info" sx={{mt:2}}>
       날씨를 불러오고 있어요
       </Alert>
     </Stack>

@@ -14,26 +14,16 @@ import { Appgarage } from '../../user/appmobile';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState(sessionStorage.getItem('ridingheader'));
+  const [value, setValue] = useState('home');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem('ridingheader')) {
-      setValue(sessionStorage.getItem('ridingheader'));
-    }
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem('ridingheader', value);
-  }, [value]);
-
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <AppRidingHome />,
+      component: <AppRidingHome tab={value}/>,
     },
     {
       value: 'club',
@@ -49,7 +39,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'map',
-      component: <GeneralMap />,
+      component: <GeneralMap tab={value} />,
     },
   ];
 
@@ -106,7 +96,7 @@ export default function AppRidingHeader() {
             value="map"
           />
         </BottomNavigation>
-        <Divider />
+        <Divider sx={{mb:2}} />
         </>
       )}
       {!isDesktop && (

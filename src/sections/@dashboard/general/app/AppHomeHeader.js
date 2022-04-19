@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {  Typography, Paper, Divider } from '@mui/material';
@@ -16,8 +16,11 @@ export default function AppHomeHeader() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleChangePC = (event, newValue) => {
+    setValuepc(newValue);
+  };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if(sessionStorage.getItem('homeheader')){
       setValue(sessionStorage.getItem('homeheader'))
     }
@@ -25,7 +28,7 @@ export default function AppHomeHeader() {
 
   useEffect(() => {
     sessionStorage.setItem('homeheader', value)
-  }, [value])
+  }, [value]) */
   
 
   const APP_TABS = [
@@ -101,7 +104,7 @@ export default function AppHomeHeader() {
       {isDesktop &&
       <> 
       <Divider />
-       <BottomNavigation showLabels sx={{ width: '100%'}} value={valuepc} onChange={handleChange}>
+       <BottomNavigation showLabels sx={{ width: '100%'}} value={valuepc} onChange={handleChangePC}>
             <BottomNavigationAction
             label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'homepc') && valueStyle}}>메인</Typography>}
             value="homepc"

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {useEffect, useState} from 'react'
 import axios from 'axios';
-import { Alert, Box,  Grid } from '@mui/material';
+import {  Box,  Grid } from '@mui/material';
 // -----------------------------------------
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import BoltIcon from '@mui/icons-material/Bolt';
@@ -30,7 +30,6 @@ export default function GeneralMapweather({wealat,wealng,weatherok, name}) {
   const [weathername, setweathername] = useState('');
   const [weathericon2, setweathericon2] = useState('');
   const [weathername2, setweathername2] = useState('');
-  const [weatheralert3, setweatheralert3] = useState(null);
   const [weather, setweather] = useState('');
   const [weather2, setweather2] = useState('');
   
@@ -195,14 +194,6 @@ useEffect(() => {
   }
 }, [weather2]);
 
-useEffect(() => {
-  if(weathername !== '' || weathername2 !== ''){
-  if (weathername !== '맑음' || weathername2 !== '맑음' || weathername !== '구름' || weathername2 !== '구름' ){
-    setweatheralert3('라이딩이 위험할 수 있어요!')
-  }else{
-    setweatheralert3(null)
-  }}
-}, [weathername,weathername2]);
 
 
   return (
@@ -215,13 +206,6 @@ useEffect(() => {
   <Grid item xs={6} lx={6}>
   <Appweathercontent2ride namek={name} weather={weather2} weathername={weathername2} weathericon={weathericon2}/>
   </Grid>
-  <Grid item xs={12} lx={12}>
-  {weathername !== weathername2 
-  ? <Alert severity="success" sx={{ml:1,mr:1,mb:1}}>3시간뒤에 날씨가 달라질 수 있어요!</Alert> 
-  : ''}      
-  {weatheralert3 !== null &&
-   <Alert severity="warning" sx={{ml:1,mr:1}}>{weatheralert3}</Alert>}
-</Grid>
 </Grid>
 </Box>
 </> 

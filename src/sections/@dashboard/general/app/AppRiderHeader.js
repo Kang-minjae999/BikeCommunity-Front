@@ -13,21 +13,12 @@ import { Appgarage } from '../../user/appmobile';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState(sessionStorage.getItem('ridingheader'));
+  const [value, setValue] = useState('home');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    if (sessionStorage.getItem('ridingheader')) {
-      setValue(sessionStorage.getItem('ridingheader'));
-    }
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem('ridingheader', value);
-  }, [value]);
 
   const ACCOUNT_TABS = [
     {
@@ -63,7 +54,7 @@ export default function AppRidingHeader() {
       {isDesktop && (
         <>
         <Divider />
-        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
+        <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange} >
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'home' && valueStyle)}}>
@@ -159,7 +150,7 @@ export default function AppRidingHeader() {
           </BottomNavigation>
         </Paper>
       )}
-      <AppHeaderSpace />
+      {!isDesktop && <AppHeaderSpace />}
       {ACCOUNT_TABS.map((button) => {
         const isMatched = button.value === value;
         return isMatched && <div key={button.value}>{button.component}</div>;

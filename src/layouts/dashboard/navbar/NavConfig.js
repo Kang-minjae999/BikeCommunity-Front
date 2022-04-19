@@ -1,6 +1,4 @@
 
-import MapIcon from '@mui/icons-material/Map';
-import SpeedIcon from '@mui/icons-material/Speed';
 import HomeIcon from '@mui/icons-material/Home';
 import CommentIcon from '@mui/icons-material/Comment';
 import AddCommentIcon from '@mui/icons-material/AddComment';
@@ -9,6 +7,8 @@ import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
+import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 import StoreIcon from '@mui/icons-material/Store';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PhotoFilterIcon from '@mui/icons-material/PhotoFilter';
@@ -17,7 +17,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import Label from '../../../components/Label';
 import SvgIconStyle from '../../../components/SvgIconStyle';
 
 // ----------------------------------------------------------------------
@@ -47,8 +46,8 @@ const navConfig = [
     subheader: 'Ridertown',
     items: [ 
       { title: '홈', path: PATH_DASHBOARD.general.app, icon: (<HomeIcon sx={{ width: 1, height: 1 }} />)},
-      { title: '라이딩', path: PATH_DASHBOARD.general.riding, icon: (<SpeedIcon sx={{ width: 1, height: 1 }} />) },
-      { title: '라이더', path: PATH_DASHBOARD.general.rider, icon: (<SpeedIcon sx={{ width: 1, height: 1 }} />) },
+      { title: '라이딩', path: PATH_DASHBOARD.general.riding, icon: (<TwoWheelerIcon sx={{ width: 1, height: 1 }} />) },
+      { title: '라이더', path: PATH_DASHBOARD.general.rider, icon: (<SportsMotorsportsIcon sx={{ width: 1, height: 1 }} />) },
       { title: '장바구니', path: PATH_DASHBOARD.general.checkout ,icon: ICONS.cart },
       { title: '마이페이지', path: PATH_DASHBOARD.general.mypage ,icon: (<PhotoFilterIcon sx={{ width: 1, height: 1 }}/>) },
     ],
