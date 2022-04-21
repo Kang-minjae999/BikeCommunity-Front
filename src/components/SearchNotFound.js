@@ -15,6 +15,6 @@ export default function SearchNotFound({ searchQuery = '', ...other }) {
       </Typography>
     </Paper>
   ) : (
-    <Typography variant="body2">검색하실 내용과 엔터를 눌러주세요.</Typography>
+    ''
   );
 }

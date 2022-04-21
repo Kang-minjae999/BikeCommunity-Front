@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box, Divider } from '@mui/material';
+import { Typography, Paper, Box, Divider, Container } from '@mui/material';
 import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
@@ -10,7 +10,6 @@ import GeneralMap from '../../../../pages/dashboard/GeneralMap';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
-import { Appgarage } from '../../user/appmobile';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
@@ -19,6 +18,12 @@ export default function AppRidingHeader() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    if(!window.Kakao.isInitialized){
+      window.Kakao.init('b5498e967687f29ac34bb8122dba4130');
+    }
+  }, [])
 
   const ACCOUNT_TABS = [
     {
@@ -39,7 +44,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'map',
-      component: <GeneralMap tab={value} />,
+      component: <Container><GeneralMap tab={value} /></Container>,
     },
   ];
 

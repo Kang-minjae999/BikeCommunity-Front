@@ -285,7 +285,7 @@ const onClickRiding = () => {
   {!weather && 
   <>
   <Grid item xs={12} xl={12}>
-  <Card  sx={{height:200, alignItems:'center', justifyContent:'center'}}>
+  <Card  sx={{height:150, alignItems:'center', justifyContent:'center'}}>
     <Stack direction='column' alignItems='center' justifyContent='center'>
       <Alert severity="info" sx={{mt:2}}>
       날씨를 불러오고 있어요
