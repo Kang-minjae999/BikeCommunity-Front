@@ -13,11 +13,11 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import ProductNewForm from '../../sections/@dashboard/e-commerce/ProductNewForm';
+import ProductNewFormEdu from '../../sections/@dashboard/e-commerce/ProductNewFormEdu';
 
 // ----------------------------------------------------------------------
 
-export default function EcommerceProductCreate() {
+export default function EcommerceProductCreateEdu() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -40,7 +40,7 @@ export default function EcommerceProductCreate() {
           ]}
         />
 
-        <ProductNewForm isEdit={isEdit} currentProduct={currentProduct} />
+        <ProductNewFormEdu isEdit={isEdit} currentProduct={currentProduct} />
       </Container>
     </Page>
   );

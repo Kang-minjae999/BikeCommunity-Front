@@ -85,6 +85,7 @@ export default function Router() {
             { path: 'motocycleparts', element: <Emotocycleparts /> },
             { path: 'product/:name', element: <EcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
+            { path: 'product/newedu', element: <EcommerceProductCreateEdu /> },
             { path: 'product/new', element: <EcommerceProductCreate /> },
             { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
             { path: 'checkout', element: <EcommerceCheckout /> },
@@ -131,6 +132,7 @@ export default function Router() {
             { element: <Navigate to="/dashboard/garage/profile" replace />, index: true },
             { path: 'profile', element: <GarageProfile /> },
             { path: 'profile/:id', element: <GarageProfile /> },
+            { path: 'newMoto', element: <GarageNewMoto /> },
             { path: 'home', element: <GarageHome /> },
             { path: 'cards', element: <GarageCards /> },
             { path: 'reservation', element: <Garagecheckout /> },
@@ -274,6 +276,7 @@ const Emotocycleparts = Loadable(lazy(() => import('../pages/dashboard/Emotocycl
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
 const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));
+const EcommerceProductCreateEdu = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreateEdu')));
 const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/EcommerceCheckout')));
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
 // 동호회
@@ -312,6 +315,7 @@ const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 // 개러지
+const GarageNewMoto = Loadable(lazy(() => import('../pages/dashboard/GarageNewMoto')));
 const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
 const GarageHome = Loadable(lazy(() => import('../pages/dashboard/GarageHome')));
 const GarageCards = Loadable(lazy(() => import('../pages/dashboard/GarageCards')));

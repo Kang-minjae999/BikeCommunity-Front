@@ -79,7 +79,7 @@ export default function MainFooter() {
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={9}>
             <Stack
               spacing={5}
               direction={{ xs: 'column', md: 'row' }}

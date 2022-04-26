@@ -15,11 +15,8 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import {
   FormProvider,
-  RHFSwitch,
   RHFSelect,
-  RHFEditor,
   RHFTextField,
-  RHFRadioGroup,
   RHFUploadMultiFile,
 } from '../../../components/hook-form';
 
@@ -159,14 +156,12 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Card sx={{ p: 3 }}>
-            <Stack spacing={3}>
-              <RHFTextField name="name" label="Product Name" />
-
+            <Stack spacing={3}>       
+              <RHFTextField name="name" label="상품명" />
               <div>
-                <LabelStyle>내용</LabelStyle>
-                <RHFEditor simple name="description" />
+                <LabelStyle>설명</LabelStyle>
+              <RHFTextField name="content" label="설명" />
               </div>
-
               <div>
                 <LabelStyle>상품 사진</LabelStyle>
                 <RHFUploadMultiFile
@@ -182,28 +177,11 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
             </Stack>
           </Card>
         </Grid>
-
         <Grid item xs={12} md={4}>
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
-              <RHFSwitch name="inStock" label="In stock" />
-
               <Stack spacing={3} mt={2}>
-                <RHFTextField name="code" label="Product Code" />
-                <RHFTextField name="sku" label="Product SKU" />
-
-                <div>
-                  <LabelStyle>사용 성별</LabelStyle>
-                  <RHFRadioGroup
-                    name="gender"
-                    options={GENDER_OPTION}
-                    sx={{
-                      '& .MuiFormControlLabel-root': { mr: 4 },
-                    }}
-                  />
-                </div>
-
-                <RHFSelect name="category" label="Category">
+                <RHFSelect name="category" label="브랜드">
                   {CATEGORY_OPTION.map((category) => (
                     <optgroup key={category.group} label={category.group}>
                       {category.classify.map((classify) => (
@@ -214,7 +192,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     </optgroup>
                   ))}
                 </RHFSelect>
-
                 <Controller
                   name="tags"
                   control={control}
@@ -230,45 +207,28 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                           <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
                         ))
                       }
-                      renderInput={(params) => <TextField label="Tags" {...params} />}
+                      renderInput={(params) => <TextField label="모델명" {...params} />}
                     />
                   )}
                 />
               </Stack>
             </Card>
-
             <Card sx={{ p: 3 }}>
               <Stack spacing={3} mb={2}>
                 <RHFTextField
                   name="price"
                   label="가격"
-                  placeholder="0.00"
+                  placeholder="0"
                   value={getValues('price') === 0 ? '' : getValues('price')}
                   onChange={(event) => setValue('price', Number(event.target.value))}
                   InputLabelProps={{ shrink: true }}
                   InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                    type: 'number',
-                  }}
-                />
-
-                <RHFTextField
-                  name="priceSale"
-                  label="세일 가격"
-                  placeholder="0.00"
-                  value={getValues('priceSale') === 0 ? '' : getValues('priceSale')}
-                  onChange={(event) => setValue('price', Number(event.target.value))}
-                  InputLabelProps={{ shrink: true }}
-                  InputProps={{
-                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                    endAdornment: <InputAdornment position="start">원</InputAdornment>,
                     type: 'number',
                   }}
                 />
               </Stack>
-
-              <RHFSwitch name="taxes" label="Price includes taxes" />
             </Card>
-
             <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
               {!isEdit ? '상품 올리기' : '상품 수정하기'}
             </LoadingButton>

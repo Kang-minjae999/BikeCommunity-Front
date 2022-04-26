@@ -58,7 +58,8 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
                 }}
                 {...other}
               >
-                <Iconify icon={icon} sx={{ width: 20, height: 20, color:'text.primary' }} />
+                {name === 'naverblog' && <Iconify icon={icon} sx={{ width: 18, height: 18, color:'text.primary' }} />}
+                {name !== 'naverblog' && <Iconify icon={icon} sx={{ width: 20, height: 20, color:'text.primary' }} /> }
               </IconButton>
             </Tooltip>
           </Link>

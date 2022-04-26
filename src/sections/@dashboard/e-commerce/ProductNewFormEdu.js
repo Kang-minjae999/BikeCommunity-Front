@@ -29,9 +29,9 @@ const HOWMANY_OPTION = ['1개', '2개', '3개'];
 
 const CATEGORY_OPTION = [
   '신차',
-  '장비/의류/블루투스/기타 범용파츠',
-  '내부부품/소모품/파츠/튜닝파츠',
-  '외장부품/파츠/튜닝파츠',
+  '장비/의류/블루투스',
+  '부품/파츠/튜닝파츠',
+  '기타'
 ];
 
 const NEWMOTO_CATEGORY_OPTION = [
@@ -51,70 +51,49 @@ const GEAR_CATEGORY_OPTION = [
   '마스크',
   '가방',
   '블루투스',
-  '블랙박스',
   '액션캠',
-  '레인웨어',
+  '우의',
   '방한용품',
   '악세사리',
-  '도난방지',
-  '클리너/루브',
-  '정비용품',
-  '거치대/USB충전',
-  '블랙박스',
-  '탱크패드',
-  '바이크 커버',
-  '기타',
 ];
 
 const PARTS_CATEGORY_OPTION = [
   '머플러',
-  '대기어/소기어/체인',
-  '서스펜션',
-  '마스터실린더',
-  '브레이크디스크',
-  '브레이크패드',
-  '마스터실린더',
-  '에어필터',
-  '점화플러그',
-  '타이어',
+  '머플러',
   '엔진오일',
-  '미션오일',
   '브레이크오일',
   '냉각수',
   '배터리',
 ];
 
 const GOODS_CATEGORY_OPTION = [
-  '프레임 슬라이더',
-  '스윙암 슬라이더',
-  '포크 슬라이더',
-  '윈드스크린',
-  '댐퍼',
-  '그립',
-  '엔진가드',
-  '엔진커버',
-  '오일캡',
-  '핸들발란스',
-  '스텝',
-  '사이드미러',
-  '바엔드미러',
-  '카울',
-  '시트',
-  '로우킷',
-  '데칼/스티커',
-  '탑박스',
-  '사이드박스',
-  '핸들걸이',
-  '안개등',
+  '용품',
+  '튜닝용품',
+  '구매대행',
 ];
 
 
 const DETAIL_CATEGORY_OPTION = [
-  '거치대/USB충전',
+  '신차',
+  '부품',
+  '튜닝',
+  '케미컬',
+  '용품',
+  '헬멧',
+  '자켓',
+  '바지',
+  '장갑',
+  '부츠',
+  '슈트',
+  '보호대',
+  '마스크',
+  '가방',
+  '블루투스',
   '블랙박스',
-  '스티커/데칼',
-  '탱크패드',
-  '안개등',
+  '거치대',
+  '리어백',
+  '우의',
+  '악세사리',
 ];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
@@ -125,12 +104,12 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProductNewForm.propTypes = {
+ProductNewFormEdu.propTypes = {
   isEdit: PropTypes.bool,
   currentProduct: PropTypes.object,
 };
 
-export default function ProductNewForm({ isEdit, currentProduct }) {
+export default function ProductNewFormEdu({ isEdit, currentProduct }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -384,7 +363,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={CATEGORY_OPTION.map((option) => option)}
                       renderInput={(params) => (
-                        <RHFTextField name="category" label="카테고리" {...params} placeholder="카테고리" />
+                        <RHFTextField name="category" label="카테고리//원동기인지 2종소형인지 그냥 교육인지 등등" {...params} placeholder="카테고리" />
                       )}
                     />
                   )}
@@ -399,31 +378,22 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       onChange={(event, newValue) => field.onChange(newValue)}
                       options={DETAIL_CATEGORY_OPTION.map((option) => option)}
                       renderInput={(params) => (
-                        <RHFTextField name="detailCategory" label="상세카테고리" {...params} placeholder="상세카테고리" />
+                        <RHFTextField name="detailCategory" label="상세카테고리//원동기인지 ㄷㄷㄷㄷ" {...params} placeholder="상세카테고리" />
                       )}
                     />
                   )}
                 />
-                <RHFTextField name="brand" label="브랜드" />
-                <RHFTextField name="makecompany" label="제조사" placeholder='수입품의 경우 수입자를 함께 표시 병행수입의 경우 병행수입 여부로 대체 가능'/>
-                <RHFTextField name="makecountry" label="제조국" />
-                <RHFTextField name="startproduct" label="배송 출고지" />
-                <RHFTextField name="returnproduct" label="반품 교환지" />                
+                <RHFTextField name="brand" label="아카데미 이름" />
+                <RHFTextField name="returnproduct" label="강의명" />  
+                <RHFTextField name="startproduct" label="총 교육 강의 수" /> 
+                <RHFTextField name="returnproduct" label="판매 강의 명" placeholder='강의명 챕터 ex 2. 슬라럼' />      
+                <RHFTextField name="makecompany" label="일정" placeholder='수입품의 경우 수입자를 함께 표시 병행수입의 경우 병행수입 여부로 대체 가능'/>
+                <RHFTextField name="makecountry" label="할당할 교육 명 수" />
+                <RHFTextField name="startproduct" label="총 교육 강의 수" />
+                <RHFTextField name="returnproduct" label="강의명" />                
                 <RHFTextField
                   name="shipping"
                   label="배송비"
-                  placeholder="0"
-                  value={getValues('shipping') === 0 ? '' : getValues('shipping')}
-                  onChange={(event) => setValue('shipping', Number(event.target.value))}
-                  InputLabelProps={{ shrink: true }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="start">원</InputAdornment>,
-                    type: 'number',
-                  }}
-                />
-                  <RHFTextField
-                  name="returnshipping"
-                  label="단순변심반품비"
                   placeholder="0"
                   value={getValues('shipping') === 0 ? '' : getValues('shipping')}
                   onChange={(event) => setValue('shipping', Number(event.target.value))}
