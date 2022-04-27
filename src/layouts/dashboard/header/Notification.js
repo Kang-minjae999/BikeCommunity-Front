@@ -97,10 +97,10 @@ const Notification = () => {
 
   return (
     <>
-      <Button onClick={() => notificationSnack(alerttest) + sets(s + 1)} sx={{ color: 'text.primary'  }}>
+      {/* <Button onClick={() => notificationSnack(alerttest) + sets(s + 1)} sx={{ color: 'text.primary'  }}>
         알림추가
-      </Button>
-      <NotificationsPopover />
+      </Button> */}
+      <NotificationsPopover color='action'/>
     </>
   );
 };

@@ -4,6 +4,7 @@ import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
+import DashboardLayoutForProfile from '../layouts/dashboard/indexForProfile';
 // guards
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
@@ -52,6 +53,15 @@ export default function Router() {
         { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'verify', element: <VerifyCode /> },
+      ],
+    },
+    {
+      path: 'dashboard',
+      element: <DashboardLayoutForProfile />,
+      children: [
+        { element: <Navigate to="/dashboard/app" replace />, index: true},
+        { path: 'garage/profile', element: <GarageProfile /> },
+        { path: 'garage/profile/:nickname', element: <GarageProfile /> },
       ],
     },
       {
@@ -130,8 +140,6 @@ export default function Router() {
           path: 'garage',
           children: [
             { element: <Navigate to="/dashboard/garage/profile" replace />, index: true },
-            { path: 'profile', element: <GarageProfile /> },
-            { path: 'profile/:id', element: <GarageProfile /> },
             { path: 'newMoto', element: <GarageNewMoto /> },
             { path: 'home', element: <GarageHome /> },
             { path: 'cards', element: <GarageCards /> },

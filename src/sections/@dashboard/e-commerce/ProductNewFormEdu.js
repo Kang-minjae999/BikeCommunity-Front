@@ -23,78 +23,14 @@ import {
 } from '../../../components/hook-form';
 import ProductNewFormOptionGrid from './ProductNewFormOptionGrid';
 
-// ----------------------------------------------------------------------
-
-const HOWMANY_OPTION = ['1개', '2개', '3개'];
+// ---------------------------------------------
 
 const CATEGORY_OPTION = [
-  '신차',
-  '장비/의류/블루투스',
-  '부품/파츠/튜닝파츠',
-  '기타'
+  '안전/라이딩기술 교육',
+  '면허시험교육',
+  '정비교육',
 ];
 
-const NEWMOTO_CATEGORY_OPTION = [
-  '재고신차',
-  '예약주문',
-  '구매대행',
-];
-
-const GEAR_CATEGORY_OPTION = [
-  '헬멧',
-  '자켓',
-  '바지',
-  '장갑',
-  '부츠',
-  '슈트',
-  '보호대',
-  '마스크',
-  '가방',
-  '블루투스',
-  '액션캠',
-  '우의',
-  '방한용품',
-  '악세사리',
-];
-
-const PARTS_CATEGORY_OPTION = [
-  '머플러',
-  '머플러',
-  '엔진오일',
-  '브레이크오일',
-  '냉각수',
-  '배터리',
-];
-
-const GOODS_CATEGORY_OPTION = [
-  '용품',
-  '튜닝용품',
-  '구매대행',
-];
-
-
-const DETAIL_CATEGORY_OPTION = [
-  '신차',
-  '부품',
-  '튜닝',
-  '케미컬',
-  '용품',
-  '헬멧',
-  '자켓',
-  '바지',
-  '장갑',
-  '부츠',
-  '슈트',
-  '보호대',
-  '마스크',
-  '가방',
-  '블루투스',
-  '블랙박스',
-  '거치대',
-  '리어백',
-  '우의',
-  '악세사리',
-];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -123,25 +59,41 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      name: currentProduct?.name || '',
-      content: currentProduct?.description || '',
+      eduName: currentProduct?.productName || null,
       images: currentProduct?.images || [],
-      code: currentProduct?.code || '',
-      sku: currentProduct?.sku || '',
-      price: currentProduct?.price || 0,
-      priceSale: currentProduct?.priceSale || 0,
-      tags: currentProduct?.tags || '',
-      optionmany: currentProduct?.tags || null,
-      option1: currentProduct?.tags || '',
-      option2: currentProduct?.tags || '',
-      option3: currentProduct?.tags || '',
-      howmany: currentProduct?.tags || '',
-      modelname: currentProduct?.tags || '',
-      inStock: true,
-      taxes: true,
-      gender: currentProduct?.gender || HOWMANY_OPTION[2],
+      content: currentProduct?.content || null,
       category: currentProduct?.category || null,
-      detailCategory: currentProduct?.detailCategory || null,
+      optionmany: currentProduct?.optionmany || null,
+
+
+      option1:  currentProduct?.option1 || null, 
+      option2:  currentProduct?.option2 || null, 
+      option3:  currentProduct?.option3 || null, 
+      option4:  currentProduct?.option3 || null, 
+      option5:  currentProduct?.option3 || null, 
+      howmany:  currentProduct?.howmany || null, 
+      modelName:  currentProduct?.modelName || null, 
+      sku:  currentProduct?.sku || null, 
+      price:  currentProduct?.price || null, 
+      priceSale:  currentProduct?.priceSale || null, 
+      option: currentProduct?.option || [{
+        option1: null, 
+        option2: null, 
+        option3: null, 
+        option4: null, 
+        option5: null, 
+        howmany: null, 
+        modelName: null, 
+        sku: null, 
+        price: null, 
+        priceSale: null, 
+      }], // 옵션은 따로 관리?
+
+      
+      academyName: currentProduct?.academyName || null,
+      teacherName: currentProduct?.teacherName || null,
+      academyPhoneNumber: currentProduct?.academyPhoneNumber || null,
+      academyLocation: currentProduct?.academyLocation || null,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -211,45 +163,20 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
   const [options, setOptions] = useState([])
 
   const onOption = () => {
-    if(values.optionmany === '1개'){
       setOptions([...options, 
         {
             id:values.option1,
             option1:values.option1,
-            howmany:values.howmany,
-            modelname:values.modelname,
-            price:values.price,
-            priceSale:values.priceSale,
-            sku:values.sku,
-        }])
-    }
-    if(values.optionmany === '2개'){
-      setOptions([...options, 
-        {
-            id:`${values.option1}${values.option2}`,
-            option1:values.option1,
-            option2:values.option2,
-            howmany:values.howmany,
-            modelname:values.modelname,
-            price:values.price,
-            priceSale:values.priceSale,
-            sku:values.sku,
-        }])
-    }
-    if(values.optionmany === '3개'){
-      setOptions([...options, 
-        {
-            id:`${values.option1}${values.option2}${values.option3}`,
-            option1:values.option1,
             option2:values.option2,
             option3:values.option3,
+            option4:values.option4,
+            option5:values.option5,
             howmany:values.howmany,
             modelname:values.modelname,
             price:values.price,
             priceSale:values.priceSale,
             sku:values.sku,
         }])
-    }
   }
 
   return (
@@ -258,8 +185,8 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
         <Grid item xs={12} md={12}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
-              <Typography variant='h6'>상품 설명</Typography>
-              <RHFTextField name="name" label="상품명" />
+              <Typography variant='h6'>아카데미 설명</Typography>
+              <RHFTextField name="eduName" label="홈페이지 노출 강의 이름" />
               <div>
                 <LabelStyle>대표 사진</LabelStyle>
                 <RHFUploadMultiFile
@@ -273,37 +200,42 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
                 />
               </div>
               <div>
-                <LabelStyle>상품 설명</LabelStyle>
+                <LabelStyle>교육 설명</LabelStyle>
                 <RHFEditor simple name="content" />
               </div>
+              <Controller
+                  name="category"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      noOptionsText="그런 카테고리는 없어요!"
+                      onChange={(event, newValue) => field.onChange(newValue)}
+                      options={CATEGORY_OPTION.map((option) => option)}
+                      renderInput={(params) => (
+                        <RHFTextField name="category" label="카테고리" {...params} placeholder="카테고리" />
+                      )}
+                    />
+                  )}
+                />
             </Stack>
           </Card>
         </Grid>
 
         <Grid item xs={12} md={12}>
         <Card sx={{ p: 3 }}>
-              <Typography variant='h6' sx={{mb:2}}>상품 옵션 설정</Typography>
-                <LabelStyle>옵션 개수</LabelStyle>
-                <RHFRadioGroup
-                    name="optionmany"
-                    options={HOWMANY_OPTION}
-                    sx={{
-                      '& .MuiFormControlLabel-root': { mr: 4 },
-                    }}
-                  />
+              <Typography variant='h6' sx={{mb:2}}>강의 옵션 설정</Typography>
               <Stack spacing={3} mt={2} mb={2} direction='row'>
-                {values.optionmany === '1개' && <RHFTextField name="option1" label="옵션1 색상 ex) 블랙" />}
-                {values.optionmany === '2개' && <><RHFTextField name="option1" label="옵션1 색상 ex) 블랙" />
-                                                  <RHFTextField name="option2" label="옵션2 사이즈 ex) L" /></>}
-                {values.optionmany === '3개' && 
                 <>
-                <RHFTextField name="option1" label="옵션1 색상 ex) 블랙" />
-                <RHFTextField name="option2" label="옵션2 사이즈 ex) L" />
-                <RHFTextField name="option3" label="옵션3 기타" />
-                </>}
+                <RHFTextField name="option1" label="옵션1 강의명 ex) Chapter 1. 초급자 과정" />
+                <RHFTextField name="option2" label="옵션2 날짜 ex) 2022년 2월 22일"  />
+                <RHFTextField name="option3" label="옵션3 시간 ex) 14:00~16:00" />
+                <RHFTextField name="option4" label="옵션4 강의위치 ex) 경기도 군포시 산본동 군포체육센터" />
+                <RHFTextField name="option5" label="옵션4 준비물 ex) 헬멧" />
+                </>
                 <RHFTextField
                   name="howmany"
-                  label="재고수량"
+                  label="할당 인원"
                   placeholder="0"
                   value={getValues('howmany') === 0 ? '' : getValues('howmany')}
                   onChange={(event) => setValue('howmany', Number(event.target.value))}
@@ -313,8 +245,7 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
                     type: 'number',
                   }}
                 />
-                <RHFTextField name="modelname" label="모델명" />
-                <RHFTextField name="sku" label="판매자상품코드(SKU)" />
+                <RHFTextField name="sku" label="교육자 강의 코드(SKU)" />
               </Stack>
               <Stack spacing={3} mb={2} direction='row'>
                 <RHFTextField
@@ -343,7 +274,6 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
                   }}
                 />
               </Stack>
-              <RHFSwitch name="taxes" label="부가세 포함"  sx={{width:'25%', mb:2}}/>
               <Button variant='outlined' sx={{width:'25%', mb:2}} onClick={onOption}>옵션추가</Button>
                 <ProductNewFormOptionGrid optionmany={values.optionmany} options={options} setOptions={setOptions}/>
             </Card>
@@ -352,59 +282,10 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
           <Stack spacing={3}>
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
-              <Typography variant='h6'>상품 상세내용</Typography>                
-              <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      {...field}
-                      noOptionsText="그런 카테고리는 없어요!"
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={CATEGORY_OPTION.map((option) => option)}
-                      renderInput={(params) => (
-                        <RHFTextField name="category" label="카테고리//원동기인지 2종소형인지 그냥 교육인지 등등" {...params} placeholder="카테고리" />
-                      )}
-                    />
-                  )}
-                />
-                <Controller
-                  name="detailCategory"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      {...field}
-                      noOptionsText="그런 카테고리는 없어요!"
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={DETAIL_CATEGORY_OPTION.map((option) => option)}
-                      renderInput={(params) => (
-                        <RHFTextField name="detailCategory" label="상세카테고리//원동기인지 ㄷㄷㄷㄷ" {...params} placeholder="상세카테고리" />
-                      )}
-                    />
-                  )}
-                />
-                <RHFTextField name="brand" label="아카데미 이름" />
-                <RHFTextField name="returnproduct" label="강의명" />  
-                <RHFTextField name="startproduct" label="총 교육 강의 수" /> 
-                <RHFTextField name="returnproduct" label="판매 강의 명" placeholder='강의명 챕터 ex 2. 슬라럼' />      
-                <RHFTextField name="makecompany" label="일정" placeholder='수입품의 경우 수입자를 함께 표시 병행수입의 경우 병행수입 여부로 대체 가능'/>
-                <RHFTextField name="makecountry" label="할당할 교육 명 수" />
-                <RHFTextField name="startproduct" label="총 교육 강의 수" />
-                <RHFTextField name="returnproduct" label="강의명" />                
-                <RHFTextField
-                  name="shipping"
-                  label="배송비"
-                  placeholder="0"
-                  value={getValues('shipping') === 0 ? '' : getValues('shipping')}
-                  onChange={(event) => setValue('shipping', Number(event.target.value))}
-                  InputLabelProps={{ shrink: true }}
-                  InputProps={{
-                    endAdornment: <InputAdornment position="start">원</InputAdornment>,
-                    type: 'number',
-                  }}
-                />
-                <RHFTextField name="usingmodelname" label="제품 사용 가능 모델명" />
-                <RHFTextField name="kcnumber" label="kc안전인증 인증번호" placeholder='인증 대상에 해당하지 않는다면 빈칸으로 남겨주세요'/>
+              <Typography variant='h6'>교육자 상세내용</Typography>                
+                <RHFTextField name="academyName" label="아카데미 이름" />
+                <RHFTextField name="teacherName" label="교육자/대표자 이름" />        
+                <RHFTextField name="academyPhoneNumber" label="문의 전화번호" />            
             </Stack>
             </Card>
             <LoadingButton type="submit" variant="outlined" size="large" loading={isSubmitting}>

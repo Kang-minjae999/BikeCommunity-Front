@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Box,  Container, Typography, Card, Stack, Avatar, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { Box,  Container, Typography, Card, Stack, Avatar, BottomNavigation, BottomNavigationAction, Grid, Divider } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import CollectionsIcon from '@mui/icons-material/Collections';
@@ -118,11 +118,48 @@ export default function AppUserProfile() {
       }, 0))
     }
  },[post])
+ 
+ const margin = {
+   mt:2
+ }
 
+ const valueStyleLeft = {
+  borderTop:(isDesktop ? 3 : 2), 
+  borderRight:(isDesktop ? 2 : 1),
+  borderTopColor:'text.primary',
+  borderRightColor:'text.disabled',
+  fontWeight:'bold',
+}
+
+
+const valueStyleMiddle = {
+  borderTop:(isDesktop ? 3 : 2), 
+  borderRight:(isDesktop ? 2 : 1),
+  borderTopColor:'text.primary',
+  borderRightColor:'text.disabled',
+  borderLeft:(isDesktop ? 2 : 1),
+  borderLeftColor:'text.disabled',
+  fontWeight:'bold',
+}
+
+const valueStyleRight = {
+  borderLeft:(isDesktop ? 2 : 1),
+  borderLeftColor:'text.disabled',
+  borderTop:(isDesktop ? 3 : 2), 
+  borderTopColor:'text.primary',
+  fontWeight:'bold',
+}
+
+
+const valueStyleNo = {
+  borderBottom:(isDesktop ? 2 : 1), 
+  borderBottomColor:'text.disabled',
+}
 
  return (
       <>
-          <Card >
+      <Container maxWidth='md' disableGutters>
+          <Box sx={{...(isDesktop) && margin}}>
             <Stack
               direction="row"
               justifyContent="space-between"
@@ -136,7 +173,7 @@ export default function AppUserProfile() {
                   alignItems="center"
                   spacing={0}
                 >
-                <Avatar sx={{width:40,height:40, mx:1 ,my:1}} alt='avatar' src={user?.avatar} />
+                <Avatar sx={{width:60,height:60, mx:1 ,my:1}} alt='avatar' src={user?.avatar} />
                 <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;{user?.nickname}&nbsp;</Typography> 
                 </Stack>
               </Box>
@@ -183,23 +220,25 @@ export default function AppUserProfile() {
                 </Stack>
             </Stack>
             <Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' /> 
-            </Card>           
-         {/*    ...(value === 'profile') && valueStyle */}
-          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , position:'relative'}} value={value} onChange={handleChange}>
+            </Box>       
+          <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , position:'relative', mt:2}} value={value} onChange={handleChange} >
             <BottomNavigationAction
               label={<Typography variant='body2' color={value === 'gallery' ? 'text.primary' : 'disabled'} fontWeight='bold' >갤러리</Typography>}
               value="gallery"
-              icon={<CollectionsIcon  width={20} height={20} color={value === 'gallery' ? 'action' : 'disabled'} />}
+              icon={<CollectionsIcon  width={20} height={20} color={value === 'gallery' ? 'action' : 'disabled'} sx={{mt:2}}/>}
+              sx={{...(value === 'gallery') ? valueStyleLeft : valueStyleNo}}
             />
             <BottomNavigationAction
               label={<Typography variant='body2' color={value === 'profile' ? 'text.primary' : 'disabled'} fontWeight='bold'>게시글</Typography>}
               value="profile"
               icon={<TocIcon  width={20} height={20} color={value === 'profile' ? 'action' : 'disabled'} />}
+              sx={{...(value === 'profile') ? valueStyleMiddle : valueStyleNo}}
             />
             <BottomNavigationAction
               label={<Typography variant='body2' color={value === 'sell' ? 'text.primary' : 'disabled'} fontWeight='bold'>판매글</Typography>}
               value="sell"
               icon={<LocalAtmIcon width={20} height={20} color={value === 'sell' ? 'action' : 'disabled'}/>}
+              sx={{...(value === 'sell') ? valueStyleRight : valueStyleNo}}
             />
           </BottomNavigation>
 
@@ -207,7 +246,9 @@ export default function AppUserProfile() {
           const isMatched = tab.value === value;
           return isMatched && <div key={tab.value} >{tab.component}</div>;
         })}
-        {error && <Typography sx={{mt:10}}>{error}</Typography>}
+        {error && <Typography sx={{mt:10}}>{error}</Typography>}        
+        </Container>
       </>
+
   );
 }

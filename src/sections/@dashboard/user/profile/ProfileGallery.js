@@ -17,8 +17,7 @@ export default function ProfileGallery({ post }) {
 
   return (
     <Box sx={{ mt: 1 }}>
-      <Card sx={{ p: 1 }}>
-        {post && 
+       {post &&  <Card sx={{ p: 1 }}>
         <Box
           sx={{
             display: 'grid',
@@ -33,8 +32,8 @@ export default function ProfileGallery({ post }) {
           {post.map((post) => (
             <GalleryItem key={post.id} post={post}/>
           ))}
-        </Box>}
-      </Card>
+        </Box>
+      </Card>}
     </Box>
   );
 }
@@ -49,11 +48,12 @@ function GalleryItem({ post }) {
   const linkTo = `${PATH_DASHBOARD.blog.root}/dingsta/${post.id}`;
 
   return (
-    <Card sx={{ cursor: 'pointer', position: 'relative' }}> 
-      {post && 
+    <>
+    {post && <Card sx={{ cursor: 'pointer', position: 'relative' }}> 
       <Link to={linkTo} color="inherit" component={RouterLink}>
         <Image alt="gallery image" ratio="1/1" src={post?.thumbnailImageUrl} />
-      </Link>}
-    </Card>
+      </Link>
+    </Card>}
+    </>
   );
 }

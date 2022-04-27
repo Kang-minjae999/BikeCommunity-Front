@@ -10,6 +10,7 @@ import {
   Avatar,
   BottomNavigation,
   BottomNavigationAction,
+  Divider,
 } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -122,20 +123,52 @@ export default function UserProfile() {
  },[post, heart])
 
 
+ const valueStyleLeft = {
+  borderTop:(isDesktop ? 3 : 2), 
+  borderRight:(isDesktop ? 2 : 1),
+  borderTopColor:'text.primary',
+  borderRightColor:'text.disabled',
+  fontWeight:'bold',
+}
+
+
+const valueStyleMiddle = {
+  borderTop:(isDesktop ? 3 : 2), 
+  borderRight:(isDesktop ? 2 : 1),
+  borderTopColor:'text.primary',
+  borderRightColor:'text.disabled',
+  borderLeft:(isDesktop ? 2 : 1),
+  borderLeftColor:'text.disabled',
+  fontWeight:'bold',
+}
+
+const valueStyleRight = {
+  borderLeft:(isDesktop ? 2 : 1),
+  borderLeftColor:'text.disabled',
+  borderTop:(isDesktop ? 3 : 2), 
+  borderTopColor:'text.primary',
+  fontWeight:'bold',
+}
+
+
+const valueStyleNo = {
+  borderBottom:(isDesktop ? 2 : 1), 
+  borderBottomColor:'text.disabled',
+}
+
   return (
     <Page title="프로필">
-      <Container maxWidth={themeStretch ? false : 'md'} sx={{ mt: 2 }}>
-        {isDesktop && <HeaderBreadcrumbs heading="프로필" links={[{ name: '' }]} />}
-        <Card>
+      <Container maxWidth={themeStretch ? false : 'md'} disableGutters>
+        <Box>
           <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
             <Box>
               <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={0}>
                 <Avatar
-                  sx={{ width: 40, height: 40, mx: 1, my: 1 }}
+                  sx={{ width: 60, height: 60, mx: 1, my: 1 }}
                   alt="avatar"
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK3aSF7SOFHZyZhHSOd9voAYmtGJdo-Yq2Vc_fzdL3CYYikNaVPkIiaOg_pEsEXzPru-U&usqp=CAU"
                 />
-                <Typography variant={isDesktop ? 'h6' : 'h4'}>&nbsp;{nickname}&nbsp;</Typography>
+                <Typography variant={isDesktop ? 'h4' : 'h4'}>&nbsp;{nickname}&nbsp;</Typography>
               </Stack>
             </Box>
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{ mr: 2 }}>
@@ -161,44 +194,35 @@ export default function UserProfile() {
             </Stack>
           </Stack>
           <Image alt="profile cover" src="https://file.philgo.com/data/upload/9/2107609" ratio="16/9" />
-        </Card>
+        </Box>
 
-        <BottomNavigation showLabels sx={{ width: '100%', height: '1%', mt: 2 }} value={value} onChange={handleChange}>
-          <BottomNavigationAction
-            label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
-                갤러리
-              </Typography>
-            }
-            value="gallery"
-            icon={<CollectionsIcon width={20} height={20} color="action" />}
-          />
-          <BottomNavigationAction
-            label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
-                게시글
-              </Typography>
-            }
-            value="profile"
-            icon={<TocIcon width={20} height={20} color="action" />}
-          />
-          <BottomNavigationAction
-            label={
-              <Typography variant="body2" color="text.primary" fontWeight="bold">
-                판매글
-              </Typography>
-            }
-            value="sell"
-            icon={<LocalAtmIcon width={20} height={20} color="action" />}
-          />
-        </BottomNavigation>
+        <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , position:'relative', mt:2}} value={value} onChange={handleChange} >
+            <BottomNavigationAction
+              label={<Typography variant='body2' color={value === 'gallery' ? 'text.primary' : 'disabled'} fontWeight='bold' >갤러리</Typography>}
+              value="gallery"
+              icon={<CollectionsIcon  width={20} height={20} color={value === 'gallery' ? 'action' : 'disabled'} sx={{mt:2}}/>}
+              sx={{...(value === 'gallery') ? valueStyleLeft : valueStyleNo}}
+            />
+            <BottomNavigationAction
+              label={<Typography variant='body2' color={value === 'profile' ? 'text.primary' : 'disabled'} fontWeight='bold'>게시글</Typography>}
+              value="profile"
+              icon={<TocIcon  width={20} height={20} color={value === 'profile' ? 'action' : 'disabled'} />}
+              sx={{...(value === 'profile') ? valueStyleMiddle : valueStyleNo}}
+            />
+            <BottomNavigationAction
+              label={<Typography variant='body2' color={value === 'sell' ? 'text.primary' : 'disabled'} fontWeight='bold'>판매글</Typography>}
+              value="sell"
+              icon={<LocalAtmIcon width={20} height={20} color={value === 'sell' ? 'action' : 'disabled'}/>}
+              sx={{...(value === 'sell') ? valueStyleRight : valueStyleNo}}
+            />
+          </BottomNavigation>
 
         {PROFILE_TABS.map((tab) => {
           const isMatched = tab.value === value;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
-        })} 
-        {error && <Typography sx={{ mt: 10 }}>{error}</Typography>}
-      </Container>
+          return isMatched && <div key={tab.value} >{tab.component}</div>;
+        })}
+        {error && <Typography sx={{mt:10}}>{error}</Typography>}        
+        </Container>
     </Page>
   );
 }

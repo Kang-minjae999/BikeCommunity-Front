@@ -42,7 +42,7 @@ export default function AppRidingHeader() {
       component: <Appgarage />,
     },
   ];
-
+   // 렌트랑 보험 구인구직 그건 어떰?
   const valueStyle = {
     borderBottom: (isDesktop ? 3 : 2),
     borderBottomColor: 'text.primary',
@@ -74,7 +74,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'post' && valueStyle)}}>
-                면허
+                교육
               </Typography>
             }
             value="post"
@@ -82,7 +82,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'garage' && valueStyle)}}>
-                교육
+                뭐하지
               </Typography>
             }
             value="garage"
@@ -90,7 +90,7 @@ export default function AppRidingHeader() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'club' && valueStyle)}}>
-                보험
+                뭐하지
               </Typography>
             }
             value="club"
@@ -124,7 +124,7 @@ export default function AppRidingHeader() {
               sx={{ ...(value === 'post' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  면허
+                  교육
                 </Typography>
               }
               value="post"
@@ -133,7 +133,7 @@ export default function AppRidingHeader() {
               sx={{ ...(value === 'garage' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  교육
+                  뭐하지
                 </Typography>
               }
               value="garage"
@@ -142,7 +142,7 @@ export default function AppRidingHeader() {
               sx={{ ...(value === 'club' && valueStyle) }}
               label={
                 <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  보험
+                  뭐하지
                 </Typography>
               }
               value="club"

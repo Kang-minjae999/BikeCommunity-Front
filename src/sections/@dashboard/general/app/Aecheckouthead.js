@@ -1,17 +1,21 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Divider, Typography } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import EcommerceCheckout from '../../../../pages/dashboard/EcommerceCheckout';
 import UEcommerceHeart from '../../../../pages/dashboard/UEcommerceHeart';
 import EcommerceHeart from '../../../../pages/dashboard/EcommerceHeart';
 import EcommercePaymentList from '../../../../pages/dashboard/EcommercePaymentList';
 import useResponsive from '../../../../hooks/useResponsive';
+import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
 
 export default function Aecheckouthead() {
   const isDesktop = useResponsive('up', 'lg');
   const [value, setValue] = useState('new');
+  const {pathname} = useLocation()
+  const isMyPage = pathname.includes('mypage')
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,16 +45,25 @@ export default function Aecheckouthead() {
     borderBottomColor: 'text.primary',
     fontWeight: 'bold',
   };
+
+
   return (
     <>
         {isDesktop && (
         <>
-        <Divider />
+        <HeaderBreadcrumbs
+          heading="장바구니"
+          links={[
+            { name: '' },
+          ]}
+          sx={{mt:2}}
+        />
+        {!isMyPage && <Divider />}
         <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'new' && valueStyle)}}>
-                장바구니
+                바구니
               </Typography>
             }
             value="new"
@@ -58,7 +71,7 @@ export default function Aecheckouthead() {
           <BottomNavigationAction
             label={
               <Typography variant="body2" color="text.primary" sx={{ ...(value === 'like' && valueStyle)}}>
-                찜
+                신품찜
               </Typography>
             }
             value="like"
@@ -90,7 +103,7 @@ export default function Aecheckouthead() {
         sx={{...(value === 'new') && valueStyle}}
           label={
             <Typography variant="subtitle2" color={value === 'new' ? "text.primary" : 'disabled'}>
-              신품
+              바구니
             </Typography>
           }
           value="new"

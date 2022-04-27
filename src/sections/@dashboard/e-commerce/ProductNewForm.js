@@ -29,7 +29,7 @@ const HOWMANY_OPTION = ['1개', '2개', '3개'];
 
 const CATEGORY_OPTION = [
   '신차',
-  '장비/의류/블루투스/기타 범용파츠',
+  '장비/의류/블루투스/USB/기타 범용파츠',
   '내부부품/소모품/파츠/튜닝파츠',
   '외장부품/파츠/튜닝파츠',
 ];
@@ -60,8 +60,6 @@ const GEAR_CATEGORY_OPTION = [
   '클리너/루브',
   '정비용품',
   '거치대/USB충전',
-  '블랙박스',
-  '탱크패드',
   '바이크 커버',
   '기타',
 ];
@@ -101,7 +99,9 @@ const GOODS_CATEGORY_OPTION = [
   '카울',
   '시트',
   '로우킷',
+  '블랙박스',
   '데칼/스티커',
+  '탱크패드',
   '탑박스',
   '사이드박스',
   '핸들걸이',
@@ -109,13 +109,6 @@ const GOODS_CATEGORY_OPTION = [
 ];
 
 
-const DETAIL_CATEGORY_OPTION = [
-  '거치대/USB충전',
-  '블랙박스',
-  '스티커/데칼',
-  '탱크패드',
-  '안개등',
-];
 
 const LabelStyle = styled(Typography)(({ theme }) => ({
   ...theme.typography.subtitle2,
@@ -144,29 +137,49 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   const defaultValues = useMemo(
     () => ({
-      name: currentProduct?.name || '',
-      content: currentProduct?.description || '',
+      productName: currentProduct?.productName || null,
       images: currentProduct?.images || [],
-      code: currentProduct?.code || '',
-      sku: currentProduct?.sku || '',
-      price: currentProduct?.price || 0,
-      priceSale: currentProduct?.priceSale || 0,
-      tags: currentProduct?.tags || '',
-      optionmany: currentProduct?.tags || null,
-      option1: currentProduct?.tags || '',
-      option2: currentProduct?.tags || '',
-      option3: currentProduct?.tags || '',
-      howmany: currentProduct?.tags || '',
-      modelname: currentProduct?.tags || '',
-      inStock: true,
-      taxes: true,
-      gender: currentProduct?.gender || HOWMANY_OPTION[2],
+      content: currentProduct?.content || null,
+      optionmany: currentProduct?.optionmany || null,
+
+      option1:  currentProduct?.option1 || null, 
+      option2:  currentProduct?.option2 || null, 
+      option3:  currentProduct?.option3 || null, 
+      howmany:  currentProduct?.howmany || null, 
+      modelName:  currentProduct?.modelName || null, 
+      sku:  currentProduct?.sku || null, 
+      price:  currentProduct?.price || null, 
+      priceSale:  currentProduct?.priceSale || null, 
+
+      option: currentProduct?.option || [{
+        option1: null, 
+        option2: null, 
+        option3: null, 
+        howmany: null, 
+        modelName: null, 
+        sku: null, 
+        price: null, 
+        priceSale: null, 
+      }], // 옵션은 따로 관리?
+      
+      isOutside: false, 
       category: currentProduct?.category || null,
       detailCategory: currentProduct?.detailCategory || null,
+      brand: currentProduct?.brand || null,
+      madeCompany: currentProduct?.brand || null,
+      madeCountry: currentProduct?.brand || null,
+      startProduct: currentProduct?.brand || null,
+      returnProduct: currentProduct?.brand || null,
+      shipping: currentProduct?.brand || null,
+      returnShipping: currentProduct?.brand || null,
+      usingModelName: currentProduct?.brand || null,
+      KCCode: currentProduct?.brand || null,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
   );
+
+  // option [{option1, option2, option3, howmany, price, priceSale, taxes}]
 
   const methods = useForm({
     resolver: yupResolver(NewProductSchema),
@@ -233,6 +246,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   const onOption = () => {
     if(values.optionmany === '1개'){
+      setValue('option', )
       setOptions([...options, 
         {
             id:values.option1,
@@ -273,6 +287,24 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     }
   }
 
+  const [detailCa, setDetailCa] = useState(['상세 카테고리 설정 전에 카테고리를 먼저 설정해주세요.'])
+
+  useEffect(() => {
+    if(values.category === '신차'){
+      setDetailCa(NEWMOTO_CATEGORY_OPTION)
+    }
+    if(values.category === '장비/의류/블루투스/USB/기타 범용파츠'){
+      setDetailCa(GEAR_CATEGORY_OPTION)
+    }
+    if(values.category === '내부부품/소모품/파츠/튜닝파츠'){
+      setDetailCa(PARTS_CATEGORY_OPTION)
+    }
+    if(values.category ===  '외장부품/파츠/튜닝파츠'){
+      setDetailCa(GOODS_CATEGORY_OPTION)
+    }
+  }, [values.category])
+  
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -280,7 +312,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
               <Typography variant='h6'>상품 설명</Typography>
-              <RHFTextField name="name" label="상품명" />
+              <RHFTextField name="productName" label="상품명" />
               <div>
                 <LabelStyle>대표 사진</LabelStyle>
                 <RHFUploadMultiFile
@@ -334,8 +366,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     type: 'number',
                   }}
                 />
-                <RHFTextField name="modelname" label="모델명" />
-                <RHFTextField name="sku" label="판매자상품코드(SKU)" />
+                <RHFTextField name="modelName" label="모델명" />
+                <RHFTextField name="sku" label="판매자상품코드(SKU)" placeholder="팬매자상품코드가 없을시 빈칸으로 남겨주세요." />
               </Stack>
               <Stack spacing={3} mb={2} direction='row'>
                 <RHFTextField
@@ -364,7 +396,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   }}
                 />
               </Stack>
-              <RHFSwitch name="taxes" label="부가세 포함"  sx={{width:'25%', mb:2}}/>
+              <RHFSwitch name="isOutside" label="해외배송여부"  sx={{width:'25%', mb:2}}/>
               <Button variant='outlined' sx={{width:'25%', mb:2}} onClick={onOption}>옵션추가</Button>
                 <ProductNewFormOptionGrid optionmany={values.optionmany} options={options} setOptions={setOptions}/>
             </Card>
@@ -397,7 +429,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                       {...field}
                       noOptionsText="그런 카테고리는 없어요!"
                       onChange={(event, newValue) => field.onChange(newValue)}
-                      options={DETAIL_CATEGORY_OPTION.map((option) => option)}
+                      options={detailCa.map((option) => option)}
                       renderInput={(params) => (
                         <RHFTextField name="detailCategory" label="상세카테고리" {...params} placeholder="상세카테고리" />
                       )}
@@ -405,10 +437,10 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   )}
                 />
                 <RHFTextField name="brand" label="브랜드" />
-                <RHFTextField name="makecompany" label="제조사" placeholder='수입품의 경우 수입자를 함께 표시 병행수입의 경우 병행수입 여부로 대체 가능'/>
-                <RHFTextField name="makecountry" label="제조국" />
-                <RHFTextField name="startproduct" label="배송 출고지" />
-                <RHFTextField name="returnproduct" label="반품 교환지" />                
+                <RHFTextField name="madeCompany" label="제조사" placeholder='수입품의 경우 수입자를 함께 표시 병행수입의 경우 병행수입 여부로 대체 가능'/>
+                <RHFTextField name="madeCountry" label="제조국" />
+                <RHFTextField name="startProduct" label="배송 출고지" />
+                <RHFTextField name="returnProduct" label="반품 교환지" />                
                 <RHFTextField
                   name="shipping"
                   label="배송비"
@@ -422,7 +454,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                   }}
                 />
                   <RHFTextField
-                  name="returnshipping"
+                  name="returnShipping"
                   label="단순변심반품비"
                   placeholder="0"
                   value={getValues('shipping') === 0 ? '' : getValues('shipping')}
@@ -433,8 +465,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                     type: 'number',
                   }}
                 />
-                <RHFTextField name="usingmodelname" label="제품 사용 가능 모델명" />
-                <RHFTextField name="kcnumber" label="kc안전인증 인증번호" placeholder='인증 대상에 해당하지 않는다면 빈칸으로 남겨주세요'/>
+                <RHFTextField name="usingModelName" label="제품 사용 가능 모델명"  placeholder='범용 제품의 경우 빈칸으로 남겨주세요'/>
+                <RHFTextField name="KCCode" label="kc안전인증 인증번호" placeholder='인증 대상에 해당하지 않는다면 빈칸으로 남겨주세요'/>
             </Stack>
             </Card>
             <LoadingButton type="submit" variant="outlined" size="large" loading={isSubmitting}>

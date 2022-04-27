@@ -96,7 +96,7 @@ export default function EcommerceCheckout() {
   return (
     <>
       <Container maxWidth={themeStretch ? false : 'xl'} sx={{mt:2}}>
-        <Grid container justifyContent={isComplete ? 'center' : 'flex-start'}>
+        {/* <Grid container justifyContent={isComplete ? 'center' : 'flex-start'}>
           <Grid item xs={12} md={12} sx={{ mb: 5 }}>
             <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
               {STEPS.map((label) => (
@@ -116,7 +116,7 @@ export default function EcommerceCheckout() {
               ))}
             </Stepper>
           </Grid>
-        </Grid>
+        </Grid> */}
 
         {!isComplete ? (
           <>

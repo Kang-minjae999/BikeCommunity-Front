@@ -23,6 +23,12 @@ const typography = {
     fontSize: pxToRem(32),
     ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
   },
+  h25: {
+    fontWeight: 700,
+    lineHeight: 64 / 48,
+    fontSize: pxToRem(28),
+    ...responsiveFontSizes({ sm: 32, md: 36, lg: 42 }),
+  },
   h3: {
     fontWeight: 700,
     lineHeight: 1.5,

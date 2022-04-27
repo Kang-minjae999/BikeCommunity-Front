@@ -77,6 +77,7 @@ export default function AppUserHeader() {
     <Divider />
     </>}
     {!isDesktop &&
+    <>
     <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
@@ -105,8 +106,9 @@ export default function AppUserHeader() {
         value="setting" 
         />
     </BottomNavigation>
-    </Paper>}
+    </Paper>
     <AppHeaderSpace />
+    </>}
         {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value} >{button.component}</div>;

@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, Link, Typography } from '@mui/material';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
@@ -49,26 +52,22 @@ const RootStyle = styled(AppBar, {
 
 // ----------------------------------------------------------------------
 
-DashboardHeader.propTypes = {
+DashboardHeaderForProfile.propTypes = {
   onOpenSidebar: PropTypes.func,
   isCollapse: PropTypes.bool,
   verticalLayout: PropTypes.bool,
 };
 
-export default function DashboardHeader({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
+export default function DashboardHeaderForProfile({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
   const {pathname} = useLocation()
+  const {nickname = ''} = useParams()
 
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const isHome = pathname.includes('app')
-  const isShop = pathname.includes('shop')
-  const isRiding = pathname.includes('riding')
-  const isRider = pathname.includes('rider')
-  const isMypage = pathname.includes('mypage')
-  const isCheckout = pathname.includes('checkout')
-  const isProfile = pathname.includes('profile')
+  const isGarage = pathname.includes('garage/profile')
+  const isBrand = pathname.includes('user/profile')
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
@@ -88,45 +87,30 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
 
        {!isDesktop && 
           <>      
-            {isHome && <Link component={RouterLink} to="/dashboard/app" underline="none" >       
+            <Link component={RouterLink} to="/dashboard/app" underline="none" >       
               <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                RIDERTOWN
+                {nickname}
               </Typography>
-            </Link>}
-
-            {isShop && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                SHOP
-              </Typography>}
-
-            {isRiding && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                RIDING
-              </Typography>}
-              
-            {isRider && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                RIDER
-              </Typography>}
-            
-            {isMypage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              MYPAGE
-            </Typography>}    
-
-            {isCheckout && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              CART
-            </Typography>}
-
-            {isProfile && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              PROFILE
-            </Typography>}
+            </Link>
           </>}
 
         <Box sx={{ flexGrow: 1 }} />
-        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
+        {!isDesktop &&  <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
+        {isGarage && 
+          <> 
+          <CallOutlinedIcon color='action'/>
+          <ForumOutlinedIcon color='action'/>
+          <ContactSupportOutlinedIcon color='action'/>
+          </>}
+          </Stack>}
+         {isDesktop && 
+         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
           <Notification />
         <Link component={RouterLink} to="/dashboard/checkout" underline="none" sx={{mt:1}}>     
           <LocalGroceryStoreIcon color='action' />
         </Link>
           <AccountPopover color='text.primary' />
-        </Stack>
+        </Stack>}
         </Toolbar>  
     </RootStyle>  
   );
