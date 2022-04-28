@@ -62,7 +62,7 @@ export default function Phonecheck () {
 
   return (
     <>
-    <Button onClick={onClickCertification()}>본인인증 하기</Button>
+    <Button variant='outlined' size='large' onClick={() => onClickCertification()}>본인인증 하기</Button>
     </>
   );
 }

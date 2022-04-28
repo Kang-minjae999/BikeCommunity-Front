@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { useState, React } from 'react';
 import { useNavigate } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
@@ -17,24 +18,34 @@ import {
   AccordionDetails,
   Checkbox,
   Button,
+  Link,
+  Divider,
+  LinearProgress,
 } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { LoadingButton } from '@mui/lab';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DaumPostcode from 'react-daum-postcode';
+import { PATH_AUTH } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
+import { FormProvider, RHFTextField, RHFCheckbox, RHFRadioGroup } from '../../../components/hook-form';
 import Regicheck1 from './Rescheck1';
 import Regicheck2 from './Rescheck2';
 import Regicheck3 from './Rescheck3';
 import Phonecheck from './Phonecheck';
 
 // ----------------------------------------------------------------------
-
 export default function RegisterForm() {
+
+  const SEX_CATEGORY_OPTIONS = [
+    '남자', 
+    '여자'
+  ]
+
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -57,6 +68,7 @@ export default function RegisterForm() {
       .required('비밀번호를 입력해주세요.')
       .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
     name: Yup.string().required('이름을 입력해주세요.'),
+    sex: Yup.string().required('이름을 입력해주세요.'),
     nickname: Yup.string()
       .required('닉네임을 입력해주세요.')
       .max(8, '닉네임은 8자리 이하로 입력해주세요.')
@@ -82,6 +94,7 @@ export default function RegisterForm() {
     password2: '',
     name: '',
     nickname: '',
+    sex: '',
     birthday: '',
     phoneNumber: '',
     address: {
@@ -103,8 +116,12 @@ export default function RegisterForm() {
     setError,
     handleSubmit,
     setValue,
+    clearErrors,
+    watch,
     formState: { errors, isSubmitting },
   } = methods;
+
+  const values = watch()
 
   const [ischeck, setischeck] = useState(false);
 
@@ -125,7 +142,6 @@ export default function RegisterForm() {
     let fullAddr = data.address;
     let extraAddr = '';
     const zipcode = data.zonecode;
-    console.log(fullAddr);
 
     if (data.addressType === 'R') {
       if (data.bname !== '') {
@@ -173,17 +189,118 @@ export default function RegisterForm() {
     }
   };
 
+  const [resiNum, setResiNum] = useState(25)
+  
+  const [injoong, setInjoong] = useState(false)
+
+  const validate2 = () => {
+    clearErrors('email')
+    clearErrors('password')
+    clearErrors('password2')
+    clearErrors('nickname')
+    if(!values.email){
+      setError('email')
+      return false;
+    }
+    const emai = /^(?=.*[@])(?=.*[.]).{2,50}$/;
+    if(!emai.test(values.email)){
+      setError('email')
+      return false;
+    }
+    if(!values.password){
+      setError('password')
+      return false;
+    }
+    const pass = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()_+=-]).{8,50}$/;
+    if(!pass.test(values.password)){
+      setError('password')
+      return false;
+    }
+    if(values.password !== values.password2){
+      setError('password')
+      setError('password2')
+      return false;
+    }
+    if(!values.nickname){
+      setError('nickname')
+      return false;
+    }
+    const nick = /^.{2,8}$/;
+    if(!nick.test(values.nickname)){
+      setError('nickname')
+      return false;
+    }
+    clearErrors('email')
+    clearErrors('password')
+    clearErrors('password2')
+    clearErrors('nickname')
+    return true;
+  }
+
+  const validate4 = () => {
+    clearErrors('address.address')
+    clearErrors('address.detailAddress')
+    clearErrors('address.zipcode')
+    if(!values.address.address){
+      setError('address.address')
+      return false;
+    }
+    if(!values.address.detailAddress){
+      setError('address.detailAddress')
+      return false;
+    }
+    if(!values.address.zipcode){
+      setError('address.zipcode')
+      return false;
+    }
+    clearErrors('address.address')
+    clearErrors('address.detailAddress')
+    clearErrors('address.zipcode')
+    return true;
+  }
+
+
+  const onSubmit2 = async () => {
+    try {
+      if(validate2()){
+      setResiNum(50)
+      }
+    } catch (error) {
+      if (isMountedRef.current) {
+        setError('afterSubmit', error);
+      }
+    }
+  };
+  const onSubmit4 = async () => {
+    try {
+      if(validate4()){
+      setResiNum(100)
+      }
+    } catch (error) {
+      if (isMountedRef.current) {
+        setError('afterSubmit', error);
+      }
+    }
+  };
+
+
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
+        <LinearProgress value={resiNum} valueBuffer={resiNum} variant="determinate" sx={{position:'fixed' , bottom:100, left:0, right:0 ,width:'100%'}}/>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-        <RHFTextField name="email" label="이메일" />
+        {resiNum === 25 && 
+        <>
+        <Typography variant='h6'>회원가입</Typography>
+        <RHFTextField name="email" label="이메일"  
+          helperText="로그인 아이디로 사용됩니다!"autoComplete="none"/>
 
         <RHFTextField
           name="password"
           label="비밀번호"
           type={showPassword ? 'text' : 'password'}
           helperText="최소 8자 이상으로 특수문자, 숫자를 최소 한개씩 포함해주세요."
+          autoComplete="none"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -199,6 +316,7 @@ export default function RegisterForm() {
           label="비밀번호 확인"
           type={showPassword ? 'text' : 'password'}
           helperText="앞에 입력한 비밀번호와 같은 값을 입력해주세요."
+          autoComplete="none"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -209,18 +327,35 @@ export default function RegisterForm() {
             ),
           }}
         />
-        {/*  <Phonecheck /> */}
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="name" label="이름" helperText="한글로 입력해주세요." autoComplete="none" />
-          <RHFTextField
+        <RHFTextField
             name="nickname"
             label="닉네임"
             helperText="2자 이상 8자 이하로 입력해주세요."
             autoComplete="none"
           />
-        </Stack>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <Button variant='outlined' size='large' onClick={() => onSubmit2()} >입력완료</Button>
+          <Link variant="subtitle1" to={PATH_AUTH.login} component={RouterLink}>
+           <Button variant='outlined' size='large' sx={{position:'fixed' , bottom:20, left:20 ,width:'10%'}}><ArrowBackIcon/></Button>
+          </Link>
+        <Typography variant="body1" sx={{ mt: 3, textAlign: 'center', position:'fixed', bottom:150, left:0, right:0 }}>
+                이미 계정이 있으신가요?{' '}
+                <Link variant="subtitle1" to={PATH_AUTH.login} component={RouterLink}>
+                  로그인
+                </Link>
+        </Typography>
+        </>}
+        
+        {resiNum === 50 &&
+        <>
+        <Typography variant='h6'>본인인증</Typography>
+
+        {/* <Phonecheck />  */}
+        <Stack direction='column' spacing={2} >
+
+          <Button variant='outlined' size='large' onClick={() => setInjoong(true)} >본인 인증하기</Button>
+          {injoong && <>         
+          <Typography>아래는 휴대폰 모듈 통과되면 삭제 예정</Typography>
+          <RHFTextField name="name" label="이름" helperText="한글로 입력해주세요." autoComplete="none" />
           <RHFTextField name="birthday" label="생일" helperText="'-'없이 6자리를 입력해주세요." placeholder="YYMMDD" />
           <RHFTextField
             name="phoneNumber"
@@ -228,7 +363,17 @@ export default function RegisterForm() {
             helperText="'-'없이 11자리를 입력해주세요."
             placeholder="01012345678"
           />
+          <RHFRadioGroup name="sex" options={SEX_CATEGORY_OPTIONS} sx={{ml:3}}/>
+          <Button variant='outlined' size='large' onClick={() => setResiNum(75)} >입력완료</Button>
+          </>}
+
+          <Button variant='outlined' size='large' onClick={() => setResiNum(25)} sx={{position:'fixed' , bottom:20, left:20 ,width:'10%'}}><ArrowBackIcon/></Button>
         </Stack>
+        </>}
+
+        {resiNum === 75 && 
+        <>
+        <Typography variant='h6'>주소등록</Typography>
         <Stack direction="row" spacing={2}>
           <RHFTextField name="address.address" label="주소" autoComplete="none" />
           <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '30%' }}>
@@ -236,73 +381,82 @@ export default function RegisterForm() {
           </Button>
         </Stack>
 
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+        <Stack direction='column'  spacing={2}>
           {isOpenPost ? <DaumPostcode style={postCodeStyle} autoClose onComplete={onCompletePost} /> : ''}
-          {}
-        </Stack>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
           <RHFTextField name="address.detailAddress" label="상세주소" autoComplete="none" />
+        <Button variant='outlined' size='large' onClick={() => onSubmit4()} >입력완료</Button>
+        <Button variant='outlined' size='large' onClick={() => setResiNum(50)} sx={{position:'fixed' , bottom:20, left:20 ,width:'10%'}}><ArrowBackIcon/></Button>
         </Stack>
+        </>}
 
-        <Stack direction="row" justifyContent="center" alignItems="center">
-          (필수) 약관 전체 동의하기 &nbsp;
-          <Checkbox checked={ischeck} onChange={check} />
-        </Stack>
-        <Stack direction="row" justifyContent="center" alignItems="center">
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        {resiNum === 100 && 
+        <>
+        <Typography variant='h6'>약관동의</Typography>
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <Accordion sx={{width:'100%'}}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header" > 
               <Typography>라이더 타운 이용약관</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Regicheck1 />
             </AccordionDetails>
           </Accordion>
-          (필수) 약관에 동의하기 &nbsp;
-          <RHFCheckbox name="resisteragree1" label="" />
         </Stack>
-        <Stack direction="row" justifyContent="center" alignItems="center">
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <Accordion sx={{width:'100%'}}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header"  >
               <Typography>개인정보 처리 약관</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Regicheck2 />
             </AccordionDetails>
           </Accordion>
-          (필수) 약관에 동의하기 &nbsp;
-          <RHFCheckbox name="resisteragree2" label="" />
         </Stack>
-        <Stack direction="row" justifyContent="center" alignItems="center">
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <Accordion sx={{width:'100%'}}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header" >
               <Typography>전자상거래 처리 약관</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Regicheck3 />
             </AccordionDetails>
           </Accordion>
-          (필수) 약관에 동의하기 &nbsp;
+        </Stack>
+        <Divider />
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{mx:4}}>
+          <Stack direction='column'justifyContent="center" alignItems="center" spacing={4} >
+          <Typography>
+          (필수) 약관 전체 동의하기 
+          </Typography>
+          <Typography>
+          (필수)라이더타운 이용 약관에 동의하기 
+          </Typography>
+          <Typography>
+          (필수)개인정보 처리 약관에 동의하기 
+          </Typography>
+          <Typography>
+          (필수)전자상거래 처리 약관에 동의하기 
+          </Typography>
+          </Stack>
+          <Stack direction='column'justifyContent="center" alignItems="center" spacing={2} >
+          <Checkbox checked={ischeck} onChange={check} />
+          <RHFCheckbox name="resisteragree1" label="" />
+          <RHFCheckbox name="resisteragree2" label="" />
           <RHFCheckbox name="resisteragree3" label="" />
+          </Stack>
         </Stack>
 
-        {errors.resisteragree1 && (
+        {(errors.resisteragree1 || errors.resisteragree2 || errors.resisteragree3) && (
           <Alert severity="error">
-            <strong>라이더타운 이용 약관에 동의해주세요.</strong>
+            <strong>이용 약관에 동의해주세요.</strong>
           </Alert>
         )}
-        {errors.resisteragree2 && (
-          <Alert severity="error">
-            <strong>개인정보 처리 약관에 동의해주세요.</strong>
-          </Alert>
-        )}
-        {errors.resisteragree3 && (
-          <Alert severity="error">
-            <strong>전자상거래 이용 약관에 동의해주세요.</strong>
-          </Alert>
-        )}
-        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+
+        <LoadingButton fullWidth size="large" type="submit" variant="contained" color='secondary' loading={isSubmitting}>
           가입하기
         </LoadingButton>
+        <Button variant='outlined' size='large' onClick={() => setResiNum(75)} sx={{position:'fixed' , bottom:20, left:20 ,width:'10%'}}><ArrowBackIcon/></Button>
+        </>}
       </Stack>
     </FormProvider>
   );

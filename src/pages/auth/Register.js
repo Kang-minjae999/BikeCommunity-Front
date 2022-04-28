@@ -43,7 +43,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'flex-start',
   padding: theme.spacing(12, 0),
 }));
 
@@ -62,9 +62,8 @@ export default function Register() {
         justifyContent="flex-start"
         alignItems="center" 
         spacing={1}>
-        <Logo sx={{ mb: 0.5 }}/>
         <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+            <Typography color="primary" variant='h4' sx={{mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
@@ -82,25 +81,7 @@ export default function Register() {
 
         <Container>
           <ContentStyle>
-            <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h4" gutterBottom>
-                  회원가입
-                </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>이름, 아이디, 비밀번호를 입력해주세요.</Typography>
-              </Box>
-            </Box>
-
             <RegisterForm />
-
-            {!smUp && (
-              <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
-                이미 계정이 있으신가요?{' '}
-                <Link variant="subtitle2" to={PATH_AUTH.login} component={RouterLink}>
-                  로그인
-                </Link>
-              </Typography>
-            )}
           </ContentStyle>
         </Container>
       </RootStyle>

@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Link, Tooltip, Container, Typography } from '@mui/material';
+import { Box, Stack, Link, Tooltip, Container, Typography, Button } from '@mui/material';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // hooks
@@ -11,6 +11,7 @@ import Page from '../../components/Page';
 import Logo from '../../components/Logo';
 // sections
 import { LoginForm } from '../../sections/auth/login';
+import Image from '../../components/Image';
 
 
 // ----------------------------------------------------------------------
@@ -43,6 +44,19 @@ const ContentStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(8, 0),
+  backgroundImage: `url(${"https://cdn.sports.hankooki.com/news/photo/202105/img_6597675_0.jpg"})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+}));
+
+const ContentStylePC = styled('div')(({ theme }) => ({
+  maxWidth: 480,
+  margin: 'auto',
+  display: 'flex',
+  minHeight: '100vh',
+  flexDirection: 'column',
   justifyContent: 'center',
   padding: theme.spacing(12, 0),
 }));
@@ -52,8 +66,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Login() {
 
   const isDesktop = useResponsive('up', 'lg')
-
-
 
   return (
     <Page title="Login">
@@ -65,31 +77,26 @@ export default function Login() {
         justifyContent="flex-start"
         alignItems="center" 
         spacing={1}>
-        <Logo sx={{ mb: 0.5 }}/>
         <Link component={RouterLink} to="/dashboard/app"underline="none" >         
             <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
         </Stack>
-            <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              계정이 없으신가요? {''}
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
                 회원가입
               </Link>
-            </Typography>
         </HeaderStyle>
 
 
 
         <Container maxWidth="sm">
-          <ContentStyle>
+          <ContentStylePC>
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                   로그인
                 </Typography>
-                <Typography sx={{ color: 'text.primary' }}>아이디와 비밀번호를 입력해주세요.</Typography>
               </Box>
               <Tooltip title='회원가입' placement="right">
               <Typography variant="body2" sx={{ mt: { md: 2 } }}>
@@ -100,10 +107,11 @@ export default function Login() {
               </Tooltip>
             </Stack>
             <LoginForm />
-          </ContentStyle>
+          </ContentStylePC>
         </Container></>}
 
  {/* ------------------------------------------------------------------------ */}
+
       {!isDesktop &&  <>
       <HeaderStyle>
         <Stack 
@@ -111,30 +119,16 @@ export default function Login() {
         justifyContent="flex-start"
         alignItems="center" 
         spacing={1}>
-        <Logo sx={{ mb: 0.5 }}/>
         <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
+            <Typography color="text.primary" variant='h4' sx={{ mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
         </Stack>
         </HeaderStyle>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" disableGutters>
           <ContentStyle>
-            <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h4" gutterBottom>
-                  로그인
-                </Typography>
-              </Box>
-            </Stack>
             <LoginForm />
-              <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                계정이 없으신가요?{' '}
-                <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register} sx={{color:'text.primary'}}>
-                  회원가입
-                </Link>
-              </Typography>
           </ContentStyle>
         </Container> </>}
       </RootStyle>
