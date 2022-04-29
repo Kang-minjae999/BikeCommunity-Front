@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk"
-import { useEffect, useRef, useState} from "react"
+import { useEffect, useRef, useState, useCallback} from "react"
+import { useNavigate } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSnackbar } from 'notistack';
 // @mui
@@ -17,6 +18,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import axios from '../../utils/axiosriding';
 import useAuth from '../../hooks/useAuth';
+import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
 import { allPositions} from "./GeneralMapposition"
 import useResponsive from '../../hooks/useResponsive';
@@ -36,6 +38,8 @@ GeneralMap.propTypes = {
 };
 export default function GeneralMap({tab}) {
   const { user } = useAuth();
+  const navigate = useNavigate()
+  const isMountedRef = useIsMountedRef();
   const isDesktop = useResponsive('up', 'lg')
   const { enqueueSnackbar } = useSnackbar();
   const [garagetrue ,setgaragetrue] =useState(false);
@@ -205,14 +209,40 @@ export default function GeneralMap({tab}) {
       options:{x:16, y:0}
     }}
 
+    const [destiUsers, setDestiUsers] = useState()
+
+    const getDestiUsers = useCallback(async () => {
+      setDestiUsers();
+      try {
+        const response = await axios.get(`/riding/map/${isselect.id}?page=0&size=1`);
+        if (isMountedRef.current) {
+          setDestiUsers(response.data.data.content);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }, [isMountedRef, isselect]);
+  
+    useEffect(() => {
+      if(isselect.id){
+        getDestiUsers();
+      }
+    }, [getDestiUsers, isselect.id]);
+
+    console.log(destiUsers)
+    console.log(isselect.id)
+  
   const onSubmitDesti = async () => {
     if(!user){
       enqueueSnackbar('로그인 후 이용해주세요!');
       return ;
     }
+
     const accessToken = window.localStorage.getItem('accessToken');
+     const formData = new FormData();
+     formData.append('mapId', isselect.id)
     try {
-      await axios.post(`/riding/${user.nickname}`, isselect.id , {
+      await axios.post(`/riding/${user.nickname}`, formData , {
         headers: {
           'content-type': 'multipart/form-data',
           authorization: accessToken,
@@ -239,6 +269,10 @@ export default function GeneralMap({tab}) {
       console.error(error);
     }
   };
+
+  const destiGoUserProfile = (nick) => {
+    navigate(`/dashboard/user/profile/${nick}`)
+  }
 
   return (
      <Page title="라이딩맵">
@@ -417,45 +451,24 @@ export default function GeneralMap({tab}) {
     </Card>
     </>}
     {isAbout && 
-    <Card sx={{border:1, borderColor:'darkgray'}} >
+    <Card sx={{border:1, borderColor:'darkgray' , mt:2}} >
         <Stack alignItems='center' justifyContent='center'>
         <GeneralMapbutton name={isselect.name} tab={tab} onSubmitDesti={onSubmitDesti}/>
         </Stack>
         <Divider />
        <Typography fontSize={16} sx={{m:2}}><strong>{isselect.name}</strong> 가는 라이더</Typography>
         <Divider sx={{my:1}}/>
-        <Grid container sx={{ml:1}}>
-        <Grid item xs={4} lg={6}>
-          <Stack direction='row' alignItems='center' sx={{m:1}}>
-          <Avatar alt='하지명' src='https://cdn.getnews.co.kr/news/photo/202108/544140_230503_924.jpg'/>
-          <Typography  variant='body2' sx={{m:1}}>하지명</Typography>
+        {destiUsers && <Grid container sx={{ml:1}}>
+        {destiUsers.map((item) => 
+          <Grid item xs={4} lg={6} key={`${item.nicknameOfPost}${item.mapId}`}>
+          <Stack direction='row' alignItems='center' sx={{m:1}} onClick={() => destiGoUserProfile(item.nicknameOfPost)}>
+          <Avatar alt='하지명' src={item.avatarImageURL}/>
+          <Typography  variant='body2' sx={{m:1}}>{item.nicknameOfPost}</Typography>
           </Stack>
-          </Grid>
-          <Grid item xs={4} lg={6}>
-          <Stack direction='row' alignItems='center' sx={{m:1}}>
-          <Avatar alt='하지명' src='https://cdn.getnews.co.kr/news/photo/202108/544140_230503_924.jpg'/>
-          <Typography  variant='body2' sx={{m:1}}>하지정맥</Typography>
-          </Stack>
-          </Grid>
-          <Grid item xs={4} lg={6}>
-          <Stack direction='row' alignItems='center' sx={{m:1}}>
-          <Avatar alt='하지명' src='https://cdn.getnews.co.kr/news/photo/202108/544140_230503_924.jpg'/>
-          <Typography  variant='body2' sx={{m:1}}>하루하루</Typography>
-          </Stack>
-          </Grid>
-          <Grid item xs={4} lg={6}>
-          <Stack direction='row' alignItems='center' sx={{m:1}}>
-          <Avatar alt='하지명' src='https://cdn.getnews.co.kr/news/photo/202108/544140_230503_924.jpg'/>
-          <Typography  variant='body2' sx={{m:1}}>하준숴이</Typography>
-          </Stack>
-          </Grid>
-          <Grid item xs={4} lg={6}>
-          <Stack direction='row' alignItems='center' sx={{m:1}}>
-          <Avatar alt='하지명' src='https://cdn.getnews.co.kr/news/photo/202108/544140_230503_924.jpg'/>
-          <Typography  variant='body2' sx={{m:1}}>하자드</Typography>
-          </Stack>
-          </Grid>
-        </Grid>
+          </Grid>)}
+          </Grid>}
+          {!destiUsers &&
+          <Typography  variant='subtitle2' sx={{m:1}}>아무도 가는 사람이 없어요!</Typography>}
        </Card>}
         </Grid>
         </Grid>
