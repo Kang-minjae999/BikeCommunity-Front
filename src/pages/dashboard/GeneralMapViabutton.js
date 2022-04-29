@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Dialog from '@mui/material/Dialog';
 import AddIcon from '@mui/icons-material/Add';
 import StraightIcon from '@mui/icons-material/Straight';
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import Iconify from '../../components/Iconify';
 
 
@@ -22,7 +22,7 @@ function SimpleDialog(props) {
 
   const {enqueueSnackbar} = useSnackbar()
   
-  const { onClose, selectedValue, open, destination } = props;
+  const { onClose, selectedValue, open, destination, onSubmitViaDesti } = props;
 
   const navigate = useNavigate()
 
@@ -58,6 +58,10 @@ function SimpleDialog(props) {
     }
   }; 
 
+  const handleListItemClick3 = () => {
+    onSubmitViaDesti()
+  }; 
+
 
 
 
@@ -82,6 +86,15 @@ function SimpleDialog(props) {
             <ListItemText>네이버지도</ListItemText>
           </ListItem>
           <Divider />
+          <ListItem button onClick={() => handleListItemClick3()}>
+            <ListItemAvatar>
+              <Avatar  >
+              <Typography variant='h6' color='text.primary'>RT</Typography>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>오늘 이 경로로 갈게요!</ListItemText>
+          </ListItem>
+          <Divider />
       </List>
     </Dialog>
   );
@@ -92,15 +105,17 @@ SimpleDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   selectedValue: PropTypes.string.isRequired,
   destination: PropTypes.array.isRequired,
+  onSubmitViaDesti: PropTypes.func.isRequired,
   
 };
 
 GeneralMapViabutton.propTypes = {
   destination: PropTypes.array.isRequired,
+  onSubmitViaDesti: PropTypes.func.isRequired,
 };
 
 
-export default function GeneralMapViabutton({destination}) {
+export default function GeneralMapViabutton({destination, onSubmitViaDesti}) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
@@ -128,6 +143,7 @@ export default function GeneralMapViabutton({destination}) {
         open={open}
         onClose={handleClose}
         destination={destination}
+        onSubmitViaDesti={onSubmitViaDesti}
       />
     </div>
   );

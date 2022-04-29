@@ -15,6 +15,8 @@ import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import axios from '../../utils/axiosriding';
+import useAuth from '../../hooks/useAuth';
 // map
 import { allPositions} from "./GeneralMapposition"
 import useResponsive from '../../hooks/useResponsive';
@@ -33,11 +35,11 @@ GeneralMap.propTypes = {
   tab: PropTypes.string,
 };
 export default function GeneralMap({tab}) {
-  const { themeStretch } = useSettings();
+  const { user } = useAuth();
   const isDesktop = useResponsive('up', 'lg')
   const { enqueueSnackbar } = useSnackbar();
   const [garagetrue ,setgaragetrue] =useState(false);
-  const [user, setUser] = useState({      
+  const [userPo, setUserPo] = useState({      
     center: {
     lat: '',
     lng: '',
@@ -67,7 +69,7 @@ export default function GeneralMap({tab}) {
               },
               isLoading: false,
             }))
-            setUser({
+            setUserPo({
               center: {
               lat: position.coords.latitude, 
               lng: position.coords.longitude, 
@@ -110,6 +112,7 @@ export default function GeneralMap({tab}) {
 
 
   const [isselect, setisselect] = useState({
+    id: '',
     value: '',
     name: '',
     content: '',
@@ -153,63 +156,93 @@ export default function GeneralMap({tab}) {
       defaultValues
     })
 
-    const {
-      reset,
-      watch,
-      control,
-      setValue,
-      getValues,
-      handleSubmit,
-      formState: { isSubmitting },
-    } = methods;
+  const {
+    watch,
+    setValue,
+  } = methods;
 
-    const values = watch()
+  const values = watch()
 
-    const addDesti = () => {
-      setValue('destination',[...values.destination,{
-        id:`${values.destination.length}`,
-        name:isselect.name,
-        lat:wealat,
-        lng:wealng
-      }])
-    }
-    const DeleteDesti = (data) => {
-      setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
-    }
+  const addDesti = () => {
+    setValue('destination',[...values.destination,{
+      id:`${values.destination.length}`,
+      name:isselect.name,
+      lat:wealat,
+      lng:wealng
+    }])
+  }
+  const DeleteDesti = (data) => {
+    setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
+  }
     
-    const setPosition = (position) => { 
-      setisselect(position)
-      setwealat(position.lat)
-      setwealng(position.lng)
-      setIsAbout(true)
-      setState({
-        center: {
-          lat: position.lat,
-          lng: position.lng,
-        },
-        errMsg: null,
-        isLoading: true,
-      })
-    }
-    const valueMarker = {
-      zIndex: 99,
-      image:{
-        src:GeneralMapMarker,
-        size:{width:48, height:48},
-        options:{x:24, y:0}
-      }}
+  const setPosition = (position) => { 
+    setisselect(position)
+    setwealat(position.lat)
+    setwealng(position.lng)
+    setIsAbout(true)
+    setState({
+      center: {
+        lat: position.lat,
+        lng: position.lng,
+      },
+      errMsg: null,
+      isLoading: true,
+    })
+  }
+  const valueMarker = {
+    zIndex: 99,
+    image:{
+      src:GeneralMapMarker,
+      size:{width:48, height:48},
+      options:{x:24, y:0}
+    }}
 
-    const valueMarkerBefore = {
-      zIndex: 1,
-      image:{
-        src:GeneralMapMarkerBefore,
-        size:{width:32, height:32},
-        options:{x:16, y:0}
-      }}
+  const valueMarkerBefore = {
+    zIndex: 1,
+    image:{
+      src:GeneralMapMarkerBefore,
+      size:{width:32, height:32},
+      options:{x:16, y:0}
+    }}
+
+  const onSubmitDesti = async () => {
+    if(!user){
+      enqueueSnackbar('로그인 후 이용해주세요!');
+      return ;
+    }
+    const accessToken = window.localStorage.getItem('accessToken');
+    try {
+      await axios.post(`/riding/${user.nickname}`, isselect.id , {
+        headers: {
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSubmitViaDesti = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const viaDesti = values.destination.map((item) => item.id)
+    try {
+      await axios.post(`/riding/${user.nickname}`, viaDesti , {
+        headers: {
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
      <Page title="라이딩맵">
-      <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}} disableGutters>
+      <Container maxWidth='lx' sx={{mt:2}} disableGutters>
         <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           {tab === 'map' && 
@@ -256,9 +289,9 @@ export default function GeneralMap({tab}) {
           level={9} // 지도의 확대 레벨
         >  
         <ZoomControl />
-            {user && 
+            {userPo && 
             <MapMarker
-                position={user.center}
+                position={userPo.center}
               />}
           {selectedCategory === "all" && 
             allPositions.map((position) => ( 
@@ -322,7 +355,7 @@ export default function GeneralMap({tab}) {
           <Typography variant='subtitle1' sx={{ml:2, my:2}}>
             새로운 경로
           </Typography>
-          <GeneralMapViabutton destination={values.destination}/>
+          <GeneralMapViabutton destination={values.destination} onSubmitViaDesti={onSubmitViaDesti}/>
           </Stack>
           <Chip label='현재위치' size='medium' sx={{ml:1,mx:1, mb:2}}/> 
           {values.destination.map((item) => 
@@ -386,7 +419,7 @@ export default function GeneralMap({tab}) {
     {isAbout && 
     <Card sx={{border:1, borderColor:'darkgray'}} >
         <Stack alignItems='center' justifyContent='center'>
-        <GeneralMapbutton name={isselect.name} tab={tab}/>
+        <GeneralMapbutton name={isselect.name} tab={tab} onSubmitDesti={onSubmitDesti}/>
         </Stack>
         <Divider />
        <Typography fontSize={16} sx={{m:2}}><strong>{isselect.name}</strong> 가는 라이더</Typography>

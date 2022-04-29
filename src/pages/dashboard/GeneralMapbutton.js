@@ -21,7 +21,7 @@ function SimpleDialog(props) {
 
   const {enqueueSnackbar} = useSnackbar()
   
-  const { onClose, selectedValue, open, tab } = props;
+  const { onClose, selectedValue, open, tab, onSubmitDesti } = props;
 
   const navigate = useNavigate()
 
@@ -61,6 +61,10 @@ function SimpleDialog(props) {
     }
   }; 
 
+  const handleListItemClick4 = () => {
+      onSubmitDesti()     
+  }; 
+
 
 
   return (
@@ -84,7 +88,7 @@ function SimpleDialog(props) {
             <ListItemText>네이버지도</ListItemText>
           </ListItem>
           <Divider />
-          <ListItem button onClick={() => handleListItemClick2()}>
+          <ListItem button onClick={() => handleListItemClick3()}>
             <ListItemAvatar>
               <Avatar  >
               <Typography variant='h6' color='text.primary'>RT</Typography>
@@ -93,6 +97,14 @@ function SimpleDialog(props) {
             <ListItemText>경로추적 라이딩</ListItemText>
           </ListItem>
           <Divider />
+          <ListItem button onClick={() => handleListItemClick4()}>
+            <ListItemAvatar>
+              <Avatar  >
+              <Typography variant='h6' color='text.primary'>RT</Typography>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>오늘 여기 갈래요!</ListItemText>
+          </ListItem>
       </List>
     </Dialog>
   );
@@ -103,16 +115,17 @@ SimpleDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   selectedValue: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired,
+  onSubmitDesti: PropTypes.func.isRequired,
 };
 
 GeneralMapbutton.propTypes = {
   name: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired,
-  
+  onSubmitDesti: PropTypes.func.isRequired,
 };
 
 
-export default function GeneralMapbutton({name, tab}) {
+export default function GeneralMapbutton({name, tab, onSubmitDesti}) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
@@ -140,6 +153,7 @@ export default function GeneralMapbutton({name, tab}) {
         open={open}
         onClose={handleClose}
         tab={tab}
+        onSubmitDesti={onSubmitDesti}
       />
     </div>
   );
