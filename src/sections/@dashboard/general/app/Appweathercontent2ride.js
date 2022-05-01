@@ -19,18 +19,9 @@ export default function Appweathercontent2ride({weather,weathername , weatherico
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          {namek}
-        </ListSubheader>
-        
-      }
     >
       <ListItemButton>
-      <ListItemIcon>
-          <AccessTimeIcon />
-        </ListItemIcon>
-        <ListItemText primary='3시간뒤'/>
+        <ListItemText secondary='3시간뒤'/>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import List from '@mui/material/List';
@@ -100,7 +101,7 @@ function SimpleDialog(props) {
           <ListItem button onClick={() => handleListItemClick4()}>
             <ListItemAvatar>
               <Avatar  >
-              <Typography variant='h6' color='text.primary'>RT</Typography>
+              <StarIcon />
               </Avatar>
             </ListItemAvatar>
             <ListItemText>오늘 여기 갈래요!</ListItemText>
@@ -142,12 +143,10 @@ export default function GeneralMapbutton({name, tab, onSubmitDesti}) {
     <div>
       <Button
       onClick={handleClickOpen}
-      variant="outlined"
+      variant="text"
       color='inherit'
-      endIcon={<StraightIcon  />}
-      sx={{m:2}}>
-      {name} 가기
-      </Button>
+      endIcon={<StraightIcon color='secondary' fontSize='large'/>}
+      sx={{m:2}}/>
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

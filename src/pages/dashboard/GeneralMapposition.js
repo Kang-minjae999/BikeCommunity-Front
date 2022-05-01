@@ -9,7 +9,8 @@ export const allPositions = [
     ontel:"tel:01055197425" , 
     time:'08:00~20:00'},
   
-  { id:2,
+  { 
+    id:2,
     lat: 37.499463762912974, 
     lng: 127.0288828824399,
     name:"상운이집" ,
@@ -19,7 +20,8 @@ export const allPositions = [
     ontel:"tel:01055197425" , 
     time:'08:00~20:00'},
   
-  { id:3,
+  { 
+    id:3,
     lat: 37.49896834100913, 
     lng: 127.02833986892401,
     name:"태주집",
@@ -29,7 +31,8 @@ export const allPositions = [
     ontel:"tel:01055197425" ,
     time:'08:00~20:00'},
   
-  { id:4,
+  { 
+    id:4,
     lat: 37.49893267508434, 
     lng: 127.02673400572665,
     name:"한스집",
@@ -39,7 +42,8 @@ export const allPositions = [
     ontel:"tel:01055197425", 
     time:'08:00~20:00'},
   
-  { id:5,
+  { 
+    id:5,
     lat: 37.49872543597439, 
     lng: 127.02676785815386 ,
     name:"지수집" ,
@@ -49,7 +53,8 @@ export const allPositions = [
     ontel:"tel:01055197425" , 
     time:'08:00~20:00'},
   
-  { id:6,
+  { 
+    id:6,
     lat: 37.49813096097184, 
     lng: 127.02591949495914 ,
     name:"용성이집" ,
@@ -59,7 +64,8 @@ export const allPositions = [
     ontel:"tel:01055197425" , 
     time:'08:00~20:00'},
     
-  { id:7,
+  { 
+    id:7,
     lat: 37.497680616783086, 
     lng: 127.02518427952202 ,
     name:"성욱이집" ,
@@ -69,7 +75,8 @@ export const allPositions = [
     ontel:"tel:01084555463" , 
     time:'08:00~20:00'
   },
-  { id:8,
+  { 
+    id:8,
     lat: 35.1152, 
     lng: 129.0422,
     name:"진짜민재집" ,
@@ -79,7 +86,8 @@ export const allPositions = [
     ontel:"tel:01084555463" , 
     time:'08:00~20:00'
   },
-  { id:9,
+  { 
+    id:9,
     lat: 37.7638, 
     lng: 128.9016,
     name:"가짜민재집" ,

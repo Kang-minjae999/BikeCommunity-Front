@@ -18,10 +18,13 @@ export const FIREBASE_API = {
 };
 
 
-const REST_API_KEY = '1e48d31601f5f560eb6da4b6ea35a32b';
-const REDIRECT_URI = 'http://localhost:3000/auth/login';
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
 export const KAKAO_AUTH_API = KAKAO_AUTH_URL
+export const KAKAO_REDIRECT = process.env.REACT_APP_KAKAO_REDIRECT_URI 
+
+export const NAVER_CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+export const NAVER_REDIRECT = process.env.REACT_APP_KAKAO_REDIRECT_URI 
+
 
 export const COGNITO_API = {
   userPoolId: process.env.REACT_APP_AWS_COGNITO_USER_POOL_ID,

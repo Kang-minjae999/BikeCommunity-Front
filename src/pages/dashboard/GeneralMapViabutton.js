@@ -2,16 +2,10 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Dialog from '@mui/material/Dialog';
+import {Button, Divider, Typography, Avatar, List, ListItem, ListItemAvatar, ListItemText, Dialog} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import StraightIcon from '@mui/icons-material/Straight';
-import { Divider, Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import Iconify from '../../components/Iconify';
 
 
@@ -22,7 +16,7 @@ function SimpleDialog(props) {
 
   const {enqueueSnackbar} = useSnackbar()
   
-  const { onClose, selectedValue, open, destination, onSubmitViaDesti } = props;
+  const { onClose, selectedValue, open, destination, onSubmitViaDesti, onSubmitViaLike } = props;
 
   const navigate = useNavigate()
 
@@ -62,6 +56,10 @@ function SimpleDialog(props) {
     onSubmitViaDesti()
   }; 
 
+  const handleListItemClick4 = () => {
+    onSubmitViaLike()
+  }; 
+
 
 
 
@@ -92,7 +90,16 @@ function SimpleDialog(props) {
               <Typography variant='h6' color='text.primary'>RT</Typography>
               </Avatar>
             </ListItemAvatar>
-            <ListItemText>오늘 이 경로로 갈게요!</ListItemText>
+            <ListItemText>경로 추적 라이딩</ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem button onClick={() => handleListItemClick4()}>
+            <ListItemAvatar>
+              <Avatar  >
+              <StarIcon color='warning' fontSize='large'/>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>경로 저장하기!</ListItemText>
           </ListItem>
           <Divider />
       </List>
@@ -106,16 +113,18 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
   destination: PropTypes.array.isRequired,
   onSubmitViaDesti: PropTypes.func.isRequired,
+  onSubmitViaLike: PropTypes.func.isRequired,
   
 };
 
 GeneralMapViabutton.propTypes = {
   destination: PropTypes.array.isRequired,
   onSubmitViaDesti: PropTypes.func.isRequired,
+  onSubmitViaLike: PropTypes.func.isRequired
 };
 
 
-export default function GeneralMapViabutton({destination, onSubmitViaDesti}) {
+export default function GeneralMapViabutton({destination, onSubmitViaDesti, onSubmitViaLike}) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
@@ -134,9 +143,9 @@ export default function GeneralMapViabutton({destination, onSubmitViaDesti}) {
       onClick={handleClickOpen}
       variant="outlined"
       color='inherit'
-      startIcon={<StraightIcon  />}
+      endIcon={<StraightIcon />}
       sx={{m:2}}>
-      새 경로로 라이딩하기
+      새 경로
       </Button>
       <SimpleDialog
         selectedValue={selectedValue}
@@ -144,6 +153,7 @@ export default function GeneralMapViabutton({destination, onSubmitViaDesti}) {
         onClose={handleClose}
         destination={destination}
         onSubmitViaDesti={onSubmitViaDesti}
+        onSubmitViaLike={onSubmitViaLike}
       />
     </div>
   );

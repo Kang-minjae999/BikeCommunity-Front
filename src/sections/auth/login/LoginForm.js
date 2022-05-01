@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Link as RouterLink, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 // form
 import { useForm } from 'react-hook-form';
@@ -9,26 +9,32 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Stack, Alert, IconButton, InputAdornment, Button, Typography, Box, Card } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import { PATH_AUTH } from '../../../routes/paths';
+import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
+import axios from '../../../utils/axiosuser';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-import Kakaologincallback from './Kakaologincallback';
 import useResponsive from '../../../hooks/useResponsive';
-import { KAKAO_AUTH_API } from '../../../config';
+import { KAKAO_AUTH_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
   const { login } = useAuth();
 
-  const { enqueueSnackbar } = useSnackbar();
+  const { location, pathname } = useLocation();
+
+  const iskakao = pathname.includes('kakaologin');
+  const isnaver = pathname.includes('naverlogin');
+
+  const navigate = useNavigate();
 
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
+
 
   const isDesktop = useResponsive('up', 'lg');
 
@@ -73,12 +79,66 @@ export default function LoginForm() {
   }
 
   const kakaoLogin = () => {
-    window.open(KAKAO_AUTH_API)
+    window.open(KAKAO_AUTH_API, '_self')
   }
 
-  const naverLogin = () => {
-    window.open(KAKAO_AUTH_API)
+
+  const code = new URL(window.location.href).searchParams.get("code");
+
+  const KakaologinCallback = useCallback(async () => {
+    try {
+      await axios.post('/kakao', `${code}`);
+      navigate(PATH_DASHBOARD.root);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [code])
+
+  useEffect(() => {
+    if(iskakao){
+      KakaologinCallback()
+    }
+  }, [KakaologinCallback, iskakao])
+
+  const NaverLoginInit = useCallback(() => {
+    const login = new window.naver.LoginWithNaverId({
+      clientId: NAVER_CLIENT_ID,
+      callbackUrl: NAVER_REDIRECT,
+      isPopup: false,
+      callbakHandle:true,
+      loginButton: {height: 1}
+    })
+    login.init();
+  }, [])
+
+  const naverLoginButton = () =>{
+    const login = document.getElementById('naverIdLogin')?.firstChild;
+    login.click();
   }
+
+  useEffect(() => {
+   NaverLoginInit()
+  }, [NaverLoginInit])
+
+
+  const NaverloginCallback = useCallback(async () => {    
+    if (!location.hash) return;
+    const token = location.hash.split('=')[1].split('&')[0]; 
+    try {
+      await axios.post('/naver', `${token}`);
+      navigate(PATH_DASHBOARD.root);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [])
+
+  useEffect(() => {
+    if(isnaver){
+      NaverloginCallback()
+    }
+  }, [NaverloginCallback, isnaver])
+  
+  
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -176,14 +236,14 @@ export default function LoginForm() {
           <Typography variant='h6'>카카오 로그인</Typography>
           </Box>
         </Button>
-            
-        <Button          
+
+        <Button         
         fullWidth
           size="large"
           variant="contained"
-          onClick={naverLogin}
           target="_blank" 
           rel="noopener noreferrer"
+          onClick={naverLoginButton}
           sx={{
             height: isDesktop ? 65 : 55,
             fontSize: 18,
@@ -192,17 +252,18 @@ export default function LoginForm() {
           color='inherit'
           startIcon={<Iconify icon={'simple-icons:naver'} width={40} height={40} sx={{color:'#FFFFFF'}}/>}
         >
-          <Box sx={{width:'90%'}}>
+          <Box sx={{width:'90%',}}>
           <Typography variant='h6'>네이버 로그인</Typography>
           </Box>
         </Button>
-        <Button variant='contained' color='info' component={RouterLink} to={PATH_AUTH.register} sx={{width:'50%'}}>
+
+        <Button variant='contained' color='inherit' component={RouterLink} to={PATH_AUTH.register} sx={{width:'50%'}}>
               <Typography variant="body2" align="center" sx={{my:1, fontSize:16}}>
                 라이더타운 <strong>회원가입</strong>
               </Typography>
         </Button>
+         <div id='naverIdLogin' style={{display:'none'}}/>
       </Stack>
-      <Kakaologincallback />
     </FormProvider>
   );
 }

@@ -58,7 +58,7 @@ const ContentStylePC = styled('div')(({ theme }) => ({
   minHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(12, 0),
+  padding: theme.spacing(8, 0),
 }));
 
 // ----------------------------------------------------------------------
@@ -83,29 +83,12 @@ export default function Login() {
             </Typography>
             </Link>
         </Stack>
-              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                회원가입
-              </Link>
         </HeaderStyle>
 
 
 
         <Container maxWidth="sm">
           <ContentStylePC>
-            <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="h5" gutterBottom>
-                  로그인
-                </Typography>
-              </Box>
-              <Tooltip title='회원가입' placement="right">
-              <Typography variant="body2" sx={{ mt: { md: 2 } }}>
-              <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-              회원가입
-              </Link>
-            </Typography>
-              </Tooltip>
-            </Stack>
             <LoginForm />
           </ContentStylePC>
         </Container></>}

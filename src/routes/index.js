@@ -41,6 +41,22 @@ export default function Router() {
           ),
         },
         {
+          path: 'kakaologin',
+          element: (
+            <GuestGuard>
+              <Login />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: 'naverlogin',
+          element: (
+            <GuestGuard>
+              <Login />
+            </GuestGuard>
+          ),
+        },
+        {
           path: 'register',
           element: (
             <GuestGuard>

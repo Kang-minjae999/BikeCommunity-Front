@@ -25,17 +25,10 @@ export default function Appweathercontent2ride({weather ,weathername , weatheric
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       component="nav"
       aria-labelledby="nested-list-subheader"
-      subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          {namek}
-        </ListSubheader>
-      }
+
     >
       <ListItemButton>
-      <ListItemIcon>
-          <AccessTimeIcon />
-        </ListItemIcon>
-        <ListItemText primary='현재시간'/>
+        <ListItemText secondary='현재시간' sx={{fontSize:12}}/>
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>

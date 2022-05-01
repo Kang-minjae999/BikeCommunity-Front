@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types';
 import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk"
-import { useEffect, useRef, useState, useCallback} from "react"
+import { useEffect, useState, useCallback} from "react"
 import { useNavigate } from 'react-router-dom';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSnackbar } from 'notistack';
 // @mui
-import { useForm, Controller } from 'react-hook-form';
-import { Container, Button, Card, Typography, Grid, Stack ,Link, Divider, Chip, Avatar, TextField, InputAdornment, Box } from "@mui/material"
+import { useForm } from 'react-hook-form';
+import { Container, Button, Card, Typography, Grid, Stack ,Link, Divider, Chip, Avatar } from "@mui/material"
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import AddIcon from '@mui/icons-material/Add';
 import StarIcon from '@mui/icons-material/Star';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import SearchIcon from '@mui/icons-material/Search';
-import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -23,7 +20,6 @@ import useIsMountedRef from '../../hooks/useIsMountedRef';
 import { allPositions} from "./GeneralMapposition"
 import useResponsive from '../../hooks/useResponsive';
 import Page from '../../components/Page';
-import useSettings from '../../hooks/useSettings';
 import GeneralMapweather from "./GeneralMapweather";
 import GeneralMapbutton from './GeneralMapbutton';
 import GeneralMapViabutton from './GeneralMapViabutton';
@@ -229,8 +225,6 @@ export default function GeneralMap({tab}) {
       }
     }, [getDestiUsers, isselect.id]);
 
-    console.log(destiUsers)
-    console.log(isselect.id)
   
   const onSubmitDesti = async () => {
     if(!user){
@@ -255,6 +249,22 @@ export default function GeneralMap({tab}) {
   };
 
   const onSubmitViaDesti = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const viaDesti = values.destination.map((item) => item.id)
+    try {
+      await axios.post(`/riding/${user.nickname}`, viaDesti , {
+        headers: {
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSubmitViaLike = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     const viaDesti = values.destination.map((item) => item.id)
     try {
@@ -379,7 +389,7 @@ export default function GeneralMap({tab}) {
             ))}
         </Map>
         </Card>
-        </Grid>
+      </Grid>
       <Grid item xs={12} md={4} sx={{mb:5}}>
       {!isAbout && <Card sx={{border:1, borderColor:'darkgray'}}><Typography variant='body2'sx={{m:2}}><strong>마커</strong>를 클릭해주세요!</Typography></Card>}
       {(isAbout && tab === 'map') &&
@@ -389,7 +399,7 @@ export default function GeneralMap({tab}) {
           <Typography variant='subtitle1' sx={{ml:2, my:2}}>
             새로운 경로
           </Typography>
-          <GeneralMapViabutton destination={values.destination} onSubmitViaDesti={onSubmitViaDesti}/>
+          <GeneralMapViabutton destination={values.destination} onSubmitViaDesti={onSubmitViaDesti} onSubmitViaLike={onSubmitViaLike}/>
           </Stack>
           <Chip label='현재위치' size='medium' sx={{ml:1,mx:1, mb:2}}/> 
           {values.destination.map((item) => 
@@ -404,43 +414,42 @@ export default function GeneralMap({tab}) {
             <Typography variant="subtitle1">
             {isselect.name}
             </Typography>
-            <Typography variant="body2" sx={{mt:0.4}} >
+            <Typography variant="body2" sx={{mt:0.2}} >
               [{isselect.content}]
             </Typography>
           </Stack>
           <Stack direction="row" alignItems='flex-start'>
+            <LocationOnIcon sx={{mr:1}}/>
             <Typography variant="body2">
             {isselect.position}
             </Typography>
         </Stack>
         <Stack direction="row">
         <Link href={isselect.ontel} variant="subtitle2" color="text.primary">
-        <LocalPhoneIcon/>
+        <LocalPhoneIcon sx={{mr:1}}/>
           </Link>
-          &nbsp;
           <Link href={isselect.ontel} variant="subtitle2" color="text.primary">
           <Typography variant="body2" sx={{mt:0.2}}>
-          {isselect.tel} &nbsp;
+          {isselect.tel}
           </Typography>
           </Link> 
         </Stack>
         <Stack direction="row">
-          <AccessTimeIcon/>&nbsp;
+          <AccessTimeIcon sx={{mr:1}}/>
           <Typography variant="body2">
            {isselect.time}
           </Typography>
         </Stack>
         </Stack>
-          <Stack direction="column" spacing={1}>     
+          <Stack direction="column" spacing={1} sx={{mb:2}}>     
           <Button variant="text" onClick={goLike}>
           {!like && <StarBorderIcon color='warning' fontSize='large' />}
           {like && <StarIcon color='warning' fontSize='large'/>}
           </Button>
           <Stack direction="column" alignItems='center'> 
           <Button variant='text'>
-            <AddIcon color='info' fontSize='large' onClick={addDesti}/> 
+            <AddIcon color='secondary' fontSize='large' onClick={addDesti}/> 
           </Button>   
-          <Typography variant='subtitle2'>목적지</Typography>
           </Stack>
           </Stack>
           </Stack>
@@ -451,12 +460,11 @@ export default function GeneralMap({tab}) {
     </Card>
     </>}
     {isAbout && 
-    <Card sx={{border:1, borderColor:'darkgray' , mt:2}} >
-        <Stack alignItems='center' justifyContent='center'>
-        <GeneralMapbutton name={isselect.name} tab={tab} onSubmitDesti={onSubmitDesti}/>
+    <Card sx={{border:1, borderColor:'darkgray'}} >
+        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+          <Typography fontSize={15} sx={{m:2}}><strong>{isselect.name}</strong> 가는 라이더</Typography>
+          <GeneralMapbutton name={isselect.name} tab={tab} onSubmitDesti={onSubmitDesti}/>
         </Stack>
-        <Divider />
-       <Typography fontSize={16} sx={{m:2}}><strong>{isselect.name}</strong> 가는 라이더</Typography>
         <Divider sx={{my:1}}/>
         {destiUsers && <Grid container sx={{ml:1}}>
         {destiUsers.map((item) => 
@@ -468,7 +476,9 @@ export default function GeneralMap({tab}) {
           </Grid>)}
           </Grid>}
           {!destiUsers &&
-          <Typography  variant='subtitle2' sx={{m:1}}>아무도 가는 사람이 없어요!</Typography>}
+          <Stack direction='row' alignItems='center' justifyContent='center' sx={{my:1}}>
+           <Typography variant='subtitle2' sx={{m:1}}>아무도 가는 사람이 없어요!</Typography>
+          </Stack>}
        </Card>}
         </Grid>
         </Grid>
