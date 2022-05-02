@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {useCallback, useEffect, useState} from 'react'
 import axios from 'axios';
 import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
@@ -11,113 +12,24 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 import AirIcon from '@mui/icons-material/Air';
 // ----------------------------------------
 import { Appweathercontent, Appweathercontent2 } from '.';
-import { WEATHER_API } from '../../../../config';
 
 
 
 
 
 // ----------------------------------------------------------------------
+Appweather.propTypes = {
+  weather: PropTypes.object,
+  weather2: PropTypes.object,
+};
 
-export default function Appweather() {
-  const API = WEATHER_API
 
-  const [lat, setlat] = useState('');
-  const [lng, setlng] = useState('');
+export default function Appweather({weather, weather2}) {
   const [weathericon, setweathericon] = useState('');
   const [weathername, setweathername] = useState('');
   const [weathericon2, setweathericon2] = useState('');
   const [weathername2, setweathername2] = useState('');
-  const [weather, setweather] = useState('');
-  const [weather2, setweather2] = useState('');
-  const [istrue, setistrue] =useState(false);
-  const [istrue2, setistrue2] =useState(false);
 
-  useEffect(() => {
-    if(window.ReactNativeWebView) {
-      window.ReactNativeWebView.postMessage(JSON.stringify({type:'onWeather'}))}
-  }, []);
-
-  const [data , setdata] = useState(undefined);
-
-  const listner = (event) => {
-  setdata(JSON.parse(event.data))
-  }
-  // android
-  useEffect(() => {
-    document.addEventListener('message', listner)
-    return () => {document.removeEventListener('message', listner);}
-  }, []);
-  // ios
-  useEffect(() => {
-    window.addEventListener('message', listner)
-    return () => {window.removeEventListener('message', listner);}
-    }, []);
-
-  useEffect(() => {
-    if(data !== undefined) {
-      setlat(data[0])
-      setlng(data[1])
-    }
-  }, [data]);
-  
-  const componentDidMount = useCallback(() => {
-    if(navigator.geolocation){
-    setistrue(true)
-    setistrue2(true)
-     navigator.geolocation.getCurrentPosition((position) => {
-      setlat(position.coords.latitude);
-      setlng(position.coords.longitude);})}
-    else if(data!==undefined){
-      setistrue(true)
-      setistrue2(true)
-    }
-  },[data])
- 
-  useEffect(() => {
-    componentDidMount()
-    if(lat !== '' && lng !== ''){
-      axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&lang=Kr&appid=${API}`)
-      .then((responseData) => {
-        const Data = responseData.data;
-        setweather({
-          id: Data.weather[0].id,
-          temperature: `${(Data.main.temp-273.15).toFixed(1)}℃`,
-          main: Data.weather[0].main,
-          description: Data.weather[0].description,
-          loading: false,
-          name: Data.name,
-        });
-      });
-     }
-     return ()=>{
-      setistrue(false);
-     }
- }, [istrue ,lat ,lng, componentDidMount, API]);
-
-
-  
- useEffect(() => {
-  componentDidMount()
-  if(lat !== '' && lng !== ''){
-    axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&lang=Kr&cnt=2&appid=${API}`)
-    .then((responseData) => {
-      const data = responseData.data.list[1]; 
-      const datas = responseData.data; 
-      setweather2({
-        id: data.weather[0].id,
-        temperature: `${(data.main.temp-273.15).toFixed(1)}℃`,
-        main: data.weather[0].main,
-        description: data.weather[0].description,
-        loading: false,
-        name: datas.city.name,
-      });
-    });
-  }
-   return ()=>{
-    setistrue2(false);
-   }
-}, [istrue2,lat,lng, componentDidMount, API]);
 
 useEffect(() => {
   if ((weather.id >= 200) && (weather.id <= 250)){

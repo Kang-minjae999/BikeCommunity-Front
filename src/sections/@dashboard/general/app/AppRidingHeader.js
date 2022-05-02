@@ -18,6 +18,9 @@ export default function AppRidingHeader() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [lat, setlat] = useState(37.369307716781);
+  const [lng, setlng] = useState(126.93850485017);
+
   const [state, setState] = useState({
     center: {
       lat: 126.9351741,
@@ -49,7 +52,9 @@ export default function AppRidingHeader() {
             center: {
             lat: position.coords.latitude, 
             lng: position.coords.longitude, 
-          }})
+          }});
+          setlat(position.coords.latitude);
+          setlng(position.coords.longitude);
         },
         (err) => {
           setState((prev) => ({
@@ -68,16 +73,16 @@ export default function AppRidingHeader() {
     }
   }, [])
 
-  useEffect(() => {
-    if(!window.Kakao.isInitialized){
-      window.Kakao.init('b5498e967687f29ac34bb8122dba4130');
-    }
-  }, [])
+  // useEffect(() => {
+  //   if(!window.Kakao.isInitialized){
+  //     window.Kakao.init('b5498e967687f29ac34bb8122dba4130');
+  //   }
+  // }, [])
 
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <AppRidingHome tab={value} state={state} setState={setState} userPo={userPo}/>,
+      component: <AppRidingHome tab={value} state={state} setState={setState} userPo={userPo} lat={lat} lng={lng} setlat={setlat} setlng={setlng}/>,
     },
     {
       value: 'club',
