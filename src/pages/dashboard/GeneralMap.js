@@ -17,7 +17,6 @@ import axios from '../../utils/axiosriding';
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
-import { allPositions} from "./GeneralMapposition"
 import useResponsive from '../../hooks/useResponsive';
 import Page from '../../components/Page';
 import GeneralMapweather from "./GeneralMapweather";
@@ -31,66 +30,40 @@ import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
 // ------------------------------------------------------------
 GeneralMap.propTypes = {
   tab: PropTypes.string,
+  state: PropTypes.object,
+  setState: PropTypes.func,
+  userPo: PropTypes.object,
 };
-export default function GeneralMap({tab}) {
+export default function GeneralMap({tab, state, userPo, setState}) {
   const { user } = useAuth();
   const navigate = useNavigate()
   const isMountedRef = useIsMountedRef();
   const isDesktop = useResponsive('up', 'lg')
   const { enqueueSnackbar } = useSnackbar();
+  const [allPositions, setAllPosition] = useState([])
   const [garagetrue ,setgaragetrue] =useState(false);
-  const [userPo, setUserPo] = useState({      
-    center: {
-    lat: '',
-    lng: '',
-  }})
 
-    const [state, setState] = useState({
-      center: {
-        lat: 36.0400,
-        lng: 127.8491,
-      },
-      errMsg: null,
-      isLoading: true,
-    })
     const [wealat,setwealat] = useState('')
     const [wealng,setwealng] = useState('')
     const [weatherok ,setweatherok] = useState(false)
 
-    useEffect(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setState((prev) => ({
-              ...prev,
-              center: {
-                lat: position.coords.latitude, 
-                lng: position.coords.longitude, 
-              },
-              isLoading: false,
-            }))
-            setUserPo({
-              center: {
-              lat: position.coords.latitude, 
-              lng: position.coords.longitude, 
-            }})
-          },
-          (err) => {
-            setState((prev) => ({
-              ...prev,
-              errMsg: err.message,
-              isLoading: false,
-            }))
-          }
-        )
-      } else {
-        setState((prev) => ({
-          ...prev,
-          errMsg: "현재 위치를 알 수 없어요..",
-          isLoading: false,
-        }))
+
+
+  const getMapMarker = useCallback(async () => {
+      try {
+        const response = await axios.get(`/marker`);
+        if (isMountedRef.current) {
+          setAllPosition(response.data.data.content);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    }, [])
+  }, [])
+
+  useEffect(() => {
+    getMapMarker()
+  }, [getMapMarker])
+  
 
   const [selectedCategory, setSelectedCategory] = useState("all")
 
@@ -174,11 +147,24 @@ export default function GeneralMap({tab}) {
   const DeleteDesti = (data) => {
     setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
   }
-    
+
+  const getPositionDetail = useCallback(async () => {
+    setisselect();
+    try {
+      const response = await axios.get(`/marker/${isselect.id}`);
+      if (isMountedRef.current) {
+        setisselect(response.data.data.content);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef, isselect]);
+
   const setPosition = (position) => { 
     setisselect(position)
     setwealat(position.lat)
     setwealng(position.lng)
+    getPositionDetail()
     setIsAbout(true)
     setState({
       center: {
@@ -348,7 +334,7 @@ export default function GeneralMap({tab}) {
               />
             ))}      
             {selectedCategory === "road" &&
-            allPositions.map((position) => ( position.content ==='도로' && 
+            allPositions.map((position) => ( position.content === '도로' && 
               <MapMarker
                 key={`road-${position.lat},${position.lng}`}
                 position={position}
@@ -477,12 +463,12 @@ export default function GeneralMap({tab}) {
           </Grid>}
           {!destiUsers &&
           <Stack direction='row' alignItems='center' justifyContent='center' sx={{my:1}}>
-           <Typography variant='subtitle2' sx={{m:1}}>아무도 가는 사람이 없어요!</Typography>
+           <Typography variant='subtitle2' sx={{m:1}}>오늘 가는 라이더가 없어요!</Typography>
           </Stack>}
        </Card>}
         </Grid>
         </Grid>
-        </Container>
+    </Container>
     </Page>
   )
 }

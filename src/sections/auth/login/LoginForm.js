@@ -24,10 +24,10 @@ import { KAKAO_AUTH_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config
 export default function LoginForm() {
   const { login } = useAuth();
 
-  const { location, pathname } = useLocation();
+  const location = useLocation();
 
-  const iskakao = pathname.includes('kakaologin');
-  const isnaver = pathname.includes('naverlogin');
+  const iskakao = location.pathname.includes('kakaologin');
+  const isnaver = location.pathname.includes('naverlogin');
 
   const navigate = useNavigate();
 
@@ -117,9 +117,8 @@ export default function LoginForm() {
   }
 
   useEffect(() => {
-   NaverLoginInit()
-  }, [NaverLoginInit])
-
+      NaverLoginInit()
+    }, [NaverLoginInit])
 
   const NaverloginCallback = useCallback(async () => {    
     if (!location.hash) return;

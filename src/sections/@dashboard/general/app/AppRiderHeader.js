@@ -23,7 +23,7 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <AppRidingHome />,
+      component: <BlogPosts />,
     },
     {
       value: 'dingsta',
@@ -39,7 +39,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'garage',
-      component: <Appgarage />,
+      component: <BlogPosts />,
     },
   ];
    // 렌트랑 보험 구인구직 그건 어떰?

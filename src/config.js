@@ -23,8 +23,10 @@ export const KAKAO_AUTH_API = KAKAO_AUTH_URL
 export const KAKAO_REDIRECT = process.env.REACT_APP_KAKAO_REDIRECT_URI 
 
 export const NAVER_CLIENT_ID = process.env.REACT_APP_CLIENT_ID
-export const NAVER_REDIRECT = process.env.REACT_APP_KAKAO_REDIRECT_URI 
+export const NAVER_REDIRECT = process.env.REACT_APP_NAVER_REDIRECT_URI 
 
+
+export const WEATHER_API = process.env.REACT_APP_WEATHER_API 
 
 export const COGNITO_API = {
   userPoolId: process.env.REACT_APP_AWS_COGNITO_USER_POOL_ID,

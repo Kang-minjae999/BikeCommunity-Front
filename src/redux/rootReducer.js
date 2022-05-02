@@ -8,6 +8,7 @@ import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import notificationReducer from './slices/notification';
+import weatherReducer from './slices/weather';
 
 // ----------------------------------------------------------------------
 
@@ -32,11 +33,19 @@ const NotificationPersistConfig = {
   whitelist: ['alert', 'alertNumber', 'readAlert'],
 };
 
+const WeatherPersistConfig = {
+  key: 'notification',
+  storage,
+  keyPrefix: 'redux-',
+  whitelist: ['alert', 'alertNumber', 'readAlert'],
+};
+
 const rootReducer = combineReducers({
   mail: mailReducer,
   chat: chatReducer,
   calendar: calendarReducer,
   kanban: kanbanReducer,
+  weather: persistReducer(WeatherPersistConfig, weatherReducer),
   product: persistReducer(productPersistConfig, productReducer),
   notification: persistReducer(NotificationPersistConfig, notificationReducer),
 });

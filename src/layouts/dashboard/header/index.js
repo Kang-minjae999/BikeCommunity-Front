@@ -4,12 +4,10 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, Link, Typography } from '@mui/material';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import MenuIcon from '@mui/icons-material/Menu';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive'; 
 // utils
-import cssStyles from '../../../utils/cssStyles';
 // config
 import { HEADER, NAVBAR } from '../../../config';
 // components

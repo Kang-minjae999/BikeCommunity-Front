@@ -18,6 +18,55 @@ export default function AppRidingHeader() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const [state, setState] = useState({
+    center: {
+      lat: 126.9351741,
+      lng: 37.3616703,
+    },
+    errMsg: null,
+    isLoading: true,
+  })
+  
+  const [userPo, setUserPo] = useState({      
+    center: {
+    lat: 126.9351741,
+    lng: 37.3616703,
+  }})
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setState((prev) => ({
+            ...prev,
+            center: {
+              lat: position.coords.latitude, 
+              lng: position.coords.longitude, 
+            },
+            isLoading: false,
+          }))
+          setUserPo({
+            center: {
+            lat: position.coords.latitude, 
+            lng: position.coords.longitude, 
+          }})
+        },
+        (err) => {
+          setState((prev) => ({
+            ...prev,
+            errMsg: err.message,
+            isLoading: false,
+          }))
+        }
+      )
+    } else {
+      setState((prev) => ({
+        ...prev,
+        errMsg: "현재 위치를 알 수 없어요..",
+        isLoading: false,
+      }))
+    }
+  }, [])
 
   useEffect(() => {
     if(!window.Kakao.isInitialized){
@@ -28,7 +77,7 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <AppRidingHome tab={value}/>,
+      component: <AppRidingHome tab={value} state={state} setState={setState} userPo={userPo}/>,
     },
     {
       value: 'club',
@@ -44,7 +93,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'map',
-      component: <Container><GeneralMap tab={value} /></Container>,
+      component: <Container><GeneralMap tab={value} state={state} setState={setState} userPo={userPo}/></Container>,
     },
   ];
 
