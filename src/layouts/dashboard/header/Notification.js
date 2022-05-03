@@ -6,6 +6,7 @@ import { useDispatch } from '../../../redux/store';
 import { readAlert, addAlert, getAlert } from '../../../redux/slices/notification';
 import NotificationsPopover from './NotificationsPopover';
 import useAuth from '../../../hooks/useAuth';
+import Iconify from '../../../components/Iconify';
 
 const Notification = () => {
   const { user } = useAuth();
@@ -100,7 +101,7 @@ const Notification = () => {
       {/* <Button onClick={() => notificationSnack(alerttest) + sets(s + 1)} sx={{ color: 'text.primary'  }}>
         알림추가
       </Button> */}
-      <NotificationsPopover color='action'/>
+      <NotificationsPopover />
     </>
   );
 };

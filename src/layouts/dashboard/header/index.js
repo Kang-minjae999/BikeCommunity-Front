@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, Link, Typography } from '@mui/material';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive'; 
@@ -13,6 +12,7 @@ import { HEADER, NAVBAR } from '../../../config';
 // components
 import AccountPopover from './AccountPopover';
 import Notification from './Notification';
+import Iconify from '../../../components/Iconify';
 
 
 // ----------------------------------------------------------------------
@@ -55,6 +55,7 @@ DashboardHeader.propTypes = {
 
 export default function DashboardHeader({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
   const {pathname} = useLocation()
+  const navigate = useNavigate()
 
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
@@ -118,12 +119,10 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
           </>}
 
         <Box sx={{ flexGrow: 1 }} />
-        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
-          <Notification />
-        <Link component={RouterLink} to="/dashboard/checkout" underline="none" sx={{mt:1}}>     
-          <LocalGroceryStoreIcon color='action' />
-        </Link>
-          <AccountPopover color='text.primary' />
+        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 3 }}>
+          <Notification />  
+          <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} onClick={() => navigate('/dashboard/checkout')}/>
+          <AccountPopover />
         </Stack>
         </Toolbar>  
     </RootStyle>  

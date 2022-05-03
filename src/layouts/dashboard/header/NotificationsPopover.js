@@ -38,9 +38,9 @@ export default function NotificationsPopover() {
 
   return (
     <>
-      <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 35, height: 35, mb:0.5 }}>
+      <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 28, height: 28, mt:0.2 }}>
         <Badge badgeContent={alertNumber} color="error">
-          <Iconify icon="eva:bell-fill" width={22} height={22} />
+        <Iconify icon='bx:bell' sx={{width:28, height:28, color:'text.primary'}} />
         </Badge>
       </IconButtonAnimate>
 

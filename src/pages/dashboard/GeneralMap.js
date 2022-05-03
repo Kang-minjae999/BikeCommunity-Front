@@ -20,6 +20,7 @@ import GeneralMapMarkerBefore from '../../sections/@dashboard/riding/GeneralMapM
 import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
 import GeneralMapIsselct from '../../sections/@dashboard/riding/GeneralMapIsselect';
 import { GeneralMapDestiPeople } from '../../sections/@dashboard/riding';
+import Iconify from '../../components/Iconify';
 
 
 // ------------------------------------------------------------
@@ -66,12 +67,8 @@ export default function GeneralMap({tab, userPo, setState}) {
   // 가는 라이더 열기
   const [isAbout, setIsAbout] = useState(false)
 
-  // 마커 가는 사람 수 
+  // 즐겨찾기 
   const [viaLike, setViaLike] = useState()
-
-  // 내 라이딩 기록 
-  const [viaRecord, setViaRecord] = useState()
-  
   // ------------------------------------------------
 
   // 마커 불러오기
@@ -298,11 +295,12 @@ export default function GeneralMap({tab, userPo, setState}) {
       {tab === 'map' &&  
       <>
       <Stack direction='row' alignItems='center' justifyContent='space-between'>        
-        <Button variant={open === 'map' ? 'contained' : 'outlined'} size='large' onClick={() => setopen('map')} color='inherit' sx={{mb:2}}>지도</Button> 
-        <Button variant={open === 'myroute' ? 'contained' : 'outlined'} size='large' onClick={() => setopen('myroute')} color='inherit' sx={{mb:2}}>내 경로 / 즐겨찾기</Button>
+        <Button variant='outlined' size='large' onClick={() => setopen('map')} color='inherit' sx={{mb:2}}>
+          <Iconify icon='bi:map' sx={open === 'map' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}}/></Button> 
+        <Button variant='outlined' size='large' onClick={() => setopen('myroute')} color='inherit' sx={{mb:2}}>
+          <Iconify icon='clarity:star-line'  sx={open === 'myroute' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'inherit'}}/></Button>
       </Stack>
-
-        </>}
+      </>}
 
         {open === 'map' && 
           <Grid container spacing={2}>

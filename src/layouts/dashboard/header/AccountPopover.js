@@ -107,7 +107,7 @@ const MENU_OPTIONS = [
           }),
         }}
       >
-       <MyAvatar />
+       <MyAvatar sx={{width:36, height:36}}/>
      {/*   {!user && <PersonIcon color="text.primary" />} */}
       </IconButtonAnimate>
 
