@@ -88,7 +88,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
         { path: 'app', element: <GeneralApp /> }, // ok
-        { path: 'map', element: <GeneralMap /> }, // ok
+        { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, // ok
         { path: 'riding', element: <GeneralRiding /> }, // ok
         { path: 'rider', element: <GeneralRider /> }, // ok
         { path: 'clubs', element: <Generalclub /> }, // ok
@@ -281,7 +281,7 @@ const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword'))
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
-const GeneralMap = Loadable(lazy(() => import('../pages/dashboard/GeneralMap')));
+const GeneralMapNewMarker = Loadable(lazy(() => import('../pages/dashboard/GeneralMapNewMarker')));
 const GeneralRider = Loadable(lazy(() => import('../pages/dashboard/GeneralRider')));
 const GeneralRiding = Loadable(lazy(() => import('../pages/dashboard/GeneralRiding')));
 const Generalclub = Loadable(lazy(() => import('../pages/dashboard/GeneralClub')));

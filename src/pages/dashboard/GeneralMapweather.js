@@ -15,14 +15,14 @@ import Appweathercontentride from '../../sections/@dashboard/general/app/Appweat
 import Appweathercontent2ride from '../../sections/@dashboard/general/app/Appweathercontent2ride';
 // ----------------------------------------------------------------------
 GeneralMapweather.propTypes = {
-  wealat: PropTypes.number,
-  wealng: PropTypes.number,
+  wealat: PropTypes.string,
+  wealng: PropTypes.string,
   weatherok: PropTypes.bool,
   name: PropTypes.string,
 };
 
 
-export default function GeneralMapweather({wealat,wealng,weatherok, name}) {
+export default function GeneralMapweather({wealat, wealng, weatherok, name}) {
   const API = 'ac90d9bee65995d552b23505a49fb30a'
   const [lat, setlat] = useState('');
   const [lng, setlng] = useState('');
@@ -82,7 +82,6 @@ export default function GeneralMapweather({wealat,wealng,weatherok, name}) {
     axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&lang=Kr&cnt=1&appid=${API}`)
     .then((responseData) => {
       const datas = responseData.data; 
-      console.log(datas)
       setweather2({
         id: datas.list[0].weather[0].id,
         temperature: `${(datas.list[0].main.temp-273.15).toFixed(1)}℃`,

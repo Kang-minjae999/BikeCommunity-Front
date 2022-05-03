@@ -17,7 +17,7 @@ AppRidingHome.propTypes = {
   lng: PropTypes.number,
   setlat: PropTypes.func,
   setlng: PropTypes.func,
-};
+}; 
 
 export default function AppRidingHome({tab, state, setState, userPo, lat, lng, setlat, setlng}) {
   const [weather, setweather] = useState({});

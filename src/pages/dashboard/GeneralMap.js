@@ -6,13 +6,13 @@ import { useSnackbar } from 'notistack';
 // @mui
 import { useForm } from 'react-hook-form';
 import { Container, Button, Card, Typography, Grid, Stack ,Link, Divider, Chip, Avatar } from "@mui/material"
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 import AddIcon from '@mui/icons-material/Add';
 import StarIcon from '@mui/icons-material/Star';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import axios from '../../utils/axiosriding';
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
@@ -34,6 +34,7 @@ GeneralMap.propTypes = {
   setState: PropTypes.func,
   userPo: PropTypes.object,
 };
+
 export default function GeneralMap({tab, state, userPo, setState}) {
   const { user } = useAuth();
   const navigate = useNavigate()
@@ -43,8 +44,8 @@ export default function GeneralMap({tab, state, userPo, setState}) {
   const [allPositions, setAllPosition] = useState([])
   const [garagetrue ,setgaragetrue] =useState(false);
 
-    const [wealat,setwealat] = useState('')
-    const [wealng,setwealng] = useState('')
+    const [wealat,setwealat] = useState()
+    const [wealng,setwealng] = useState()
     const [weatherok ,setweatherok] = useState(false)
 
 
@@ -71,22 +72,22 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     setSelectedCategory("all")
   }
   const road = () => {
-    setSelectedCategory("road")
+    setSelectedCategory("도로")
   }
   const coffee = () => {
-    setSelectedCategory("coffee")
+    setSelectedCategory("카페")
   }
   const attraction = () => {
-    setSelectedCategory("attraction")
+    setSelectedCategory("명소")
   }
   const garage = () => {
-    setSelectedCategory("garage")
+    setSelectedCategory("정비소")
   }
 
 
   const [isselect, setisselect] = useState({
     id: '',
-    value: '',
+    profile: '',
     name: '',
     content: '',
     tel: '', 
@@ -114,12 +115,6 @@ export default function GeneralMap({tab, state, userPo, setState}) {
       fontWeight: 'bold',
     };
 
-    const [like, setLike] = useState(false)
-
-    const goLike = () => {
-      setLike(!like)
-    }
-
     const defaultValues = {
       name:'새로운 경로',
       destination:[]
@@ -138,22 +133,22 @@ export default function GeneralMap({tab, state, userPo, setState}) {
 
   const addDesti = () => {
     setValue('destination',[...values.destination,{
-      id:`${values.destination.length}`,
+      id:isselect.id,
       name:isselect.name,
       lat:wealat,
       lng:wealng
     }])
   }
+
   const DeleteDesti = (data) => {
     setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
   }
 
-  const getPositionDetail = useCallback(async () => {
-    setisselect();
+  const getPositionDetail = useCallback(async (position) => {
     try {
-      const response = await axios.get(`/marker/${isselect.id}`);
+      const response = await axios.get(`/marker/detail/${position.id}`);
       if (isMountedRef.current) {
-        setisselect(response.data.data.content);
+        setisselect(response.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -161,10 +156,9 @@ export default function GeneralMap({tab, state, userPo, setState}) {
   }, [isMountedRef, isselect]);
 
   const setPosition = (position) => { 
-    setisselect(position)
+    getPositionDetail(position)
     setwealat(position.lat)
     setwealng(position.lng)
-    getPositionDetail()
     setIsAbout(true)
     setState({
       center: {
@@ -196,7 +190,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     const getDestiUsers = useCallback(async () => {
       setDestiUsers();
       try {
-        const response = await axios.get(`/riding/map/${isselect.id}?page=0&size=1`);
+        const response = await axios.get(`/riding/map/${isselect.id}`);
         if (isMountedRef.current) {
           setDestiUsers(response.data.data.content);
         }
@@ -250,15 +244,38 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     }
   };
 
+  const onSubmitMarkerLike = async () => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const markers = values.destination.map((item) => item.name)
+    const ids = values.destination.map((item) => item.id)
+    const lat = values.destination.map((item) => item.lat)
+    const lng = values.destination.map((item) => item.lng)
+    try {
+      await axios.post(`/route/${user.nickname}`, 
+      {
+        mapIds: ids,
+        markerName: markers,
+        markerLat: lat,
+        markerLng: lng,
+        routeName:'테스트',
+        isPublic:true
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   const onSubmitViaLike = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     const viaDesti = values.destination.map((item) => item.id)
     try {
-      await axios.post(`/riding/${user.nickname}`, viaDesti , {
-        headers: {
-          'content-type': 'multipart/form-data',
-          authorization: accessToken,
-        },
+      await axios.post(`/route/${user.nickname}`, 
+      {
+        mapIds:viaDesti,
+        routeName:'테스트',
+        isPublic:true
       });
       enqueueSnackbar('목적지 추가 완료!');
     } catch (error) {
@@ -267,6 +284,10 @@ export default function GeneralMap({tab, state, userPo, setState}) {
   };
 
   const destiGoUserProfile = (nick) => {
+    navigate(`/dashboard/user/profile/${nick}`)
+  }
+
+  const MarkerGoUserProfile = (nick) => {
     navigate(`/dashboard/user/profile/${nick}`)
   }
 
@@ -287,22 +308,22 @@ export default function GeneralMap({tab, state, userPo, setState}) {
               </Typography>
             </Button>
             <Button  variant='text' color="inherit" size='small' type='button' id="roadMenu" onClick={road} sx={{mt:1,ml:1}}>
-            <Typography variant="body2" sx={{ ...(selectedCategory === 'road' && valueStyle)}}>
+            <Typography variant="body2" sx={{ ...(selectedCategory === '도로' && valueStyle)}}>
               도로
               </Typography>
             </Button>
             <Button  variant='text' color="inherit"size='small' type='button' id="coffeeMenu" onClick={coffee} sx={{mt:1,ml:1}}>
-            <Typography variant="body2" sx={{ ...(selectedCategory === 'coffee' && valueStyle)}}>
+            <Typography variant="body2" sx={{ ...(selectedCategory === '카페' && valueStyle)}}>
               카페
               </Typography>
             </Button>
             <Button  variant='text' color="inherit" size='small' type='button' id="attractionMenu" onClick={attraction} sx={{mt:1,ml:1}}>
-            <Typography variant="body2" sx={{ ...(selectedCategory === 'attraction' && valueStyle)}}>
+            <Typography variant="body2" sx={{ ...(selectedCategory === '명소' && valueStyle)}}>
               명소
               </Typography>
             </Button>
             <Button  variant='text' color="inherit" size='small' type='button' id="garagemenu" onClick={garage} sx={{mt:1,ml:1}}>
-            <Typography variant="body2" sx={{ ...(selectedCategory === 'garage' && valueStyle)}}>
+            <Typography variant="body2" sx={{ ...(selectedCategory === '정비소' && valueStyle)}}>
               정비소
               </Typography>
             </Button>
@@ -326,14 +347,14 @@ export default function GeneralMap({tab, state, userPo, setState}) {
           {selectedCategory === "all" && 
             allPositions.map((position) => ( 
               <MapMarker
-                key={`road-${position.lat},${position.lng}`}
+                key={`all-${position.id},${position.lng}`}
                 position={position}
                 clickable
                 onClick={() => setPosition(position)}    
                 {...((isselect.lat === position.lat && isselect.lng === position.lng) ? valueMarker  : valueMarkerBefore)}
               />
             ))}      
-            {selectedCategory === "road" &&
+            {selectedCategory === "도로" &&
             allPositions.map((position) => ( position.content === '도로' && 
               <MapMarker
                 key={`road-${position.lat},${position.lng}`}
@@ -343,7 +364,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
                 {...((isselect.lat === position.lat && isselect.lng === position.lng) ? valueMarker  : valueMarkerBefore)}
               />
             ))}
-          {selectedCategory === "coffee" &&
+          {selectedCategory === "카페" &&
             allPositions.map((position) => ( position.content ==='카페' && 
               <MapMarker
                 key={`coffee-${position.lat},${position.lng}`}
@@ -353,8 +374,8 @@ export default function GeneralMap({tab, state, userPo, setState}) {
                 {...((isselect.lat === position.lat && isselect.lng === position.lng) ? valueMarker  : valueMarkerBefore)}
               />
             ))}
-          {selectedCategory === "attraction" &&
-            allPositions.map((position) => ( position.content ==='명소' && 
+          {selectedCategory === "명소" &&
+            allPositions.map((position) => ( position.content === '명소' && 
               <MapMarker
                 key={`attraction-${position.lat},${position.lng}`}
                 position={position}
@@ -363,7 +384,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
                 {...((isselect.lat === position.lat && isselect.lng === position.lng) ? valueMarker  : valueMarkerBefore)}
               />
             ))}
-          {selectedCategory === "garage" &&
+          {selectedCategory === "정비소" &&
             allPositions.map((position) => ( position.content ==='정비소' && 
               <MapMarker
                 key={`garage-${position.lat},${position.lng}`}
@@ -407,14 +428,14 @@ export default function GeneralMap({tab, state, userPo, setState}) {
           <Stack direction="row" alignItems='flex-start'>
             <LocationOnIcon sx={{mr:1}}/>
             <Typography variant="body2">
-            {isselect.position}
+            {isselect.address}
             </Typography>
         </Stack>
         <Stack direction="row">
-        <Link href={isselect.ontel} variant="subtitle2" color="text.primary">
+        <Link href={`tel:${isselect.tel}`} variant="subtitle2" color="text.primary">
         <LocalPhoneIcon sx={{mr:1}}/>
           </Link>
-          <Link href={isselect.ontel} variant="subtitle2" color="text.primary">
+          <Link href={`tel:${isselect.tel}`} variant="subtitle2" color="text.primary">
           <Typography variant="body2" sx={{mt:0.2}}>
           {isselect.tel}
           </Typography>
@@ -427,16 +448,17 @@ export default function GeneralMap({tab, state, userPo, setState}) {
           </Typography>
         </Stack>
         </Stack>
-          <Stack direction="column" spacing={1} sx={{mb:2}}>     
-          <Button variant="text" onClick={goLike}>
-          {!like && <StarBorderIcon color='warning' fontSize='large' />}
-          {like && <StarIcon color='warning' fontSize='large'/>}
+          <Stack direction="column" alignItems='center' spacing={1} sx={{mb:2}}>     
+          <Button variant="text" onClick={onSubmitMarkerLike}>
+            <StarIcon color='warning' fontSize='large'/>
           </Button>
-          <Stack direction="column" alignItems='center'> 
           <Button variant='text'>
             <AddIcon color='secondary' fontSize='large' onClick={addDesti}/> 
-          </Button>   
-          </Stack>
+          </Button> 
+          {isselect?.profile && 
+           <Button variant='text'>
+          <AccountBoxOutlinedIcon color='action' fontSize='large' onClick={() => MarkerGoUserProfile(isselect.profile)}/>
+          </Button>} 
           </Stack>
           </Stack>
 
