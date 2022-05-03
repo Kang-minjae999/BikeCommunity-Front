@@ -34,9 +34,9 @@ export default function AccountGeneral() {
     nickname: user?.nickname || '',
     avatar: user?.avatar || '',
     phoneNumber: user?.phoneNumber || '',
-    address: user?.address.address || '',
+    address:{address: user?.address.address || '',
     detailAddress: user?.address.detailAddress || '',
-    zipcode: user?.address.zipcode || '',
+    zipcode: user?.address.zipcode || ''},
     birthday: user?.about || '',
   };
 
@@ -163,9 +163,9 @@ export default function AccountGeneral() {
               <RHFTextField name="email" label="이메일" />
               <RHFTextField name="phoneNumber" label="번호" />
               <RHFTextField name="nickname" label="닉네임" />
-              <RHFTextField name="address" label="주소" />
-              <RHFTextField name="detailAddress" label="상세주소" />
-              <RHFTextField name="zipcode" label="우편번호" />
+              <RHFTextField name="address.address" label="주소" />
+              <RHFTextField name="address.detailAddress" label="상세주소" />
+              <RHFTextField name="address.zipcode" label="우편번호" />
               <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' loading={isSubmitting}>
                 저장하기
               </LoadingButton>
