@@ -6,7 +6,7 @@ import {Button, Divider, Typography, Avatar, List, ListItem, ListItemAvatar, Lis
 import AddIcon from '@mui/icons-material/Add';
 import StraightIcon from '@mui/icons-material/Straight';
 import StarIcon from '@mui/icons-material/Star';
-import Iconify from '../../components/Iconify';
+import Iconify from '../../../components/Iconify';
 
 
 const emails = ['바이크', '장비', '부품용품'];

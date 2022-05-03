@@ -11,8 +11,8 @@ import WaterIcon from '@mui/icons-material/Water';
 import DangerousIcon from '@mui/icons-material/Dangerous';
 import AirIcon from '@mui/icons-material/Air';
 // ----------------------------------------
-import Appweathercontentride from '../../sections/@dashboard/general/app/Appweathercontentride';
-import Appweathercontent2ride from '../../sections/@dashboard/general/app/Appweathercontent2ride';
+import Appweathercontentride from '../general/app/Appweathercontentride';
+import Appweathercontent2ride from '../general/app/Appweathercontent2ride';
 // ----------------------------------------------------------------------
 GeneralMapweather.propTypes = {
   wealat: PropTypes.string,

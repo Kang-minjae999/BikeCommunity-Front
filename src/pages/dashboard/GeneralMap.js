@@ -5,70 +5,53 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 // @mui
 import { useForm } from 'react-hook-form';
-import { Container, Button, Card, Typography, Grid, Stack ,Link, Divider, Chip, Avatar } from "@mui/material"
-import AddIcon from '@mui/icons-material/Add';
-import StarIcon from '@mui/icons-material/Star';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import { Container, Button, Card, Typography, Grid, Stack , Divider, Chip } from "@mui/material"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import axios from '../../utils/axiosriding';
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
 import useResponsive from '../../hooks/useResponsive';
 import Page from '../../components/Page';
-import GeneralMapweather from "./GeneralMapweather";
-import GeneralMapbutton from './GeneralMapbutton';
-import GeneralMapViabutton from './GeneralMapViabutton';
-import GeneralMapMarker from './GeneralMapMarker.png';
-import GeneralMapMarkerBefore from './GeneralMapMarkerBefore.png';
+import GeneralMapweather from "../../sections/@dashboard/riding/GeneralMapweather";
+import GeneralMapViabutton from '../../sections/@dashboard/riding/GeneralMapViabutton';
+import GeneralMapMarker from '../../sections/@dashboard/riding/GeneralMapMarker.png';
+import GeneralMapMarkerBefore from '../../sections/@dashboard/riding/GeneralMapMarkerBefore.png';
 import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
+import GeneralMapIsselct from '../../sections/@dashboard/riding/GeneralMapIsselect';
+import { GeneralMapDestiPeople } from '../../sections/@dashboard/riding';
 
 
 // ------------------------------------------------------------
 GeneralMap.propTypes = {
   tab: PropTypes.string,
-  state: PropTypes.object,
   setState: PropTypes.func,
   userPo: PropTypes.object,
 };
 
-export default function GeneralMap({tab, state, userPo, setState}) {
+export default function GeneralMap({tab, userPo, setState}) {
   const { user } = useAuth();
   const navigate = useNavigate()
   const isMountedRef = useIsMountedRef();
   const isDesktop = useResponsive('up', 'lg')
   const { enqueueSnackbar } = useSnackbar();
   const [allPositions, setAllPosition] = useState([])
-  const [garagetrue ,setgaragetrue] =useState(false);
 
+  // 지도 & 즐겨찾기
   const [open, setopen] = useState('map')
 
+  // 선택 카테고리
+  const [selectedCategory, setSelectedCategory] = useState("all")
+
+  // 날씨 변수
   const [wealat,setwealat] = useState()
   const [wealng,setwealng] = useState()
   const [weatherok ,setweatherok] = useState(false)
 
-  // 마커 불러오기
-  const getMapMarker = useCallback(async () => {
-      try {
-        const response = await axios.get(`/marker`);
-        if (isMountedRef.current) {
-          setAllPosition(response.data.data.content);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-  }, [])
+  // 마커 가는 사람 수 
+  const [destiUsers, setDestiUsers] = useState()
 
-  useEffect(() => {
-    getMapMarker()
-  }, [getMapMarker])
-  
-
-  const [selectedCategory, setSelectedCategory] = useState("all")
-
+  // 선택 마커
   const [isselect, setisselect] = useState({
     id: '',
     profile: '',
@@ -80,24 +63,161 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     lng: '',
   });
 
+  // 가는 라이더 열기
   const [isAbout, setIsAbout] = useState(false)
 
-    useEffect(() => {
-      if(isselect.content === '정비소'){
-        setgaragetrue(true)
-        setweatherok(true)
-      }else{
-        setweatherok(true)
-        setgaragetrue(false)
-      }  
-    }, [isselect]);
+  // 마커 가는 사람 수 
+  const [viaLike, setViaLike] = useState()
 
+  // 내 라이딩 기록 
+  const [viaRecord, setViaRecord] = useState()
+  
+  // ------------------------------------------------
 
-    const valueStyle = {
-      borderBottom: (isDesktop ? 3 : 2),
-      borderBottomColor: 'text.primary',
-      fontWeight: 'bold',
-    };
+  // 마커 불러오기
+  const getMapMarker = useCallback(async () => {
+      try {
+        const response = await axios.get(`/marker`);
+        if (isMountedRef.current) {
+          setAllPosition(response.data.data.content);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+  }, [isMountedRef])
+
+  
+  // 마커 디테일 불러오기
+  const getPositionDetail = useCallback(async (position) => {
+    try {
+      const response = await axios.get(`/marker/detail/${position.id}`);
+      if (isMountedRef.current) {
+        setisselect(response.data.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef]);
+
+  useEffect(() => {
+    getMapMarker()
+  }, [getMapMarker])
+
+  // 마커 가는 사람 수 불러오기
+  const getDestiUsers = useCallback(async () => {
+    setDestiUsers();
+    try {
+      const response = await axios.get(`/riding/map/${isselect.id}`);
+      if (isMountedRef.current) {
+        setDestiUsers(response.data.data.content);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef, isselect]);
+
+  useEffect(() => {
+    if(isselect.id){
+      getDestiUsers();
+    }
+  }, [getDestiUsers, isselect.id]);
+
+  // 여기로 갈게요
+  const onSubmitDesti = async () => {
+    if(!user){
+      enqueueSnackbar('로그인 후 이용해주세요!');
+      return ;
+    }
+    try {
+      await axios.post(`/riding/${user.nickname}`, isselect.id );
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 여러 마커 갈게요 등록 - 수정해야댐
+  const onSubmitViaDesti = async () => {
+    if(!user){
+      enqueueSnackbar('로그인 후 이용해주세요!');
+      return ;
+    }
+    const accessToken = window.localStorage.getItem('accessToken');
+    const viaDesti = values.destination.map((item) => item.id)
+    try {
+      await axios.post(`/riding/${user.nickname}`, viaDesti , {
+        headers: {
+          'content-type': 'multipart/form-data',
+          authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 마커 저장
+  const onSubmitMarkerLike = async () => {
+    if(!user){
+      enqueueSnackbar('로그인 후 이용해주세요!');
+      return ;
+    }
+    const markers = values.destination.map((item) => item.name)
+    const ids = values.destination.map((item) => item.id)
+    const lat = values.destination.map((item) => item.lat)
+    const lng = values.destination.map((item) => item.lng)
+    try {
+      await axios.post(`/route/${user.nickname}`, 
+      {
+        mapIds: ids,
+        markerName: markers,
+        markerLat: lat,
+        markerLng: lng,
+        routeName:'테스트',
+        isPublic:true
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 경로 저장
+  const onSubmitViaLike = async () => {
+    if(!user){
+      enqueueSnackbar('로그인 후 이용해주세요!');
+      return ;
+    }
+    const viaDesti = values.destination.map((item) => item.id)
+    try {
+      await axios.post(`/route/${user.nickname}`, 
+      {
+        mapIds:viaDesti,
+        routeName:'테스트',
+        isPublic:true
+      });
+      enqueueSnackbar('목적지 추가 완료!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  // 저장된 경로 불러오기
+  const getViaLike = useCallback(async () => {
+    try {
+      const response = await axios.get(`/route/${user?.nickname}`);
+      if (isMountedRef.current) {
+        setViaLike(response.data.data.content);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef, user]);
+
+  useEffect(() => {
+      getViaLike()
+  }, [getViaLike])
 
     const defaultValues = {
       name:'새로운 경로',
@@ -128,18 +248,6 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
   }
 
-  // 마커 디테일 불러오기
-  const getPositionDetail = useCallback(async (position) => {
-    try {
-      const response = await axios.get(`/marker/detail/${position.id}`);
-      if (isMountedRef.current) {
-        setisselect(response.data.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isMountedRef, isselect]);
-
   const setPosition = (position) => { 
     getPositionDetail(position)
     setwealat(position.lat)
@@ -155,104 +263,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     })
   }
 
-    const [destiUsers, setDestiUsers] = useState()
-    // 마커 가는 사람 수 불러오기
-    const getDestiUsers = useCallback(async () => {
-      setDestiUsers();
-      try {
-        const response = await axios.get(`/riding/map/${isselect.id}`);
-        if (isMountedRef.current) {
-          setDestiUsers(response.data.data.content);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }, [isMountedRef, isselect]);
-  
-    useEffect(() => {
-      if(isselect.id){
-        getDestiUsers();
-      }
-    }, [getDestiUsers, isselect.id]);
-
-  // >
-  const onSubmitDesti = async () => {
-    if(!user){
-      enqueueSnackbar('로그인 후 이용해주세요!');
-      return ;
-    }
-    const accessToken = window.localStorage.getItem('accessToken');
-     const formData = new FormData();
-     formData.append('mapId', isselect.id)
-    try {
-      await axios.post(`/riding/${user.nickname}`, formData , {
-        headers: {
-          'content-type': 'multipart/form-data',
-          authorization: accessToken,
-        },
-      });
-      enqueueSnackbar('목적지 추가 완료!');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // 여러 경로 갈게요 등록
-  const onSubmitViaDesti = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    const viaDesti = values.destination.map((item) => item.id)
-    try {
-      await axios.post(`/riding/${user.nickname}`, viaDesti , {
-        headers: {
-          'content-type': 'multipart/form-data',
-          authorization: accessToken,
-        },
-      });
-      enqueueSnackbar('목적지 추가 완료!');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // 즐겨찾기
-  const onSubmitMarkerLike = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    const markers = values.destination.map((item) => item.name)
-    const ids = values.destination.map((item) => item.id)
-    const lat = values.destination.map((item) => item.lat)
-    const lng = values.destination.map((item) => item.lng)
-    try {
-      await axios.post(`/route/${user.nickname}`, 
-      {
-        mapIds: ids,
-        markerName: markers,
-        markerLat: lat,
-        markerLng: lng,
-        routeName:'테스트',
-        isPublic:true
-      });
-      enqueueSnackbar('목적지 추가 완료!');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const onSubmitViaLike = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
-    const viaDesti = values.destination.map((item) => item.id)
-    try {
-      await axios.post(`/route/${user.nickname}`, 
-      {
-        mapIds:viaDesti,
-        routeName:'테스트',
-        isPublic:true
-      });
-      enqueueSnackbar('목적지 추가 완료!');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+  // 프로필 이동
   const destiGoUserProfile = (nick) => {
     navigate(`/dashboard/user/profile/${nick}`)
   }
@@ -261,6 +272,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     navigate(`/dashboard/user/profile/${nick}`)
   }
 
+  // 스타일
   const valueMarker = {
     zIndex: 99,
     image:{
@@ -276,15 +288,24 @@ export default function GeneralMap({tab, state, userPo, setState}) {
       size:{width:32, height:32},
       options:{x:16, y:0}
     }}
+  const valueStyle = {
+    borderBottom: (isDesktop ? 3 : 2),
+    borderBottomColor: 'text.primary',
+    fontWeight: 'bold',
+  };
 
   return (
      <Page title="라이딩맵">
       <Container maxWidth='lx' sx={{mt:2}} disableGutters>
       {tab === 'map' &&  
       <>
-      <Button onClick={() => setopen('map') }>Map</Button> 
-        <Button onClick={() => setopen('myroute')}>즐겨찾기/ 내 경로</Button>
+      <Stack direction='row' alignItems='center' justifyContent='space-between'>        
+        <Button variant={open === 'map' ? 'contained' : 'outlined'} size='large' onClick={() => setopen('map')} color='inherit' sx={{mb:2}}>지도</Button> 
+        <Button variant={open === 'myroute' ? 'contained' : 'outlined'} size='large' onClick={() => setopen('myroute')} color='inherit' sx={{mb:2}}>내 경로 / 즐겨찾기</Button>
+      </Stack>
+
         </>}
+
         {open === 'map' && 
           <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
@@ -320,9 +341,10 @@ export default function GeneralMap({tab, state, userPo, setState}) {
               </Typography>
             </Button>
             </Stack> 
+        {userPo && 
         <Map // 지도를 표시할 Container
           id={`map`}
-          center={state.center}
+          center={userPo}
           isPanto
           style={{
             // 지도의 크기
@@ -334,7 +356,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
         <ZoomControl />
             {userPo && 
             <MapMarker
-                position={userPo.center}
+                position={userPo}
               />}
           {selectedCategory === "all" && 
             allPositions.map((position) => ( 
@@ -386,7 +408,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
                 {...((isselect.lat === position.lat && isselect.lng === position.lng) ? valueMarker  : valueMarkerBefore)}
               />
             ))}
-        </Map>
+        </Map>}
         </Card>
       </Grid>
       <Grid item xs={12} md={4} sx={{mb:5}}>
@@ -407,83 +429,22 @@ export default function GeneralMap({tab, state, userPo, setState}) {
         </Card>}
       <Card sx={{border:1, borderColor:'darkgray', mb:2}}>
       <Stack spacing={2} sx={{ p: 3 }}>
-      <Stack direction="row" justifyContent='space-between'>
-        <Stack direction='column' alignItems='flex-start' spacing={2}>
-          <Stack direction="row" alignItems='flex-start'>
-            <Typography variant="subtitle1">
-            {isselect.name}
-            </Typography>
-            <Typography variant="body2" sx={{mt:0.2}} >
-              [{isselect.content}]
-            </Typography>
-          </Stack>
-          <Stack direction="row" alignItems='flex-start'>
-            <LocationOnIcon sx={{mr:1}}/>
-            <Typography variant="body2">
-            {isselect.address}
-            </Typography>
-        </Stack>
-        <Stack direction="row">
-        <Link href={`tel:${isselect.tel}`} variant="subtitle2" color="text.primary">
-        <LocalPhoneIcon sx={{mr:1}}/>
-          </Link>
-          <Link href={`tel:${isselect.tel}`} variant="subtitle2" color="text.primary">
-          <Typography variant="body2" sx={{mt:0.2}}>
-          {isselect.tel}
-          </Typography>
-          </Link> 
-        </Stack>
-        <Stack direction="row">
-          <AccessTimeIcon sx={{mr:1}}/>
-          <Typography variant="body2">
-           {isselect.time}
-          </Typography>
-        </Stack>
-        </Stack>
-          <Stack direction="column" alignItems='center' spacing={1} sx={{mb:2}}>     
-          <Button variant="text" onClick={onSubmitMarkerLike}>
-            <StarIcon color='warning' fontSize='large'/>
-          </Button>
-          <Button variant='text'>
-            <AddIcon color='secondary' fontSize='large' onClick={addDesti}/> 
-          </Button> 
-          {isselect?.profile && 
-           <Button variant='text'>
-          <AccountBoxOutlinedIcon color='action' fontSize='large' onClick={() => MarkerGoUserProfile(isselect.profile)}/>
-          </Button>} 
-          </Stack>
-          </Stack>
-
+        <GeneralMapIsselct onSubmitMarkerLike={onSubmitMarkerLike} addDesti={addDesti} MarkerGoUserProfile={MarkerGoUserProfile}/>
         <Divider />
       <GeneralMapweather name={isselect.name} wealat={wealat} wealng={wealng} weatherok={weatherok} setweatherok={setweatherok}/>
       </Stack>
     </Card>
     </>}
     {isAbout && 
-    <Card sx={{border:1, borderColor:'darkgray'}} >
-        <Stack direction='row' alignItems='center' justifyContent='space-between'>
-          <Typography fontSize={15} sx={{m:2}}><strong>{isselect.name}</strong> 가는 라이더</Typography>
-          <GeneralMapbutton name={isselect.name} tab={tab} onSubmitDesti={onSubmitDesti}/>
-        </Stack>
-        <Divider sx={{my:1}}/>
-        {destiUsers && <Grid container sx={{ml:1}}>
-        {destiUsers.map((item) => 
-          <Grid item xs={4} lg={6} key={`${item.nicknameOfPost}${item.mapId}`}>
-          <Stack direction='row' alignItems='center' sx={{m:1}} onClick={() => destiGoUserProfile(item.nicknameOfPost)}>
-          <Avatar alt='하지명' src={item.avatarImageURL}/>
-          <Typography  variant='body2' sx={{m:1}}>{item.nicknameOfPost}</Typography>
-          </Stack>
-          </Grid>)}
-          </Grid>}
-          {!destiUsers &&
-          <Stack direction='row' alignItems='center' justifyContent='center' sx={{my:1}}>
-           <Typography variant='subtitle2' sx={{m:1}}>오늘 가는 라이더가 없어요!</Typography>
-          </Stack>}
-       </Card>}
+    <GeneralMapDestiPeople destiUsers={destiUsers} tab={tab} onSubmitDesti={onSubmitDesti} destiGoUserProfile={destiGoUserProfile}/>}
         </Grid>
         </Grid>}
+
         {open === 'myroute'&& 
-        <Card>dsddsdsd</Card>}
+        <Card>
+          {viaLike && <>하이</>}경로 보여주기
+        </Card>}
+
     </Container>
     </Page>
   )

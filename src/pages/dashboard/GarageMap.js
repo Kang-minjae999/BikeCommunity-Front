@@ -12,7 +12,6 @@ import ArticleIcon from '@mui/icons-material/Article';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 // map
-import {allPositions} from "./GeneralMapposition"
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { PATH_DASHBOARD } from '../../routes/paths';
@@ -168,7 +167,7 @@ export default function GarageMap() {
           }}
           level={11} // 지도의 확대 레벨
         >  
-          {selectedCategory === "garage" &&
+          {/* {selectedCategory === "garage" &&
             allPositions.map((position) => ( 
               <MapMarker
                 key={`garage-${position.lat},${position.lng}`}
@@ -177,7 +176,7 @@ export default function GarageMap() {
                 onClick={() => setisselect(position) 
                   + setwealat(position.lat) + setwealng(position.lng) + valueon()}
               />
-            ))}
+            ))} */}
         </Map>
         </Card>
         </Grid>

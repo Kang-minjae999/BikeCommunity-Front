@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box, Divider, Container } from '@mui/material';
+import { Typography, Paper, Divider, Container } from '@mui/material';
 import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
@@ -11,78 +11,38 @@ import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
 
+import { useDispatch, useSelector } from '../../../../redux/store';
+import { getPosition } from '../../../../redux/slices/map';
+
 export default function AppRidingHeader() {
+  const dispatch = useDispatch();
+  const {userPosition, weatherOne, weatherTwo} = useSelector((state) => state.map);
   const isDesktop = useResponsive('up', 'lg');
   const [value, setValue] = useState('home');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const [lat, setlat] = useState(37.369307716781);
-  const [lng, setlng] = useState(126.93850485017);
-
   const [state, setState] = useState({
     center: {
-      lat: 126.9351741,
-      lng: 37.3616703,
+      lat:'',
+      lng:''
     },
     errMsg: null,
     isLoading: true,
   })
   
-  const [userPo, setUserPo] = useState({      
-    center: {
-    lat: 126.9351741,
-    lng: 37.3616703,
-  }})
-
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setState((prev) => ({
-            ...prev,
-            center: {
-              lat: position.coords.latitude, 
-              lng: position.coords.longitude, 
-            },
-            isLoading: false,
-          }))
-          setUserPo({
-            center: {
-            lat: position.coords.latitude, 
-            lng: position.coords.longitude, 
-          }});
-          setlat(position.coords.latitude);
-          setlng(position.coords.longitude);
-        },
-        (err) => {
-          setState((prev) => ({
-            ...prev,
-            errMsg: err.message,
-            isLoading: false,
-          }))
-        }
-      )
-    } else {
-      setState((prev) => ({
-        ...prev,
-        errMsg: "현재 위치를 알 수 없어요..",
-        isLoading: false,
-      }))
-    }
-  }, [])
+    dispatch(getPosition())
+  }, [dispatch])
 
-  // useEffect(() => {
-  //   if(!window.Kakao.isInitialized){
-  //     window.Kakao.init('b5498e967687f29ac34bb8122dba4130');
-  //   }
-  // }, [])
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+
+
 
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <AppRidingHome tab={value} state={state} setState={setState} userPo={userPo} lat={lat} lng={lng} setlat={setlat} setlng={setlng}/>,
+      component: <AppRidingHome tab={value} state={state} setState={setState} userPo={userPosition} weather1={weatherOne}  weather2={weatherTwo}/>,
     },
     {
       value: 'club',
@@ -98,7 +58,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'map',
-      component: <Container><GeneralMap tab={value} state={state} setState={setState} userPo={userPo}/></Container>,
+      component: <Container><GeneralMap tab={value} state={state} setState={setState} userPo={userPosition} weather1={weatherOne}  weather2={weatherTwo}/></Container>,
     },
   ];
 

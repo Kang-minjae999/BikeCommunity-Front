@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import {useCallback, useEffect, useState} from 'react'
-import axios from 'axios';
+import {useEffect, useState} from 'react'
 import { Box, Button, Card, Grid, Stack, Typography } from '@mui/material';
 // -----------------------------------------
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
@@ -13,11 +12,7 @@ import AirIcon from '@mui/icons-material/Air';
 // ----------------------------------------
 import { Appweathercontent, Appweathercontent2 } from '.';
 
-
-
-
-
-// ----------------------------------------------------------------------
+// ---------------------------------------------------------------------
 Appweather.propTypes = {
   weather: PropTypes.object,
   weather2: PropTypes.object,

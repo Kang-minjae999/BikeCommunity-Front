@@ -13,7 +13,6 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import axios from '../../../../utils/axios';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
-import { allPositions } from "../../../../pages/dashboard/GeneralMapposition"
 // components
 import Image from '../../../../components/Image';
 import Iconify from '../../../../components/Iconify';
@@ -34,6 +33,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 
 export default function AppRidingMapSearch({setPosition}) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [allPositions, setAllPosition] = useState([]);
 
 
   const handleClick = (product) => {

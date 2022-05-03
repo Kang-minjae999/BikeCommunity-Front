@@ -1,23 +1,20 @@
-import * as React from 'react';
+import { PropTypes } from 'prop-types';
+import React from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { PropTypes } from 'prop-types';
-import { useState } from 'react';
-import { Typography } from '@mui/material';
 
+Appweathercontent.propTypes = {
+  weather: PropTypes.object,
+  weathername: PropTypes.string,
+  weathericon: PropTypes.any,
+};
 
 export default function Appweathercontent({weather ,weathername , weathericon}) {
-  const [open, setOpen] = React.useState(true);
-
-  const { id, name, temperature, main , description} = weather
-
-  const [krname,setkrname] = useState('')
-
+  const {temperature} = weather
 
   return (
     <List

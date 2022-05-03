@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Dialog from '@mui/material/Dialog';
 import StraightIcon from '@mui/icons-material/Straight';
 import { Divider, Typography } from '@mui/material';
-import Iconify from '../../components/Iconify';
+import Iconify from '../../../components/Iconify';
 
 
 const emails = ['바이크', '장비', '부품용품'];
