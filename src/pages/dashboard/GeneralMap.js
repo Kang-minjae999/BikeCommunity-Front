@@ -105,7 +105,6 @@ export default function GeneralMap({tab, userPo, setState}) {
 
   // 마커 가는 사람 수 불러오기
   const getDestiUsers = useCallback(async () => {
-    setDestiUsers();
     try {
       const response = await axios.get(`/riding/map/${isselect.id}`);
       if (isMountedRef.current) {
@@ -129,7 +128,7 @@ export default function GeneralMap({tab, userPo, setState}) {
       return ;
     }
     try {
-      await axios.post(`/riding/${user.nickname}`, isselect.id );
+      await axios.post(`/riding/${user.nickname}`, {mapId:isselect.id, mapName:isselect.name} );
       enqueueSnackbar('목적지 추가 완료!');
     } catch (error) {
       console.error(error);
@@ -163,18 +162,15 @@ export default function GeneralMap({tab, userPo, setState}) {
       enqueueSnackbar('로그인 후 이용해주세요!');
       return ;
     }
-    const markers = values.destination.map((item) => item.name)
-    const ids = values.destination.map((item) => item.id)
-    const lat = values.destination.map((item) => item.lat)
-    const lng = values.destination.map((item) => item.lng)
+    console.log( [isselect.id], [isselect.name], [isselect.lat], [isselect.lng],)
     try {
       await axios.post(`/route/${user.nickname}`, 
       {
-        mapIds: ids,
-        markerName: markers,
-        markerLat: lat,
-        markerLng: lng,
         routeName:'테스트',
+        mapIds: [isselect.id],
+        mapNames: [isselect.name],
+        mapLats: [isselect.lat],
+        mapLngs: [isselect.lng],
         isPublic:true
       });
       enqueueSnackbar('목적지 추가 완료!');
@@ -206,7 +202,7 @@ export default function GeneralMap({tab, userPo, setState}) {
   // 저장된 경로 불러오기
   const getViaLike = useCallback(async () => {
     try {
-      const response = await axios.get(`/route/${user?.nickname}`);
+      const response = await axios.get(`/route/nickname/${user?.nickname}`);
       if (isMountedRef.current) {
         setViaLike(response.data.data.content);
       }
@@ -293,6 +289,8 @@ export default function GeneralMap({tab, userPo, setState}) {
     borderBottomColor: 'text.primary',
     fontWeight: 'bold',
   };
+
+  console.log(viaLike)
 
   return (
      <Page title="라이딩맵">
@@ -429,22 +427,29 @@ export default function GeneralMap({tab, userPo, setState}) {
         </Card>}
       <Card sx={{border:1, borderColor:'darkgray', mb:2}}>
       <Stack spacing={2} sx={{ p: 3 }}>
-        <GeneralMapIsselct onSubmitMarkerLike={onSubmitMarkerLike} addDesti={addDesti} MarkerGoUserProfile={MarkerGoUserProfile}/>
+        {isselect && <GeneralMapIsselct isselect={isselect} onSubmitMarkerLike={onSubmitMarkerLike} addDesti={addDesti} MarkerGoUserProfile={MarkerGoUserProfile}/>}
         <Divider />
       <GeneralMapweather name={isselect.name} wealat={wealat} wealng={wealng} weatherok={weatherok} setweatherok={setweatherok}/>
       </Stack>
     </Card>
     </>}
-    {isAbout && 
-    <GeneralMapDestiPeople destiUsers={destiUsers} tab={tab} onSubmitDesti={onSubmitDesti} destiGoUserProfile={destiGoUserProfile}/>}
+    {isAbout && isselect && destiUsers &&
+    <GeneralMapDestiPeople isselect={isselect} destiUsers={destiUsers} tab={tab} onSubmitDesti={onSubmitDesti} destiGoUserProfile={destiGoUserProfile}/>}
         </Grid>
         </Grid>}
 
         {open === 'myroute'&& 
-        <Card>
-          {viaLike && <>하이</>}경로 보여주기
-        </Card>}
-
+        <>
+          {viaLike && 
+          <>
+           {viaLike.map((item) => 
+          <Card key={`${item.index}${item.mapNames}`}>
+           <Stack >
+            {item.mapNames}
+           </Stack>
+           </Card>)}
+           </>}
+        </>}
     </Container>
     </Page>
   )
