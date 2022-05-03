@@ -44,12 +44,13 @@ export default function GeneralMap({tab, state, userPo, setState}) {
   const [allPositions, setAllPosition] = useState([])
   const [garagetrue ,setgaragetrue] =useState(false);
 
-    const [wealat,setwealat] = useState()
-    const [wealng,setwealng] = useState()
-    const [weatherok ,setweatherok] = useState(false)
+  const [open, setopen] = useState('map')
 
+  const [wealat,setwealat] = useState()
+  const [wealng,setwealng] = useState()
+  const [weatherok ,setweatherok] = useState(false)
 
-
+  // 마커 불러오기
   const getMapMarker = useCallback(async () => {
       try {
         const response = await axios.get(`/marker`);
@@ -67,23 +68,6 @@ export default function GeneralMap({tab, state, userPo, setState}) {
   
 
   const [selectedCategory, setSelectedCategory] = useState("all")
-
-  const all = () => {
-    setSelectedCategory("all")
-  }
-  const road = () => {
-    setSelectedCategory("도로")
-  }
-  const coffee = () => {
-    setSelectedCategory("카페")
-  }
-  const attraction = () => {
-    setSelectedCategory("명소")
-  }
-  const garage = () => {
-    setSelectedCategory("정비소")
-  }
-
 
   const [isselect, setisselect] = useState({
     id: '',
@@ -144,6 +128,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     setValue(`destination`, values.destination.filter((item) => item.id !== data.id))
   }
 
+  // 마커 디테일 불러오기
   const getPositionDetail = useCallback(async (position) => {
     try {
       const response = await axios.get(`/marker/detail/${position.id}`);
@@ -169,24 +154,9 @@ export default function GeneralMap({tab, state, userPo, setState}) {
       isLoading: true,
     })
   }
-  const valueMarker = {
-    zIndex: 99,
-    image:{
-      src:GeneralMapMarker,
-      size:{width:48, height:48},
-      options:{x:24, y:0}
-    }}
-
-  const valueMarkerBefore = {
-    zIndex: 1,
-    image:{
-      src:GeneralMapMarkerBefore,
-      size:{width:32, height:32},
-      options:{x:16, y:0}
-    }}
 
     const [destiUsers, setDestiUsers] = useState()
-
+    // 마커 가는 사람 수 불러오기
     const getDestiUsers = useCallback(async () => {
       setDestiUsers();
       try {
@@ -205,13 +175,12 @@ export default function GeneralMap({tab, state, userPo, setState}) {
       }
     }, [getDestiUsers, isselect.id]);
 
-  
+  // >
   const onSubmitDesti = async () => {
     if(!user){
       enqueueSnackbar('로그인 후 이용해주세요!');
       return ;
     }
-
     const accessToken = window.localStorage.getItem('accessToken');
      const formData = new FormData();
      formData.append('mapId', isselect.id)
@@ -228,6 +197,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     }
   };
 
+  // 여러 경로 갈게요 등록
   const onSubmitViaDesti = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     const viaDesti = values.destination.map((item) => item.id)
@@ -244,6 +214,7 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     }
   };
 
+  // 즐겨찾기
   const onSubmitMarkerLike = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
     const markers = values.destination.map((item) => item.name)
@@ -265,7 +236,6 @@ export default function GeneralMap({tab, state, userPo, setState}) {
       console.error(error);
     }
   };
-
 
   const onSubmitViaLike = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
@@ -291,10 +261,32 @@ export default function GeneralMap({tab, state, userPo, setState}) {
     navigate(`/dashboard/user/profile/${nick}`)
   }
 
+  const valueMarker = {
+    zIndex: 99,
+    image:{
+      src:GeneralMapMarker,
+      size:{width:48, height:48},
+      options:{x:24, y:0}
+    }}
+
+  const valueMarkerBefore = {
+    zIndex: 1,
+    image:{
+      src:GeneralMapMarkerBefore,
+      size:{width:32, height:32},
+      options:{x:16, y:0}
+    }}
+
   return (
      <Page title="라이딩맵">
       <Container maxWidth='lx' sx={{mt:2}} disableGutters>
-        <Grid container spacing={2}>
+      {tab === 'map' &&  
+      <>
+      <Button onClick={() => setopen('map') }>Map</Button> 
+        <Button onClick={() => setopen('myroute')}>즐겨찾기/ 내 경로</Button>
+        </>}
+        {open === 'map' && 
+          <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           {tab === 'map' && 
           <>
@@ -302,27 +294,27 @@ export default function GeneralMap({tab, state, userPo, setState}) {
         </>}
         <Card sx={{border:1, borderColor:'darkgray'}}>
           <Stack direction='row' justifyContent='center' sx={{mb:1}}>
-            <Button variant='text' color="inherit" size='small' type='button' id="allMenu"  onClick={all} sx={{mt:1, ml:1}}>
+            <Button variant='text' color="inherit" size='small' type='button' id="allMenu"  onClick={() => setSelectedCategory("all")} sx={{mt:1, ml:1}}>
               <Typography variant="body2" sx={{ ...(selectedCategory === 'all' && valueStyle)}}>
               전체보기
               </Typography>
             </Button>
-            <Button  variant='text' color="inherit" size='small' type='button' id="roadMenu" onClick={road} sx={{mt:1,ml:1}}>
+            <Button  variant='text' color="inherit" size='small' type='button' id="roadMenu" onClick={() => setSelectedCategory("도로")} sx={{mt:1,ml:1}}>
             <Typography variant="body2" sx={{ ...(selectedCategory === '도로' && valueStyle)}}>
               도로
               </Typography>
             </Button>
-            <Button  variant='text' color="inherit"size='small' type='button' id="coffeeMenu" onClick={coffee} sx={{mt:1,ml:1}}>
+            <Button  variant='text' color="inherit"size='small' type='button' id="coffeeMenu" onClick={() => setSelectedCategory("카페")} sx={{mt:1,ml:1}}>
             <Typography variant="body2" sx={{ ...(selectedCategory === '카페' && valueStyle)}}>
               카페
               </Typography>
             </Button>
-            <Button  variant='text' color="inherit" size='small' type='button' id="attractionMenu" onClick={attraction} sx={{mt:1,ml:1}}>
+            <Button  variant='text' color="inherit" size='small' type='button' id="attractionMenu" onClick={() => setSelectedCategory("명소")} sx={{mt:1,ml:1}}>
             <Typography variant="body2" sx={{ ...(selectedCategory === '명소' && valueStyle)}}>
               명소
               </Typography>
             </Button>
-            <Button  variant='text' color="inherit" size='small' type='button' id="garagemenu" onClick={garage} sx={{mt:1,ml:1}}>
+            <Button  variant='text' color="inherit" size='small' type='button' id="garagemenu" onClick={() => setSelectedCategory("정비소")} sx={{mt:1,ml:1}}>
             <Typography variant="body2" sx={{ ...(selectedCategory === '정비소' && valueStyle)}}>
               정비소
               </Typography>
@@ -489,7 +481,9 @@ export default function GeneralMap({tab, state, userPo, setState}) {
           </Stack>}
        </Card>}
         </Grid>
-        </Grid>
+        </Grid>}
+        {open === 'myroute'&& 
+        <Card>dsddsdsd</Card>}
     </Container>
     </Page>
   )
