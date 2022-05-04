@@ -21,7 +21,7 @@ function SimpleDialog(props) {
   const navigate = useNavigate()
 
   const handleClose = () => {
-    onClose(selectedValue);
+    onClose();
   };
 
   
@@ -58,6 +58,7 @@ function SimpleDialog(props) {
 
   const handleListItemClick4 = () => {
     onSubmitViaLike()
+    handleClose()
   }; 
 
 
@@ -132,9 +133,8 @@ export default function GeneralMapViabutton({destination, onSubmitViaDesti, onSu
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
     setOpen(false);
-    setSelectedValue(value);
   };
 
   return (

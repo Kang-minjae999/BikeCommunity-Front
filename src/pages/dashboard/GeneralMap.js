@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 // @mui
 import { useForm } from 'react-hook-form';
-import { Container, Button, Card, Typography, Grid, Stack , Divider, Chip } from "@mui/material"
+import { Container, Button, Card, Typography, Grid, Stack , Divider, Chip, Box } from "@mui/material"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import axios from '../../utils/axiosriding';
 import useAuth from '../../hooks/useAuth';
@@ -163,7 +163,7 @@ export default function GeneralMap({tab, userPo, setState}) {
     try {
       await axios.post(`/route/${user.nickname}`, 
       {
-        routeName:'테스트',
+        routeName:[isselect.name],
         mapIds: [isselect.id],
         mapNames: [isselect.name],
         mapLats: [isselect.lat],
@@ -182,12 +182,18 @@ export default function GeneralMap({tab, userPo, setState}) {
       enqueueSnackbar('로그인 후 이용해주세요!');
       return ;
     }
-    const viaDesti = values.destination.map((item) => item.id)
+    const ids = values.destination.map((item) => item.id)
+    const name = values.destination.map((item) => item.name)
+    const lats = values.destination.map((item) => item.lat)
+    const lngs = values.destination.map((item) => item.lng)
     try {
       await axios.post(`/route/${user.nickname}`, 
       {
-        mapIds:viaDesti,
-        routeName:'테스트',
+        routeName: '테스트',
+        mapIds: ids,
+        mapNames: name,
+        mapLats: lats,
+        mapLngs: lngs,
         isPublic:true
       });
       enqueueSnackbar('목적지 추가 완료!');
@@ -441,11 +447,16 @@ export default function GeneralMap({tab, userPo, setState}) {
           {viaLike && 
           <>
            {viaLike.map((item) => 
-          <Card key={`${item.index}${item.mapNames}`}>
-           <Stack >
-            {item.mapNames}
-           </Stack>
-           </Card>)}
+          <Box key={`${item.index}${item.mapNames}`}>
+           <Stack direction='column' spacing={2} sx={{m:2}}>
+            <Typography variant='subtitle1'>{item.routeName}</Typography>
+            <Stack direction='row' spacing={1} >
+            {item.mapNames.map((item, index) =>            
+             <Stack direction='row' spacing={1} key={`${index}${item}`}><ArrowRightAltIcon/><Typography>{item}</Typography></Stack>)}
+            </Stack>
+            </Stack>
+           <Divider />
+           </Box>)}
            </>}
         </>}
     </Container>
