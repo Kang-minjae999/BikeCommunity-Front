@@ -41,7 +41,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'flex-end',
   padding: theme.spacing(8, 0),
-  backgroundImage: `url(${"https://cdn.sports.hankooki.com/news/photo/202105/img_6597675_0.jpg"})`,
+  backgroundImage: `url(${'https://cdn.sports.hankooki.com/news/photo/202105/img_6597675_0.jpg'})`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
 }));
@@ -59,56 +59,51 @@ const ContentStylePC = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Login() {
-
-  const isDesktop = useResponsive('up', 'lg')
+  const isDesktop = useResponsive('up', 'lg');
 
   return (
     <Page title="Login">
       <RootStyle>
-      {isDesktop &&<>
-      <HeaderStyle>
-        <Stack 
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center" 
-        spacing={1}>
-        <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="text.primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
-            RIDERTOWN
-            </Typography>
-            </Link>
-        </Stack>
-        </HeaderStyle>
+        {isDesktop && (
+          <>
+            <HeaderStyle>
+              <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+                <Link component={RouterLink} to="/dashboard/app" underline="none">
+                  <Typography color="text.primary" variant="h4" sx={{ ml: 1, mr: 2 }}>
+                    RIDERTOWN
+                  </Typography>
+                </Link>
+              </Stack>
+            </HeaderStyle>
 
+            <Container maxWidth="sm">
+              <ContentStylePC>
+                <LoginForm />
+              </ContentStylePC>
+            </Container>
+          </>
+        )}
 
+        {/* ------------------------------------------------------------------------ */}
 
-        <Container maxWidth="sm">
-          <ContentStylePC>
-            <LoginForm />
-          </ContentStylePC>
-        </Container></>}
-
- {/* ------------------------------------------------------------------------ */}
-
-      {!isDesktop &&  <>
-      <HeaderStyle>
-        <Stack 
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center" 
-        spacing={1}>
-        <Link component={RouterLink} to="/dashboard/app"underline="none" >         
-            <Typography color="text.primary" variant='h4' sx={{ mr: 2}}>
-            RIDERTOWN
-            </Typography>
-            </Link>
-        </Stack>
-        </HeaderStyle>
-        <Container maxWidth="sm" disableGutters>
-          <ContentStyle>
-            <LoginForm />
-          </ContentStyle>
-        </Container> </>}
+        {!isDesktop && (
+          <>
+            <HeaderStyle>
+              <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+                <Link component={RouterLink} to="/dashboard/app" underline="none">
+                  <Typography color="text.primary" variant="h4" sx={{ mr: 2 }}>
+                    RIDERTOWN
+                  </Typography>
+                </Link>
+              </Stack>
+            </HeaderStyle>
+            <Container maxWidth="sm" disableGutters>
+              <ContentStyle>
+                <LoginForm />
+              </ContentStyle>
+            </Container>{' '}
+          </>
+        )}
       </RootStyle>
     </Page>
   );

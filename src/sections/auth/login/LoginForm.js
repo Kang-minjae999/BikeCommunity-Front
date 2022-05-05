@@ -35,7 +35,6 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-
   const isDesktop = useResponsive('up', 'lg');
 
   const LoginSchema = Yup.object().shape({
@@ -72,11 +71,11 @@ export default function LoginForm() {
     }
   };
 
-  const [openLogin, setOpenLogin] = useState(false)
+  const [openLogin, setOpenLogin] = useState(false);
 
   const Login = () => {
-    setOpenLogin(!openLogin)
-  }
+    setOpenLogin(!openLogin);
+  };
 
   const kakaoLogin = () => {
     window.open(KAKAO_AUTH_API, '_self')
@@ -91,56 +90,58 @@ export default function LoginForm() {
       console.error(error);
     }
   }, [])
-  
+
   const KakaologinCallback = useCallback(async () => {
     const params = new URL(document.location.toString()).searchParams;
-    const getcode = params.get("code"); 
-    const granttype = "authorization_code";
+    const getcode = params.get('code');
+    const granttype = 'authorization_code';
     try {
-      await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=${granttype}&client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&code=${getcode}`,
-      {
-      headers: 
-      {
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-      }
-      }).then((res) => {
-        KakaologinCallbackAccess(res.data.access_token)
-      })
+      await axios
+        .post(
+          `https://kauth.kakao.com/oauth/token?grant_type=${granttype}&client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&code=${getcode}`,
+          {
+            headers: {
+              'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+            },
+          }
+        )
+        .then((res) => {
+          KakaologinCallbackAccess(res.data.access_token);
+        });
     } catch (error) {
       console.error(error);
-    }
-  }, [KakaologinCallbackAccess])
+    }} , [KakaologinCallbackAccess])
 
 
   useEffect(() => {
-    if(iskakao){
-      KakaologinCallback()
+    if (iskakao) {
+      KakaologinCallback();
     }
-  }, [KakaologinCallback, iskakao])
+  }, [KakaologinCallback, iskakao]);
 
   const NaverLoginInit = useCallback(() => {
     const login = new window.naver.LoginWithNaverId({
       clientId: NAVER_CLIENT_ID,
       callbackUrl: NAVER_REDIRECT,
       isPopup: false,
-      callbakHandle:true,
-      loginButton: {height: 1}
-    })
+      callbakHandle: true,
+      loginButton: { height: 1 },
+    });
     login.init();
-  }, [])
+  }, []);
 
-  const naverLoginButton = () =>{
+  const naverLoginButton = () => {
     const login = document.getElementById('naverIdLogin')?.firstChild;
     login.click();
-  }
+  };
 
   useEffect(() => {
-      NaverLoginInit()
-    }, [NaverLoginInit])
+    NaverLoginInit();
+  }, [NaverLoginInit]);
 
-  const NaverloginCallback = useCallback(async () => {    
+  const NaverloginCallback = useCallback(async () => {
     if (!location.hash) return;
-    const token = location.hash.split('=')[1].split('&')[0]; 
+    const token = location.hash.split('=')[1].split('&')[0];
     try {
       await axiosInstance.get('/login/oauth2/naver', {headers:{Authorization:token}});
       // 대신에 naverlogin(token);
@@ -151,136 +152,164 @@ export default function LoginForm() {
   }, [location.hash, navigate])
 
   useEffect(() => {
-    if(isnaver){
-      NaverloginCallback()
+    if (isnaver) {
+      NaverloginCallback();
     }
-  }, [NaverloginCallback, isnaver])
-  
-  
+  }, [NaverloginCallback, isnaver]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-   {openLogin && 
+      {openLogin && (
         <>
-      <Card sx={{my:2, mx:2}}>
-        <Stack spacing={3} sx={{mt:2, mx:1}}>
-          <Typography variant='h6' sx={{mt:1, mx:1}}>라이더타운</Typography>
-          {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
-          <RHFTextField name="email" label="이메일" />
+          <Card sx={{ my: 2, mx: 2 }}>
+            <Stack spacing={3} sx={{ mt: 2, mx: 1 }}>
+              <Typography variant="h6" sx={{ mt: 1, mx: 1 }}>
+                라이더타운
+              </Typography>
+              {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+              <RHFTextField name="email" label="이메일" />
 
-          <RHFTextField
-            name="password"
-            label="비밀번호"
-            type={showPassword ? 'text' : 'password'}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                  </IconButton>
-                </InputAdornment>
-              ),
+              <RHFTextField
+                name="password"
+                label="비밀번호"
+                type={showPassword ? 'text' : 'password'}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                        <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Stack>
+
+            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2, mx: 1 }}>
+              <RHFCheckbox name="remember" label="비밀번호 기억하기" />
+              <Link
+                component={RouterLink}
+                variant="subtitle2"
+                to={PATH_AUTH.resetPassword}
+                sx={{ color: 'text.primary' }}
+              >
+                비밀번호가 기억이 안나시나요?
+              </Link>
+            </Stack>
+          </Card>
+        </>
+      )}
+      <Stack spacing={2} sx={{ mx: 2 }} justifyContent="center" alignItems="center">
+        {!openLogin && (
+          <Button
+            fullWidth
+            size="large"
+            variant="contained"
+            sx={{
+              height: isDesktop ? 65 : 55,
+              fontSize: 18,
             }}
-          />
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 , mx:1}}>
-          <RHFCheckbox name="remember" label="비밀번호 기억하기" />
-          <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword} sx={{color:'text.primary'}}>
-            비밀번호가 기억이 안나시나요?
-          </Link>
-        </Stack>
-      </Card>
-      </>}
-      <Stack spacing={2} sx={{mx:2}} justifyContent='center' alignItems='center'>
-        {!openLogin && <Button          
-        fullWidth
-          size="large"
-          variant="contained"
-          sx={{
-            height: isDesktop ? 65 : 55,
-            fontSize: 18,
-          }}
-          color='secondary'
-          onClick={Login}
-          startIcon={
-            <Typography variant='h4'
+            color="secondary"
+            onClick={Login}
+            startIcon={
+              <Typography
+                variant="h4"
+                sx={{
+                  fontSize: 24,
+                }}
+              >
+                RT
+              </Typography>
+            }
+          >
+            <Box sx={{ width: '90%' }}>
+              <Typography variant="h6">라이더타운 로그인</Typography>
+            </Box>
+          </Button>
+        )}
+        {openLogin ? (
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
             sx={{
-              fontSize: 24,
-            }}>RT</Typography>}
-        >
-          <Box sx={{width:'90%'}}>
-          <Typography variant='h6'>라이더타운 로그인</Typography>
-          </Box>
-        </Button>}
-        {openLogin ? <LoadingButton
+              height: isDesktop ? 65 : 55,
+              fontSize: 18,
+            }}
+            startIcon={
+              <Typography
+                variant="h4"
+                sx={{
+                  fontSize: 24,
+                }}
+              >
+                RT
+              </Typography>
+            }
+            color="secondary"
+          >
+            <Box sx={{ width: '90%' }}>
+              <Typography variant="h6">로그인</Typography>
+            </Box>
+          </LoadingButton>
+        ) : (
+          <></>
+        )}
+
+        <Button
           fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          loading={isSubmitting}
-          sx={{
-            height: isDesktop ? 65 : 55,
-            fontSize: 18,
-          }}
-          startIcon={
-            <Typography variant='h4'
-            sx={{
-              fontSize: 24,
-            }}>RT</Typography>}
-          color='secondary'
-        >
-          <Box sx={{width:'90%'}}>
-          <Typography variant='h6'>로그인</Typography>
-          </Box>
-        </LoadingButton> : <></>}
-
-        <Button          
-        fullWidth
           size="large"
           variant="contained"
           onClick={kakaoLogin}
-          target="_blank" 
+          target="_blank"
           rel="noopener noreferrer"
           sx={{
             height: isDesktop ? 65 : 55,
             fontSize: 18,
-            backgroundColor:'#FEE500'
+            backgroundColor: '#FEE500',
           }}
-          color='inherit'
-          startIcon={<Iconify icon={'ri:kakao-talk-fill'} width={40} height={40} sx={{color:'#000000'}}/>}
+          color="inherit"
+          startIcon={<Iconify icon={'ri:kakao-talk-fill'} width={40} height={40} sx={{ color: '#000000' }} />}
         >
-          <Box sx={{width:'90%'}}>
-          <Typography variant='h6'>카카오 로그인</Typography>
+          <Box sx={{ width: '90%' }}>
+            <Typography variant="h6">카카오 로그인</Typography>
           </Box>
         </Button>
 
-        <Button         
-        fullWidth
+        <Button
+          fullWidth
           size="large"
           variant="contained"
-          target="_blank" 
+          target="_blank"
           rel="noopener noreferrer"
           onClick={naverLoginButton}
           sx={{
             height: isDesktop ? 65 : 55,
             fontSize: 18,
-            backgroundColor:'#2DB400'
+            backgroundColor: '#2DB400',
           }}
-          color='inherit'
-          startIcon={<Iconify icon={'simple-icons:naver'} width={40} height={40} sx={{color:'#FFFFFF'}}/>}
+          color="inherit"
+          startIcon={<Iconify icon={'simple-icons:naver'} width={40} height={40} sx={{ color: '#FFFFFF' }} />}
         >
-          <Box sx={{width:'90%',}}>
-          <Typography variant='h6'>네이버 로그인</Typography>
+          <Box sx={{ width: '90%' }}>
+            <Typography variant="h6">네이버 로그인</Typography>
           </Box>
         </Button>
 
-        <Button variant='contained' color='inherit' component={RouterLink} to={PATH_AUTH.register} sx={{width:'50%'}}>
-              <Typography variant="body2" align="center" sx={{my:1, fontSize:16}}>
-                라이더타운 <strong>회원가입</strong>
-              </Typography>
+        <Button
+          variant="contained"
+          color="inherit"
+          component={RouterLink}
+          to={PATH_AUTH.register}
+          sx={{ width: '50%' }}
+        >
+          <Typography variant="body2" align="center" sx={{ my: 1, fontSize: 16 }}>
+            라이더타운 <strong>회원가입</strong>
+          </Typography>
         </Button>
-         <div id='naverIdLogin' style={{display:'none'}}/>
+        <div id="naverIdLogin" style={{ display: 'none' }} />
       </Stack>
     </FormProvider>
   );
