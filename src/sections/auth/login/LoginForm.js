@@ -137,7 +137,7 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axiosInstance.get('/login/oauth2/naver', {headers:{authorization:`bearer ${token}`}});
+      await axiosInstance.get('/login/oauth2/naver', {headers:{Authorization:`Bearer ${token}`}});
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
