@@ -82,6 +82,13 @@ export default function LoginForm() {
     window.open(KAKAO_AUTH_API, '_self')
   }
 
+  // useEffect(() => {
+  //   window.Kakao.Auth.authorize({
+  //     redirectUri: 'https://localhost:3000/auth/login'
+  //   })
+  // }, [])
+  
+
 
   const code = new URL(window.location.href).searchParams.get("code");
 
@@ -124,7 +131,7 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axios.post('/login/oath2/naver', `bearer ${token}`);
+      await axios.post('/login/oauth2/naver', `bearer ${token}`);
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
