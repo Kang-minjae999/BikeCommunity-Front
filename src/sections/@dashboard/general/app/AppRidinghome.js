@@ -10,16 +10,15 @@ AppRidingHome.propTypes = {
   userPo: PropTypes.object,
   weather1: PropTypes.object,
   weather2: PropTypes.object,
-}; 
+};
 
-export default function AppRidingHome({tab, setState, userPo, weather1, weather2}) {
-
+export default function AppRidingHome({ tab, setState, userPo, weather1, weather2 }) {
   return (
     <>
-    <Container>
-      {weather1 && weather2 && <Appweather weather={weather1} weather2={weather2} />}
-      {userPo && <GeneralMap tab={tab} setState={setState} userPo={userPo} />} 
-    </Container> 
+      <Container>
+        {weather1 && weather2 && <Appweather weather={weather1} weather2={weather2} />}
+        {userPo && <GeneralMap tab={tab} setState={setState} userPo={userPo} />}
+      </Container>
     </>
   );
 }

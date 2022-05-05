@@ -75,16 +75,14 @@ export default function Router() {
       path: 'dashboard',
       element: <DashboardLayoutForProfile />,
       children: [
-        { element: <Navigate to="/dashboard/app" replace />, index: true},
+        { element: <Navigate to="/dashboard/app" replace />, index: true },
         { path: 'garage/profile', element: <GarageProfile /> },
         { path: 'garage/profile/:nickname', element: <GarageProfile /> },
       ],
     },
-      {
+    {
       path: 'dashboard',
-      element: (
-          <DashboardLayout />
-      ),
+      element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
         { path: 'app', element: <GeneralApp /> }, // ok
@@ -218,9 +216,7 @@ export default function Router() {
             },
             {
               path: 'new-garage',
-              element: (
-                  <BlogNewPost />
-              ),
+              element: <BlogNewPost />,
             },
           ],
         },
