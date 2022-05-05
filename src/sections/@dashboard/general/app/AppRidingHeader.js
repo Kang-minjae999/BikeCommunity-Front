@@ -19,14 +19,6 @@ export default function AppRidingHeader() {
   const { userPosition, weatherOne, weatherTwo } = useSelector((state) => state.map);
   const isDesktop = useResponsive('up', 'lg');
   const [value, setValue] = useState('home');
-  const [state, setState] = useState({
-    center: {
-      lat: '',
-      lng: '',
-    },
-    errMsg: null,
-    isLoading: true,
-  });
 
   useEffect(() => {
     dispatch(getPosition());
@@ -42,8 +34,6 @@ export default function AppRidingHeader() {
       component: (
         <AppRidingHome
           tab={value}
-          state={state}
-          setState={setState}
           userPo={userPosition}
           weather1={weatherOne}
           weather2={weatherTwo}
@@ -68,8 +58,6 @@ export default function AppRidingHeader() {
         <Container>
           <GeneralMap
             tab={value}
-            state={state}
-            setState={setState}
             userPo={userPosition}
             weather1={weatherOne}
             weather2={weatherTwo}

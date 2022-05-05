@@ -3,14 +3,11 @@ import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
-import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import DashboardLayoutForProfile from '../layouts/dashboard/indexForProfile';
 // guards
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
-// config
-import { PATH_AFTER_LOGIN } from '../config';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -123,7 +120,6 @@ export default function Router() {
             { path: 'invoice', element: <EcommerceInvoice /> },
           ],
         },
-
         {
           path: 'used-e-commerce',
           children: [
@@ -150,10 +146,6 @@ export default function Router() {
             { element: <Navigate to="/dashboard/user/profile" replace />, index: true },
             { path: 'profile', element: <UserProfile /> },
             { path: 'profile/:nickname', element: <UserProfile /> },
-            { path: 'cards', element: <UserCards /> },
-            { path: 'list', element: <UserList /> },
-            { path: 'new', element: <UserCreate /> },
-            { path: ':name/edit', element: <UserCreate /> },
             { path: 'account', element: <UserAccount /> },
           ],
         },
@@ -161,18 +153,13 @@ export default function Router() {
           path: 'garage',
           children: [
             { element: <Navigate to="/dashboard/garage/profile" replace />, index: true },
-            { path: 'newMoto', element: <GarageNewMoto /> },
-            { path: 'home', element: <GarageHome /> },
+            { path: 'posts', element: <GaragePosts /> },
+            { path: 'post', element: <GaragePost /> },
+            { path: 'asks', element: <GarageAsks /> },
+            { path: 'ask', element: <GarageAsk /> },
             { path: 'cards', element: <GarageCards /> },
-            { path: 'reservation', element: <Garagecheckout /> },
-            { path: 'record', element: <Garagerecord /> },
-            { path: 'ask', element: <Garagecheckoutask /> },
-            { path: 'list', element: <GarageList /> },
-            { path: 'new', element: <GarageCreate /> },
+            { path: 'card', element: <GarageCard /> },
             { path: 'map', element: <GarageMap /> },
-            { path: ':id/edit', element: <GarageCreate /> },
-            { path: 'account', element: <GarageAccount /> },
-            { path: 'setting', element: <GarageSetting /> },
           ],
         },
         {
@@ -183,12 +170,10 @@ export default function Router() {
             { path: 'posts', element: <BlogPosts /> }, // ok
             { path: 'dingstas', element: <BlogDingstas /> },
             { path: 'reports', element: <BlogReports /> },
-            { path: 'garages', element: <BlogReports /> },
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
             { path: 'report/:id', element: <BlogReport /> },
-            { path: 'garage/:id', element: <BlogReport /> },
             {
               path: 'new-post',
               element: (
@@ -352,23 +337,16 @@ const BlogReport = Loadable(lazy(() => import('../pages/dashboard/BlogReport')))
 const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 // 유저
 const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
-const UserCards = Loadable(lazy(() => import('../pages/dashboard/UserCards')));
-const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
-const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 // 개러지
-const GarageNewMoto = Loadable(lazy(() => import('../pages/dashboard/GarageNewMoto')));
-const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
-const GarageHome = Loadable(lazy(() => import('../pages/dashboard/GarageHome')));
+const GaragePosts = Loadable(lazy(() => import('../pages/dashboard/GaragePosts')));
+const GaragePost = Loadable(lazy(() => import('../pages/dashboard/GaragePost')));
+const GarageAsks = Loadable(lazy(() => import('../pages/dashboard/GarageAsks')));
+const GarageAsk = Loadable(lazy(() => import('../pages/dashboard/GarageAsk')));
 const GarageCards = Loadable(lazy(() => import('../pages/dashboard/GarageCards')));
+const GarageCard = Loadable(lazy(() => import('../pages/dashboard/GarageCard')));
+const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
 const GarageMap = Loadable(lazy(() => import('../pages/dashboard/GarageMap')));
-const Garagecheckout = Loadable(lazy(() => import('../pages/dashboard/Garagecheckout')));
-const Garagecheckoutask = Loadable(lazy(() => import('../pages/dashboard/Garagecheckoutask')));
-const Garagerecord = Loadable(lazy(() => import('../pages/dashboard/Garagerecord')));
-const GarageList = Loadable(lazy(() => import('../pages/dashboard/GarageList')));
-const GarageAccount = Loadable(lazy(() => import('../pages/dashboard/GarageAccount')));
-const GarageCreate = Loadable(lazy(() => import('../pages/dashboard/GarageCreate')));
-const GarageSetting = Loadable(lazy(() => import('../pages/dashboard/GarageSetting')));
 
 const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));

@@ -8,7 +8,7 @@ import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
-import { Appgarage } from '../../user/appmobile';
+import { Appgarage } from '.';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');

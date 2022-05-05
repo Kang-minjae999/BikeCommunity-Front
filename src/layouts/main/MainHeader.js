@@ -9,10 +9,7 @@ import useOffSetTop from '../../hooks/useOffSetTop';
 import cssStyles from '../../utils/cssStyles';
 // config
 import { HEADER } from '../../config';
-// components
-import Logo from '../../components/Logo';
-
-// ----------------------------------------------------------------------
+// ---------------------------------------------------------------------
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   height: HEADER.MOBILE_HEIGHT,
@@ -65,7 +62,6 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          <Logo />
           <Link component={RouterLink} to="/dashboard/app"underline="none" >         
           {/*  <Label color="primary" sx={{ ml: 1 , mr: 2, typography: 'h4'}} variant = 'ghost'> */}
             <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>

@@ -1,6 +1,6 @@
 // @mui
 import { Container, Grid} from '@mui/material';
-import { Appclub } from '../../sections/@dashboard/user/appmobile';
+import { Appclub, AppRidingClub } from '../../sections/@dashboard/general/app';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -8,7 +8,6 @@ import Page from '../../components/Page';
 // sectionss
 import MainFooter from '../../layouts/main/MainFooter';
 import Club from './Club';
-import { AppRidingClub } from '../../sections/@dashboard/general/app';
 
 // ----------------------------------------------------------------------
 

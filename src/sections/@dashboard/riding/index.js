@@ -6,3 +6,4 @@ export { default as GeneralMapViabutton } from './GeneralMapViabutton';
 export { default as GeneralMapweather } from './GeneralMapweather';
 export { default as GeneralIsselect } from './GeneralMapIsselect';
 export { default as GeneralMapDestiPeople } from './GeneralMapDestiPeople';
+export { default as GarageMapIsselect } from './GarageMapIsselect';

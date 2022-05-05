@@ -5,12 +5,10 @@ import {
   Box,
   Container,
   Typography,
-  Card,
   Stack,
   Avatar,
   BottomNavigation,
   BottomNavigationAction,
-  Divider,
 } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -28,7 +26,6 @@ import { _userFollowers } from '../../_mock';
 import Image from '../../components/Image';
 import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { Profile, ProfileGallery, ProfileFollowers } from '../../sections/@dashboard/user/profile';
 // ----------------------------------------------------------------------
@@ -116,7 +113,7 @@ export default function UserProfile() {
   useEffect (() => {
     if(post){
       setHeart(post.map((e)=>e.heart))
-      setSum(heart.reduce((stack, el)=>{
+      setSum(heart.reduce((stack, el) => {
         return stack + el;
       }, 0))
     }

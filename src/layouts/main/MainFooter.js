@@ -2,8 +2,6 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
-// routes
-import { PATH_PAGE } from '../../routes/paths';
 // components
 import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
@@ -14,33 +12,35 @@ const LINKS = [
   {
     headline: '주소',
     children: [
-      { name: '경기도 군포시 산본동 ...', href: PATH_PAGE.about },
+      { name: '경기도 군포시 산본동 339 보람타워 5층 9호', href:'' },
     ],
   },  
   {
     headline: '사업자 등록번호',
     children: [
-      { name: '000 000 00 0 0', href: 'tel:01055197425' },
-    ],
-  },
-  {
-    headline: '대표전화 및 문의',
-    children: [
-      { name: '000 0000 0000', href:'tel:01055197425' },
-      { name: 'aaa@aaa.com', href: PATH_PAGE.about },
+      { name: '775-13-02117', href: '' },
     ],
   },
   {
     headline: '통신판매업 신고번호',
     children: [
-      { name: '제 2021-경기군포-00000 대표 강민재', href: PATH_PAGE.about },
+      { name: '제 2021-경기군포-00000호 대표 강민재', href:''},
+    ],
+  },
+  {
+    headline: '대표전화 및 문의',
+    children: [
+      { name: '010-5519-7425', href:'tel:01055197425' },
+      { name: 'ridertown@naver.com', href:'' },
+      { name: '고객센터', href:'/faqs' },
     ],
   },
   {
     headline: '약관',
     children: [
-      { name: '개인정보처리방침', href: '#' },
-      { name: '이용약관', href: '#' },
+      { name: '개인정보처리방침', href: '' },
+      { name: '전자상거래처리약관', href: '' },
+      { name: '라이더타운이용약관', href: '' },
     ],
   },
 ];
@@ -67,7 +67,7 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              RiderTown (주)
+              (주) RIDERTOWN
             </Typography>
 
             <Stack

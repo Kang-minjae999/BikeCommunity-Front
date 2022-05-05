@@ -50,6 +50,11 @@ export { default as Appmarketcategory2 } from './Appmarketcategory2';
 export { default as Appmarketcategorymobile } from './Appmarketcategorymobile';
 export { default as Appmarketcategory2mobile } from './Appmarketcategory2mobile';
 
+export { default as Apphome } from './Apphome';
+export { default as Appgarage } from './Appgarage';
+export { default as Appclub } from './Appclub';
+
+
 export { default as AppTopAuthors } from './AppTopAuthors';
 export { default as AppTopRelated } from './AppTopRelated';
 export { default as AppAreaInstalled } from './AppAreaInstalled';

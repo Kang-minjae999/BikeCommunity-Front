@@ -17,7 +17,7 @@ import {
   BlogPostTags,
   BlogPostCommentList,
   Blogfeature,
-} from '../../sections/@dashboard/blog';
+} from '../../sections/@dashboard/garage/post';
 import DotdotdotPost from '../../components/DotdotdotPost';
 
 // ----------------------------------------------------------------------

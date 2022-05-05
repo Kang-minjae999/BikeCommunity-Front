@@ -13,7 +13,7 @@ import Page from '../../components/Page';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blog';
+import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/garage/post';
 
 // ----------------------------------------------------------------------
 
@@ -109,10 +109,10 @@ export default function GaragePosts() {
   );
 
   return (
-    <Page title="Posts">
+    <Page title="GARAGE">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
-          heading="딩스타그램"
+          heading="정비글"
           links={[{ name: '' }]}
           action={
             <>

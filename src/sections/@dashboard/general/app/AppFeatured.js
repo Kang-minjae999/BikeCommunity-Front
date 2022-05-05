@@ -66,7 +66,7 @@ export default function AppFeatured() {
   ];
 
   return (
-    <Box>
+    <Box sx={{mb:2}}>
       <Slider ref={carouselRef} {...settings}>
         {SliderItem.map((app, index) => (
           <CarouselItem key={app.id} item={app} isActive={index === currentIndex} />

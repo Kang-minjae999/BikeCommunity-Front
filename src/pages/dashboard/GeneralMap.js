@@ -26,11 +26,10 @@ import Iconify from '../../components/Iconify';
 // ------------------------------------------------------------
 GeneralMap.propTypes = {
   tab: PropTypes.string,
-  setState: PropTypes.func,
   userPo: PropTypes.object,
 };
 
-export default function GeneralMap({tab, userPo, setState}) {
+export default function GeneralMap({tab, userPo}) {
   const { user } = useAuth();
   const navigate = useNavigate()
   const isMountedRef = useIsMountedRef();
@@ -252,14 +251,6 @@ export default function GeneralMap({tab, userPo, setState}) {
     setwealat(position.lat)
     setwealng(position.lng)
     setIsAbout(true)
-    setState({
-      center: {
-        lat: position.lat,
-        lng: position.lng,
-      },
-      errMsg: null,
-      isLoading: true,
-    })
   }
 
   // 프로필 이동
