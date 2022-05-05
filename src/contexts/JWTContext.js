@@ -31,6 +31,24 @@ const handlers = {
       user,
     };
   },
+  KAKAOLOGIN: (state, action) => {
+    const { user } = action.payload;
+
+    return {
+      ...state,
+      isAuthenticated: true,
+      user,
+    };
+  },
+  NAVERLOGIN: (state, action) => {
+    const { user } = action.payload;
+
+    return {
+      ...state,
+      isAuthenticated: true,
+      user,
+    };
+  },
   LOGOUT: (state) => ({
     ...state,
     isAuthenticated: false,
@@ -126,6 +144,32 @@ function AuthProvider({ children }) {
     });
   };
 
+  const kakaologin = async (access) => {
+    const response = await axios.get('/login/oauth2/kakao', {headers:{Authorization:`Bearer ${access}`}});
+    const user = response.data;
+    const accessToken = response.headers.authorization;
+    setSession(accessToken);
+    dispatch({
+      type: 'KAKAOLOGIN',
+      payload: {
+        user,
+      },
+    });
+  };
+
+  const naverlogin = async (access) => {
+    const response = await axios.post('/login/oauth2/naver', {headers:{Authorization:`Bearer ${access}`}})
+    const user = response.data;
+    const accessToken = response.headers.authorization;
+    setSession(accessToken);
+    dispatch({
+      type: 'NAVERLOGIN',
+      payload: {
+        user,
+      },
+    });
+  };
+
   const register = async (email, password, name, nickname, birthday, phoneNumber, address) => {
     const response = await axios.post('/join', {
       email,
@@ -155,12 +199,15 @@ function AuthProvider({ children }) {
     setSession(null);
     dispatch({ type: 'LOGOUT' });
   };
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
         method: 'jwt',
         login,
+        kakaologin,
+        naverlogin,
         logout,
         register,
       }}

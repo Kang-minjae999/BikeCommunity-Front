@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { useCallback, useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 // form
 import { useForm } from 'react-hook-form';
@@ -82,46 +81,17 @@ export default function LoginForm() {
   const kakaoLogin = () => {
     window.open(KAKAO_AUTH_API, '_self')
   }
+
+  const KakaologinCallbackAccess = useCallback(async ({access}) => {    
+    try {
+      const response = await axiosInstance.get('/login/oauth2/kakao', {headers:{Authorization:access}});
+      // 대신에 kakaologin(token);
+      console.log(response)
+    } catch (error) {
+      console.error(error);
+    }
+  }, [])
   
-
-  //   const kakaoLogin = useCallback(async () => {
-  //   try {
-  //     await axios.get(`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&response_type=code`
-  //     ).then((res) => {
-  //         console.log(res)
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [])
-
-
-  // const KakaologinCallback = useCallback(async () => {
-  //   const params = new URL(document.location.toString()).searchParams;
-  //   const getcode = params.get("code"); // 인가코드 받는 부분
-  //   const granttype = "authorization_code";
-  //   const clientid = KAKAO_REST_API;
-  //   const formData = new FormData()
-  //   formData.append('grant_type', granttype)
-  //   formData.append('client_id', clientid)
-  //   formData.append('redirect_uri', KAKAO_REDIRECT)
-  //   formData.append('code', getcode)
-  //   console.log(getcode)
-  //   try {
-  //     await axios.post(`https://kauth.kakao.com/oauth/token`,formData, 
-  //     {
-  //     headers: 
-  //     {
-  //         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-  //     }
-  //     }).then((res) => {
-  //         console.log(res)
-  //     })
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [])
-
   const KakaologinCallback = useCallback(async () => {
     const params = new URL(document.location.toString()).searchParams;
     const getcode = params.get("code"); 
@@ -139,16 +109,8 @@ export default function LoginForm() {
     } catch (error) {
       console.error(error);
     }
-  }, [])
+  }, [KakaologinCallbackAccess])
 
-  const KakaologinCallbackAccess = useCallback(async ({access}) => {    
-    try {
-      await axiosInstance.get('/login/oauth2/kakao', {headers:{Authorization:`Bearer ${access}`}});
-      navigate(PATH_DASHBOARD.root);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [])
 
   useEffect(() => {
     if(iskakao){
@@ -180,12 +142,13 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axiosInstance.get('/login/oauth2/naver', {headers:{Authorization:`Bearer ${token}`}});
+      await axiosInstance.get('/login/oauth2/naver', {headers:{Authorization:token}});
+      // 대신에 naverlogin(token);
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
     }
-  }, [])
+  }, [location.hash, navigate])
 
   useEffect(() => {
     if(isnaver){
