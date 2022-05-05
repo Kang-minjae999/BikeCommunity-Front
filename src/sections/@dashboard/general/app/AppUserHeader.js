@@ -82,27 +82,27 @@ export default function AppUserHeader() {
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         sx={{...(value === 'profile') && valueStyle}}
-        label={<Typography variant='subtitle2' color='text.primary'>프로필</Typography>}
+        label={<Typography variant='subtitle3' color={value === 'profile' ? 'text.primary' : 'disabled'}>프로필</Typography>}
         value="profile"
       />
       <BottomNavigationAction
         sx={{...(value === 'checkout') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>장바구니</Typography>}
+        label={<Typography  variant='subtitle3' color={value === 'checkout' ? 'text.primary' : 'disabled'}>장바구니</Typography>}
         value="checkout"
       />
       <BottomNavigationAction
         sx={{...(value === 'moto') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>바이크</Typography>}
+        label={<Typography  variant='subtitle3'color={value === 'moto' ? 'text.primary' : 'disabled'}>바이크</Typography>}
         value="moto"
       />
       <BottomNavigationAction
         sx={{...(value === 'club') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>클럽</Typography>}
+        label={<Typography  variant='subtitle3' color={value === 'club' ? 'text.primary' : 'disabled'}>클럽</Typography>}
         value="club"
       />
       <BottomNavigationAction 
         sx={{...(value === 'setting') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>설정</Typography>}
+        label={<Typography  variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>설정</Typography>}
         value="setting" 
         />
     </BottomNavigation>

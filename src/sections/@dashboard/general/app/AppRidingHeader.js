@@ -76,7 +76,7 @@ export default function AppRidingHeader() {
         <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'home' && valueStyle)}}>
+              <Typography variant="body2" color={value === 'home' ? 'text.primary' : 'disabled'}  sx={{ ...(value === 'home' && valueStyle)}}>
                 라이딩
               </Typography>
             }
@@ -84,7 +84,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'dingsta' && valueStyle)}}>
+              <Typography variant="body2" color={value === 'dingsta' ? 'text.primary' : 'disabled'}  sx={{ ...(value === 'dingsta' && valueStyle)}}>
                 딩스타
               </Typography>
             }
@@ -92,7 +92,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'post' && valueStyle)}}>
+              <Typography variant="body2" color={value === 'post' ? 'text.primary' : 'disabled'}  sx={{ ...(value === 'post' && valueStyle)}}>
                 포스트
               </Typography>
             }
@@ -100,7 +100,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'club' && valueStyle)}}>
+              <Typography variant="body2" color={value === 'club' ? 'text.primary' : 'disabled'}  sx={{ ...(value === 'club' && valueStyle)}}>
                 클럽
               </Typography>
             }
@@ -108,7 +108,7 @@ export default function AppRidingHeader() {
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary"  sx={{ ...(value === 'map' && valueStyle)}}>
+              <Typography variant="body2" color={value === 'map' ? 'text.primary' : 'disabled'}  sx={{ ...(value === 'map' && valueStyle)}}>
                 지도
               </Typography>
             }
@@ -121,51 +121,51 @@ export default function AppRidingHeader() {
       {!isDesktop && (
         <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 50 }} elevation={1}>
           <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
-            <BottomNavigationAction
-              sx={{ ...(value === 'home' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  라이딩
-                </Typography>
-              }
-              value="home"
-            />
-            <BottomNavigationAction
-              sx={{ ...(value === 'club' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  클럽
-                </Typography>
-              }
-              value="club"
-            />
-            <BottomNavigationAction
-              sx={{ ...(value === 'dingsta' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  딩스타
-                </Typography>
-              }
-              value="dingsta"
-            />
-            <BottomNavigationAction
-              sx={{ ...(value === 'post' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  포스트
-                </Typography>
-              }
-              value="post"
-            />
-            <BottomNavigationAction
-              sx={{ ...(value === 'map' && valueStyle) }}
-              label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
-                  지도
-                </Typography>
-              }
-              value="map"
-            />
+          <BottomNavigationAction
+            label={
+              <Typography variant="subtitle3" color={value === 'home' ? 'text.primary' : 'disabled'} >
+                라이딩
+              </Typography>
+            }
+            value="home"
+            sx={{ ...(value === 'home' && valueStyle)}}
+          />
+          <BottomNavigationAction
+            label={
+              <Typography variant="subtitle3" color={value === 'dingsta' ? 'text.primary' : 'disabled'} >
+                딩스타
+              </Typography>
+            }
+            value="dingsta"
+            sx={{ ...(value === 'dingsta' && valueStyle)}}
+          />
+          <BottomNavigationAction
+            label={
+              <Typography variant="subtitle3" color={value === 'post' ? 'text.primary' : 'disabled'} >
+                포스트
+              </Typography>
+            }
+            value="post"
+            sx={{ ...(value === 'post' && valueStyle)}}
+          />
+          <BottomNavigationAction
+            label={
+              <Typography variant="subtitle3" color={value === 'club' ? 'text.primary' : 'disabled'} >
+                클럽
+              </Typography>
+            }
+            value="club"
+            sx={{ ...(value === 'club' && valueStyle)}}
+          />
+          <BottomNavigationAction
+            label={
+              <Typography variant="subtitle3" color={value === 'map' ? 'text.primary' : 'disabled'}  >
+                지도
+              </Typography>
+            }
+            value="map"
+            sx={{ ...(value === 'map' && valueStyle)}}
+          />
           </BottomNavigation>
         </Paper>
       )}

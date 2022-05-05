@@ -22,7 +22,7 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       value: 'home',
-      component: <BlogPosts />,
+      component: <Appgarage />,
     },
     {
       value: 'dingsta',
@@ -104,7 +104,7 @@ export default function AppRidingHeader() {
             <BottomNavigationAction
               sx={{ ...(value === 'home' && valueStyle) }}
               label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'home' ? "text.primary" : 'disabled'} fontWeight="bold">
                   정비
                 </Typography>
               }
@@ -113,7 +113,7 @@ export default function AppRidingHeader() {
             <BottomNavigationAction
               sx={{ ...(value === 'dingsta' && valueStyle) }}
               label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'dingsta' ? "text.primary" : 'disabled'} fontWeight="bold">
                   커스텀
                 </Typography>
               }
@@ -122,7 +122,7 @@ export default function AppRidingHeader() {
             <BottomNavigationAction
               sx={{ ...(value === 'post' && valueStyle) }}
               label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'post' ? "text.primary" : 'disabled'} fontWeight="bold">
                   교육
                 </Typography>
               }
@@ -131,7 +131,7 @@ export default function AppRidingHeader() {
             <BottomNavigationAction
               sx={{ ...(value === 'garage' && valueStyle) }}
               label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'garage' ? "text.primary" : 'disabled'} fontWeight="bold">
                   뭐하지
                 </Typography>
               }
@@ -140,7 +140,7 @@ export default function AppRidingHeader() {
             <BottomNavigationAction
               sx={{ ...(value === 'club' && valueStyle) }}
               label={
-                <Typography variant="body2" color="text.primary" fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'club' ? "text.primary" : 'disabled'}  fontWeight="bold">
                   뭐하지
                 </Typography>
               }

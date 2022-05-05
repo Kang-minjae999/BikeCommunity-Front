@@ -102,7 +102,7 @@ export default function Aecheckouthead() {
         <BottomNavigationAction
         sx={{...(value === 'new') && valueStyle}}
           label={
-            <Typography variant="subtitle2" color={value === 'new' ? "text.primary" : 'disabled'}>
+            <Typography variant="subtitle3" color={value === 'new' ? "text.primary" : 'disabled'}>
               바구니
             </Typography>
           }
@@ -111,7 +111,7 @@ export default function Aecheckouthead() {
         <BottomNavigationAction
         sx={{...(value === 'like') && valueStyle}}
           label={
-            <Typography variant="subtitle2" color={value === 'like' ? "text.primary" : 'disabled'}>
+            <Typography variant="subtitle3" color={value === 'like' ? "text.primary" : 'disabled'}>
               신품찜
             </Typography>
           }
@@ -120,7 +120,7 @@ export default function Aecheckouthead() {
         <BottomNavigationAction
         sx={{...(value === 'used') && valueStyle}}
           label={
-            <Typography variant="subtitle2" color={value === 'used' ? "text.primary" : 'disabled'}>
+            <Typography variant="subtitle3" color={value === 'used' ? "text.primary" : 'disabled'} >
               중고찜
             </Typography>
           }
@@ -129,7 +129,7 @@ export default function Aecheckouthead() {
         <BottomNavigationAction
         sx={{...(value === 'check') && valueStyle}}
           label={
-            <Typography variant="subtitle2" color={value === 'check' ? "text.primary" : 'disabled'}>
+            <Typography variant="subtitle3" color={value === 'check' ? "text.primary" : 'disabled'}>
               결제목록
             </Typography>
           }

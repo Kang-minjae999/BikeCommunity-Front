@@ -132,13 +132,6 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
 
         {!isSimple && (
           <div className="ql-formats">
-            <button type="button" className="ql-script" value="super" />
-            <button type="button" className="ql-script" value="sub" />
-          </div>
-        )}
-
-        {!isSimple && (
-          <div className="ql-formats">
             <button type="button" className="ql-code-block" />
             <button type="button" className="ql-blockquote" />
           </div>
@@ -150,26 +143,9 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
         </div>
 
         <div className="ql-formats">
-          <button type="button" className="ql-link" />
           <button type="button" className="ql-image" />
           <button type="button" className="ql-video" />
         </div>
-
-        <div className="ql-formats">
-          {!isSimple && <button type="button" className="ql-formula" />}
-          <button type="button" className="ql-clean" />
-        </div>
-
-        {!isSimple && (
-          <div className="ql-formats">
-            <button type="button" className="ql-undo">
-              <Iconify icon={'ic:round-undo'} width={18} height={18} />
-            </button>
-            <button type="button" className="ql-redo">
-              <Iconify icon={'ic:round-redo'} width={18} height={18} />
-            </button>
-          </div>
-        )}
       </div>
     </EditorToolbarStyle>
   );

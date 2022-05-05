@@ -87,7 +87,7 @@ export default function LoginForm() {
 
   const KakaologinCallback = useCallback(async () => {
     try {
-      await axios.post('/kakao', `${code}`);
+      await axios.post('/login/oath2/kakao', `${code}`);
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
@@ -124,7 +124,7 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axios.post('/naver', `${token}`);
+      await axios.post('/login/oath2/naver', `bearer ${token}`);
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);

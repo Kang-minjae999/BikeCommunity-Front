@@ -66,7 +66,7 @@ export default function AppUserHeader() {
           <BottomNavigationAction
             sx={{ ...(value === 'all' && valueStyle) }}
             label={
-              <Typography variant="subtitle2" color="text.primary">
+              <Typography variant="subtitle3" color={value === 'all' ? 'text.primary' : 'disabled'}>
                 모아보기
               </Typography>
             }
@@ -75,7 +75,7 @@ export default function AppUserHeader() {
           <BottomNavigationAction
             sx={{ ...(value === 'market' && valueStyle) }}
             label={
-              <Typography variant="subtitle2" color="text.primary">
+              <Typography variant="subtitle3" color={value === 'market' ? 'text.primary' : 'disabled'}>
                 신품
               </Typography>
             }
@@ -84,7 +84,7 @@ export default function AppUserHeader() {
           <BottomNavigationAction
             sx={{ ...(value === 'brand' && valueStyle) }}
             label={
-              <Typography variant="subtitle2" color="text.primary">
+              <Typography variant="subtitle3" color={value === 'brand' ? 'text.primary' : 'disabled'}>
                 브랜드
               </Typography>
             }
@@ -93,7 +93,7 @@ export default function AppUserHeader() {
           <BottomNavigationAction
             sx={{ ...(value === 'newmoto' && valueStyle) }}
             label={
-              <Typography variant="subtitle2" color="text.primary">
+              <Typography variant="subtitle3" color={value === 'newmoto' ? 'text.primary' : 'disabled'}>
                 신차
               </Typography>
             }
@@ -102,7 +102,7 @@ export default function AppUserHeader() {
           <BottomNavigationAction
             sx={{ ...(value === 'used' && valueStyle) }}
             label={
-              <Typography variant="subtitle2" color="text.primary">
+              <Typography variant="subtitle3" color={value === 'used' ? 'text.primary' : 'disabled'}>
                 중고
               </Typography>
             }

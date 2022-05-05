@@ -21,6 +21,7 @@ const DropZoneStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.neutral,
   border: `1px dashed ${theme.palette.grey[500_32]}`,
   '&:hover': { opacity: 0.72, cursor: 'pointer' },
+  height:'50vh'
 }));
 
 // ----------------------------------------------------------------------
@@ -39,7 +40,7 @@ export default function UploadSingleFile({ error = false, file, helperText, sx, 
   });
 
   return (
-    <Box sx={{ width: '100%', ...sx }}>
+    <Box sx={{ width: '100%', height:'50vh', ...sx }}>
       <DropZoneStyle
         {...getRootProps()}
         sx={{
@@ -62,13 +63,12 @@ export default function UploadSingleFile({ error = false, file, helperText, sx, 
           <Image
             alt="file preview"
             src={isString(file) ? file : file.preview}
+            ratio='1/1'
             sx={{
               top: 8,
               left: 8,
               borderRadius: 1,
               position: 'absolute',
-              width: 'calc(100% - 16px)',
-              height: 'calc(100% - 16px)',
             }}
           />
         )}

@@ -7,7 +7,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogNewDingstaForm, BlogNewNoticeForm, BlogNewPostForm, BlogNewReportForm } from '../../sections/@dashboard/blog';
+import { BlogNewDingstaForm, BlogNewGarageForm, BlogNewNoticeForm, BlogNewPostForm, BlogNewReportForm } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ export default function BlogNewPost() {
   const ispost = pathname.includes('post');
   const isdingsta = pathname.includes('dingsta');
   const isreport = pathname.includes('report');
+  const isgarage = pathname.includes('garage');
 
 
   return (
@@ -36,6 +37,7 @@ export default function BlogNewPost() {
         {ispost && <BlogNewPostForm />}
         {isdingsta && <BlogNewDingstaForm />}
         {isreport && <BlogNewReportForm />}
+        {isgarage && <BlogNewGarageForm />}
       </Container>
     </Page>
   );

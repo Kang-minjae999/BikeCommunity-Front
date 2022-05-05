@@ -178,10 +178,12 @@ export default function Router() {
             { path: 'posts', element: <BlogPosts /> }, // ok
             { path: 'dingstas', element: <BlogDingstas /> },
             { path: 'reports', element: <BlogReports /> },
+            { path: 'garages', element: <BlogReports /> },
             { path: 'post/:id', element: <BlogPost /> },
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
             { path: 'report/:id', element: <BlogReport /> },
+            { path: 'garage/:id', element: <BlogReport /> },
             {
               path: 'new-post',
               element: (
@@ -206,7 +208,20 @@ export default function Router() {
                 </AuthGuard>
               ),
             },
-            { path: 'new-report', element: <BlogNewPost /> },
+            {
+              path: 'new-report',
+              element: (
+                <AuthGuard>
+                  <BlogNewPost />
+                </AuthGuard>
+              ),
+            },
+            {
+              path: 'new-garage',
+              element: (
+                  <BlogNewPost />
+              ),
+            },
           ],
         },
         {

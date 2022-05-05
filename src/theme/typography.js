@@ -63,9 +63,14 @@ const typography = {
     lineHeight: 22 / 14,
     fontSize: pxToRem(14),
   },
+  subtitle3: {
+    fontWeight: 1000,
+    lineHeight: 64 / 48,
+    fontSize: pxToRem(15),
+  },
   body1: {
     lineHeight: 1.5,
-    fontSize: pxToRem(16),
+    fontSize: pxToRem(18),
   },
   body2: {
     lineHeight: 22 / 14,

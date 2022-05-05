@@ -145,27 +145,27 @@ export default function AppHomeHeader() {
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         sx={{...(value === 'home') && valueStyle}}
-        label={<Typography variant='subtitle2' color='text.primary'>메인</Typography>}
+        label={<Typography variant='subtitle3'  color={value === 'home' ? 'text.primary' : 'disabled'}>메인</Typography>}
         value="home"
       />
       <BottomNavigationAction
-        sx={{...(value === 'best') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>장르</Typography>}
-        value="best"
-      />
-      <BottomNavigationAction
         sx={{...(value === 'brand') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>브랜드</Typography>}
+        label={<Typography  variant='subtitle3'  color={value === 'brand' ? 'text.primary' : 'disabled'}>BRAND</Typography>}
         value="brand"
       />
       <BottomNavigationAction
+        sx={{...(value === 'best') && valueStyle}}
+        label={<Typography  variant='subtitle3'  color={value === 'best' ? 'text.primary' : 'disabled'}>장르</Typography>}
+        value="best"
+      />
+      <BottomNavigationAction
         sx={{...(value === 'post') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>매거진</Typography>}
+        label={<Typography  variant='subtitle3'  color={value === 'post' ? 'text.primary' : 'disabled'}>매거진</Typography>}
         value="post"
       />
       <BottomNavigationAction 
         sx={{...(value === 'sale') && valueStyle}}
-        label={<Typography  variant='subtitle2' color='text.primary'>세일</Typography>}
+        label={<Typography  variant='subtitle3' color={value === 'sale' ? 'text.primary' : 'disabled'}>세일</Typography>}
         value="sale" 
         />
     </BottomNavigation>
