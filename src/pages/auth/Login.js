@@ -7,7 +7,7 @@ import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sections
-import LoginForm  from '../../sections/auth/login/LoginForm';
+import LoginForm from '../../sections/auth/login/LoginForm';
 
 // ----------------------------------------------------------------------
 

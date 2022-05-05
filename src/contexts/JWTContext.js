@@ -147,7 +147,8 @@ function AuthProvider({ children }) {
   };
 
   const kakaologin = async (access) => {
-    const response = await axios.get('/login/oauth2/kakao', {headers:{Authorization:`${access}`}});
+    const response = await axios.get('/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
+    console.log(response);
     const user = response.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
@@ -160,7 +161,8 @@ function AuthProvider({ children }) {
   };
 
   const naverlogin = async (access) => {
-    const response = await axios.post('/login/oauth2/naver', {headers:{Authorization:`${access}`}})
+    const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
+    console.log(response);
     const user = response.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);

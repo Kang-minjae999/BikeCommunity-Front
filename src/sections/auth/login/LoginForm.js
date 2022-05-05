@@ -62,7 +62,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
-      navigate('/dashboard/app')
+      navigate('/dashboard/app');
     } catch (error) {
       reset();
       if (isMountedRef.current) {
@@ -78,18 +78,21 @@ export default function LoginForm() {
   };
 
   const kakaoLogin = () => {
-    window.open(KAKAO_AUTH_API, '_self')
-  }
+    window.open(KAKAO_AUTH_API, '_self');
+  };
 
-  const KakaologinCallbackAccess = useCallback(async (access) => {    
-    try {
-      const response = await kakaologin(access);
-      navigate('/auth/loginafter')
-      console.log(response)
-    } catch (error) {
-      console.error(error);
-    }
-  }, [kakaologin ,navigate])
+  const KakaologinCallbackAccess = useCallback(
+    async (access) => {
+      try {
+        const response = await kakaologin(access);
+        navigate('/auth/loginafter');
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [kakaologin, navigate]
+  );
 
   const KakaologinCallback = useCallback(async () => {
     const params = new URL(document.location.toString()).searchParams;
@@ -110,8 +113,8 @@ export default function LoginForm() {
         });
     } catch (error) {
       console.error(error);
-    }} , [KakaologinCallbackAccess])
-
+    }
+  }, [KakaologinCallbackAccess]);
 
   useEffect(() => {
     if (iskakao) {
@@ -144,11 +147,11 @@ export default function LoginForm() {
     const token = location.hash.split('=')[1].split('&')[0];
     try {
       await naverlogin(token);
-      navigate('/auth/loginafter')
+      navigate('/auth/loginafter');
     } catch (error) {
       console.error(error);
     }
-  }, [location.hash, naverlogin, navigate])
+  }, [location.hash, naverlogin, navigate]);
 
   useEffect(() => {
     if (isnaver) {
