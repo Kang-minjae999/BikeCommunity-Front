@@ -9,11 +9,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Stack, Alert, IconButton, InputAdornment, Button, Typography, Box, Card } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
-import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
+import { PATH_AUTH } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
-import axiosInstance from '../../../utils/axiosuser';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
@@ -22,7 +21,7 @@ import { KAKAO_AUTH_API, KAKAO_REDIRECT, KAKAO_REST_API, NAVER_CLIENT_ID, NAVER_
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
-  const { login } = useAuth();
+  const { login, naverlogin, kakaologin } = useAuth();
 
   const location = useLocation();
 
@@ -63,6 +62,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       await login(data.email, data.password);
+      navigate('/dashboard/app')
     } catch (error) {
       reset();
       if (isMountedRef.current) {
@@ -81,15 +81,15 @@ export default function LoginForm() {
     window.open(KAKAO_AUTH_API, '_self')
   }
 
-  const KakaologinCallbackAccess = useCallback(async ({access}) => {    
+  const KakaologinCallbackAccess = useCallback(async (access) => {    
     try {
-      const response = await axiosInstance.get('/login/oauth2/kakao', {headers:{Authorization:access}});
-      // 대신에 kakaologin(token);
+      const response = await kakaologin(access);
+      navigate('/auth/loginafter')
       console.log(response)
     } catch (error) {
       console.error(error);
     }
-  }, [])
+  }, [kakaologin ,navigate])
 
   const KakaologinCallback = useCallback(async () => {
     const params = new URL(document.location.toString()).searchParams;
@@ -143,13 +143,12 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0];
     try {
-      await axiosInstance.get('/login/oauth2/naver', {headers:{Authorization:token}});
-      // 대신에 naverlogin(token);
-      navigate(PATH_DASHBOARD.root);
+      await naverlogin(token);
+      navigate('/auth/loginafter')
     } catch (error) {
       console.error(error);
     }
-  }, [location.hash, navigate])
+  }, [location.hash, naverlogin, navigate])
 
   useEffect(() => {
     if (isnaver) {
@@ -164,7 +163,7 @@ export default function LoginForm() {
           <Card sx={{ my: 2, mx: 2 }}>
             <Stack spacing={3} sx={{ mt: 2, mx: 1 }}>
               <Typography variant="h6" sx={{ mt: 1, mx: 1 }}>
-                라이더타운
+                RIDERTOWN
               </Typography>
               {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
               <RHFTextField name="email" label="이메일" />

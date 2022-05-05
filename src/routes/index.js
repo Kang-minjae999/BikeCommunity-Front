@@ -64,7 +64,14 @@ export default function Router() {
             </GuestGuard>
           ),
         },
-        { path: 'kakaologin/callback', element: <Kakaologincallback /> },
+        {
+          path: 'loginafter',
+          element: (
+            <GuestGuard>
+              <LoginAfter />
+            </GuestGuard>
+          ),
+        },
         { path: 'login-unprotected', element: <Login /> },
         { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
@@ -286,7 +293,7 @@ export default function Router() {
 
 // Authentication
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
-const Kakaologincallback = Loadable(lazy(() => import('../pages/auth/Kakaologincallback')));
+const LoginAfter = Loadable(lazy(() => import('../pages/auth/LoginAfter')));
 const Register = Loadable(lazy(() => import('../pages/auth/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
