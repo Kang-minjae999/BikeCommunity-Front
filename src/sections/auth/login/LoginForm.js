@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { useCallback, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate, useLocation, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import axios from 'axios';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,12 +14,12 @@ import { PATH_AUTH, PATH_DASHBOARD } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
-import axios from '../../../utils/axiosuser';
+import axiosInstance from '../../../utils/axiosuser';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import useResponsive from '../../../hooks/useResponsive';
-import { KAKAO_AUTH_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
+import { KAKAO_AUTH_API, KAKAO_REST_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
@@ -82,24 +83,29 @@ export default function LoginForm() {
     window.open(KAKAO_AUTH_API, '_self')
   }
 
-  // useEffect(() => {
-  //   window.Kakao.Auth.authorize({
-  //     redirectUri: 'https://localhost:3000/auth/login'
-  //   })
-  // }, [])
-  
-
-
-  const code = new URL(window.location.href).searchParams.get("code");
 
   const KakaologinCallback = useCallback(async () => {
+    const params = new URL(document.location.toString()).searchParams;
+    const code = params.get("code"); // 인가코드 받는 부분
+    const granttype = "authorization_code";
+    const clientid = `${KAKAO_REST_API}`;
     try {
-      await axios.post('/login/oath2/kakao', `${code}`);
-      navigate(PATH_DASHBOARD.root);
+      await axios.post(`https://kauth.kakao.com/oauth/token?
+      grant_type=${granttype}
+      &client_id=${clientid}
+      &redirect_uri=http://localhost:3000/kakaologin
+      &code=${code}`
+            , {
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+        }
+      }).then((res) => {
+          console.log(res)
+      })
     } catch (error) {
       console.error(error);
     }
-  }, [code])
+  }, [])
 
   useEffect(() => {
     if(iskakao){
@@ -131,7 +137,7 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axios.post('/login/oauth2/naver', `bearer ${token}`);
+      await axiosInstance.get('/login/oauth2/naver', `bearer ${token}`);
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
