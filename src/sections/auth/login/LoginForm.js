@@ -19,7 +19,7 @@ import axiosInstance from '../../../utils/axiosuser';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import useResponsive from '../../../hooks/useResponsive';
-import { KAKAO_AUTH_API, KAKAO_REST_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
+import { KAKAO_AUTH_API, KAKAO_REDIRECT, KAKAO_REST_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
@@ -82,26 +82,69 @@ export default function LoginForm() {
   const kakaoLogin = () => {
     window.open(KAKAO_AUTH_API, '_self')
   }
+  
 
+  //   const kakaoLogin = useCallback(async () => {
+  //   try {
+  //     await axios.get(`https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&response_type=code`
+  //     ).then((res) => {
+  //         console.log(res)
+  //     })
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [])
+
+
+  // const KakaologinCallback = useCallback(async () => {
+  //   const params = new URL(document.location.toString()).searchParams;
+  //   const getcode = params.get("code"); // 인가코드 받는 부분
+  //   const granttype = "authorization_code";
+  //   const clientid = KAKAO_REST_API;
+  //   const formData = new FormData()
+  //   formData.append('grant_type', granttype)
+  //   formData.append('client_id', clientid)
+  //   formData.append('redirect_uri', KAKAO_REDIRECT)
+  //   formData.append('code', getcode)
+  //   console.log(getcode)
+  //   try {
+  //     await axios.post(`https://kauth.kakao.com/oauth/token`,formData, 
+  //     {
+  //     headers: 
+  //     {
+  //         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+  //     }
+  //     }).then((res) => {
+  //         console.log(res)
+  //     })
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [])
 
   const KakaologinCallback = useCallback(async () => {
     const params = new URL(document.location.toString()).searchParams;
-    const code = params.get("code"); // 인가코드 받는 부분
+    const getcode = params.get("code"); 
     const granttype = "authorization_code";
-    const clientid = `${KAKAO_REST_API}`;
     try {
-      await axios.post(`https://kauth.kakao.com/oauth/token?
-      grant_type=${granttype}
-      &client_id=${clientid}
-      &redirect_uri=http://localhost:3000/auth/kakaologin
-      &code=${code}`
-            , {
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
+      await axios.post(`https://kauth.kakao.com/oauth/token?grant_type=${granttype}&client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&code=${getcode}`,
+      {
+      headers: 
+      {
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      }
       }).then((res) => {
-          console.log(res)
+        KakaologinCallbackAccess(res.data.access_token)
       })
+    } catch (error) {
+      console.error(error);
+    }
+  }, [])
+
+  const KakaologinCallbackAccess = useCallback(async ({access}) => {    
+    try {
+      await axiosInstance.get('/login/oauth2/kakao', {headers:{Authorization:`Bearer ${access}`}});
+      navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
     }
