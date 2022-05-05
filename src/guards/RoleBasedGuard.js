@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Container, Alert, AlertTitle } from '@mui/material';
+import useAuth from '../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -9,7 +10,7 @@ RoleBasedGuard.propTypes = {
 };
 
 const useCurrentRole = () => {
-  // Logic here to get current user role
+  const { user } = useAuth()
   const role = 'admin';
   return role;
 };

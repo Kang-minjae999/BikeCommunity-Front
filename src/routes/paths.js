@@ -12,6 +12,7 @@ const ROOTS_DASHBOARD = '/dashboard';
 export const PATH_AUTH = {
   root: ROOTS_AUTH,
   login: path(ROOTS_AUTH, '/login'),
+  loginafter: path(ROOTS_AUTH, '/loginafter'),
   Kakaologincallback: path(ROOTS_AUTH, '/kakaologin/callback'),
   loginUnprotected: path(ROOTS_AUTH, '/login-unprotected'),
   register: path(ROOTS_AUTH, '/register'),
