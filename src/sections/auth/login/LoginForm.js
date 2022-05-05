@@ -93,7 +93,7 @@ export default function LoginForm() {
       await axios.post(`https://kauth.kakao.com/oauth/token?
       grant_type=${granttype}
       &client_id=${clientid}
-      &redirect_uri=http://localhost:3000/kakaologin
+      &redirect_uri=http://localhost:3000/auth/kakaologin
       &code=${code}`
             , {
         headers: {
@@ -137,7 +137,7 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0]; 
     try {
-      await axiosInstance.get('/login/oauth2/naver', {authorization:`bearer ${token}`});
+      await axiosInstance.get('/login/oauth2/naver', {headers:{authorization:`bearer ${token}`}});
       navigate(PATH_DASHBOARD.root);
     } catch (error) {
       console.error(error);
