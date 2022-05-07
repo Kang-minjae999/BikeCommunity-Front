@@ -25,7 +25,7 @@ export default function Login() {
   const [loginValue, setLoginValue] = useState(0)
 
   useEffect(() => {
-    if(user?.role === 'ROLE_GUEST' && user?.status === 200){
+    if(user?.role === 'ROLE_GUEST' && user?.status === 201){
       setGuest(true)
     } else{
       navigate('/dashboard/app')
