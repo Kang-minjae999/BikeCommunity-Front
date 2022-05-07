@@ -17,7 +17,7 @@ export default function LoginNaver() {
     try {
       const user = await naverlogin(token);
       console.log('네이버 로그인' , user)
-      if(user?.role === 'guest' && user?.status === 200){
+      if(user?.role === 'ROLE_GUEST' && user?.status === 201){
         navigate(`/dashboard/loginafter`)
       } else {
         navigate(`/dashboard/app`)
