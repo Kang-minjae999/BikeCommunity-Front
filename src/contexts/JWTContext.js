@@ -190,7 +190,7 @@ function AuthProvider({ children }) {
     {
       ...data, ...users.socialPk, ...users.socialType
     });
-    const user = {...response.data, ...response.status}
+    const user = response.data
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({

@@ -21,15 +21,14 @@ import Page from '../../components/Page';
 export default function Login() {
   const navigate = useNavigate()
   const { user, afterlogin } = useAuth()
-  const [guest, setGuest] = useState(false)
   const [loginValue, setLoginValue] = useState(0)
 
+  console.log('로긴애프터',user)
+
   useEffect(() => {
-    if(user?.role === 'ROLE_GUEST' && user?.status === 201){
-      setGuest(true)
-    } else{
+    if(!user?.role === 'ROLE_GUEST'){
       navigate('/dashboard/app')
-    }
+    } 
   }, [user ,navigate])
 
   const { enqueueSnackbar } = useSnackbar();
@@ -117,7 +116,6 @@ export default function Login() {
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
-          {guest && 
           <Card sx={{ p: 3 }}>
             <Box
               sx={{
@@ -145,7 +143,7 @@ export default function Login() {
               </LoadingButton>
               </>}
             </Box>
-          </Card>}
+          </Card>
         </Grid>
       </Grid>
     </FormProvider>
