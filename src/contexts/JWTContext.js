@@ -194,11 +194,14 @@ function AuthProvider({ children }) {
       phoneNumber: users.phoneNumber,
       birthday:users.birthday,
       sex:users.sex,
-      socialPK:users.socialPK,
+      socialPk:users.socialPk,
       socialType:users.socialType,
     },
     {
-      headers:token
+      headers:
+      {
+        Authorization:token
+      }
     }
     );
     const user = response.data
