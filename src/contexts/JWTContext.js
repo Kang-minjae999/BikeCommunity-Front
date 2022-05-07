@@ -185,10 +185,16 @@ function AuthProvider({ children }) {
     return user;
   };
 
-  const afterlogin = async ({data, users}) => {
+  const afterlogin = async (users) => {
     const response = await axios.put('/users/oauth', 
     {
-      ...data, ...users.socialPk, ...users.socialType
+      nickname:users.nickname,
+      name:users.name,
+      phoneNumber: users.phoneNumber,
+      birthday:users.birthday,
+      sex:users.sex,
+      socialPK:users.socialPK,
+      socialType:users.socialType,
     });
     const user = response.data
     const accessToken = response.headers.authorization;

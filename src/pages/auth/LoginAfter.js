@@ -18,12 +18,10 @@ import Page from '../../components/Page';
 
 // ----------------------------------------------------------------------
 
-export default function Login() {
+export default function LoginAfter() {
   const navigate = useNavigate()
   const { user, afterlogin } = useAuth()
   const [loginValue, setLoginValue] = useState(0)
-
-  console.log('로긴애프터',user)
 
   useEffect(() => {
     if(!user?.role === 'ROLE_GUEST'){
@@ -57,8 +55,10 @@ export default function Login() {
 
 
   const onSubmit = async (data) => {
+    const users = {...data, ...user.socialPk, ...user.socialType}
+    console.log('온서밋',users)
     try {
-      await afterlogin(data, user)
+      await afterlogin(users)
       enqueueSnackbar('회원 가입 완료!');
       navigate('/dashboard/app')
     } catch (error) {
@@ -122,7 +122,7 @@ export default function Login() {
                 display: 'grid',
                 rowGap: 3,
                 columnGap: 2,
-                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(1, 1fr)' },
               }}
             >
               {/* <Phonecheck /> */}
