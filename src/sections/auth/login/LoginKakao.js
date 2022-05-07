@@ -16,6 +16,7 @@ export default function LoginForm() {
     async (access) => {
       try {
         const user = await kakaologin(access);
+        console.log(user)
         if(user?.role === 'guest' && user?.status === 200){
           navigate(`/dashboard/loginafter`)
         } else {
@@ -28,10 +29,11 @@ export default function LoginForm() {
     [kakaologin, navigate]
   );
 
-  const KakaologinCallback = useCallback(async () => {
-    const params = new URL(document.location.toString()).searchParams;
-    const getcode = params.get('code');
-    const granttype = 'authorization_code';
+  const params = new URL(document.location.toString()).searchParams;
+  const getcode = params.get('code');
+  const granttype = 'authorization_code';
+
+  const KakaologinCallback = async () => {
     try {
       await axios
         .post(
@@ -48,11 +50,11 @@ export default function LoginForm() {
     } catch (error) {
       console.error(error);
     }
-  }, [KakaologinCallbackAccess]);
+  }
 
   useEffect(() => {
     KakaologinCallback();
-  }, [KakaologinCallback]);
+  }, []);
 
 
   return (

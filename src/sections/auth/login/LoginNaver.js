@@ -11,11 +11,12 @@ export default function LoginNaver() {
 
   const navigate = useNavigate();
 
-  const NaverloginCallback = useCallback(async () => {
+  const NaverloginCallback = async () => {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0];
     try {
       const user = await naverlogin(token);
+      console.log('네이버 로그인' , user)
       if(user?.role === 'guest' && user?.status === 200){
         navigate(`/dashboard/loginafter`)
       } else {
@@ -24,11 +25,11 @@ export default function LoginNaver() {
     } catch (error) {
       console.error(error);
     }
-  }, [location.hash, naverlogin, navigate]);
+  }
 
   useEffect(() => {
   NaverloginCallback();
-  }, [NaverloginCallback]);
+  }, []);
 
   return (
     <>
