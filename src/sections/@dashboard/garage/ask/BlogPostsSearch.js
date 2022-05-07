@@ -149,7 +149,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
       renderInput={(params) => (
         <InputStyle
           {...params}
-          stretchStart={isDeskTop ? 400 : 250}
+          stretchStart={isDeskTop ? 400 : 320}
           placeholder="검색하기"
           onKeyUp={handleKeyUp}
           InputProps={{

@@ -83,6 +83,7 @@ AuthProvider.propTypes = {
 };
 
 function AuthProvider({ children }) {
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -158,11 +159,12 @@ function AuthProvider({ children }) {
         user,
       },
     });
+    return user;
   };
 
   const naverlogin = async (access) => {
     const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
-    console.log(response);
+    console.log('naver',response);
     const user = response.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
@@ -172,6 +174,7 @@ function AuthProvider({ children }) {
         user,
       },
     });
+    return user;
   };
 
   const register = async (email, password, name, nickname, birthday, phoneNumber, address) => {

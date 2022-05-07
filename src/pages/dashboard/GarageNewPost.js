@@ -7,7 +7,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogNewDingstaForm, BlogNewGarageForm, BlogNewNoticeForm, BlogNewPostForm, BlogNewReportForm } from '../../sections/@dashboard/blog';
+import { BlogNewAskForm,BlogNewCardForm, BlogNewPostForm } from '../../sections/@dashboard/garage/newpost';
 
 // ----------------------------------------------------------------------
 
@@ -15,29 +15,25 @@ export default function BlogNewPost() {
   const { themeStretch } = useSettings();
   const { pathname } = useLocation();
 
-  const isnotice = pathname.includes('notice');
-  const ispost = pathname.includes('post');
-  const isdingsta = pathname.includes('dingsta');
-  const isreport = pathname.includes('report');
-  const isgarage = pathname.includes('garage');
+  const isAsk = pathname.includes('ask');
+  const isPost = pathname.includes('post');
+  const isCard = pathname.includes('card');
 
 
   return (
-    <Page title={(isdingsta ?'딩스타그램': '')}>
-      <Container maxWidth={themeStretch ? false : 'md'}>
+    <Page title={(isAsk ?'정비질문': '정비소')}>
+      <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
-          heading={(isdingsta ?'딩스타그램': '')}
+          heading={(isAsk ?'정비질문': '정비소')}
           links={[
             { name: '' },
           ]}
           sx={{mt:2}}
         />
 
-        {isnotice && <BlogNewNoticeForm />}
-        {ispost && <BlogNewPostForm />}
-        {isdingsta && <BlogNewDingstaForm />}
-        {isreport && <BlogNewReportForm />}
-        {isgarage && <BlogNewGarageForm />}
+        {isAsk && <BlogNewAskForm />}
+        {isPost && <BlogNewPostForm />}
+        {isCard && <BlogNewCardForm />}
       </Container>
     </Page>
   );

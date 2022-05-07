@@ -84,9 +84,12 @@ export default function LoginForm() {
   const KakaologinCallbackAccess = useCallback(
     async (access) => {
       try {
-        const response = await kakaologin(access);
-        navigate('/auth/loginafter');
-        console.log(response);
+        const user = await kakaologin(access);
+        if(!user?.nickname){
+          navigate(`/dashboard/loginafter`)
+        } else {
+          navigate(`/dashboard/app`)
+        }
       } catch (error) {
         console.error(error);
       }
@@ -146,8 +149,12 @@ export default function LoginForm() {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0];
     try {
-      await naverlogin(token);
-      navigate('/auth/loginafter');
+      const user = await naverlogin(token);
+      if(!user?.nickname){
+        navigate(`/dashboard/loginafter`)
+      } else {
+        navigate(`/dashboard/app`)
+      }
     } catch (error) {
       console.error(error);
     }

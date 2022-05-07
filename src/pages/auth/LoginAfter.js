@@ -15,6 +15,7 @@ import { FormProvider, RHFTextField } from '../../components/hook-form';
 import axios from '../../utils/axiosuser';
 import { Phonecheck } from '../../sections/auth/register';
 import Page from '../../components/Page';
+import { setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -25,20 +26,17 @@ export default function Login() {
   const [loginValue, setLoginValue] = useState(0)
 
   useEffect(() => {
-    if(user?.roll === 'guest'){
+    if(!user?.nickname){
       setGuest(true)
     } else{
-      setGuest(true)
-      // navigate('/dashboard/app')
-      // 본인인증 바로 띄워주고 콜백시 values 처리
-      // 본인인증 바로 띄워주고 콜백시 values 처리
+      navigate('/dashboard/app')
     }
   }, [user ,navigate])
 
   const { enqueueSnackbar } = useSnackbar();
 
   const UpdateUserSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
+    nickname: Yup.string().required('닉네임이 필요합니다!'),
   });
 
   const defaultValues = {
@@ -61,15 +59,11 @@ export default function Login() {
 
 
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.put('/users', data
-       ,{
-        headers: {
-          Authorization: accessToken,
-        },
-      });
-      enqueueSnackbar('회원 수정 완료!');
+      const response = await axios.put('/users/oath', data);
+      const accessToken = response.headers.authorization;
+      enqueueSnackbar('회원 가입 완료!');
+      setSession(accessToken);
     } catch (error) {
       console.error(error);
     }

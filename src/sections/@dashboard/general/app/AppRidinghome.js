@@ -14,7 +14,7 @@ AppRidingHome.propTypes = {
 export default function AppRidingHome({ tab, userPo, weather1, weather2 }) {
   return (
     <>
-      <Container>
+      <Container>   
         {weather1 && weather2 && <Appweather weather={weather1} weather2={weather2} />}
         {userPo && <GeneralMap tab={tab} userPo={userPo} />}
       </Container>

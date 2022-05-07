@@ -284,7 +284,6 @@ export default function GeneralMap({tab, userPo}) {
     fontWeight: 'bold',
   };
 
-  console.log(viaLike)
 
   return (
      <Page title="라이딩맵">

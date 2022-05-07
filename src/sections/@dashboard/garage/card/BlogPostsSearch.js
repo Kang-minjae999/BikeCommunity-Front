@@ -7,7 +7,6 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper, Stack, Button, Menu, MenuItem } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 
 // routes
@@ -61,36 +60,28 @@ export default function BlogPostsSearch({setparam , setapi}) {
 
   const open = Boolean(anchorEl);
 
-  const [value, setvalue] = useState('content')
+  const [value, setvalue] = useState('title')
 
   const handleClickButton = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    setvalue('content')
+    setvalue('title')
   };
   const handleClose2 = () => {
     setAnchorEl(null);
-    setvalue('tag')
+    setvalue('address')
   };
-  const handleClose3 = () => {
-    setAnchorEl(null);
-    setvalue('nickname')
-  };
-  const [label, setlabel] = useState('내용')
+  const [label, setlabel] = useState('이름')
 
   useEffect(() => {
     if(value === 'content'){
-      setlabel('내용')
+      setlabel('이름')
     }
     if(value === 'tag'){
-      setlabel('태그')
-    }
-    if(value === 'nickname'){
-      setlabel('닉네임')
-    }
-    
+      setlabel('지역')
+    } 
   }, [value])
   
 
@@ -101,7 +92,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
     justifyContent="center"
     alignItems="center"
     spacing={1}
-    sx={{mb:1}}
+    sx={{mb:1, width:'100%'}}
     >
       <Button
         id="basic-button"
@@ -132,9 +123,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
         }}
         color='action'
       >
-        <MenuItem onClick={handleClose}>내용</MenuItem>
-        <MenuItem onClick={handleClose2}>태그</MenuItem>
-        <MenuItem onClick={handleClose3}>닉네임</MenuItem>
+        <MenuItem onClick={handleClose}>이름</MenuItem>
+        <MenuItem onClick={handleClose2}>지역</MenuItem>
       </Menu>
     <Autocomplete
       size="small"
@@ -149,7 +139,7 @@ export default function BlogPostsSearch({setparam , setapi}) {
       renderInput={(params) => (
         <InputStyle
           {...params}
-          stretchStart={isDeskTop ? 400 : 250}
+          stretchStart={isDeskTop ? 400 : 380}
           placeholder="검색하기"
           onKeyUp={handleKeyUp}
           InputProps={{
@@ -189,23 +179,6 @@ export default function BlogPostsSearch({setparam , setapi}) {
         );
       }}
     />
-    <Link    
-    variant="outlined"
-    component={RouterLink}
-    to={PATH_DASHBOARD.blog.newDingsta}
-    >
-    <Stack
-    direction="column"
-    justifyContent="center"
-    alignItems="center"
-    spacing={0}
-    >
-    <AddIcon sx={{ml:1, mr:1}} color='action'/>
-    <Typography variant="body2" sx={{ color: 'text.primary' }}>
-    추가
-    </Typography> 
-    </Stack>
-    </Link>
     </Stack>
   );
 }

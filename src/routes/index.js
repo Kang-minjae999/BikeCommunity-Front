@@ -160,6 +160,9 @@ export default function Router() {
             { path: 'cards', element: <GarageCards /> },
             { path: 'card', element: <GarageCard /> },
             { path: 'map', element: <GarageMap /> },
+            { path: 'new-post', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
+            { path: 'new-ask', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
+            { path: 'new-card', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
           ],
         },
         {
@@ -174,42 +177,10 @@ export default function Router() {
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
             { path: 'report/:id', element: <BlogReport /> },
-            {
-              path: 'new-post',
-              element: (
-                <AuthGuard>
-                  <BlogNewPost />
-                </AuthGuard>
-              ),
-            },
-            {
-              path: 'new-notice',
-              element: (
-                <AuthGuard>
-                  <BlogNewPost />
-                </AuthGuard>
-              ),
-            },
-            {
-              path: 'new-dingsta',
-              element: (
-                <AuthGuard>
-                  <BlogNewPost />
-                </AuthGuard>
-              ),
-            },
-            {
-              path: 'new-report',
-              element: (
-                <AuthGuard>
-                  <BlogNewPost />
-                </AuthGuard>
-              ),
-            },
-            {
-              path: 'new-garage',
-              element: <BlogNewPost />,
-            },
+            { path: 'new-post', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
+            { path: 'new-notice', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
+            { path: 'new-dingsta', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
+            { path: 'new-report', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
           ],
         },
         {
@@ -339,6 +310,7 @@ const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')
 const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 // 개러지
+const GarageNewPost = Loadable(lazy(() => import('../pages/dashboard/GarageNewPost')));
 const GaragePosts = Loadable(lazy(() => import('../pages/dashboard/GaragePosts')));
 const GaragePost = Loadable(lazy(() => import('../pages/dashboard/GaragePost')));
 const GarageAsks = Loadable(lazy(() => import('../pages/dashboard/GarageAsks')));

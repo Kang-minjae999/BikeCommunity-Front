@@ -82,9 +82,9 @@ export const {
 // ----------------------------------------------------------------------
 
 export function getPosition() {
-  return () => {
+  return async () => {
     dispatch(slice.actions.startLoading());
-    navigator.geolocation.getCurrentPosition(
+    await navigator.geolocation.getCurrentPosition(
     (position) => {
       const userPo = {lat:position.coords.latitude, lng: position.coords.longitude}
       dispatch(slice.actions.getPositionSuccess(userPo));

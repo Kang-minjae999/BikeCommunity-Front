@@ -14,6 +14,7 @@ import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/garage/ask';
+import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -40,6 +41,8 @@ const applySort = (posts, sortBy) => {
 
 export default function GarageAsks() {
   const { themeStretch } = useSettings();
+
+  const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
 
@@ -110,17 +113,17 @@ export default function GarageAsks() {
 
   return (
     <Page title="GARAGE">
-      <Container maxWidth={themeStretch ? false : 'xl'}>
+      <Container maxWidth='xl' sx={{mt:2}}>
+        {isDesktop && 
         <HeaderBreadcrumbs
           heading="정비 질문"
           links={[{ name: '' }]}
           action={
             <>
-              <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
             </>
           }
           sx={{ mt: 2 }}
-        />
+        />}
         <BlogPostsSearch setparam={setparam} setapi={setapi} />
 
         <Grid container spacing={3}>

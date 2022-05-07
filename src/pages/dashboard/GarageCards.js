@@ -13,16 +13,8 @@ import Page from '../../components/Page';
 import { SkeletonPostItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/garage/card';
-
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: '최신' },
-  { value: 'popular', label: '인기' },
-  { value: 'oldest', label: '과거' },
-];
-
+import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/garage/card';
+import useResponsive from '../../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
 const applySort = (posts, sortBy) => {
@@ -40,6 +32,8 @@ const applySort = (posts, sortBy) => {
 
 export default function GarageCards() {
   const { themeStretch } = useSettings();
+
+  const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
 
@@ -110,19 +104,18 @@ export default function GarageCards() {
 
   return (
     <Page title="GARAGE">
-      <Container maxWidth={themeStretch ? false : 'xl'}>
+      <Container maxWidth='xl' sx={{mt:2}}>
+      {isDesktop && 
         <HeaderBreadcrumbs
-          heading="정비소"
+          heading="정비소 찾기"
           links={[{ name: '' }]}
           action={
             <>
-              <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
             </>
           }
           sx={{ mt: 2 }}
-        />
+        />}
         <BlogPostsSearch setparam={setparam} setapi={setapi} />
-
         <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
             post ? (

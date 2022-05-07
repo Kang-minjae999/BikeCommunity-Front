@@ -16,9 +16,19 @@ import { getPosition } from '../../../../redux/slices/map';
 
 export default function AppRidingHeader() {
   const dispatch = useDispatch();
-  const { userPosition, weatherOne, weatherTwo } = useSelector((state) => state.map);
+  const { weatherOne, weatherTwo } = useSelector((state) => state.map);
   const isDesktop = useResponsive('up', 'lg');
   const [value, setValue] = useState('home');
+  const [userPo, setuserPo] = useState()
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+      const userPo = {lat:position.coords.latitude, lng: position.coords.longitude}
+      setuserPo(userPo)
+    })
+  }, [])
+  
 
   useEffect(() => {
     dispatch(getPosition());
@@ -34,7 +44,7 @@ export default function AppRidingHeader() {
       component: (
         <AppRidingHome
           tab={value}
-          userPo={userPosition}
+          userPo={userPo}
           weather1={weatherOne}
           weather2={weatherTwo}
         />
@@ -58,7 +68,7 @@ export default function AppRidingHeader() {
         <Container>
           <GeneralMap
             tab={value}
-            userPo={userPosition}
+            userPo={userPo}
             weather1={weatherOne}
             weather2={weatherTwo}
           />
