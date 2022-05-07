@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // form
 // hooks
@@ -12,11 +12,13 @@ export default function LoginForm() {
 
   const navigate = useNavigate();
 
+  const [user, setUser] = useState()
+
   const KakaologinCallbackAccess = useCallback(
     async (access) => {
       try {
         const user = await kakaologin(access);
-        console.log('카카오로긴', user)
+        setUser(user)
         if(user?.role === 'ROLE_GUEST' && user?.status === 201){
           navigate(`/auth/loginafter`)
         } else {
@@ -56,6 +58,14 @@ export default function LoginForm() {
     KakaologinCallback();
   }, []);
 
+
+  useEffect(() => {
+    if(user?.role === 'ROLE_GUEST' && user?.status === 201){
+      navigate(`/auth/loginafter`)
+    } else {
+      navigate(`/dashboard/app`)
+    }
+    }, [user, navigate]);
 
   return (
     <>
