@@ -188,7 +188,7 @@ function AuthProvider({ children }) {
   const afterlogin = async ({data, users}) => {
     const response = await axios.put('/users/oauth', 
     {
-      ...data, ...user.socialPk, ...user.socialType
+      ...data, ...users.socialPk, ...users.socialType
     });
     const user = {...response.data, ...response.status}
     const accessToken = response.headers.authorization;
