@@ -15,18 +15,17 @@ import { FormProvider, RHFTextField } from '../../components/hook-form';
 import axios from '../../utils/axiosuser';
 import { Phonecheck } from '../../sections/auth/register';
 import Page from '../../components/Page';
-import { setSession } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
 export default function Login() {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, afterlogin } = useAuth()
   const [guest, setGuest] = useState(false)
   const [loginValue, setLoginValue] = useState(0)
 
   useEffect(() => {
-    if(!user?.nickname){
+    if(user?.role === 'ROLE_GUEST' && user?.status === 200){
       setGuest(true)
     } else{
       navigate('/dashboard/app')
@@ -60,10 +59,9 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.put('/users/oath', data);
-      const accessToken = response.headers.authorization;
+      await afterlogin(data, user)
       enqueueSnackbar('회원 가입 완료!');
-      setSession(accessToken);
+      navigate('/dashboard/app')
     } catch (error) {
       console.error(error);
     }

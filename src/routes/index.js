@@ -41,7 +41,7 @@ export default function Router() {
           path: 'kakaologin',
           element: (
             <GuestGuard>
-              <Login />
+              <LoginKakaoPage />
             </GuestGuard>
           ),
         },
@@ -49,7 +49,7 @@ export default function Router() {
           path: 'naverlogin',
           element: (
             <GuestGuard>
-              <Login />
+              <LoginNaverPage />
             </GuestGuard>
           ),
         },
@@ -249,6 +249,8 @@ export default function Router() {
 
 // Authentication
 const Login = Loadable(lazy(() => import('../pages/auth/Login')));
+const LoginKakaoPage = Loadable(lazy(() => import('../pages/auth/LoginKakaoPage')));
+const LoginNaverPage = Loadable(lazy(() => import('../pages/auth/LoginNaverPage')));
 const LoginAfter = Loadable(lazy(() => import('../pages/auth/LoginAfter')));
 const Register = Loadable(lazy(() => import('../pages/auth/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));

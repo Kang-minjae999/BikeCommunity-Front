@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { useCallback, useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,16 +16,11 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import useResponsive from '../../../hooks/useResponsive';
-import { KAKAO_AUTH_API, KAKAO_REDIRECT, KAKAO_REST_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
+import { KAKAO_AUTH_API, NAVER_CLIENT_ID, NAVER_REDIRECT } from '../../../config';
 
 // ----------------------------------------------------------------------
 export default function LoginForm() {
-  const { login, naverlogin, kakaologin } = useAuth();
-
-  const location = useLocation();
-
-  const iskakao = location.pathname.includes('kakaologin');
-  const isnaver = location.pathname.includes('naverlogin');
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -81,50 +75,6 @@ export default function LoginForm() {
     window.open(KAKAO_AUTH_API, '_self');
   };
 
-  const KakaologinCallbackAccess = useCallback(
-    async (access) => {
-      try {
-        const user = await kakaologin(access);
-        if(!user?.nickname){
-          navigate(`/dashboard/loginafter`)
-        } else {
-          navigate(`/dashboard/app`)
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [kakaologin, navigate]
-  );
-
-  const KakaologinCallback = useCallback(async () => {
-    const params = new URL(document.location.toString()).searchParams;
-    const getcode = params.get('code');
-    const granttype = 'authorization_code';
-    try {
-      await axios
-        .post(
-          `https://kauth.kakao.com/oauth/token?grant_type=${granttype}&client_id=${KAKAO_REST_API}&redirect_uri=${KAKAO_REDIRECT}&code=${getcode}`,
-          {
-            headers: {
-              'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-            },
-          }
-        )
-        .then((res) => {
-          KakaologinCallbackAccess(res.data.access_token);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  }, [KakaologinCallbackAccess]);
-
-  useEffect(() => {
-    if (iskakao) {
-      KakaologinCallback();
-    }
-  }, [KakaologinCallback, iskakao]);
-
   const NaverLoginInit = useCallback(() => {
     const login = new window.naver.LoginWithNaverId({
       clientId: NAVER_CLIENT_ID,
@@ -145,26 +95,6 @@ export default function LoginForm() {
     NaverLoginInit();
   }, [NaverLoginInit]);
 
-  const NaverloginCallback = useCallback(async () => {
-    if (!location.hash) return;
-    const token = location.hash.split('=')[1].split('&')[0];
-    try {
-      const user = await naverlogin(token);
-      if(!user?.nickname){
-        navigate(`/dashboard/loginafter`)
-      } else {
-        navigate(`/dashboard/app`)
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [location.hash, naverlogin, navigate]);
-
-  useEffect(() => {
-    if (isnaver) {
-      NaverloginCallback();
-    }
-  }, [NaverloginCallback, isnaver]);
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>

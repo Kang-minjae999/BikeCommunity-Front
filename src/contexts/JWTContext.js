@@ -49,6 +49,15 @@ const handlers = {
       user,
     };
   },
+  AFTERLOGIN: (state, action) => {
+    const { user } = action.payload;
+
+    return {
+      ...state,
+      isAuthenticated: true,
+      user,
+    };
+  },
   LOGOUT: (state) => ({
     ...state,
     isAuthenticated: false,
@@ -72,6 +81,7 @@ const AuthContext = createContext({
   login: () => Promise.resolve(),
   naverlogin: () => Promise.resolve(),
   kakaologin: () => Promise.resolve(),
+  afterlogin: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   register: () => Promise.resolve(),
 });
@@ -149,8 +159,7 @@ function AuthProvider({ children }) {
 
   const kakaologin = async (access) => {
     const response = await axios.get('/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
-    console.log(response);
-    const user = response.data;
+    const user = {...response.data, ...response.status}
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
@@ -164,12 +173,28 @@ function AuthProvider({ children }) {
 
   const naverlogin = async (access) => {
     const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
-    console.log('naver',response);
-    const user = response.data;
+    const user = {...response.data, ...response.status}
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
       type: 'NAVERLOGIN',
+      payload: {
+        user,
+      },
+    });
+    return user;
+  };
+
+  const afterlogin = async ({data, users}) => {
+    const response = await axios.put('/users/oauth', 
+    {
+      ...data, ...user.socialPk, ...user.socialType
+    });
+    const user = {...response.data, ...response.status}
+    const accessToken = response.headers.authorization;
+    setSession(accessToken);
+    dispatch({
+      type: 'AFTERLOGIN',
       payload: {
         user,
       },
@@ -215,6 +240,7 @@ function AuthProvider({ children }) {
         login,
         kakaologin,
         naverlogin,
+        afterlogin,
         logout,
         register,
       }}
