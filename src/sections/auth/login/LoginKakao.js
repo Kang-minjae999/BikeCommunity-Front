@@ -12,24 +12,17 @@ export default function LoginForm() {
 
   const navigate = useNavigate();
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
 
-  const KakaologinCallbackAccess = useCallback(
+  const KakaologinCallbackAccess =
     async (access) => {
       try {
         const user = await kakaologin(access);
         setUser(user)
-        if(user?.role === 'ROLE_GUEST' && user?.status === 201){
-          navigate(`/auth/loginafter`)
-        } else {
-          navigate(`/dashboard/app`)
-        }
       } catch (error) {
         console.error(error);
       }
-    },
-    [kakaologin, navigate]
-  );
+    }
 
   const params = new URL(document.location.toString()).searchParams;
   const getcode = params.get('code');
@@ -60,10 +53,12 @@ export default function LoginForm() {
 
 
   useEffect(() => {
-    if(user?.role === 'ROLE_GUEST' && user?.status === 201){
-      navigate(`/auth/loginafter`)
-    } else {
-      navigate(`/dashboard/app`)
+    if(user){
+      if(user?.role === 'ROLE_GUEST' && user?.status === 201){
+        navigate(`/auth/loginafter`)
+      } else {
+        navigate(`/dashboard/app`)
+      }
     }
     }, [user, navigate]);
 
