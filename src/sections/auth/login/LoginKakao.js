@@ -16,6 +16,7 @@ export default function LoginForm() {
     async (access) => {
       try {
         const user = await kakaologin(access);
+        console.log('카카오로긴', user)
         if(user?.role === 'ROLE_GUEST' && user?.status === 201){
           navigate(`/auth/loginafter`)
         } else {
