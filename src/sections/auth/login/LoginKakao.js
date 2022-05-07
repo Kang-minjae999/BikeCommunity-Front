@@ -17,7 +17,7 @@ export default function LoginForm() {
       try {
         const user = await kakaologin(access);
         if(user?.role === 'ROLE_GUEST' && user?.status === 201){
-          navigate(`/dashboard/loginafter`)
+          navigate(`/auth/loginafter`)
         } else {
           navigate(`/dashboard/app`)
         }
