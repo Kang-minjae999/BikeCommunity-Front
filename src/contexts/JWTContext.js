@@ -204,7 +204,7 @@ function AuthProvider({ children }) {
       }
     }
     );
-    const user = response.data
+    const user = response.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
@@ -213,7 +213,6 @@ function AuthProvider({ children }) {
         user,
       },
     });
-    return user;
   };
 
   const register = async (email, password, name, nickname, birthday, phoneNumber, address) => {
