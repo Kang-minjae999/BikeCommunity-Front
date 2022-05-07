@@ -56,7 +56,6 @@ export default function LoginAfter() {
 
   const onSubmit = async (data) => {
     const users = {...data, socialPk:user.socialPk, socialType:user.socialType}
-    console.log('온서밋',users)
     try {
       await afterlogin(users)
       enqueueSnackbar('회원 가입 완료!');

@@ -35,7 +35,7 @@ export default function LoginNaver() {
       } else {
         navigate(`/dashboard/app`)
       }
-    }
+    }  return () => setUser();
     }, [user, navigate]);
 
   return (

@@ -59,7 +59,7 @@ export default function LoginForm() {
       } else {
         navigate(`/dashboard/app`)
       }
-    }
+    }  return () => setUser();
     }, [user, navigate]);
 
   return (
