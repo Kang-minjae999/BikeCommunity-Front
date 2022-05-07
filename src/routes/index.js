@@ -40,17 +40,13 @@ export default function Router() {
         {
           path: 'kakaologin',
           element: (
-            <GuestGuard>
               <LoginKakaoPage />
-            </GuestGuard>
           ),
         },
         {
           path: 'naverlogin',
           element: (
-            <GuestGuard>
               <LoginNaverPage />
-            </GuestGuard>
           ),
         },
         {
@@ -64,9 +60,7 @@ export default function Router() {
         {
           path: 'loginafter',
           element: (
-            <GuestGuard>
               <LoginAfter />
-            </GuestGuard>
           ),
         },
         { path: 'login-unprotected', element: <Login /> },
