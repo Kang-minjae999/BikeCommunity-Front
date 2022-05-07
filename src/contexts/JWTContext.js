@@ -186,6 +186,7 @@ function AuthProvider({ children }) {
   };
 
   const afterlogin = async (users) => {
+    const token = localStorage.getItem('accessToken')
     const response = await axios.put('/users/oauth', 
     {
       nickname:users.nickname,
@@ -195,7 +196,11 @@ function AuthProvider({ children }) {
       sex:users.sex,
       socialPK:users.socialPK,
       socialType:users.socialType,
-    });
+    },
+    {
+      headers:token
+    }
+    );
     const user = response.data
     const accessToken = response.headers.authorization;
     setSession(accessToken);
