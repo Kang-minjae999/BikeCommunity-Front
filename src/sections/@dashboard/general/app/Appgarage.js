@@ -11,6 +11,7 @@ import GaragePosts from '../../../../pages/dashboard/GaragePosts';
 import GarageAsks from '../../../../pages/dashboard/GarageAsks';
 import GarageMap from '../../../../pages/dashboard/GarageMap';
 import GarageCards from '../../../../pages/dashboard/GarageCards';
+import GarageCardsCustom from '../../../../pages/dashboard/GarageCardsCustom';
 
 
 export default function Appgarage() {
@@ -39,6 +40,10 @@ export default function Appgarage() {
       component: <GarageCards />,
     },
     {
+      value: 'custom',
+      component: <GarageCardsCustom />,
+    },
+    {
       value: 'map',
       component: <GarageMap />,
     },
@@ -49,10 +54,6 @@ export default function Appgarage() {
     {
       value: 'write',
       component: <GaragePosts />,
-    },
-    {
-      value: 'review',
-      component: '',
     },
   ];
 
@@ -98,14 +99,18 @@ export default function Appgarage() {
     <>
     {isDesktop && 
     <>
-    <Divider />
+    <Divider sx={{ width: '90%', mt:2  }}/>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
-      <BottomNavigationAction
+    <BottomNavigationAction
         label={<Typography variant='body2' sx={{ ...(value === 'garage' && valueStyle)}}>정비소</Typography>}
         value="garage"
       />
+     <BottomNavigationAction
+        label={<Typography variant='body2' sx={{ ...(value === 'custom' && valueStyle)}}>커스텀</Typography>}
+        value="custom"
+      />
       <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'map' && valueStyle)}}>위치찾기</Typography>}
+        label={<Typography variant='body2' sx={{ ...(value === 'map' && valueStyle)}}>위치</Typography>}
         value="map"
       />
       <BottomNavigationAction
@@ -125,11 +130,16 @@ export default function Appgarage() {
     {!isDesktop && 
     <>
     <AppFeatured />
-    <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
+    <BottomNavigation showLabels sx={{ width: '100%'}} value={value} onChange={handleChange} >
       <BottomNavigationAction
         sx={{ ...(value === 'garage' ? valueStyleLeft : valueStyleNone)}}
         label={<Typography variant='subtitle3' color={value === 'garage' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비소</Typography>}
         value="garage"
+      />
+      <BottomNavigationAction
+        sx={{ ...(value === 'custom' ? valueStyleMiddle : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'custom' ? 'text.primary' : 'inherit'} fontWeight='bold'>커스텀</Typography>}
+        value="custom"
       />
       <BottomNavigationAction
         sx={{ ...(value === 'map'  ? valueStyleMiddle : valueStyleNone)}}

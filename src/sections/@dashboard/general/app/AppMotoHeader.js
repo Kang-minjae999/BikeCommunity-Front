@@ -12,7 +12,7 @@ import { Appgarage } from '.';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState('bikeprofile');
+  const [value, setValue] = useState('maintenance');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -21,23 +21,23 @@ export default function AppRidingHeader() {
 
   const ACCOUNT_TABS = [
     {
-      value: 'bikeprofile',
+      value: 'maintenance',
       component: <Appgarage />,
     },
     {
-      value: 'emergency',
+      value: 'rent',
       component: <BlogDingstas />,
     },
     {
-      value: 'lorry',
+      value: 'edu',
       component: <BlogPosts />,
     },
     {
-      value: 'crash',
+      value: 'clean',
       component: <AppRidingClub />,
     },
     {
-      value: 'insurance',
+      value: 'test',
       component: <BlogPosts />,
     },
   ];
@@ -56,43 +56,43 @@ export default function AppRidingHeader() {
         <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange} >
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'bikeprofile' && valueStyle)}}>
-                바프
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'maintenance' && valueStyle)}}>
+                정비
               </Typography>
             }
-            value="bikeprofile"
+            value="maintenance"
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'emergency' && valueStyle)}}>
-                긴급출동
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'rent' && valueStyle)}}>
+                렌트
               </Typography>
             }
-            value="emergency"
+            value="rent"
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'lorry' && valueStyle)}}>
-                용달
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'edu' && valueStyle)}}>
+                교육
               </Typography>
             }
-            value="lorry"
+            value="edu"
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'crash' && valueStyle)}}>
-                사고처리
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'clean' && valueStyle)}}>
+                세차
               </Typography>
             }
-            value="crash"
+            value="clean"
           />
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'insurance' && valueStyle)}}>
-                보험
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'test' && valueStyle)}}>
+                환경검사
               </Typography>
             }
-            value="insurance"
+            value="test"
           />
         </BottomNavigation>
         <Divider />
@@ -102,49 +102,49 @@ export default function AppRidingHeader() {
         <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 50 }} elevation={1}>
           <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
             <BottomNavigationAction
-              sx={{ ...(value === 'bikeprofile' && valueStyle) }}
+              sx={{ ...(value === 'maintenance' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'bikeprofile' ? "text.primary" : 'disabled'} fontWeight="bold">
-                  바프
+                <Typography variant="subtitle3" color={value === 'maintenance' ? "text.primary" : 'disabled'} fontWeight="bold">
+                  정비
                 </Typography>
               }
-              value="bikeprofile"
+              value="maintenance"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'emergency' && valueStyle) }}
+              sx={{ ...(value === 'rent' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'emergency' ? "text.primary" : 'disabled'} fontWeight="bold">
-                  긴급출동
+                <Typography variant="subtitle3" color={value === 'rent' ? "text.primary" : 'disabled'} fontWeight="bold">
+                  렌트
                 </Typography>
               }
-              value="emergency"
+              value="rent"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'lorry' && valueStyle) }}
+              sx={{ ...(value === 'edu' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'lorry' ? "text.primary" : 'disabled'} fontWeight="bold">
-                  용달
+                <Typography variant="subtitle3" color={value === 'edu' ? "text.primary" : 'disabled'} fontWeight="bold">
+                  교육
                 </Typography>
               }
-              value="lorry"
+              value="edu"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'crash' && valueStyle) }}
+              sx={{ ...(value === 'clean' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'crash' ? "text.primary" : 'disabled'} fontWeight="bold">
-                  사고처리
+                <Typography variant="subtitle3" color={value === 'clean' ? "text.primary" : 'disabled'} fontWeight="bold">
+                  세차
                 </Typography>
               }
-              value="crash"
+              value="clean"
             />
             <BottomNavigationAction
-              sx={{ ...(value === 'insurance' && valueStyle) }}
+              sx={{ ...(value === 'test' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'insurance' ? "text.primary" : 'disabled'}  fontWeight="bold">
-                  보험
+                <Typography variant="subtitle3" color={value === 'test' ? "text.primary" : 'disabled'}  fontWeight="bold">
+                  환경검사
                 </Typography>
               }
-              value="insurance"
+              value="test"
             />
           </BottomNavigation>
         </Paper>

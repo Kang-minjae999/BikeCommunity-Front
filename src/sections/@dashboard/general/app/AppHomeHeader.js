@@ -150,7 +150,7 @@ export default function AppHomeHeader() {
       />
       <BottomNavigationAction
         sx={{...(value === 'brand') && valueStyle}}
-        label={<Typography  variant='subtitle3'  color={value === 'brand' ? 'text.primary' : 'disabled'}>BRAND</Typography>}
+        label={<Typography  variant='subtitle3' fontStyle='italic' color={value === 'brand' ? 'text.primary' : 'disabled'}>BRAND</Typography>}
         value="brand"
       />
       <BottomNavigationAction
@@ -160,12 +160,12 @@ export default function AppHomeHeader() {
       />
       <BottomNavigationAction
         sx={{...(value === 'post') && valueStyle}}
-        label={<Typography  variant='subtitle3'  color={value === 'post' ? 'text.primary' : 'disabled'}>매거진</Typography>}
+        label={<Typography  variant='subtitle3'  color={value === 'post' ? 'text.primary' : 'disabled'}>카테고리</Typography>}
         value="post"
       />
       <BottomNavigationAction 
         sx={{...(value === 'sale') && valueStyle}}
-        label={<Typography  variant='subtitle3' color={value === 'sale' ? 'text.primary' : 'disabled'}>세일</Typography>}
+        label={<Typography  variant='subtitle3' color={value === 'sale' ? 'text.primary' : 'disabled'}>SALE</Typography>}
         value="sale" 
         />
     </BottomNavigation>

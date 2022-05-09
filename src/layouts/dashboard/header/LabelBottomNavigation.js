@@ -16,7 +16,7 @@ export default function LabelBottomNavigation() {
   const isShop = pathname.includes('shop')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
-  const isMypage = pathname.includes('mypage')
+  const isMoto = pathname.includes('motocycle')
 
 
   return (
@@ -41,16 +41,16 @@ export default function LabelBottomNavigation() {
         onClick={() => navigate(`/dashboard/riding`)}
       />
       <BottomNavigationAction
-        label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}
-        value="rider"
-        icon={<Iconify icon='ant-design:profile-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/rider`)}
+        label={<Typography variant='body3' color={isMoto ? 'text.primary' : 'disabled'} >바이크</Typography>}
+        value="motocycle"
+        icon={<Iconify icon='ant-design:profile-outlined' sx={isMoto ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
+        onClick={() => navigate(`/dashboard/motocycle`)}
       />
       <BottomNavigationAction 
-        label={<Typography variant='body3' color={isMypage ? 'text.primary' : 'disabled'} >마이페이지</Typography>}
-        value="mypage" 
-        icon={<Iconify icon='ant-design:user-outlined' sx={isMypage ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
-        onClick={() => navigate(`/dashboard/mypage`)}/>
+        label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}
+        value="rider" 
+        icon={<Iconify icon='ant-design:user-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
+        onClick={() => navigate(`/dashboard/rider`)}/>
     </BottomNavigation>
     </>
   );

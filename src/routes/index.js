@@ -87,6 +87,7 @@ export default function Router() {
         { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, // ok
         { path: 'riding', element: <GeneralRiding /> }, // ok
         { path: 'rider', element: <GeneralRider /> }, // ok
+        { path: 'motocycle', element: <GeneralMotocycle /> }, // ok
         { path: 'clubs', element: <Generalclub /> }, // ok
         { path: 'garages', element: <Generalgarage /> }, // ok
         { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, // ok
@@ -256,6 +257,7 @@ const GeneralRider = Loadable(lazy(() => import('../pages/dashboard/GeneralRider
 const GeneralRiding = Loadable(lazy(() => import('../pages/dashboard/GeneralRiding')));
 const Generalclub = Loadable(lazy(() => import('../pages/dashboard/GeneralClub')));
 const Generalgarage = Loadable(lazy(() => import('../pages/dashboard/GeneralGarage')));
+const GeneralMotocycle = Loadable(lazy(() => import('../pages/dashboard/GeneralMotocycle')));
 const Generalshop = Loadable(lazy(() => import('../pages/dashboard/GeneralShop')));
 const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMarket')));
 const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));

@@ -67,7 +67,7 @@ export default function AppUserHeader() {
             sx={{ ...(value === 'all' && valueStyle) }}
             label={
               <Typography variant="subtitle3" color={value === 'all' ? 'text.primary' : 'disabled'}>
-                모아보기
+                신품
               </Typography>
             }
             value="all"
@@ -76,7 +76,7 @@ export default function AppUserHeader() {
             sx={{ ...(value === 'market' && valueStyle) }}
             label={
               <Typography variant="subtitle3" color={value === 'market' ? 'text.primary' : 'disabled'}>
-                신품
+                브랜드
               </Typography>
             }
             value="market"
@@ -85,7 +85,7 @@ export default function AppUserHeader() {
             sx={{ ...(value === 'brand' && valueStyle) }}
             label={
               <Typography variant="subtitle3" color={value === 'brand' ? 'text.primary' : 'disabled'}>
-                브랜드
+                신차
               </Typography>
             }
             value="brand"
@@ -94,7 +94,7 @@ export default function AppUserHeader() {
             sx={{ ...(value === 'newmoto' && valueStyle) }}
             label={
               <Typography variant="subtitle3" color={value === 'newmoto' ? 'text.primary' : 'disabled'}>
-                신차
+                렌트리스
               </Typography>
             }
             value="newmoto"

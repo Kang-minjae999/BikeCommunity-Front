@@ -1,33 +1,30 @@
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useSnackbar } from 'notistack';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Grid, Card, Typography, Button, Stack, Container } from '@mui/material';
+import { Grid, Card, Typography, Stack, Container } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // hooks
 import useAuth from '../../hooks/useAuth';
 // components
 import { FormProvider, RHFTextField } from '../../components/hook-form';
-import axios from '../../utils/axiosuser';
 import { Phonecheck } from '../../sections/auth/register';
-import Page from '../../components/Page';
 
 // ----------------------------------------------------------------------
 
 export default function LoginAfter() {
   const navigate = useNavigate()
   const { user, afterlogin } = useAuth()
-  const [loginValue, setLoginValue] = useState(0)
 
   useEffect(() => {
     if(!user?.role === 'ROLE_GUEST'){
       navigate('/dashboard/app')
     } 
-  }, [user ,navigate])
+  }, [])
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -49,17 +46,21 @@ export default function LoginAfter() {
   });
 
   const {
+    watch,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
+  const values = watch()
 
-  const onSubmit = async (data) => {
-    const users = {...data, socialPk:user.socialPk, socialType:user.socialType}
+  const onSubmit = async () => {
+    const users = 
+    {
+      ...values, socialPk:user.socialPk, socialType:user.socialType
+    }
     try {
       await afterlogin(users)
       enqueueSnackbar('회원 가입 완료!');
-      navigate('/dashboard/app')
     } catch (error) {
       console.error(error);
     }
@@ -101,55 +102,36 @@ export default function LoginAfter() {
   }));
   
   return (
-    <Page title="Login">
     <RootStyle>
-          <HeaderStyle>
-            <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
-                <Typography color="text.primary" variant="h4" sx={{ mr: 2 }}>
-                  RIDERTOWN
-                </Typography>
-            </Stack>
-          </HeaderStyle>
-          <Container maxWidth="sm" disableGutters>
-            <ContentStyle>
-            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Card sx={{ p: 3 }}>
-            <Box
-              sx={{
-                display: 'grid',
-                rowGap: 3,
-                columnGap: 2,
-                gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(1, 1fr)' },
-              }}
-            >
-              {/* <Phonecheck /> */}
-              {loginValue === 0 && 
-              <>아래 텍스트필드는 본인인증시 삭제
-              <RHFTextField name="name" label="이름" />
-              <RHFTextField name="phoneNumber" label="번호" />
-              <RHFTextField name="sex" label="성별" />
-              <RHFTextField name="birthday" label="생일" />
-              <Button onClick={() => setLoginValue(1)} variant='outlined' color='inherit'>넘어가기</Button>
-              </>}
-
-              {loginValue === 1 && 
-              <>
-              <RHFTextField name="nickname" label="닉네임" />
-              <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' loading={isSubmitting}>
-                저장하기
-              </LoadingButton>
-              </>}
-            </Box>
-          </Card>
-        </Grid>
-      </Grid>
-    </FormProvider>
-            </ContentStyle>
-          </Container>
+      <HeaderStyle>
+        <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
+            <Typography color="text.primary" variant="h4" sx={{ mr: 2 }}>
+              RIDERTOWN
+            </Typography>
+        </Stack>
+      </HeaderStyle>
+        <ContentStyle>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Card sx={{ p: 3 }}>
+                  <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                    <Stack direction="column" justifyContent="center" alignItems="center" spacing={3}>
+                      {/* <Phonecheck /> */}
+                      아래 텍스트필드는 본인인증시 삭제
+                      <RHFTextField name="name" label="이름" />
+                      <RHFTextField name="phoneNumber" label="번호" />
+                      <RHFTextField name="sex" label="성별" />
+                      <RHFTextField name="birthday" label="생일" />
+                      <RHFTextField name="nickname" label="닉네임" />
+                      <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' loading={isSubmitting}>
+                        저장하기
+                      </LoadingButton>
+                    </Stack>
+                  </FormProvider>
+                  </Card>
+                </Grid>
+              </Grid>
+     </ContentStyle>
     </RootStyle>
-  </Page>
-
   );
 }

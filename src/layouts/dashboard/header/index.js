@@ -10,9 +10,9 @@ import useResponsive from '../../../hooks/useResponsive';
 // config
 import { HEADER, NAVBAR } from '../../../config';
 // components
-import AccountPopover from './AccountPopover';
 import Notification from './Notification';
 import Iconify from '../../../components/Iconify';
+import MyAvatar from '../../../components/MyAvatar';
 
 
 // ----------------------------------------------------------------------
@@ -48,12 +48,11 @@ const RootStyle = styled(AppBar, {
 // ----------------------------------------------------------------------
 
 DashboardHeader.propTypes = {
-  onOpenSidebar: PropTypes.func,
   isCollapse: PropTypes.bool,
   verticalLayout: PropTypes.bool,
 };
 
-export default function DashboardHeader({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
+export default function DashboardHeader({ isCollapse = false, verticalLayout = false }) {
   const {pathname} = useLocation()
   const navigate = useNavigate()
 
@@ -65,6 +64,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
   const isShop = pathname.includes('shop')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
+  const isMoto = pathname.includes('motocycle')
   const isMypage = pathname.includes('mypage')
   const isCheckout = pathname.includes('checkout')
   const isProfile = pathname.includes('profile')
@@ -102,8 +102,12 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
               </Typography>}
               
             {isRider && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                RIDER
-              </Typography>}
+              RIDER
+            </Typography>}
+
+            {isMoto && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+              RIDER
+            </Typography>}
             
             {isMypage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
               MYPAGE
@@ -122,7 +126,7 @@ export default function DashboardHeader({ onOpenSidebar, isCollapse = false, ver
         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 3 }}>
           <Notification />  
           <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} onClick={() => navigate('/dashboard/checkout')}/>
-          <AccountPopover />
+          <MyAvatar sx={{width:36, height:36}} onClick={() => navigate('/dashboard/mypage')}/>
         </Stack>
         </Toolbar>  
     </RootStyle>  

@@ -37,6 +37,9 @@ export { default as AppUserClub } from './AppUserClub';
 export { default as AppShopHeader } from './AppShopHeader';
 export { default as AppShopAllCate } from './AppShopAllCate';
 
+
+export { default as AppMotoHeader } from './AppMotoHeader';
+
 export { default as AppWelcomesecond } from './AppWelcomesecond';
 export { default as Appmobilesecond } from './Appmobilesecond';
 export { default as AppFeatured } from './AppFeatured';

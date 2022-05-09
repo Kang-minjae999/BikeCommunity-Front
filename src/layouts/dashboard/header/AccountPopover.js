@@ -144,9 +144,11 @@ const MENU_OPTIONS = [
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
               {option.label}
+            <Divider />
             </MenuItem>
           ))}
         </Stack>
+        <Divider />
         <MenuItem >
           <SettingMode />
         </MenuItem>
