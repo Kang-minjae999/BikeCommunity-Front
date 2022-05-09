@@ -57,7 +57,6 @@ export default function UserAccount() {
   ];
 
   return (
-    <Page title="설정">
       <Container maxWidth={themeStretch ? false : 'lx'} sx={{mt:2}}>
         {/* <HeaderBreadcrumbs
           heading="설정"
@@ -85,6 +84,5 @@ export default function UserAccount() {
           return isMatched && <div key={tab.value}>{tab.component}</div>;
         })}
       </Container>
-    </Page>
   );
 }

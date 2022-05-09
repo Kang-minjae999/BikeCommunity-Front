@@ -79,12 +79,12 @@ export default function AppUserHeader() {
     {!isDesktop &&
     <>
     <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
-    <BottomNavigationAction 
-        sx={{...(value === 'setting') && valueStyle}}
-        label={<Typography  variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>설정</Typography>}
-        value="setting" 
-        />
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
+    <BottomNavigationAction
+        sx={{...(value === 'setting') && valueStyle}}
+        label={<Typography variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>프로필</Typography>}
+        value="setting"
+      />
       <BottomNavigationAction
         sx={{...(value === 'profile') && valueStyle}}
         label={<Typography variant='subtitle3' color={value === 'profile' ? 'text.primary' : 'disabled'}>프로필</Typography>}
