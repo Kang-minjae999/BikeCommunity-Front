@@ -27,7 +27,7 @@ export default function LoginNaver() {
   useEffect(() => {
     NaverloginCallback();
     }, []);
-
+    
   useEffect(() => {
     if(user){
       if(user?.role === 'ROLE_GUEST' && user?.status === 201){

@@ -60,6 +60,7 @@ export default function LoginAfter() {
     try {
       await afterlogin(users)
       enqueueSnackbar('회원 가입 완료!');
+      navigate('/dashboard/app')
     } catch (error) {
       console.error(error);
     }

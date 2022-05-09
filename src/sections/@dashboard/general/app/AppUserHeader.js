@@ -82,7 +82,7 @@ export default function AppUserHeader() {
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
     <BottomNavigationAction
         sx={{...(value === 'setting') && valueStyle}}
-        label={<Typography variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>프로필</Typography>}
+        label={<Typography variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>설정</Typography>}
         value="setting"
       />
       <BottomNavigationAction

@@ -15,14 +15,7 @@ export default function GeneralUser() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
   const navigate = useNavigate('up', 'lg')
-  
-  useEffect(() => {
-    if(user?.role === 'garage'){
-      navigate('/dashboard/garage/setting')
-    }
-  }, [user, navigate])
-  
-
+ 
   return (
     <Page title="라이더타운">
       <Container disableGutters maxWidth={themeStretch ? false : 'xl'}>
