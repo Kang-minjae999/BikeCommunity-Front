@@ -113,10 +113,12 @@ export default function Router() {
         { path: 'market/:tab/:paging', element: <Generalmarket /> }, 
         { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, 
         { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, 
+
         { path: 'clubmy', element: <ClubMy /> }, 
         { path: 'menu', element: <GeneralUserMenu /> }, 
         { path: 'checkout', element: <AEcommerceCheckout /> }, 
         { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, 
+        
         {
           path: 'e-commerce',
           children: [
