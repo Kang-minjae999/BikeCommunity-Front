@@ -13,6 +13,7 @@ import { HEADER, NAVBAR } from '../../../config';
 import Notification from './Notification';
 import Iconify from '../../../components/Iconify';
 import MyAvatar from '../../../components/MyAvatar';
+import useAuth from '../../../hooks/useAuth';
 
 
 // ----------------------------------------------------------------------
@@ -53,6 +54,7 @@ DashboardHeader.propTypes = {
 };
 
 export default function DashboardHeader({ isCollapse = false, verticalLayout = false }) {
+  const { user } = useAuth()
   const {pathname} = useLocation()
   const navigate = useNavigate()
 
@@ -68,6 +70,17 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
   const isMypage = pathname.includes('mypage')
   const isCheckout = pathname.includes('checkout')
   const isProfile = pathname.includes('profile')
+
+  console.log(user)
+
+  const myPage = () => {
+    if(user){
+      navigate('/dashboard/mypage')
+    }
+    if(!user){
+      navigate('/auth/login')
+    }
+  }
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
@@ -126,7 +139,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 3 }}>
           <Notification />  
           <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} onClick={() => navigate('/dashboard/checkout')}/>
-          <MyAvatar sx={{width:36, height:36}} onClick={() => navigate('/dashboard/mypage')}/>
+          <MyAvatar sx={{width:36, height:36}} onClick={() => myPage()}/>
         </Stack>
         </Toolbar>  
     </RootStyle>  
