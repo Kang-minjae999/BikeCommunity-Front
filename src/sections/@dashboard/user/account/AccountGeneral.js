@@ -32,9 +32,12 @@ export default function AccountGeneral() {
     nickname: user?.nickname || '',
     avatar: user?.avatar || '',
     phoneNumber: user?.phoneNumber || '',
-    address:{address: user?.address.address || '',
-    detailAddress: user?.address.detailAddress || '',
-    zipcode: user?.address.zipcode || ''},
+    address:  
+    {
+      address: user?.address?.address || '',
+      detailAddress: user?.address?.detailAddress || '',
+      zipcode: user?.address?.zipcode || ''
+    },
     birthday: user?.about || '',
   };
 

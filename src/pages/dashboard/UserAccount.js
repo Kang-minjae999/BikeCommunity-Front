@@ -82,7 +82,7 @@ export default function UserAccount() {
 
         {ACCOUNT_TABS.map((tab) => {
           const isMatched = tab.value === currentTab;
-          return isMatched && <Box key={tab.value}>{tab.component}</Box>;
+          return isMatched && <div key={tab.value}>{tab.component}</div>;
         })}
       </Container>
     </Page>
