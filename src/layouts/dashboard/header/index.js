@@ -13,7 +13,7 @@ import { HEADER, NAVBAR } from '../../../config';
 import Notification from './Notification';
 import Iconify from '../../../components/Iconify';
 import MyAvatar from '../../../components/MyAvatar';
-import useAuth from '../../../hooks/useAuth';
+import AccountPopover from './AccountPopover';
 
 
 // ----------------------------------------------------------------------
@@ -54,7 +54,6 @@ DashboardHeader.propTypes = {
 };
 
 export default function DashboardHeader({ isCollapse = false, verticalLayout = false }) {
-  const { user } = useAuth()
   const {pathname} = useLocation()
   const navigate = useNavigate()
 
@@ -70,17 +69,18 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
   const isMypage = pathname.includes('mypage')
   const isCheckout = pathname.includes('checkout')
   const isProfile = pathname.includes('profile')
+  const isMenu = pathname.includes('menu')
+  const isNotice = pathname.includes('notice')
 
-  console.log(user)
-
-  const myPage = () => {
-    if(user){
-      navigate('/dashboard/mypage')
+  const Menu = () => {
+    if(!isMenu){
+      navigate('/dashboard/menu')
     }
-    if(!user){
-      navigate('/auth/login')
+    if(isMenu){
+      navigate(-1)
     }
   }
+
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
@@ -133,13 +133,23 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
             {isProfile && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
               PROFILE
             </Typography>}
+
+            {isMenu && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+            RIDERTOWN
+            </Typography>}
+
+            {isNotice && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+            RIDERTOWN
+            </Typography>}
           </>}
 
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 3 }}>
           <Notification />  
           <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} onClick={() => navigate('/dashboard/checkout')}/>
-          <MyAvatar sx={{width:36, height:36}} onClick={() => myPage()}/>
+          {!isDesktop 
+          ? <MyAvatar sx={{width:36, height:36}} onClick={Menu}/> 
+          : <AccountPopover />}
         </Stack>
         </Toolbar>  
     </RootStyle>  

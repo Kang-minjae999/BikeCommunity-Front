@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {  Typography, Paper, Divider } from '@mui/material';
@@ -10,26 +11,18 @@ import useResponsive from '../../../../hooks/useResponsive';
 
 export default function AppHomeHeader() {
   const isDesktop = useResponsive('up', 'lg')
-  const [value, setValue] = useState('home');
-  const [valuepc, setValuepc] = useState('homepc');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const handleChangePC = (event, newValue) => {
-    setValuepc(newValue);
-  };
-
-  /* useEffect(() => {
-    if(sessionStorage.getItem('homeheader')){
-      setValue(sessionStorage.getItem('homeheader'))
-    }
-  }, [])
+  const navigate = useNavigate()
+  const {value} = useParams();
 
   useEffect(() => {
-    sessionStorage.setItem('homeheader', value)
-  }, [value]) */
-  
+    if(!value){
+      navigate(`/dashboard/app/home`);
+    }
+  })
+
+  const handleChange = (event, newValue) => {
+    navigate(`/dashboard/app/${newValue}`);
+  };
 
   const APP_TABS = [
     {
@@ -54,45 +47,6 @@ export default function AppHomeHeader() {
     },
   ];
 
-  const PC_TABS = [
-    {
-      value: 'homepc',
-      component: <AppHomeMain />,
-    },
-    {
-      value: 'brand',
-      component: <AppHomeBest />,
-    },
-    {
-      value: 'replica',
-      component: <AppHomeBrand />,
-    },
-    {
-      value: 'naked',
-      component: <AppHomeMagazine/>,
-    },
-    {
-      value: 'sale',
-      component: <AppHomeSale/>,
-    },
-    {
-      value: 'hal',
-      component: <AppHomeMagazine/>,
-    },
-    {
-      value: 'classic',
-      component: <AppHomeSale/>,
-    },
-    {
-      value: 'scoo',
-      component: <AppHomeMagazine/>,
-    },
-    {
-      value: 'mota',
-      component: <AppHomeSale/>,
-    },
-  ];
-
   const valueStyle = {
     borderBottom:(isDesktop ? 3 : 2), 
     borderBottomColor:'text.primary', 
@@ -104,40 +58,28 @@ export default function AppHomeHeader() {
       {isDesktop &&
       <> 
       <Divider />
-       <BottomNavigation showLabels sx={{ width: '100%'}} value={valuepc} onChange={handleChangePC}>
-            <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'homepc') && valueStyle}}>메인</Typography>}
-            value="homepc"
-          />
-          <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'brand') && valueStyle}}>BRAND</Typography>}
-            value="brand"
-          />
-          <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'replica') && valueStyle}}>레플리카</Typography>}
-            value="replica"
-          />
-          <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'naked') && valueStyle}}>네이키드</Typography>}
-            value="naked"
-          />
-          <BottomNavigationAction
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'hal') && valueStyle}}>할리/크루저</Typography>}
-            value="hal"
-          />
-          <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'classic') && valueStyle}}>클래식</Typography>}
-            value="classic" 
-            />
-            <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'scoo') && valueStyle}}>스쿠터</Typography>}
-            value="scoo" 
-            />
-            <BottomNavigationAction 
-            label={<Typography variant='body2' color='text.primary' sx={{...(valuepc === 'mota') && valueStyle}}>모타드</Typography>}
-            value="mota" 
-            />
-        </BottomNavigation>
+    <BottomNavigation showLabels sx={{ width: '100%', height:'1%' , my:2}} value={value} onChange={handleChange}>
+      <BottomNavigationAction
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'home') && valueStyle}}>메인</Typography>}
+        value="home"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' fontStyle='italic' color='text.primary' sx={{...(value === 'brand') && valueStyle}}>BRAND</Typography>}
+        value="brand"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'best') && valueStyle}}>장르</Typography>}
+        value="best"
+      />
+      <BottomNavigationAction
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'post') && valueStyle}}>카테고리</Typography>}
+        value="post"
+      />
+      <BottomNavigationAction 
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'sale') && valueStyle}}>SALE</Typography>}
+        value="sale" 
+        />
+    </BottomNavigation>
       <Divider />
         </>}
     {!isDesktop &&
@@ -171,18 +113,10 @@ export default function AppHomeHeader() {
     </BottomNavigation>
     </Paper>}
     <AppHeaderSpace />
-    {isDesktop ? <>
-      {PC_TABS.map((button) => {
-          const isMatched = button.value === valuepc;
-          return isMatched && <div key={button.value}>{button.component}</div>;
-        })}
-     </> : <>
       {APP_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value}>{button.component}</div>;
         })}
-     </>
-     }
      </>
   );
 }

@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box, Divider } from '@mui/material';
+import { Typography, Paper, Divider } from '@mui/material';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import AppHeaderSpace from './AppHeaderSpace';
@@ -12,12 +13,19 @@ import { Appgarage } from '.';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState('maintenance');
+  const navigate = useNavigate()
+  const {value} = useParams()
+
+  useEffect(() => {
+    if(!value){
+      navigate(`/dashboard/motocycle/maintenance`);
+    }
+  })
+  
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    navigate(`/dashboard/motocycle/${newValue}`);
   };
-
 
   const ACCOUNT_TABS = [
     {

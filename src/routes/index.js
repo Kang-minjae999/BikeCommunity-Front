@@ -83,21 +83,40 @@ export default function Router() {
       element: <DashboardLayout />,
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
-        { path: 'app', element: <GeneralApp /> }, // ok
-        { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, // ok
-        { path: 'riding', element: <GeneralRiding /> }, // ok
-        { path: 'rider', element: <GeneralRider /> }, // ok
-        { path: 'motocycle', element: <GeneralMotocycle /> }, // ok
-        { path: 'clubs', element: <GeneralClub /> }, // ok
-        { path: 'garages', element: <Generalgarage /> }, // ok
-        { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, // ok
-        { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, // ok
-        { path: 'market/:tab/:paging', element: <Generalmarket /> }, // ok
-        { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, // ok
-        { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, // ok
-        { path: 'clubmy', element: <ClubMy /> }, // ok
-        { path: 'mypage', element: <GeneralUser /> }, // ok
-        { path: 'checkout', element: <AEcommerceCheckout /> }, // ok
+        { path: 'app', element: <GeneralApp /> }, 
+        { path: 'app/:value', element: <GeneralApp /> }, 
+
+        { path: 'riding', element: <GeneralRiding /> }, 
+        { path: 'riding/:value', element: <GeneralRiding /> }, 
+
+        { path: 'rider', element: <GeneralRider /> }, 
+        { path: 'rider/:value', element: <GeneralRider /> }, 
+
+        { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, 
+        { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, 
+
+        { path: 'motocycle', element: <GeneralMotocycle /> },
+        { path: 'motocycle/:value', element: <GeneralMotocycle /> },
+
+        { path: 'clubs', element: <GeneralClub /> }, 
+        { path: 'garages', element: <Generalgarage /> }, 
+
+        { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, 
+        { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, 
+
+        { path: 'checkout', element: <AEcommerceCheckout /> }, 
+        { path: 'checkout/:value', element: <AEcommerceCheckout /> }, 
+        
+        { path: 'mypage', element: <GeneralUser /> }, 
+        { path: 'mypage/:value', element: <GeneralUser /> }, 
+
+        { path: 'market/:tab/:paging', element: <Generalmarket /> }, 
+        { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, 
+        { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, 
+        { path: 'clubmy', element: <ClubMy /> }, 
+        { path: 'menu', element: <GeneralUserMenu /> }, 
+        { path: 'checkout', element: <AEcommerceCheckout /> }, 
+        { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, 
         {
           path: 'e-commerce',
           children: [
@@ -164,8 +183,8 @@ export default function Router() {
           path: 'blog',
           children: [
             { element: <Navigate to="/dashboard/blog/posts" replace />, index: true },
-            { path: 'notices', element: <Blognotices /> }, // ok
-            { path: 'posts', element: <BlogPosts /> }, // ok
+            { path: 'notices', element: <Blognotices /> }, 
+            { path: 'posts', element: <BlogPosts /> }, 
             { path: 'dingstas', element: <BlogDingstas /> },
             { path: 'reports', element: <BlogReports /> },
             { path: 'post/:id', element: <BlogPost /> },
@@ -262,6 +281,7 @@ const Generalshop = Loadable(lazy(() => import('../pages/dashboard/GeneralShop')
 const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMarket')));
 const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));
 const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
+const GeneralUserMenu = Loadable(lazy(() => import('../pages/dashboard/GeneralUserMenu')));
 
 const AEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AEcommerceCheckout')));
 // 신품거래

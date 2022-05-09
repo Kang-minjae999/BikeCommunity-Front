@@ -28,7 +28,9 @@ export { default as AppRidingHeader } from './AppRidingHeader';
 export { default as AppRidingHome } from './AppRidingHome';
 export { default as AppRidingClub } from './AppRidingClub';
 
+export { default as AppUserMenu } from './AppUserMenu';
 export { default as AppUserHeader } from './AppUserHeader';
+export { default as AppUserCheckout } from './AppUserCheckout';
 export { default as AppUserProfile } from './AppUserProfile';
 export { default as AppUserMoto } from './AppUserMoto';
 export { default as AppUserMotoNew } from './AppUserMotoNew';

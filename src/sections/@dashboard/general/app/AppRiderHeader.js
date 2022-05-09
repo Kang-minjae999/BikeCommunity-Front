@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Box, Divider } from '@mui/material';
+import { Typography, Paper, Divider } from '@mui/material';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import AppHeaderSpace from './AppHeaderSpace';
@@ -12,16 +13,24 @@ import { Appgarage } from '.';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState('bikeprofile');
+  const navigate = useNavigate();
+  const {value} = useParams();
 
+  useEffect(() => {
+    if(!value){
+      navigate(`/dashboard/rider/bikep`);
+    }
+  })
+  
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    navigate(`/dashboard/rider/${newValue}`);
   };
+
 
 
   const ACCOUNT_TABS = [
     {
-      value: 'bikeprofile',
+      value: 'bikep',
       component: <Appgarage />,
     },
     {
@@ -56,11 +65,11 @@ export default function AppRidingHeader() {
         <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange} >
           <BottomNavigationAction
             label={
-              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'bikeprofile' && valueStyle)}}>
+              <Typography variant="body2" color="text.primary" sx={{ ...(value === 'bikep' && valueStyle)}}>
                 바프
               </Typography>
             }
-            value="bikeprofile"
+            value="bikep"
           />
           <BottomNavigationAction
             label={
@@ -102,13 +111,13 @@ export default function AppRidingHeader() {
         <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex: 50 }} elevation={1}>
           <BottomNavigation showLabels sx={{ width: '100%', height: '1%' }} value={value} onChange={handleChange}>
             <BottomNavigationAction
-              sx={{ ...(value === 'bikeprofile' && valueStyle) }}
+              sx={{ ...(value === 'bikep' && valueStyle) }}
               label={
-                <Typography variant="subtitle3" color={value === 'bikeprofile' ? "text.primary" : 'disabled'} fontWeight="bold">
+                <Typography variant="subtitle3" color={value === 'bikep' ? "text.primary" : 'disabled'} fontWeight="bold">
                   바프
                 </Typography>
               }
-              value="bikeprofile"
+              value="bikep"
             />
             <BottomNavigationAction
               sx={{ ...(value === 'emergency' && valueStyle) }}

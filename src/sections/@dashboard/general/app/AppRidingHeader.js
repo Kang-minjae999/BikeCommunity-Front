@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams} from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Typography, Paper, Divider, Container } from '@mui/material';
@@ -18,7 +19,19 @@ export default function AppRidingHeader() {
   const dispatch = useDispatch();
   const { weatherOne, weatherTwo } = useSelector((state) => state.map);
   const isDesktop = useResponsive('up', 'lg');
-  const [value, setValue] = useState('home');
+  const navigate = useNavigate()
+  const {value} = useParams();
+
+  useEffect(() => {
+    if(!value){
+      navigate(`/dashboard/riding/home`);
+    }
+  })
+  
+  const handleChange = (event, newValue) => {
+    navigate(`/dashboard/riding/${newValue}`);
+  };
+
   const [userPo, setuserPo] = useState()
 
   useEffect(() => {
@@ -26,17 +39,13 @@ export default function AppRidingHeader() {
       (position) => {
       const userPo = {lat:position.coords.latitude, lng: position.coords.longitude}
       setuserPo(userPo)
-    })
+    }); 
+    return () =>{setuserPo()};
   }, [])
-  
 
   useEffect(() => {
     dispatch(getPosition());
   }, [dispatch]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   const ACCOUNT_TABS = [
     {

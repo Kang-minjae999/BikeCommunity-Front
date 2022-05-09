@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 // @mui
 import { Container, Grid} from '@mui/material';
 // hooks
@@ -8,8 +7,7 @@ import Page from '../../components/Page';
 // sections
 
 import MainFooter from '../../layouts/main/MainFooter';
-import { AppHeaderSpace, AppHomeHeader, AppHomeMain } from '../../sections/@dashboard/general/app';
-import GeneralAppChan from './GeneralAppChan';
+import { AppHeaderSpace, AppHomeHeader } from '../../sections/@dashboard/general/app';
 import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------

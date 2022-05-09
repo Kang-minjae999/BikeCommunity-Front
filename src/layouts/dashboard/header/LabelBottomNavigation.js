@@ -43,13 +43,13 @@ export default function LabelBottomNavigation() {
       <BottomNavigationAction
         label={<Typography variant='body3' color={isMoto ? 'text.primary' : 'disabled'} >바이크</Typography>}
         value="motocycle"
-        icon={<Iconify icon='ant-design:profile-outlined' sx={isMoto ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
+        icon={<Iconify icon='ant-design:smile-outlined' sx={isMoto ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
         onClick={() => navigate(`/dashboard/motocycle`)}
       />
       <BottomNavigationAction 
         label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}
         value="rider" 
-        icon={<Iconify icon='ant-design:user-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
+        icon={<Iconify icon='ant-design:profile-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
         onClick={() => navigate(`/dashboard/rider`)}/>
     </BottomNavigation>
     </>

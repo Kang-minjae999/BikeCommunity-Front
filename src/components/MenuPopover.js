@@ -96,8 +96,7 @@ export default function MenuPopover({ children, arrow = 'top-right', disabledArr
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       PaperProps={{
         sx: {
-          p: 1,
-          width: 200,
+          width:200,
           overflow: 'inherit',
           ...sx,
         },

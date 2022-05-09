@@ -1,30 +1,39 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect} from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {  Typography, Paper, Divider } from '@mui/material';
 import { AppUserMoto,  AppUserProfile, AppUserClub } from '.';
 import UserAccount from '../../../../pages/dashboard/UserAccount';
 import AppHeaderSpace from './AppHeaderSpace';
-import Aecheckouthead from './Aecheckouthead';
+import AppUserCheckout from './AppUserCheckout';
 import useResponsive from '../../../../hooks/useResponsive';
 
 export default function AppUserHeader() {
   const isDesktop = useResponsive('up', 'lg')
-  const [value, setValue] = useState('setting');
+  const {value} = useParams()
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if(!value){
+      navigate(`/dashboard/mypage/setting`);
+    }
+  })
+  
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    navigate(`/dashboard/mypage/${newValue}`);
   };
+
 
   const ACCOUNT_TABS = [
     {
-      value: 'profile',
+      value: 'prof',
       component: <AppUserProfile />,
     },
     {
-      value: 'checkout',
-      component: <Aecheckouthead />,
+      value: 'check',
+      component: <AppUserCheckout />,
     },
     {
       value: 'moto',
@@ -58,12 +67,12 @@ export default function AppUserHeader() {
         value="setting" 
         />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'profile') && valueStyle}}>프로필</Typography>}
-        value="profile"
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'prof') && valueStyle}}>프로필</Typography>}
+        value="prof"
       />
       <BottomNavigationAction
-        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'checkout') && valueStyle}}>장바구니</Typography>}
-        value="checkout"
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'check') && valueStyle}}>장바구니</Typography>}
+        value="check"
       />
       <BottomNavigationAction
         label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'moto') && valueStyle}}>바이크</Typography>}
@@ -87,13 +96,13 @@ export default function AppUserHeader() {
       />
       <BottomNavigationAction
         sx={{...(value === 'profile') && valueStyle}}
-        label={<Typography variant='subtitle3' color={value === 'profile' ? 'text.primary' : 'disabled'}>프로필</Typography>}
-        value="profile"
+        label={<Typography variant='subtitle3' color={value === 'prof' ? 'text.primary' : 'disabled'}>프로필</Typography>}
+        value="prof"
       />
       <BottomNavigationAction
         sx={{...(value === 'checkout') && valueStyle}}
-        label={<Typography  variant='subtitle3' color={value === 'checkout' ? 'text.primary' : 'disabled'}>장바구니</Typography>}
-        value="checkout"
+        label={<Typography  variant='subtitle3' color={value === 'check' ? 'text.primary' : 'disabled'}>장바구니</Typography>}
+        value="check"
       />
       <BottomNavigationAction
         sx={{...(value === 'moto') && valueStyle}}
