@@ -26,7 +26,7 @@ export default function LoginNaver() {
 
   useEffect(() => {
     NaverloginCallback();
-    }, []);
+    });
     
   useEffect(() => {
     if(user){
