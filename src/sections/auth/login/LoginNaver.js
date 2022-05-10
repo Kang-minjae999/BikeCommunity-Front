@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 // hooks
 import useAuth from '../../../hooks/useAuth';
@@ -13,7 +13,7 @@ export default function LoginNaver() {
 
   const [user, setUser] = useState(null)
 
-  const NaverloginCallback = async () => {
+  const NaverloginCallback = useCallback(async () => {
     if (!location.hash) return;
     const token = location.hash.split('=')[1].split('&')[0];
     try {
@@ -22,11 +22,13 @@ export default function LoginNaver() {
     } catch (error) {
       console.error(error);
     }
-  }
+  }, [location, naverlogin])
 
   useEffect(() => {
-    NaverloginCallback();
-    });
+    if(location){
+      NaverloginCallback();
+    }
+  }, [location, NaverloginCallback]);
     
   useEffect(() => {
     if(user){

@@ -101,7 +101,7 @@ export default function LoginKakaoPage() {
               <ContentStyle>
                 <LoginKakao />
               </ContentStyle>
-            </Container>{' '}
+            </Container>
           </>
         )}
       </RootStyle>
