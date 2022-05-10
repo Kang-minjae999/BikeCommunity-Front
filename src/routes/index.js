@@ -97,6 +97,8 @@ export default function Router() {
 
         { path: 'motocycle', element: <GeneralMotocycle /> },
         { path: 'motocycle/:value', element: <GeneralMotocycle /> },
+        { path: 'motocycle/:value/:tab', element: <GeneralMotocycle /> },
+        { path: 'motocycle/:value/:tab/:params', element: <GeneralMotocycle /> },
 
         { path: 'clubs', element: <GeneralClub /> }, 
         { path: 'garages', element: <Generalgarage /> }, 

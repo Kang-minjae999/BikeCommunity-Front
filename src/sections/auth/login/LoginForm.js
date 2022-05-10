@@ -93,7 +93,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     NaverLoginInit();
-  }, [NaverLoginInit]);
+  });
 
 
   return (

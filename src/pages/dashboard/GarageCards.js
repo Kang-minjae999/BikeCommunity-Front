@@ -6,11 +6,11 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axiosgarage';
 // routes
 // components
 import Page from '../../components/Page';
-import { SkeletonPostItem } from '../../components/skeleton';
+import { SkeletonGarageCard } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/garage/card';
@@ -31,8 +31,6 @@ const applySort = (posts, sortBy) => {
 };
 
 export default function GarageCards() {
-  const { themeStretch } = useSettings();
-
   const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
@@ -49,7 +47,7 @@ export default function GarageCards() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/garagecard?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -66,7 +64,7 @@ export default function GarageCards() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&${api}=${param}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -86,12 +84,6 @@ export default function GarageCards() {
   }, [getAllPosts, getAllPosts2, param]);
 
   // --------------------------------------------------------------
-
-  const handleChangeSort = (value) => {
-    if (value) {
-      setFilters(value);
-    }
-  };
 
   const handleChange = useCallback(
     (event, value) => {
@@ -123,7 +115,7 @@ export default function GarageCards() {
                 <BlogPostCard post={post} />
               </Grid>
             ) : (
-              <SkeletonPostItem key={index} />
+              <SkeletonGarageCard key={index} />
             )
           )}
         </Grid>
@@ -135,7 +127,7 @@ export default function GarageCards() {
             shape="rounded"
             color="action"
             size="large"
-            sx={{ mt: 2 ,mb:4}}
+            sx={{ mt: 2 ,mb:4 }}
           />
         </Stack>
       </Container>
