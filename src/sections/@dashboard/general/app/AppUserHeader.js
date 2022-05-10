@@ -62,11 +62,7 @@ export default function AppUserHeader() {
     <>
     <Divider />
     <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
-    <BottomNavigationAction 
-        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'setting') && valueStyle}}>설정</Typography>}
-        value="setting" 
-        />
-      <BottomNavigationAction
+    <BottomNavigationAction
         label={<Typography variant='body2' color='text.primary' sx={{...(value === 'prof') && valueStyle}}>프로필</Typography>}
         value="prof"
       />
@@ -82,6 +78,10 @@ export default function AppUserHeader() {
         label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'club') && valueStyle}}>클럽</Typography>}
         value="club"
       />
+      <BottomNavigationAction 
+        label={<Typography  variant='body2' color='text.primary' sx={{...(value === 'setting') && valueStyle}}>설정</Typography>}
+        value="setting" 
+      />
     </BottomNavigation>
     <Divider />
     </>}
@@ -90,11 +90,6 @@ export default function AppUserHeader() {
     <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
     <BottomNavigationAction
-        sx={{...(value === 'setting') && valueStyle}}
-        label={<Typography variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>설정</Typography>}
-        value="setting"
-      />
-      <BottomNavigationAction
         sx={{...(value === 'profile') && valueStyle}}
         label={<Typography variant='subtitle3' color={value === 'prof' ? 'text.primary' : 'disabled'}>프로필</Typography>}
         value="prof"
@@ -113,6 +108,11 @@ export default function AppUserHeader() {
         sx={{...(value === 'club') && valueStyle}}
         label={<Typography  variant='subtitle3' color={value === 'club' ? 'text.primary' : 'disabled'}>클럽</Typography>}
         value="club"
+      />
+      <BottomNavigationAction
+        sx={{...(value === 'setting') && valueStyle}}
+        label={<Typography variant='subtitle3' color={value === 'setting' ? 'text.primary' : 'disabled'}>설정</Typography>}
+        value="setting"
       />
     </BottomNavigation>
     </Paper>

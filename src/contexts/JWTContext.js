@@ -204,7 +204,7 @@ function AuthProvider({ children }) {
       }
     }
     );
-    const user = response.data;
+    const user = response.data.data;
     const accessToken = response.headers.authorization;
     setSession(accessToken);
     dispatch({
