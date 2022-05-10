@@ -1,41 +1,27 @@
-import orderBy from 'lodash/orderBy';
 import { useEffect, useCallback, useState } from 'react';
+import { useParams } from 'react-router';
 // @mui
 import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
-import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axiosgarage';
 // routes
 // components
 import Page from '../../components/Page';
-import { SkeletonPostItem } from '../../components/skeleton';
+import { SkeletonGarageCard } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/garage/card';
+import { BlogPostCard, BlogPostsSearchCustom } from '../../sections/@dashboard/garage/card';
 import useResponsive from '../../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
-const applySort = (posts, sortBy) => {
-  if (sortBy === 'latest') {
-    return orderBy(posts, ['createdDate'], ['desc']);
-  }
-  if (sortBy === 'oldest') {
-    return orderBy(posts, ['createdDate'], ['asc']);
-  }
-  if (sortBy === 'popular') {
-    return orderBy(posts, ['view'], ['desc']);
-  }
-  return posts;
-};
-
 export default function GarageCardsCustom() {
-  const { themeStretch } = useSettings();
-
   const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
+
+  const {params} = useParams()
 
   const [posts, setPosts] = useState([]);
 
@@ -43,13 +29,9 @@ export default function GarageCardsCustom() {
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
 
-  const [filters, setFilters] = useState('latest');
-
-  const sortedPosts = applySort(posts, filters);
-
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&category=커스텀`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -61,12 +43,10 @@ export default function GarageCardsCustom() {
   }, [isMountedRef, page]);
 
   // ---------------------------------------------
-  const [api, setapi] = useState('');
-  const [param, setparam] = useState('');
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&category=커스텀&${params}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -74,24 +54,18 @@ export default function GarageCardsCustom() {
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef, page, api, param]);
+  }, [isMountedRef, page, params]);
 
   useEffect(() => {
-    if (!param) {
+    if (!params) {
       getAllPosts();
     }
-    if (param) {
+    if (params) {
       getAllPosts2();
     }
-  }, [getAllPosts, getAllPosts2, param]);
+  }, [getAllPosts, getAllPosts2, params]);
 
   // --------------------------------------------------------------
-
-  const handleChangeSort = (value) => {
-    if (value) {
-      setFilters(value);
-    }
-  };
 
   const handleChange = useCallback(
     (event, value) => {
@@ -115,15 +89,15 @@ export default function GarageCardsCustom() {
           }
           sx={{ mt: 2 }}
         />}
-        <BlogPostsSearch setparam={setparam} setapi={setapi} />
+        <BlogPostsSearchCustom />
         <Grid container spacing={3}>
-          {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
+          {(!posts.length ? [...Array(12)] : posts).map((post, index) =>
             post ? (
               <Grid key={post.id} item xs={12} sm={6} md={3}>
                 <BlogPostCard post={post} />
               </Grid>
             ) : (
-              <SkeletonPostItem key={index} />
+              <SkeletonGarageCard key={index} />
             )
           )}
         </Grid>
@@ -135,7 +109,7 @@ export default function GarageCardsCustom() {
             shape="rounded"
             color="action"
             size="large"
-            sx={{ mt: 2 ,mb:4}}
+            sx={{ mt: 2 ,mb:4 }}
           />
         </Stack>
       </Container>

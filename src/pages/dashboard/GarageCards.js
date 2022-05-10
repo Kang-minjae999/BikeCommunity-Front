@@ -1,9 +1,8 @@
-import orderBy from 'lodash/orderBy';
 import { useEffect, useCallback, useState } from 'react';
+import { useParams } from 'react-router';
 // @mui
 import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
-import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
 import axios from '../../utils/axiosgarage';
@@ -17,33 +16,18 @@ import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/garage/
 import useResponsive from '../../hooks/useResponsive';
 // ----------------------------------------------------------------------
 
-const applySort = (posts, sortBy) => {
-  if (sortBy === 'latest') {
-    return orderBy(posts, ['createdDate'], ['desc']);
-  }
-  if (sortBy === 'oldest') {
-    return orderBy(posts, ['createdDate'], ['asc']);
-  }
-  if (sortBy === 'popular') {
-    return orderBy(posts, ['view'], ['desc']);
-  }
-  return posts;
-};
-
 export default function GarageCards() {
   const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
+
+  const {params} = useParams()
 
   const [posts, setPosts] = useState([]);
 
   const [page, setpage] = useState(0);
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
-
-  const [filters, setFilters] = useState('latest');
-
-  const sortedPosts = applySort(posts, filters);
 
   const getAllPosts = useCallback(async () => {
     try {
@@ -59,12 +43,10 @@ export default function GarageCards() {
   }, [isMountedRef, page]);
 
   // ---------------------------------------------
-  const [api, setapi] = useState('');
-  const [param, setparam] = useState('');
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/garagecard/search?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&${params}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -72,16 +54,16 @@ export default function GarageCards() {
     } catch (error) {
       console.error(error);
     }
-  }, [isMountedRef, page, api, param]);
+  }, [isMountedRef, page, params]);
 
   useEffect(() => {
-    if (!param) {
+    if (!params) {
       getAllPosts();
     }
-    if (param) {
+    if (params) {
       getAllPosts2();
     }
-  }, [getAllPosts, getAllPosts2, param]);
+  }, [getAllPosts, getAllPosts2, params]);
 
   // --------------------------------------------------------------
 
@@ -107,9 +89,9 @@ export default function GarageCards() {
           }
           sx={{ mt: 2 }}
         />}
-        <BlogPostsSearch setparam={setparam} setapi={setapi} />
+        <BlogPostsSearch />
         <Grid container spacing={3}>
-          {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
+          {(!posts.length ? [...Array(12)] : posts).map((post, index) =>
             post ? (
               <Grid key={post.id} item xs={12} sm={6} md={3}>
                 <BlogPostCard post={post} />

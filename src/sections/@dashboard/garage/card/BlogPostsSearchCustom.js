@@ -55,7 +55,7 @@ export default function BlogPostsSearch() {
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      navigate(`/dashboard/motocycle/maintenance/garage/${value}=${searchQuery}`)
+      navigate(`/dashboard/motocycle/maintenance/custom/${value}=${searchQuery}`)
       document.activeElement.blur()
     }
   };
@@ -179,7 +179,7 @@ export default function BlogPostsSearch() {
     />
     {params && 
     <>
-    <RestartAltIcon onClick={() => navigate('/dashboard/motocycle/maintenance/garage')} />
+    <RestartAltIcon onClick={() => navigate('/dashboard/motocycle/maintenance/custom')}/>
     </>
     }
     </Stack>

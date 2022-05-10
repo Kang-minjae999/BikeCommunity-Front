@@ -15,6 +15,6 @@ export default function SearchNotFound({ searchQuery = '', ...other }) {
       </Typography>
     </Paper>
   ) : (
-    ''
+    '자유롭게 입력해주세요!'
   );
 }

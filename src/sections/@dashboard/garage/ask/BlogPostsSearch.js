@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
@@ -25,13 +24,8 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
   width: '300px !important',
 });
 
-// ----------------------------------------------------------------------
-BlogPostsSearch.propTypes = {
-  setparam: PropTypes.func.isRequired,
-  setapi: PropTypes.func,
-};
 
-export default function BlogPostsSearch({setparam , setapi}) {
+export default function BlogPostsSearch() {
   const navigate = useNavigate();
 
   const isDeskTop = useResponsive('up','lg')
@@ -44,15 +38,13 @@ export default function BlogPostsSearch({setparam , setapi}) {
       setSearchQuery(value);
   };
 
-
   const handleClick = (title) => {
     navigate(`${PATH_DASHBOARD.blog.root}/dingstas/${paramCase(title)}`);
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      setparam(searchQuery)
-      setapi(value)
+      navigate(`/dashboard/motocycle/maintenance/garage/${value}=${searchQuery}`)
       document.activeElement.blur()
     }
   };
@@ -61,31 +53,31 @@ export default function BlogPostsSearch({setparam , setapi}) {
 
   const open = Boolean(anchorEl);
 
-  const [value, setvalue] = useState('content')
+  const [value, setvalue] = useState('title')
 
   const handleClickButton = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    setvalue('content')
+    setvalue('title')
   };
   const handleClose2 = () => {
     setAnchorEl(null);
-    setvalue('tag')
+    setvalue('model')
   };
   const handleClose3 = () => {
     setAnchorEl(null);
     setvalue('nickname')
   };
-  const [label, setlabel] = useState('내용')
+  const [label, setlabel] = useState('제목')
 
   useEffect(() => {
-    if(value === 'content'){
-      setlabel('내용')
+    if(value === 'title'){
+      setlabel('제목')
     }
-    if(value === 'tag'){
-      setlabel('태그')
+    if(value === 'model'){
+      setlabel('모델명')
     }
     if(value === 'nickname'){
       setlabel('닉네임')
@@ -132,8 +124,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
         }}
         color='action'
       >
-        <MenuItem onClick={handleClose}>내용</MenuItem>
-        <MenuItem onClick={handleClose2}>태그</MenuItem>
+        <MenuItem onClick={handleClose}>제목</MenuItem>
+        <MenuItem onClick={handleClose2}>모델명</MenuItem>
         <MenuItem onClick={handleClose3}>닉네임</MenuItem>
       </Menu>
     <Autocomplete
