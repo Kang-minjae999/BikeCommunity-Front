@@ -9,7 +9,6 @@ import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
-import { Appgarage } from '.';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
@@ -31,7 +30,7 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       value: 'bikep',
-      component: <Appgarage />,
+      component: '',
     },
     {
       value: 'emergency',

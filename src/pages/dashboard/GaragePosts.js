@@ -32,7 +32,7 @@ export default function GarageAsks() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/garageask?page=${page}&size=12`);
+      const response = await axios.get(`/garagepost?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -47,7 +47,7 @@ export default function GarageAsks() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/garageask/search?page=${page}&size=12&${params}`);
+      const response = await axios.get(`/garagepost/search?page=${page}&size=12&${params}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -82,7 +82,7 @@ export default function GarageAsks() {
       <Container maxWidth='xl' sx={{mt:2}}>
         {isDesktop && 
         <HeaderBreadcrumbs
-          heading="정비 질문"
+          heading="정비글"
           links={[{ name: '' }]}
           action={
             <>

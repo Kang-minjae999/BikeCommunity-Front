@@ -3,11 +3,12 @@ import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper, Stack, Button, Menu, MenuItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SearchIcon from '@mui/icons-material/Search';
 
 // routes
@@ -18,6 +19,7 @@ import Iconify from '../../../../components/Iconify';
 import InputStyle from '../../../../components/InputStyle';
 import SearchNotFound from '../../../../components/SearchNotFound';
 import useResponsive from '../../../../hooks/useResponsive';
+import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -26,17 +28,23 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
 });
 
 // ----------------------------------------------------------------------
-BlogPostsSearch.propTypes = {
-  setparam: PropTypes.func.isRequired,
-  setapi: PropTypes.func,
-};
 
-export default function BlogPostsSearch({setparam , setapi}) {
+export default function BlogPostsSearch() {
   const navigate = useNavigate();
 
+  const { params } = useParams()
+
+  const { user } = useAuth()
+ 
   const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const [value, setvalue] = useState('title')
 
   const searchResults = [];
 
@@ -51,46 +59,38 @@ export default function BlogPostsSearch({setparam , setapi}) {
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      setparam(searchQuery)
-      setapi(value)
+      navigate(`/dashboard/motocycle/maintenance/posts/${value}=${searchQuery}`)
       document.activeElement.blur()
     }
   };
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
-
-  const [value, setvalue] = useState('content')
 
   const handleClickButton = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    setvalue('content')
+    setvalue('title')
   };
   const handleClose2 = () => {
     setAnchorEl(null);
-    setvalue('tag')
+    setvalue('modelname')
   };
   const handleClose3 = () => {
     setAnchorEl(null);
-    setvalue('nickname')
+    setvalue('content')
   };
-  const [label, setlabel] = useState('내용')
+  const [label, setlabel] = useState('제목')
 
   useEffect(() => {
+    if(value === 'title'){
+      setlabel('제목')
+    }
+    if(value === 'modelname'){
+      setlabel('모델명')
+    }
     if(value === 'content'){
-      setlabel('내용')
+      setlabel('이름')
     }
-    if(value === 'tag'){
-      setlabel('태그')
-    }
-    if(value === 'nickname'){
-      setlabel('닉네임')
-    }
-    
   }, [value])
   
 
@@ -100,8 +100,8 @@ export default function BlogPostsSearch({setparam , setapi}) {
     direction="row"
     justifyContent="center"
     alignItems="center"
-    spacing={1}
-    sx={{mb:1}}
+    spacing={2}
+    sx={{mb:1, width:'100%'}}
     >
       <Button
         id="basic-button"
@@ -132,9 +132,9 @@ export default function BlogPostsSearch({setparam , setapi}) {
         }}
         color='action'
       >
-        <MenuItem onClick={handleClose}>내용</MenuItem>
-        <MenuItem onClick={handleClose2}>태그</MenuItem>
-        <MenuItem onClick={handleClose3}>닉네임</MenuItem>
+      <MenuItem onClick={handleClose}>제목</MenuItem>
+        <MenuItem onClick={handleClose2}>모델명</MenuItem>
+        <MenuItem onClick={handleClose3}>이름</MenuItem>
       </Menu>
     <Autocomplete
       size="small"
@@ -189,6 +189,10 @@ export default function BlogPostsSearch({setparam , setapi}) {
         );
       }}
     />
+   {user?.role === 'ROLE_GARAGE' ?  
+   <>
+    {params && 
+    <>
     <Link    
     variant="outlined"
     component={RouterLink}
@@ -206,6 +210,15 @@ export default function BlogPostsSearch({setparam , setapi}) {
     </Typography> 
     </Stack>
     </Link>
+    </>
+    }
+    </> :
+     <>
+        {params && 
+          <>
+          <RestartAltIcon onClick={() => navigate('/dashboard/motocycle/maintenance/garage')} />
+          </>
+          }</>}
     </Stack>
   );
 }

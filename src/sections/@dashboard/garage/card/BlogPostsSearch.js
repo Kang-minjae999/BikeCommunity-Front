@@ -65,7 +65,7 @@ export default function BlogPostsSearch() {
   };
   const handleClose = () => {
     setAnchorEl(null);
-    setvalue('title')
+    setvalue('nickname')
   };
   const handleClose2 = () => {
     setAnchorEl(null);
@@ -74,7 +74,7 @@ export default function BlogPostsSearch() {
   const [label, setlabel] = useState('이름')
 
   useEffect(() => {
-    if(value === 'content'){
+    if(value === 'nickname'){
       setlabel('이름')
     }
     if(value === 'address'){

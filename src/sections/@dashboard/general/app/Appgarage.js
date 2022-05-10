@@ -58,7 +58,7 @@ export default function Appgarage() {
       component: <GarageAsks />,
     },
     {
-      value: 'write',
+      value: 'posts',
       component: <GaragePosts />,
     },
   ];
@@ -124,8 +124,8 @@ export default function Appgarage() {
         value="ask"
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'write' && valueStyle)}}>정비글</Typography>}
-        value="write"
+        label={<Typography variant='body2' sx={{ ...(value === 'posts' && valueStyle)}}>정비글</Typography>}
+        value="posts"
       />
       {/* <BottomNavigationAction
         label={<Typography variant='body2' sx={{ ...(value === 'review' && valueStyle)}}>후기</Typography>}
@@ -158,9 +158,9 @@ export default function Appgarage() {
         value="ask"
       />
       <BottomNavigationAction
-        sx={{ ...(tab === 'write' ? valueStyleRight : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'write' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비글</Typography>}
-        value="write"
+        sx={{ ...(tab === 'posts' ? valueStyleRight : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={tab === 'posts' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비글</Typography>}
+        value="posts"
       />
       {/* <BottomNavigationAction
         sx={{ ...(value === 'review' && valueStyle) }}

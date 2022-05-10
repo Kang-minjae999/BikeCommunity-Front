@@ -15,11 +15,9 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import {
   FormProvider,
-  RHFSwitch,
   RHFEditor,
   RHFTextField,
   RHFUploadMultiFile,
-  RHFRadioGroup,
 } from '../../../components/hook-form';
 import ProductNewFormOptionGrid from './ProductNewFormOptionGrid';
 
@@ -64,8 +62,6 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
       content: currentProduct?.content || null,
       category: currentProduct?.category || null,
       optionmany: currentProduct?.optionmany || null,
-
-
       option1:  currentProduct?.option1 || null, 
       option2:  currentProduct?.option2 || null, 
       option3:  currentProduct?.option3 || null, 
@@ -172,7 +168,7 @@ export default function ProductNewFormEdu({ isEdit, currentProduct }) {
             option4:values.option4,
             option5:values.option5,
             howmany:values.howmany,
-            modelname:values.modelname,
+            modelName:values.modelName,
             price:values.price,
             priceSale:values.priceSale,
             sku:values.sku,
