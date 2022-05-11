@@ -13,8 +13,7 @@ export default function LoginNaver() {
 
   const [user, setUser] = useState(null)
 
-  const NaverloginCallback = useCallback(async () => {
-    if (!location.hash) return;
+  const NaverloginCallback = async () => {
     const token = location.hash.split('=')[1].split('&')[0];
     try {
       const user = await naverlogin(token);
@@ -22,13 +21,11 @@ export default function LoginNaver() {
     } catch (error) {
       console.error(error);
     }
-  }, [location, naverlogin])
+  }
 
   useEffect(() => {
-    if(location){
       NaverloginCallback();
-    }
-  }, [location, NaverloginCallback]);
+  }, []);
     
   useEffect(() => {
     if(user){

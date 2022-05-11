@@ -64,30 +64,6 @@ export default function LoginNaverPage() {
   return (
     <Page title="Login">
       <RootStyle>
-        {isDesktop && (
-          <>
-            <HeaderStyle>
-              <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
-                <Link component={RouterLink} to="/dashboard/app" underline="none">
-                  <Typography color="text.primary" variant="h4" sx={{ ml: 1, mr: 2 }}>
-                    RIDERTOWN
-                  </Typography>
-                </Link>
-              </Stack>
-            </HeaderStyle>
-
-            <Container maxWidth="sm">
-              <ContentStylePC>
-                <LoginNaver />
-              </ContentStylePC>
-            </Container>
-          </>
-        )}
-
-        {/* ------------------------------------------------------------------------ */}
-
-        {!isDesktop && (
-          <>
             <HeaderStyle>
               <Stack direction="row" justifyContent="flex-start" alignItems="center" spacing={1}>
                 <Link component={RouterLink} to="/dashboard/app" underline="none">
@@ -102,8 +78,6 @@ export default function LoginNaverPage() {
                 <LoginNaver />
               </ContentStyle>
             </Container>
-          </>
-        )}
       </RootStyle>
     </Page>
   );
