@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Typography, Button, Stack, Container } from '@mui/material';
 import AppUserMotoNew from './AppUserMotoNew';
 import useResponsive from '../../../../hooks/useResponsive';

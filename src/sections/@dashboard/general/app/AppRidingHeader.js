@@ -72,7 +72,7 @@ export default function AppRidingHeader() {
       component: <BlogPosts />,
     },
     {
-      value: 'map',
+      value: 'cafe',
       component: (
         <Container>
           <GeneralMap
@@ -150,13 +150,13 @@ export default function AppRidingHeader() {
               label={
                 <Typography
                   variant="body2"
-                  color={value === 'map' ? 'text.primary' : 'disabled'}
-                  sx={{ ...(value === 'map' && valueStyle) }}
+                  color={value === 'cafe' ? 'text.primary' : 'disabled'}
+                  sx={{ ...(value === 'cafe' && valueStyle) }}
                 >
-                  지도
+                  카페
                 </Typography>
               }
-              value="map"
+              value="cafe"
             />
           </BottomNavigation>
           <Divider sx={{ mb: 2 }} />
@@ -203,12 +203,12 @@ export default function AppRidingHeader() {
             />
             <BottomNavigationAction
               label={
-                <Typography variant="subtitle3" color={value === 'map' ? 'text.primary' : 'disabled'}>
-                  지도
+                <Typography variant="subtitle3" color={value === 'cafe' ? 'text.primary' : 'disabled'}>
+                  카페
                 </Typography>
               }
-              value="map"
-              sx={{ ...(value === 'map' && valueStyle) }}
+              value="cafe"
+              sx={{ ...(value === 'cafe' && valueStyle) }}
             />
           </BottomNavigation>
         </Paper>

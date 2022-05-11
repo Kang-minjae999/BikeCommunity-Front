@@ -59,7 +59,7 @@ export default function BlogPostsSearch() {
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      navigate(`/dashboard/motocycle/maintenance/posts/${value}=${searchQuery}`)
+      navigate(`/dashboard/garages/posts/${value}=${searchQuery}`)
       document.activeElement.blur()
     }
   };

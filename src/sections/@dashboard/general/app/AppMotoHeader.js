@@ -30,7 +30,7 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       value: 'maintenance',
-      component: <Appgarage />,
+      component: '하위',
     },
     {
       value: 'rent',
