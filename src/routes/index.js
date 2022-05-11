@@ -101,7 +101,11 @@ export default function Router() {
         { path: 'motocycle/:value/:tab/:params', element: <GeneralMotocycle /> },
 
         { path: 'clubs', element: <GeneralClub /> }, 
+        
         { path: 'garages', element: <Generalgarage /> }, 
+        { path: 'garages/:value', element: <Generalgarage /> }, 
+        { path: 'garages/:value/:tab', element: <Generalgarage /> }, 
+        { path: 'garages/:value/:tab/:params', element: <Generalgarage /> }, 
 
         { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, 
         { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, 

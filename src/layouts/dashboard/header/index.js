@@ -63,6 +63,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
 
   const isHome = pathname.includes('app')
   const isShop = pathname.includes('shop')
+  const isGarage = pathname.includes('garages')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
   const isMoto = pathname.includes('motocycle')
@@ -109,6 +110,10 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
             {isShop && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
                 SHOP
               </Typography>}
+
+            {isGarage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+              GARAGE
+            </Typography>}
 
             {isRiding && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
                 RIDING

@@ -7,6 +7,7 @@ import {  Typography, Paper, Divider } from '@mui/material';
 import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine, AppHomeSale } from '.';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
+import GeneralMarketu from '../../../../pages/dashboard/GeneralMarketu';
 
 
 export default function AppHomeHeader() {
@@ -42,8 +43,8 @@ export default function AppHomeHeader() {
       component: <AppHomeMagazine/>,
     },
     {
-      value: 'sale',
-      component: <AppHomeSale/>,
+      value: 'used',
+      component: <GeneralMarketu />,
     },
   ];
 
@@ -76,8 +77,8 @@ export default function AppHomeHeader() {
         value="post"
       />
       <BottomNavigationAction 
-        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'sale') && valueStyle}}>SALE</Typography>}
-        value="sale" 
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'used') && valueStyle}}>중고</Typography>}
+        value="used" 
         />
     </BottomNavigation>
       <Divider />
@@ -106,9 +107,9 @@ export default function AppHomeHeader() {
         value="post"
       />
       <BottomNavigationAction 
-        sx={{...(value === 'sale') && valueStyle}}
-        label={<Typography  variant='subtitle3' color={value === 'sale' ? 'text.primary' : 'disabled'}>SALE</Typography>}
-        value="sale" 
+        sx={{...(value === 'used') && valueStyle}}
+        label={<Typography  variant='subtitle3' color={value === 'used' ? 'text.primary' : 'disabled'}>중고</Typography>}
+        value="used" 
         />
     </BottomNavigation>
     </Paper>}

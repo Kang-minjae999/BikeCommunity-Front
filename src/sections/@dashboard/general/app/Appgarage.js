@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router';
 // -----------------------------------------
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -22,22 +22,12 @@ export default function Appgarage() {
 
   useEffect(() => {
     if(!tab){
-      if(isDesktop){
         navigate(`/dashboard/garages/garage`);
-      }
-      if(!isDesktop){
-        navigate(`/dashboard/motocycle/maintenance/garage`);
-      }
     }
-  })
+  } , [])
   
   const handleChange = (event, newValue) => {
-    if(isDesktop){
       navigate(`/dashboard/garages/${newValue}`);
-    }
-    if(!isDesktop){
-      navigate(`/dashboard/motocycle/maintenance/${newValue}`);
-    }
   };
 
   const ACCOUNT_TABS = [
@@ -136,30 +126,30 @@ export default function Appgarage() {
     {!isDesktop && 
     <>
     <AppFeatured />
-    <BottomNavigation showLabels sx={{ width: '100%'}} value={tab} onChange={handleChange} >
+    <BottomNavigation showLabels sx={{ width: '100%'}} value={value} onChange={handleChange} >
       <BottomNavigationAction
-        sx={{ ...(tab === 'garage' ? valueStyleLeft : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'garage' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비소</Typography>}
+        sx={{ ...(value === 'garage' ? valueStyleLeft : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'garage' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비소</Typography>}
         value="garage"
       />
       <BottomNavigationAction
-        sx={{ ...(tab === 'custom' ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'custom' ? 'text.primary' : 'inherit'} fontWeight='bold'>커스텀</Typography>}
+        sx={{ ...(value === 'custom' ? valueStyleMiddle : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'custom' ? 'text.primary' : 'inherit'} fontWeight='bold'>커스텀</Typography>}
         value="custom"
       />
       <BottomNavigationAction
-        sx={{ ...(tab === 'map'  ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'map' ? 'text.primary' : 'inherit'} fontWeight='bold'>위치찾기</Typography>}
+        sx={{ ...(value === 'map'  ? valueStyleMiddle : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'map' ? 'text.primary' : 'inherit'} fontWeight='bold'>위치찾기</Typography>}
         value="map"
       />
       <BottomNavigationAction
-        sx={{ ...(tab === 'ask' ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'ask' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비질문</Typography>}
+        sx={{ ...(value === 'ask' ? valueStyleMiddle : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'ask' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비질문</Typography>}
         value="ask"
       />
       <BottomNavigationAction
-        sx={{ ...(tab === 'posts' ? valueStyleRight : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={tab === 'posts' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비글</Typography>}
+        sx={{ ...(value === 'posts' ? valueStyleRight : valueStyleNone)}}
+        label={<Typography variant='subtitle3' color={value === 'posts' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비글</Typography>}
         value="posts"
       />
       {/* <BottomNavigationAction
@@ -170,20 +160,12 @@ export default function Appgarage() {
       /> */}
     </BottomNavigation>
     </>}
-    {isDesktop &&
       <>
         {ACCOUNT_TABS.map((button) => {
           const isMatched = button.value === value;
           return isMatched && <div key={button.value}>{button.component}</div>;
         })}
-      </>}
-      {!isDesktop && 
-      <>
-        {ACCOUNT_TABS.map((button) => {
-          const isMatched = button.value === tab;
-          return isMatched && <div key={button.value}>{button.component}</div>;
-        })}
-      </>}
+      </>
     </>
   );
 }

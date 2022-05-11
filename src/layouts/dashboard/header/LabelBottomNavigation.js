@@ -13,7 +13,7 @@ export default function LabelBottomNavigation() {
   const {pathname} = useLocation()
 
   const isHome = pathname.includes('app')
-  const isShop = pathname.includes('shop')
+  const isShop = pathname.includes('garages')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
   const isMoto = pathname.includes('motocycle')
@@ -29,10 +29,10 @@ export default function LabelBottomNavigation() {
         onClick={() => navigate(`/dashboard/app`)}
       />
       <BottomNavigationAction
-        label={<Typography variant='body3' color={isShop ? 'text.primary' : 'disabled'} >거래</Typography>}
-        value="shop/all/all/0"
-        icon={<Iconify icon='ant-design:shopping-outlined' sx={isShop ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/shop/all/all/0`)}
+        label={<Typography variant='body3' color={isShop ? 'text.primary' : 'disabled'} >정비</Typography>}
+        value="garages"
+        icon={<Iconify icon='ant-design:tool-outlined' sx={isShop ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
+        onClick={() => navigate(`/dashboard/garages`)}
       />
       <BottomNavigationAction
         label={<Typography variant='body3' color={isRiding ? 'text.primary' : 'disabled'} >라이딩</Typography>}
