@@ -34,7 +34,7 @@ export default function AppRidingHome({ icon, userPo, weather1, weather2 }) {
         <Button variant='outlined' size='large' onClick={() => navigate(`/dashboard/riding/home/myroute`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='clarity:star-line'  sx={open === 'myroute' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'inherit'}}/></Button>
       </Stack>
-        {open === 'home' && <>{weather1 && weather2 && <Appweather weather={weather1} weather2={weather2} />}</>}
+        {open === 'map' && <>{weather1 && weather2 && <Appweather weather={weather1} weather2={weather2} />}</>}
         {userPo && <GeneralMap tab={open} userPo={userPo} open={open} setopen={setopen}/>}
       </Container>
     </>

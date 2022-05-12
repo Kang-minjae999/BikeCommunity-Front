@@ -83,8 +83,6 @@ const MENU_OPTIONS = [
                 {user?.email}
               </Typography>
             </Box>
-
-            <Divider sx={{ borderStyle: 'dashed' }} />
           </>
         )}
 
