@@ -183,6 +183,7 @@ export default function GeneralMap({tab, userPo, open}) {
     const name = values.destination.map((item) => item.name)
     const lats = values.destination.map((item) => item.lat)
     const lngs = values.destination.map((item) => item.lng)
+    console.log(ids, name, lats, lngs)
     try {
       await axios.post(`/route/${user.nickname}`, 
       {
