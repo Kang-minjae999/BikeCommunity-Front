@@ -75,16 +75,18 @@ const MENU_OPTIONS = [
     <MenuList>
         {user && (
           <>
-          <MenuItem  sx={{ p: 1 }}>
+          <MenuItem  sx={{ mx: 1 }}>
           <ListItemIcon>
             <MyAvatar sx={{width:32, height:32}} />
           </ListItemIcon>
+          <Box>
           <Typography variant="subtitle2" noWrap>
                 {user?.nickname}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {user?.email}
           </Typography>
+          </Box>
           </MenuItem>
           </>
         )}
