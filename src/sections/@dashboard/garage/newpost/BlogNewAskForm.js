@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
 import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFileReport, RHFUploadSingleFile } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -34,6 +34,7 @@ export default function BlogNewAskForm() {
     title: '',
     content: '',
     modelName:'',
+    address:'',
   };
 
   const methods = useForm({
@@ -53,7 +54,13 @@ export default function BlogNewAskForm() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post(`/garageask/${user.nickname}`, data ,{
+      await axios.post(`/garageask/${user.nickname}`, 
+      {
+        title: data.title,
+        content: data.content,
+        modelName: data.modelName,
+        address: data.address
+      } ,{
         headers: {
         Authorization: accessToken,
         },
@@ -78,6 +85,7 @@ export default function BlogNewAskForm() {
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" color='action'/>
                 <RHFTextField name="modelName" label="모델명" color='action'/>
+                <RHFTextField name="address" label="주소" color='action'/>
                 <RHFEditor name='content' />
               </Stack>
             </Card>

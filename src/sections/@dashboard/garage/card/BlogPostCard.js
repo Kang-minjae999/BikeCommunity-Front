@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Link, Card, Avatar, Typography, Stack, Divider } from '@mui/material';
+import { Link, Card, Avatar, Typography, Stack, Divider, Box } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 
@@ -19,28 +19,27 @@ export default function BlogPostCard({ post }) {
   return (
     <>
     <Card>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={0}>
         <Link to={linkToProfile} color="inherit" component={RouterLink} underline='none'>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" >
           <Avatar
             variant="rounded"
             alt={nicknameOfPost}
             src={avatarImageURL}
-            sx={{ width: 120, height: 120, mt: 1, mb: 1, ml: 1, mr: 1 }}
-          />
-        </Link>    
-        <Stack direction="column" justifyContent="center" alignItems="center" spacing={0}>
-        <Link to={linkToProfile} color="action" component={RouterLink} underline='none'>
+            sx={{ width: 60, height: 60, mt: 1, mb: 1, ml: 1, mr: 1 }}
+          /> 
+        <Stack direction="column" justifyContent="center" alignItems="center" >
         <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
             {nicknameOfPost}
           </Typography> 
-        </Link>
-        <Link to={linkToProfile} color="action" component={RouterLink} underline='none'>
-        <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+          <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
             {address}
-          </Typography> 
-          </Link>
-        </Stack>
+        </Typography> 
       </Stack>
+      <Box>
+          {''}
+       </Box>
+      </Stack>
+        </Link>  
     </Card>
    </>
   );

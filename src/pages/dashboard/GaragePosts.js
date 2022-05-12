@@ -5,7 +5,7 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axiosgarage';
 // routes
 // components
 import Page from '../../components/Page';

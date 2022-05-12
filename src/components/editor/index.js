@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import ReactQuill from 'react-quill';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -118,11 +118,12 @@ useEffect(() => {
     };
   };
 
-  const modules = {
+  const modules = useMemo(() => {
+    return {
     toolbar: {
       container: `#${id}`,
       handlers: {
-        imgae: imageHandler
+        image: imageHandler
       },
     },
     history: {
@@ -130,11 +131,7 @@ useEffect(() => {
       maxStack: 100,
       userOnly: true,
     },
-    syntax: true,
-    clipboard: {
-      matchVisual: false,
-    },
-  };
+  }}, [])
 
   return (
     <div>
@@ -152,7 +149,7 @@ useEffect(() => {
           onChange={onChange}
           modules={modules}
           formats={formats}
-          placeholder=""
+          placeholder="글을 입력해주세요."
           {...other}
         />
       </RootStyle>

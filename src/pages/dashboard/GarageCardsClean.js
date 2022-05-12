@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from 'react';
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router';
 // @mui
 import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
@@ -9,20 +9,19 @@ import axios from '../../utils/axiosgarage';
 // routes
 // components
 import Page from '../../components/Page';
-import { SkeletonGarageAsk } from '../../components/skeleton';
+import { SkeletonGarageCard } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/garage/ask';
+import { BlogPostCard, BlogPostsSearchCustom } from '../../sections/@dashboard/garage/card';
 import useResponsive from '../../hooks/useResponsive';
-
 // ----------------------------------------------------------------------
 
-export default function GarageAsks() {
+export default function GarageCardsClean() {
   const isDesktop = useResponsive('up', 'lg')
 
   const isMountedRef = useIsMountedRef();
 
-  const {params} = useParams();
+  const {params} = useParams()
 
   const [posts, setPosts] = useState([]);
 
@@ -32,7 +31,7 @@ export default function GarageAsks() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/garageask?page=${page}&size=12`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&category=세차`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -47,7 +46,7 @@ export default function GarageAsks() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/garageask/search?page=${page}&size=12&${params}`);
+      const response = await axios.get(`/garagecard/search?page=${page}&size=12&category=세차&${params}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -77,14 +76,12 @@ export default function GarageAsks() {
     [getAllPosts, page]
   );
 
-  console.log(posts)
-
   return (
     <Page title="GARAGE">
       <Container maxWidth='xl' sx={{mt:2}}>
-        {isDesktop && 
+      {isDesktop && 
         <HeaderBreadcrumbs
-          heading="정비 질문"
+          heading="정비소 찾기"
           links={[{ name: '' }]}
           action={
             <>
@@ -92,16 +89,15 @@ export default function GarageAsks() {
           }
           sx={{ mt: 2 }}
         />}
-        <BlogPostsSearch  />
-
-        <Grid container spacing={2}>
+        <BlogPostsSearchCustom />
+        <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : posts).map((post, index) =>
             post ? (
-              <Grid key={post.id} item xs={12} sm={6} md={3}>
+              <Grid key={post.id} item xs={6} sm={6} md={3}>
                 <BlogPostCard post={post} />
               </Grid>
             ) : (
-              <SkeletonGarageAsk key={index} />
+              <SkeletonGarageCard key={index} />
             )
           )}
         </Grid>
@@ -113,7 +109,7 @@ export default function GarageAsks() {
             shape="rounded"
             color="action"
             size="large"
-            sx={{ mt: 2 ,mb:4}}
+            sx={{ mt: 2 ,mb:4 }}
           />
         </Stack>
       </Container>

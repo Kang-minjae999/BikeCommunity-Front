@@ -63,7 +63,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
 
   const isHome = pathname.includes('app')
   const isShop = pathname.includes('shop')
-  const isGarage = pathname.includes('garages')
+  const isGarage = pathname.includes('garage')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
   const isMoto = pathname.includes('motocycle')

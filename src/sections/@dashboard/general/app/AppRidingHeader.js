@@ -13,6 +13,7 @@ import AppRidingClub from './AppRidingClub';
 
 import { useDispatch, useSelector } from '../../../../redux/store';
 import { getPosition } from '../../../../redux/slices/map';
+import GarageCardsCafe from '../../../../pages/dashboard/GarageCardsCafe';
 
 export default function AppRidingHeader() {
   const dispatch = useDispatch();
@@ -72,7 +73,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'cafe',
-      component: ''
+      component: <GarageCardsCafe />
     },
   ];
 

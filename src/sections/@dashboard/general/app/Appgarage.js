@@ -21,7 +21,7 @@ export default function Appgarage() {
   const {value, tab} = useParams()
 
   useEffect(() => {
-    if(!tab){
+    if(!value){
         navigate(`/dashboard/garages/garage`);
     }
   } , [])

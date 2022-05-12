@@ -123,24 +123,6 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
           </div>
         )}
 
-        <div className="ql-formats">
-          <button type="button" className="ql-list" value="ordered" />
-          <button type="button" className="ql-list" value="bullet" />
-          {!isSimple && <button type="button" className="ql-indent" value="-1" />}
-          {!isSimple && <button type="button" className="ql-indent" value="+1" />}
-        </div>
-
-        {!isSimple && (
-          <div className="ql-formats">
-            <button type="button" className="ql-code-block" />
-            <button type="button" className="ql-blockquote" />
-          </div>
-        )}
-
-        <div className="ql-formats">
-          <button type="button" className="ql-direction" value="rtl" />
-          <select className="ql-align" />
-        </div>
 
         <div className="ql-formats">
           <button type="button" className="ql-image" />

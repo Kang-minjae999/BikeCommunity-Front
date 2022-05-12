@@ -184,7 +184,7 @@ export default function BlogPostsSearch() {
     <Link    
     variant="outlined"
     component={RouterLink}
-    to={PATH_DASHBOARD.blog.newDingsta}
+    to='/dashboard/garage/new-ask'
     >
     <Stack
     direction="column"

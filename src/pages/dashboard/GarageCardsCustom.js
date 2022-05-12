@@ -93,7 +93,7 @@ export default function GarageCardsCustom() {
         <Grid container spacing={3}>
           {(!posts.length ? [...Array(12)] : posts).map((post, index) =>
             post ? (
-              <Grid key={post.id} item xs={12} sm={6} md={3}>
+              <Grid key={post.id} item xs={6} sm={6} md={3}>
                 <BlogPostCard post={post} />
               </Grid>
             ) : (

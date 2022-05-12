@@ -10,6 +10,7 @@ import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
 import { Appgarage } from '.';
+import GarageCardsClean from '../../../../pages/dashboard/GarageCardsClean';
 
 export default function AppRidingHeader() {
   const isDesktop = useResponsive('up', 'lg');
@@ -42,7 +43,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'clean',
-      component: <AppRidingClub />,
+      component: <GarageCardsClean />,
     },
     {
       value: 'test',
