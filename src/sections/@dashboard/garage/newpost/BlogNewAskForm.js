@@ -33,7 +33,7 @@ export default function BlogNewAskForm() {
   const defaultValues = {
     title: '',
     content: '',
-    image: '',
+    modelName:'',
   };
 
   const methods = useForm({
@@ -52,14 +52,9 @@ export default function BlogNewAskForm() {
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-    formData.append('image', data.image);
-    formData.append('content', data.content)
-    formData.append('title', data.title)
     try {
-      await axios.post(`/report/${user.nickname}`, formData ,{
+      await axios.post(`/garageask/${user.nickname}`, data ,{
         headers: {
-        'content-type': 'multipart/form-data',
         Authorization: accessToken,
         },
       });
@@ -70,21 +65,7 @@ export default function BlogNewAskForm() {
     }
   };
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
 
-      if (file) {
-        setValue(
-          'image',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
   
 
   return (
@@ -96,6 +77,7 @@ export default function BlogNewAskForm() {
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" color='action'/>
+                <RHFTextField name="modelName" label="모델명" color='action'/>
                 <RHFEditor name='content' />
               </Stack>
             </Card>

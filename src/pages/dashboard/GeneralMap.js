@@ -20,16 +20,16 @@ import GeneralMapMarkerBefore from '../../sections/@dashboard/riding/GeneralMapM
 import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
 import GeneralMapIsselct from '../../sections/@dashboard/riding/GeneralMapIsselect';
 import { GeneralMapDestiPeople } from '../../sections/@dashboard/riding';
-import Iconify from '../../components/Iconify';
-
 
 // ------------------------------------------------------------
 GeneralMap.propTypes = {
   tab: PropTypes.string,
   userPo: PropTypes.object,
+  open: PropTypes.string,
+  setopen: PropTypes.func,
 };
 
-export default function GeneralMap({tab, userPo}) {
+export default function GeneralMap({tab, userPo, open}) {
   const { user } = useAuth();
   const navigate = useNavigate()
   const isMountedRef = useIsMountedRef();
@@ -37,8 +37,6 @@ export default function GeneralMap({tab, userPo}) {
   const { enqueueSnackbar } = useSnackbar();
   const [allPositions, setAllPosition] = useState([])
 
-  // 지도 & 즐겨찾기
-  const [open, setopen] = useState('map')
 
   // 선택 카테고리
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -288,23 +286,10 @@ export default function GeneralMap({tab, userPo}) {
   return (
      <Page title="라이딩맵">
       <Container maxWidth='lx' sx={{mt:2}} disableGutters>
-      {tab === 'map' &&  
-      <>
-      <Stack direction='row' alignItems='center' justifyContent='space-between'>        
-        <Button variant='outlined' size='large' onClick={() => setopen('map')} color='inherit' sx={{mb:2}}>
-          <Iconify icon='bi:map' sx={open === 'map' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}}/></Button> 
-        <Button variant='outlined' size='large' onClick={() => setopen('myroute')} color='inherit' sx={{mb:2}}>
-          <Iconify icon='clarity:star-line'  sx={open === 'myroute' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'inherit'}}/></Button>
-      </Stack>
-      </>}
-
-        {open === 'map' && 
+        {(open === 'map' || open === 'home') && 
           <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
-          {tab === 'map' && 
-          <>
           <AppRidingMapSearch setPosition={setPosition}/>
-        </>}
         <Card sx={{border:1, borderColor:'darkgray'}}>
           <Stack direction='row' justifyContent='center' sx={{mb:1}}>
             <Button variant='text' color="inherit" size='small' type='button' id="allMenu"  onClick={() => setSelectedCategory("all")} sx={{mt:1, ml:1}}>
@@ -405,7 +390,7 @@ export default function GeneralMap({tab, userPo}) {
       </Grid>
       <Grid item xs={12} md={4} sx={{mb:5}}>
       {!isAbout && <Card sx={{border:1, borderColor:'darkgray'}}><Typography variant='body2'sx={{m:2}}><strong>마커</strong>를 클릭해주세요!</Typography></Card>}
-      {(isAbout && tab === 'map') &&
+      {(isAbout && tab === 'home') &&
       <> 
        {values.destination.length > 0 && <Card sx={{border:1, borderColor:'darkgray', mb:2}}>
           <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -432,7 +417,7 @@ export default function GeneralMap({tab, userPo}) {
         </Grid>
         </Grid>}
 
-        {open === 'myroute'&& 
+        {open === 'myroute' && 
         <>
           {viaLike && 
           <>

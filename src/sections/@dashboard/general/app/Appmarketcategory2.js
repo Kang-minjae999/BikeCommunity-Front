@@ -12,7 +12,7 @@ export default function Appmarketcategory2() {
   const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
-    navigate(`/dashboard/marketu/${newValue}/0`)
+    navigate(`/dashboard/app/used/${newValue}/0`)
   }
   const valueStyle = {
     borderBottom: 3, 

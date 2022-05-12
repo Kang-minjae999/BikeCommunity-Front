@@ -85,9 +85,13 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" replace />, index: true },
         { path: 'app', element: <GeneralApp /> }, 
         { path: 'app/:value', element: <GeneralApp /> }, 
+        { path: 'app/:value/:tab', element: <GeneralApp /> }, 
+        { path: 'app/:value/:tab/:paging', element: <GeneralApp /> }, 
+        { path: 'app/:value/:tab/:paging/:option', element: <GeneralApp /> }, 
 
         { path: 'riding', element: <GeneralRiding /> }, 
         { path: 'riding/:value', element: <GeneralRiding /> }, 
+        { path: 'riding/:value/:icon', element: <GeneralRiding /> }, 
 
         { path: 'rider', element: <GeneralRider /> }, 
         { path: 'rider/:value', element: <GeneralRider /> }, 

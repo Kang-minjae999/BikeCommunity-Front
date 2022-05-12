@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams} from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { Typography, Paper, Divider, Container } from '@mui/material';
+import { Typography, Paper, Divider } from '@mui/material';
 import AppRidingHome from './AppRidingHome';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
-import GeneralMap from '../../../../pages/dashboard/GeneralMap';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import AppRidingClub from './AppRidingClub';
@@ -20,11 +19,11 @@ export default function AppRidingHeader() {
   const { weatherOne, weatherTwo } = useSelector((state) => state.map);
   const isDesktop = useResponsive('up', 'lg');
   const navigate = useNavigate()
-  const {value} = useParams();
+  const {value, icon} = useParams();
 
   useEffect(() => {
     if(!value){
-      navigate(`/dashboard/riding/home`);
+      navigate(`/dashboard/riding/home/home`);
     }
   })
   
@@ -52,7 +51,7 @@ export default function AppRidingHeader() {
       value: 'home',
       component: (
         <AppRidingHome
-          tab={value}
+          icon={icon}
           userPo={userPo}
           weather1={weatherOne}
           weather2={weatherTwo}
@@ -73,16 +72,7 @@ export default function AppRidingHeader() {
     },
     {
       value: 'cafe',
-      component: (
-        <Container>
-          <GeneralMap
-            tab={value}
-            userPo={userPo}
-            weather1={weatherOne}
-            weather2={weatherTwo}
-          />
-        </Container>
-      ),
+      component: ''
     },
   ];
 

@@ -134,7 +134,7 @@ const onClickRiding = () => {
   return (
 <>
 <Grid container >
-{window.ReactNativeWebView && <Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:1, mb:2, width:'100%', color:'text.primary'}}>목적지 없이 라이딩 시작하기</Button>}
+  {window.ReactNativeWebView && <Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:1, mb:2, width:'100%', color:'text.primary'}}>목적지 없이 라이딩 시작하기</Button>}
   {weather && 
   <Card sx={{width:'100%' , border:1, borderColor:'darkgray'}}>
   <Stack direction='row'>

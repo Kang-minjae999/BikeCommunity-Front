@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import {  Typography, Paper, Divider } from '@mui/material';
-import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine, AppHomeSale } from '.';
+import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine } from '.';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
 import GeneralMarketu from '../../../../pages/dashboard/GeneralMarketu';

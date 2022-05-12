@@ -1,5 +1,5 @@
 // @mui
-import { Container, Grid} from '@mui/material';
+import { Container, Grid } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
@@ -32,6 +32,3 @@ export default function GeneralApp() {
     </Page>
   );
 }
-
-
-

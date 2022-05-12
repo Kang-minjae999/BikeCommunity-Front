@@ -11,9 +11,9 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
-import { FormProvider, RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../../components/hook-form';
+import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -33,7 +33,7 @@ export default function BlogNewPostForm() {
   const defaultValues = {
     title: '',
     content: '',
-    image: '',
+    modelName:''
   };
 
   const methods = useForm({
@@ -52,14 +52,9 @@ export default function BlogNewPostForm() {
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-    formData.append('image', data.image);
-    formData.append('content', data.content)
-    formData.append('title', data.title)
     try {
-      await axios.post(`/report/${user.nickname}`, formData ,{
+      await axios.post(`/garagepost/${user.nickname}`, data ,{
         headers: {
-        'content-type': 'multipart/form-data',
         Authorization: accessToken,
         },
       });
@@ -70,22 +65,7 @@ export default function BlogNewPostForm() {
     }
   };
 
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
 
-      if (file) {
-        setValue(
-          'image',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
-  
 
   return (
     <>
@@ -96,15 +76,8 @@ export default function BlogNewPostForm() {
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" color='action'/>
+                <RHFTextField name="modelName" label="모델명" color='action'/>
                 <RHFEditor name='content' />
-                대표사진
-                <RHFUploadSingleFile
-                  name="image"
-                  showPreview
-                  accept="image/*"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                />
               </Stack>
             </Card>
               <LoadingButton fullWidth type="submit" variant="outlined" size="large" color='inherit' loading={isSubmitting} sx={{color:'text.primary'}}>

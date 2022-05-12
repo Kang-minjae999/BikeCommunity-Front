@@ -4,19 +4,25 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Grid, Card, Stack, CardHeader } from '@mui/material';
+import { Grid, Card, Stack, CardHeader, Autocomplete } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
 import { FormProvider, RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
+const CATEGORY_OPTION = [
+  '정비소',
+  '커스텀',
+  '카페',
+  '세차',
+];
 
 export default function BlogNewCardForm() {
   const navigate = useNavigate();
@@ -27,13 +33,12 @@ export default function BlogNewCardForm() {
 
   const NewBlogSchema = Yup.object().shape({
     title: Yup.string().required('제목이 필요합니다.'),
-    content: Yup.string().required('내용이 필요합니다.'),
   });
 
   const defaultValues = {
     title: '',
-    content: '',
-    image: '',
+    category:'',
+    address:''
   };
 
   const methods = useForm({
@@ -44,6 +49,7 @@ export default function BlogNewCardForm() {
   const {
     watch,
     setValue,
+    control,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
@@ -52,40 +58,18 @@ export default function BlogNewCardForm() {
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
-    const formData = new FormData()
-    formData.append('image', data.image);
-    formData.append('content', data.content)
-    formData.append('title', data.title)
     try {
-      await axios.post(`/report/${user.nickname}`, formData ,{
+      await axios.post(`/garagecard/${user.nickname}`, data ,{
         headers: {
-        'content-type': 'multipart/form-data',
         Authorization: accessToken,
         },
       });
-      enqueueSnackbar('정비 글 추가 완료!');
+      enqueueSnackbar('정비소 카드 추가 완료!');
       navigate(PATH_DASHBOARD.blog.reports);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-
-      if (file) {
-        setValue(
-          'image',
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-      }
-    },
-    [setValue]
-  );
-  
 
   return (
     <>
@@ -96,15 +80,25 @@ export default function BlogNewCardForm() {
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
                 <RHFTextField name="title" label="제목" color='action'/>
-                지역
-                대표사진
-                <RHFUploadSingleFile
-                  name="image"
-                  showPreview
-                  accept="image/*"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
+
+                <RHFTextField name="category" label="카테고리" color='action'/>
+                <Controller
+                  name="detailCategory"
+                  control={control}
+                  render={({ field }) => (
+                    <Autocomplete
+                      {...field}
+                      noOptionsText="그런 카테고리는 없어요!"
+                      onChange={(event, newValue) => field.onChange(newValue)}
+                      options={CATEGORY_OPTION.map((option) => option)}
+                      renderInput={(params) => (
+                        <RHFTextField name="detailCategory" label="상세카테고리" {...params} placeholder="상세카테고리" />
+                      )}
+                    />
+                  )}
                 />
+                
+                <RHFTextField name="address" label="주소" color='action'/>
               </Stack>
             </Card>
               <LoadingButton fullWidth type="submit" variant="outlined" size="large" color='inherit' loading={isSubmitting} sx={{color:'text.primary'}}>

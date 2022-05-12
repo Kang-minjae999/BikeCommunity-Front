@@ -57,7 +57,7 @@ function SimpleDialog(props) {
       enqueueSnackbar('놀고싶다!')     
     }
     if(tab !== 'map'){
-      enqueueSnackbar('경유지를 추가하시려면 지도 탭으로 이동해주세요!');
+      enqueueSnackbar('경유지를 추가하시려면 지도 아이콘으로 이동해주세요!');
       handleClose();
     }
   }; 
@@ -120,13 +120,12 @@ SimpleDialog.propTypes = {
 };
 
 GeneralMapbutton.propTypes = {
-  name: PropTypes.string.isRequired,
   tab: PropTypes.string.isRequired,
   onSubmitDesti: PropTypes.func.isRequired,
 };
 
 
-export default function GeneralMapbutton({name, tab, onSubmitDesti}) {
+export default function GeneralMapbutton({tab, onSubmitDesti}) {
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 

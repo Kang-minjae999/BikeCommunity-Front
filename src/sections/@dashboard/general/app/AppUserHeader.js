@@ -17,7 +17,7 @@ export default function AppUserHeader() {
 
   useEffect(() => {
     if(!value){
-      navigate(`/dashboard/mypage/setting`);
+      navigate(`/dashboard/mypage/prof`);
     }
   })
   
@@ -90,12 +90,12 @@ export default function AppUserHeader() {
     <Paper sx={{ position: 'fixed', top: 52, left: 0, right: 0, zIndex:50}} elevation={1}>
     <BottomNavigation showLabels sx={{ width: '100%', height:'1%' }} value={value} onChange={handleChange}>
     <BottomNavigationAction
-        sx={{...(value === 'profile') && valueStyle}}
+        sx={{...(value === 'prof') && valueStyle}}
         label={<Typography variant='subtitle3' color={value === 'prof' ? 'text.primary' : 'disabled'}>프로필</Typography>}
         value="prof"
       />
       <BottomNavigationAction
-        sx={{...(value === 'checkout') && valueStyle}}
+        sx={{...(value === 'check') && valueStyle}}
         label={<Typography  variant='subtitle3' color={value === 'check' ? 'text.primary' : 'disabled'}>장바구니</Typography>}
         value="check"
       />
