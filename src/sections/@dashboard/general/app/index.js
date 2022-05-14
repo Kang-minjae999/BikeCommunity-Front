@@ -26,6 +26,7 @@ export { default as AppRiderHeader } from './AppRiderHeader';
 
 export { default as AppRidingHeader } from './AppRidingHeader';
 export { default as AppRidingHome } from './AppRidingHome';
+export { default as AppRidingHomeCalendar } from './AppRidingHomeCalendar';
 export { default as AppRidingClub } from './AppRidingClub';
 
 export { default as AppUserMenu } from './AppUserMenu';

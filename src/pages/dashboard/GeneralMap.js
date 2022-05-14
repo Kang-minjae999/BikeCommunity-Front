@@ -286,7 +286,7 @@ export default function GeneralMap({tab, userPo, open}) {
 
   return (
      <Page title="라이딩맵">
-      <Container maxWidth='lx' sx={{mt:2}} disableGutters>
+      <Container maxWidth='lx' disableGutters>
         {(open === 'map' ) && 
           <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
@@ -389,7 +389,7 @@ export default function GeneralMap({tab, userPo, open}) {
         </Map>}
         </Card>
       </Grid>
-      <Grid item xs={12} md={4} sx={{mb:5}}>
+      <Grid item xs={12} md={4} sx={{mb:2}}>
       {!isAbout && <Card sx={{border:1, borderColor:'darkgray'}}><Typography variant='body2'sx={{m:2}}><strong>마커</strong>를 클릭해주세요!</Typography></Card>}
       {(isAbout && tab === 'map') &&
       <> 

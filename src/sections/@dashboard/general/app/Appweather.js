@@ -11,6 +11,7 @@ import DangerousIcon from '@mui/icons-material/Dangerous';
 import AirIcon from '@mui/icons-material/Air';
 // ----------------------------------------
 import { Appweathercontent, Appweathercontent2 } from '.';
+import useResponsive from '../../../../hooks/useResponsive';
 
 // ---------------------------------------------------------------------
 Appweather.propTypes = {
@@ -20,6 +21,7 @@ Appweather.propTypes = {
 
 
 export default function Appweather({weather, weather2}) {
+  const isDesktop = useResponsive('up', 'lg')
   const [weathericon, setweathericon] = useState('');
   const [weathername, setweathername] = useState('');
   const [weathericon2, setweathericon2] = useState('');
@@ -133,7 +135,8 @@ const onClickRiding = () => {
 
   return (
 <>
-<Grid container >
+<Grid container sx={!isDesktop ? {mb:5} : {mb:5, mt:2}}>
+  <Grid item xs={12} lg={8}>
   {window.ReactNativeWebView && <Button onClick={onClickRiding} variant='outlined' color='inherit' sx={{mt:1, mb:2, width:'100%', color:'text.primary'}}>목적지 없이 라이딩 시작하기</Button>}
   {weather && 
   <Card sx={{width:'100%' , border:1, borderColor:'darkgray'}}>
@@ -154,6 +157,7 @@ const onClickRiding = () => {
   </Box>
   </Grid>
   </>}
+  </Grid>
 </Grid>
 </> 
 );

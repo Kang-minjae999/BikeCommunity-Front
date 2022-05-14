@@ -25,3 +25,4 @@ yarn-error.log*
 .eslintcache
 src/sections/@dashboard/general/app/AppRidinghome.js
 src/sections/@dashboard/general/app/Appridinghome.js
+src/sections/@dashboard/general/app/AppridingHome.js

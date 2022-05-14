@@ -24,7 +24,7 @@ export default function AppRidingHeader() {
 
   useEffect(() => {
     if(!value){
-      navigate(`/dashboard/riding/home/home`);
+      navigate(`/dashboard/riding/home/calendar`);
     }
   })
   
