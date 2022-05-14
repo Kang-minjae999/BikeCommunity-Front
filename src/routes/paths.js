@@ -38,62 +38,97 @@ export const PATH_PAGE = {
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   general: {
-    app: path(ROOTS_DASHBOARD, '/app'),
-    map: path(ROOTS_DASHBOARD, '/map'),
-    riding: path(ROOTS_DASHBOARD, '/riding'),
-    rider: path(ROOTS_DASHBOARD, '/rider'),
+    app: path(ROOTS_DASHBOARD, '/app/home'),
+    garage: path(ROOTS_DASHBOARD, '/garages/garage'),
+    riding: path(ROOTS_DASHBOARD, '/riding/home/calendar'),
+    moto: path(ROOTS_DASHBOARD, '/motocycle/maintenance'),
+    rider: path(ROOTS_DASHBOARD, '/rider/bikep'),
+    checkout: path(ROOTS_DASHBOARD, '/checkout/new'),
+    mypage: path(ROOTS_DASHBOARD, '/mypage'),
+    menu: path(ROOTS_DASHBOARD, '/menu'),
+
+    newmapmarker: path(ROOTS_DASHBOARD, '/mapnewmarker'),
 
     shop: path(ROOTS_DASHBOARD, '/shop/all/all/0'),
     shopmarket: path(ROOTS_DASHBOARD, '/shop/market/all/0'),
     shopbrand: path(ROOTS_DASHBOARD, '/shop/brand/all/0'),
     shopmoto: path(ROOTS_DASHBOARD, '/shop/moto/all/0'),
     shopused: path(ROOTS_DASHBOARD, '/shop/used/biketrade/0'),
-    mypage: path(ROOTS_DASHBOARD, '/mypage'),
 
     market: path(ROOTS_DASHBOARD, '/market/biketrade/0'),
     marketu: path(ROOTS_DASHBOARD, '/marketu/biketrade/0'),
-    garage: path(ROOTS_DASHBOARD, '/garages'),
+
+    garagecard: path(ROOTS_DASHBOARD, '/garages/garage'),
+    garagecustom: path(ROOTS_DASHBOARD, '/garages/custom'),
+    garagemap: path(ROOTS_DASHBOARD, '/garages/map'),
+    garageask: path(ROOTS_DASHBOARD, '/garages/ask'),
+    garageposts: path(ROOTS_DASHBOARD, '/garages/posts'),
+
+
     club: path(ROOTS_DASHBOARD, '/clubs'),
     ecommerce: path(ROOTS_DASHBOARD, '/ecommerce'),
     analytics: path(ROOTS_DASHBOARD, '/analytics'),
     banking: path(ROOTS_DASHBOARD, '/banking'),
     booking: path(ROOTS_DASHBOARD, '/booking'),
     clubmy: path(ROOTS_DASHBOARD, '/clubmy'),
-    checkout: path(ROOTS_DASHBOARD, '/checkout'),
   },
-  mail: {
-    root: path(ROOTS_DASHBOARD, '/mail'),
-    all: path(ROOTS_DASHBOARD, '/mail/all')
+  shop: {
+    root: path(ROOTS_DASHBOARD, '/app/home'),
+    brand: path(ROOTS_DASHBOARD, '/app/brand'),
+    genre: path(ROOTS_DASHBOARD, '/app/genre'),
+    category: path(ROOTS_DASHBOARD, '/app/category'),
+    used: path(ROOTS_DASHBOARD, '/app/used'),
   },
-  chat: {
-    root: path(ROOTS_DASHBOARD, '/chat'),
-    new: path(ROOTS_DASHBOARD, '/chat/new'),
-    conversation: path(ROOTS_DASHBOARD, '/chat/:conversationKey')
-  },
-  calendar: path(ROOTS_DASHBOARD, '/calendar'),
-  kanban: path(ROOTS_DASHBOARD, '/kanban'),
-  user: {
-    root: path(ROOTS_DASHBOARD, '/user'),
-    profile: path(ROOTS_DASHBOARD, '/user/profile'),
-    cards: path(ROOTS_DASHBOARD, '/user/cards'),
-    list: path(ROOTS_DASHBOARD, '/user/list'),
-    newUser: path(ROOTS_DASHBOARD, '/user/new'),
-    editById: path(ROOTS_DASHBOARD, `/user/reece-chung/edit`),
-    account: path(ROOTS_DASHBOARD, '/user/account')
+  usedshop: {
+    bike: path(ROOTS_DASHBOARD, '/app/used/biketrade/0'),
+    bikeuser: path(ROOTS_DASHBOARD, '/app/used/biketrade-user/0'),
+    bikegarage: path(ROOTS_DASHBOARD, '/app/used/biketrade-garage/0'),
+    etc: path(ROOTS_DASHBOARD, '/app/used/etctrade/0'),
   },
   garage: {
-      root: path(ROOTS_DASHBOARD, '/garage'),
-      profile: path(ROOTS_DASHBOARD, '/garage/profile'),
-      map: path(ROOTS_DASHBOARD, '/garage/map'),
-      reservation: path(ROOTS_DASHBOARD, '/garage/reservation'),
-      record: path(ROOTS_DASHBOARD, '/garage/record'),
-      ask: path(ROOTS_DASHBOARD, '/garage/ask'),
-      cards: path(ROOTS_DASHBOARD, '/garage/cards'),
-      list: path(ROOTS_DASHBOARD, '/garage/list'),
-      newUser: path(ROOTS_DASHBOARD, '/garage/new'),
-      editById: path(ROOTS_DASHBOARD, `/garage/reece-chung/edit`),
-      account: path(ROOTS_DASHBOARD, '/garage/account')
-    },
+    root: path(ROOTS_DASHBOARD, '/garage'),
+    card: path(ROOTS_DASHBOARD, '/garages/garage'),
+    custom: path(ROOTS_DASHBOARD, '/garages/custom'),
+    map: path(ROOTS_DASHBOARD, '/garages/map'),
+    ask: path(ROOTS_DASHBOARD, '/garages/ask'),
+    newask: path(ROOTS_DASHBOARD, '/garage/new-ask'),
+    post: path(ROOTS_DASHBOARD, '/garages/posts'),
+    newpost: path(ROOTS_DASHBOARD, '/garage/new-post'),
+    newcard: path(ROOTS_DASHBOARD, '/garage/new-card'),
+  },
+  chat: {
+    root: path(ROOTS_DASHBOARD, '/chatting'),
+    new: path(ROOTS_DASHBOARD, '/chatting/new'),
+    conversation: path(ROOTS_DASHBOARD, '/chatting/:conversationKey')
+  },
+  user: {
+    root: path(ROOTS_DASHBOARD, '/mypage'),
+    profile: path(ROOTS_DASHBOARD, '/mypage/prof'),
+    checkout: path(ROOTS_DASHBOARD, '/mypage/check'),
+    motocycle: path(ROOTS_DASHBOARD, '/mypage/moto'),
+    club: path(ROOTS_DASHBOARD, '/mypage/club'),
+    setting: path(ROOTS_DASHBOARD, '/mypage/setting'),
+  },
+  blog: {
+    root: path(ROOTS_DASHBOARD, '/blog'),
+    posts: path(ROOTS_DASHBOARD, '/blog/posts'),
+    notices: path(ROOTS_DASHBOARD, '/blog/notices'),
+    dingstas: path(ROOTS_DASHBOARD, '/blog/dingstas'), 
+    reports: path(ROOTS_DASHBOARD, '/blog/reports'),   
+    post: path(ROOTS_DASHBOARD, '/blog/post/:id'),   
+    notice: path(ROOTS_DASHBOARD, '/blog/notice/:id'),   
+    dingsta: path(ROOTS_DASHBOARD, '/blog/dingsta/:id'),
+    report: path(ROOTS_DASHBOARD, '/blog/report/:id'),
+    postById: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
+    newPost: path(ROOTS_DASHBOARD, '/blog/new-post'),
+    newNotice: path(ROOTS_DASHBOARD, '/blog/new-notice'),
+    newDingsta: path(ROOTS_DASHBOARD, '/blog/new-dingsta'),
+    newReport: path(ROOTS_DASHBOARD, '/blog/new-report'),
+  },
+
+  alleCommerce: {
+    checkout: path(ROOTS_DASHBOARD, '/all-e-commerce/checkout'),
+  },
   eCommerce: {
     root: path(ROOTS_DASHBOARD, '/e-commerce'),
     shop: path(ROOTS_DASHBOARD, '/e-commerce/shop'),    
@@ -107,9 +142,6 @@ export const PATH_DASHBOARD = {
     editById: path(ROOTS_DASHBOARD, '/e-commerce/product/nike-blazer-low-77-vintage/edit'),
     checkout: path(ROOTS_DASHBOARD, '/e-commerce/checkout'),
     invoice: path(ROOTS_DASHBOARD, '/e-commerce/invoice')
-  },
-  alleCommerce: {
-    checkout: path(ROOTS_DASHBOARD, '/all-e-commerce/checkout'),
   },
   usedeCommerce: {
     root: path(ROOTS_DASHBOARD, '/used-e-commerce'),
@@ -129,38 +161,6 @@ export const PATH_DASHBOARD = {
     checkout: path(ROOTS_DASHBOARD, 'used-e-commerce/checkout'),
     invoice: path(ROOTS_DASHBOARD, '/used-e-commerce/invoice')
   },
-  blog: {
-    root: path(ROOTS_DASHBOARD, '/blog'),
-    posts: path(ROOTS_DASHBOARD, '/blog/posts'),
-    notices: path(ROOTS_DASHBOARD, '/blog/notices'),
-    dingstas: path(ROOTS_DASHBOARD, '/blog/dingstas'), 
-    reports: path(ROOTS_DASHBOARD, '/blog/reports'),   
-    post: path(ROOTS_DASHBOARD, '/blog/post/:id'),   
-    notice: path(ROOTS_DASHBOARD, '/blog/notice/:id'),   
-    dingsta: path(ROOTS_DASHBOARD, '/blog/dingsta/:id'),
-    report: path(ROOTS_DASHBOARD, '/blog/report/:id'),
-    postById: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
-    newPost: path(ROOTS_DASHBOARD, '/blog/new-post'),
-    newNotice: path(ROOTS_DASHBOARD, '/blog/new-notice'),
-    newDingsta: path(ROOTS_DASHBOARD, '/blog/new-dingsta'),
-    newReport: path(ROOTS_DASHBOARD, '/blog/new-report'),
-  },
-
-  board: {
-    root: path(ROOTS_DASHBOARD, '/board'),
-    posts: path(ROOTS_DASHBOARD, '/board/posts'),
-    list: path(ROOTS_DASHBOARD, '/board/list'),
-    motocycle: path(ROOTS_DASHBOARD, '/board/Motocycle'),    
-    motocyclefix: path(ROOTS_DASHBOARD, '/board/Motocyclefix'),
-    motocyclepicture: path(ROOTS_DASHBOARD, '/board/Motocyclepicture'),
-    free: path(ROOTS_DASHBOARD, '/board/free'),
-    post: path(ROOTS_DASHBOARD, '/board/post/:title'),
-    postById: path(ROOTS_DASHBOARD, '/board/post/apply-these-7-secret-techniques-to-improve-event'),
-    newPost: path(ROOTS_DASHBOARD, '/board/new-post'),
-    newPostmotocycle: path(ROOTS_DASHBOARD, '/board/newPostmotocycle'),
-    newPostmotocyclefix: path(ROOTS_DASHBOARD, '/board/newPostmotocyclefix'),
-    newPostmotocyclepicture: path(ROOTS_DASHBOARD, '/board/newPostmotocyclefix'),
-  }, 
   club: {
     root: path(ROOTS_DASHBOARD, '/club'),
     club: path(ROOTS_DASHBOARD, '/club/club'),    
@@ -172,6 +172,22 @@ export const PATH_DASHBOARD = {
     editById: path(ROOTS_DASHBOARD, '/club/product/nike-blazer-low-77-vintage/edit'),
     checkout: path(ROOTS_DASHBOARD, '/club/checkout'),
     invoice: path(ROOTS_DASHBOARD, '/club/invoice')
+  },
+  motocycle: {
+    root: path(ROOTS_DASHBOARD, '/motocycle/rent'),
+    rent: path(ROOTS_DASHBOARD, '/motocycle/rent'),    
+    lease: path(ROOTS_DASHBOARD, '/motocycle/lease'),    
+    edu: path(ROOTS_DASHBOARD, '/motocycle/edu'),
+    clean: path(ROOTS_DASHBOARD, '/motocycle/clean'),
+    test: path(ROOTS_DASHBOARD, '/motocycle/test'),
+  },
+  rider: {
+    root: path(ROOTS_DASHBOARD, '/rider/bikep'),
+    bikep: path(ROOTS_DASHBOARD, '/rider/bikep'),
+    emergency: path(ROOTS_DASHBOARD, '/rider/emergency'),    
+    lorry: path(ROOTS_DASHBOARD, '/rider/lorry'),    
+    crash: path(ROOTS_DASHBOARD, '/rider/crash'),
+    insurance: path(ROOTS_DASHBOARD, '/rider/insurance'),
   },
   
 };

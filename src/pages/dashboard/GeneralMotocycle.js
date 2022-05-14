@@ -1,7 +1,7 @@
 import { Container, Grid} from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
-import AppMotoHeader from '../../sections/@dashboard/general/app/AppMotoHeader';
+import AppMotoHeader from '../../sections/@dashboard/general/motocycle/AppMotoHeader';
 
 // ----------------------------------------------------------------------
 

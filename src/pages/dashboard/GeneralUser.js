@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 // @mui
-import { Container, Grid} from '@mui/material';
+import { Container, Grid } from '@mui/material';
 // hooks
 import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 // sections
-import { AppUserHeader } from '../../sections/@dashboard/general/app';
+import { AppUserHeader } from '../../sections/@dashboard/general/user';
 import useAuth from '../../hooks/useAuth';
 // ----------------------------------------------------------------------
 

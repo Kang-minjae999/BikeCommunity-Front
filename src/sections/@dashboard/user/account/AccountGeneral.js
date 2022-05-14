@@ -57,7 +57,7 @@ export default function AccountGeneral() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.put('/users', data
+      await axios.put(`/users/${user?.id}`, data
        ,{
         headers: {
           Authorization: accessToken,
@@ -92,7 +92,7 @@ export default function AccountGeneral() {
     const formData = new FormData()
     formData.append('imageFile', watch('avatar'))
     try {
-      await axios.put('/users/avatar', formData
+      await axios.put(`/users/${user?.id}/avatar`, formData
        ,{
         headers: {
           Authorization: accessToken,
@@ -106,13 +106,13 @@ export default function AccountGeneral() {
   
   const deleteavatar = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
-    setValue('avatar', '')
     try {
-      await axios.delete('/users/avatar',{
+      await axios.delete(`/users/${user?.id}/avatar`,{
         headers: {
           Authorization: accessToken,
         },
       });
+      setValue('avatar', '')
       enqueueSnackbar('아바타 삭제 완료!');
     } catch (error) {
       console.error(error);

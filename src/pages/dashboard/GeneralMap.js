@@ -13,13 +13,13 @@ import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
 import useResponsive from '../../hooks/useResponsive';
 import Page from '../../components/Page';
-import GeneralMapweather from "../../sections/@dashboard/riding/GeneralMapweather";
-import GeneralMapViabutton from '../../sections/@dashboard/riding/GeneralMapViabutton';
-import GeneralMapMarker from '../../sections/@dashboard/riding/GeneralMapMarker.png';
-import GeneralMapMarkerBefore from '../../sections/@dashboard/riding/GeneralMapMarkerBefore.png';
-import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
-import GeneralMapIsselct from '../../sections/@dashboard/riding/GeneralMapIsselect';
-import { GeneralMapDestiPeople } from '../../sections/@dashboard/riding';
+import GeneralMapweather from "../../sections/@dashboard/map/GeneralMapweather";
+import GeneralMapViabutton from '../../sections/@dashboard/map/GeneralMapViabutton';
+import GeneralMapMarker from '../../sections/@dashboard/map/GeneralMapMarker.png';
+import GeneralMapMarkerBefore from '../../sections/@dashboard/map/GeneralMapMarkerBefore.png';
+import AppRidingMapSearch from '../../sections/@dashboard/map/AppRidingMapSearch';
+import GeneralMapIsselct from '../../sections/@dashboard/map/GeneralMapIsselect';
+import GeneralMapDestiPeople from '../../sections/@dashboard/map/GeneralMapDestiPeople';
 
 // ------------------------------------------------------------
 GeneralMap.propTypes = {

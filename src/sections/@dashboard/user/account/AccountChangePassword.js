@@ -8,10 +8,13 @@ import { Stack, Card } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
+import axios from '../../../../utils/axiosuser';
+import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
 export default function AccountChangePassword() {
+  const { user } = useAuth()
   const { enqueueSnackbar } = useSnackbar();
 
   const ChangePassWordSchema = Yup.object().shape({
@@ -32,16 +35,20 @@ export default function AccountChangePassword() {
   });
 
   const {
-    reset,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
+    const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      reset();
-      enqueueSnackbar('Update success!');
+      await axios.put(`/users/${user?.id}/password`, data
+       ,{
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      enqueueSnackbar('회원 수정 완료!');
     } catch (error) {
       console.error(error);
     }

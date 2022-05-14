@@ -1,7 +1,7 @@
 import { Container, Grid} from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
-import AppRiderHeader from '../../sections/@dashboard/general/app/AppRiderHeader';
+import AppRiderHeader from '../../sections/@dashboard/general/rider/AppRiderHeader';
 
 // ----------------------------------------------------------------------
 

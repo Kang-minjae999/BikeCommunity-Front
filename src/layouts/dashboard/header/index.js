@@ -124,7 +124,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
             </Typography>}
 
             {isMoto && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              RIDER
+              MOTOCYCLE
             </Typography>}
             
             {isMypage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>

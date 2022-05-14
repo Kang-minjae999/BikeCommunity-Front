@@ -26,13 +26,13 @@ export default function LabelBottomNavigation() {
         label={<Typography variant='body3' color={isHome ? 'text.primary' : 'disabled'} >HOME</Typography>}
         value="app"
         icon={<Iconify icon='ant-design:home-outlined' sx={isHome ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/app`)}
+        onClick={() => navigate(`/dashboard/app/home`)}
       />
       <BottomNavigationAction
         label={<Typography variant='body3' color={isShop ? 'text.primary' : 'disabled'} >정비</Typography>}
         value="garages"
         icon={<Iconify icon='ant-design:tool-outlined' sx={isShop ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/garages`)}
+        onClick={() => navigate(`/dashboard/garages/garage`)}
       />
       <BottomNavigationAction
         label={<Typography variant='body3' color={isRiding ? 'text.primary' : 'disabled'} >라이딩</Typography>}
@@ -44,13 +44,13 @@ export default function LabelBottomNavigation() {
         label={<Typography variant='body3' color={isMoto ? 'text.primary' : 'disabled'} >바이크</Typography>}
         value="motocycle"
         icon={<Iconify icon='ant-design:smile-outlined' sx={isMoto ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/motocycle`)}
+        onClick={() => navigate(`/dashboard/motocycle/rent`)}
       />
       <BottomNavigationAction 
         label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}
         value="rider" 
         icon={<Iconify icon='ant-design:profile-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
-        onClick={() => navigate(`/dashboard/rider`)}/>
+        onClick={() => navigate(`/dashboard/rider/bikep`)}/>
     </BottomNavigation>
     </>
   );

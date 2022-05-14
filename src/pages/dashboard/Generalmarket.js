@@ -4,7 +4,7 @@ import orderBy from 'lodash/orderBy';
 import { useForm } from 'react-hook-form';
 // @mui
 import { Container, Typography, Stack } from '@mui/material';
-import { Appmarketcategory, Appmarketcategorymobile } from '../../sections/@dashboard/general/app';
+import { Appmarketcategory, Appmarketcategorymobile } from '../../sections/@dashboard/general/shop';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getProducts, filterProducts } from '../../redux/slices/product';

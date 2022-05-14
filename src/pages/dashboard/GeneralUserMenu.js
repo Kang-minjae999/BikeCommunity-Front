@@ -5,7 +5,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 // sections
-import { AppUserMenu } from '../../sections/@dashboard/general/app';
+import { AppUserMenu } from '../../sections/@dashboard/general/user';
 // ----------------------------------------------------------------------
 
 export default function GeneralUserMenu() {

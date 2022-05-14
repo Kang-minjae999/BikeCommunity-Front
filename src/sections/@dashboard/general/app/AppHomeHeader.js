@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import {  Typography, Paper, Divider } from '@mui/material';
+import { Typography, Paper, Divider } from '@mui/material';
 import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine } from '.';
 import AppHeaderSpace from './AppHeaderSpace';
 import useResponsive from '../../../../hooks/useResponsive';
@@ -11,8 +11,8 @@ import GeneralMarketu from '../../../../pages/dashboard/GeneralMarketu';
 
 
 export default function AppHomeHeader() {
-  const isDesktop = useResponsive('up', 'lg')
-  const navigate = useNavigate()
+  const isDesktop = useResponsive('up', 'lg');
+  const navigate = useNavigate();
   const {value} = useParams();
 
   useEffect(() => {
@@ -31,15 +31,15 @@ export default function AppHomeHeader() {
       component: <AppHomeMain />,
     },
     {
-      value: 'best',
+      value: 'brand',
       component: <AppHomeBest />,
     },
     {
-      value: 'brand',
+      value: 'genre',
       component: <AppHomeBrand />,
     },
     {
-      value: 'post',
+      value: 'category',
       component: <AppHomeMagazine/>,
     },
     {
@@ -69,12 +69,12 @@ export default function AppHomeHeader() {
         value="brand"
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'best') && valueStyle}}>장르</Typography>}
-        value="best"
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'genre') && valueStyle}}>장르</Typography>}
+        value="genre"
       />
       <BottomNavigationAction
-        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'post') && valueStyle}}>카테고리</Typography>}
-        value="post"
+        label={<Typography variant='body2' color='text.primary' sx={{...(value === 'category') && valueStyle}}>카테고리</Typography>}
+        value="category"
       />
       <BottomNavigationAction 
         label={<Typography variant='body2' color='text.primary' sx={{...(value === 'used') && valueStyle}}>중고</Typography>}
@@ -97,14 +97,14 @@ export default function AppHomeHeader() {
         value="brand"
       />
       <BottomNavigationAction
-        sx={{...(value === 'best') && valueStyle}}
-        label={<Typography  variant='subtitle3'  color={value === 'best' ? 'text.primary' : 'disabled'}>장르</Typography>}
-        value="best"
+        sx={{...(value === 'genre') && valueStyle}}
+        label={<Typography  variant='subtitle3'  color={value === 'genre' ? 'text.primary' : 'disabled'}>장르</Typography>}
+        value="genre"
       />
       <BottomNavigationAction
-        sx={{...(value === 'post') && valueStyle}}
-        label={<Typography  variant='subtitle3'  color={value === 'post' ? 'text.primary' : 'disabled'}>카테고리</Typography>}
-        value="post"
+        sx={{...(value === 'category') && valueStyle}}
+        label={<Typography  variant='subtitle3'  color={value === 'category' ? 'text.primary' : 'disabled'}>카테고리</Typography>}
+        value="category"
       />
       <BottomNavigationAction 
         sx={{...(value === 'used') && valueStyle}}

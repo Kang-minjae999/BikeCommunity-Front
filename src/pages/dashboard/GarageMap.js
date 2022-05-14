@@ -6,12 +6,10 @@ import axios from '../../utils/axiosriding';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
 import Page from '../../components/Page';
-import GeneralMapweather from "../../sections/@dashboard/riding/GeneralMapweather";
-import GeneralMapMarker from '../../sections/@dashboard/riding/GeneralMapMarker.png';
-import GeneralMapMarkerBefore from '../../sections/@dashboard/riding/GeneralMapMarkerBefore.png';
-import { AppRidingMapSearch } from '../../sections/@dashboard/general/riding';
-import { GarageMapIsselect } from '../../sections/@dashboard/riding';
-
+import GeneralMapweather from "../../sections/@dashboard/map/GeneralMapweather";
+import GeneralMapMarker from '../../sections/@dashboard/map/GeneralMapMarker.png';
+import GeneralMapMarkerBefore from '../../sections/@dashboard/map/GeneralMapMarkerBefore.png';
+import { AppRidingMapSearch, GarageMapIsselect } from '../../sections/@dashboard/map';
 
 // ------------------------------------------------------------
 export default function GarageMap() {

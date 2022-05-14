@@ -230,25 +230,6 @@ export default function Router() {
             { path: 'invoice', element: <ClubInvoice /> },
           ],
         },
-
-        {
-          path: 'mail',
-          children: [
-            { element: <Navigate to="/dashboard/mail/all" replace />, index: true },
-            { path: 'label/:customLabel', element: <Mail /> },
-            { path: 'label/:customLabel/:mailId', element: <Mail /> },
-            { path: ':systemLabel', element: <Mail /> },
-            { path: ':systemLabel/:mailId', element: <Mail /> },
-          ],
-        },
-        {
-          path: 'chat',
-          children: [
-            { element: <Chat />, index: true },
-            { path: 'new', element: <Chat /> },
-            { path: ':conversationKey', element: <Chat /> },
-          ],
-        },
         {
           path: 'chatting',
           children: [
@@ -350,10 +331,8 @@ const GarageCard = Loadable(lazy(() => import('../pages/dashboard/GarageCard')))
 const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
 const GarageMap = Loadable(lazy(() => import('../pages/dashboard/GarageMap')));
 
-const Chat = Loadable(lazy(() => import('../pages/dashboard/Chat')));
 const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));
 const ChatList = Loadable(lazy(() => import('../pages/dashboard/ChatList')));
-const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
 // Main
 const HomePage = Loadable(lazy(() => import('../pages/Home')));
 const Faqs = Loadable(lazy(() => import('../pages/Faqs')));

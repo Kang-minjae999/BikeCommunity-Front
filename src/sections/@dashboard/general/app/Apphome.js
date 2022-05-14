@@ -12,7 +12,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 // -----------------------------------------
 import { useNavigate } from 'react-router-dom';
 import { Card, Paper, Stack, Grid, CardHeader } from '@mui/material';
-import { AppFeatured, Appweather } from '.';
+import { AppFeatured } from '.';
 
 
 export default function Apphome() {
@@ -45,7 +45,6 @@ export default function Apphome() {
       <Grid item xs={12} md={12}>
       <Card>
       <CardHeader title='Weather'/>
-      <Appweather/>
 
       </Card>
       </Grid>

@@ -5,7 +5,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 // sections
-import { AppShopHeader } from '../../sections/@dashboard/general/app';
+import { AppShopHeader } from '../../sections/@dashboard/general/shop';
 
 // ----------------------------------------------------------------------
 

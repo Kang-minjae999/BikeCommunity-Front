@@ -1,6 +1,6 @@
 import { Container, Grid} from '@mui/material';
 import Page from '../../components/Page';
-import AppRidingHeader from '../../sections/@dashboard/general/app/AppRidingHeader';
+import AppRidingHeader from '../../sections/@dashboard/general/riding/AppRidingHeader';
 
 // ----------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-import { RidingNewMarker } from '../../sections/@dashboard/riding';
+import { RidingNewMarker } from '../../sections/@dashboard/map';
 
 
 // ------------------------------------------------------------

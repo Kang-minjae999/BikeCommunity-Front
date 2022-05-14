@@ -108,6 +108,7 @@ function AuthProvider({ children }) {
               authorization: accessToken,
             },
           });
+
           const user = response.data.data;
 
           dispatch({
@@ -187,7 +188,7 @@ function AuthProvider({ children }) {
 
   const afterlogin = async (users) => {
     const token = localStorage.getItem('accessToken')
-    const response = await axios.put('/users/oauth', 
+    const response = await axios.put('/users-oauth', 
     {
       nickname:users.nickname,
       name:users.name,
