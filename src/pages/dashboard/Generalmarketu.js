@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router';
-import { useLocation } from 'react-router-dom';
 // form
 // @mui
 import { Container, Stack, Pagination, Divider, Box, Chip, Button, Typography } from '@mui/material';
@@ -32,8 +31,6 @@ export default function GeneralMarketu() {
   const { themeStretch } = useSettings();
 
   const navigate = useNavigate()
-
-  const { pathname } = useLocation();
 
   const {tab='', paging='', option=''} = useParams()
 
@@ -94,47 +91,28 @@ export default function GeneralMarketu() {
 
   const handleChange = ((event, value) => {
     setpagenation(value)
-    if(pathname.includes('shop')){
-     navigate(`/dashboard/shop/used/${tab}/${value-1}`)
-    } else {
-     navigate(`/dashboard/marketu/${tab}/${value-1}`)
-    }
+    navigate(`/dashboard/app/used/${tab}/${value-1}`)
    }
   );
 
   const handleButton = (() => {
-    navigate(`/dashboard/shop/used/${tab}/${page+1}`)
+    navigate(`/dashboard/app/used/${tab}/${page+1}`)
    }
   );
 
 
   const handleChip = ((item) => {
-    if(isDesktop){
       if(tab !== 'etctrade'){
-        navigate(`/dashboard/marketu/biketrade/0/&title=${item}`)           
+        navigate(`/dashboard/app/used/biketrade/0/&title=${item}`)           
       }
       if(tab === 'etctrade'){
-        navigate(`/dashboard/marketu/etctrade/0/&title=${item}`)           
-      }  
-    }
-    if(!isDesktop){
-      if(tab !== 'etctrade'){
-        navigate(`/dashboard/shop/used/biketrade/0/&title=${item}`)       
+        navigate(`/dashboard/app/used/etctrade/0/&title=${item}`)           
       }
-      if(tab === 'etctrade'){
-        navigate(`/dashboard/shop/used/etctrade/0/&title=${item}`)           
-      }  
-    }
-   }
-  );
+    });
 
   const handleReset = (() => {
-    if(!isDesktop){
-      navigate(`/dashboard/shop/used/${tab}/0`)
-    }    
-    if(isDesktop){
-      navigate(`/dashboard/marketu/${tab}/0`)
-    }
+      navigate(`/dashboard/app/used/${tab}/0`)
+
   }
   );
 

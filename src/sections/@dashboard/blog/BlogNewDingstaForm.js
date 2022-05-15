@@ -69,7 +69,7 @@ export default function BlogNewDingstaForm() {
     formData.append('isPublic', data.isPublic);
     formData.append('content', data.content);
     try {
-      await axios.post(`/dingsta/${user.nickname}`, formData, {
+      await axios.post('/dingsta/', formData, {
         headers: {
           'content-type': 'multipart/form-data',
           authorization: accessToken,

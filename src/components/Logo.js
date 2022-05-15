@@ -23,5 +23,5 @@ export default function Logo({ disabledLink = false, sx }) {
     return <>{logo}</>;
   }
 
-  return <Link component={RouterLink} to="/dashboard/app" underline="none">{logo}</Link>;
+  return <Link component={RouterLink} to="/dashboard/app/home" underline="none">{logo}</Link>;
 }

@@ -20,7 +20,6 @@ import Iconify from '../../components/Iconify';
 import {
   Profile,
   ProfileGallery,
-  ProfileFollowers,
 } from '../../sections/@dashboard/user/profile';
 import useAuth from '../../hooks/useAuth';
 
@@ -103,7 +102,7 @@ export default function RidingProfile() {
       value: 'sell',
       label: '상품',
       icon: <LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />,
-      component: <ProfileFollowers followers={_userFollowers} />,
+      component: <Profile post={post}/>,
     },
   ];
 

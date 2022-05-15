@@ -217,7 +217,7 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (email, password, name, nickname, birthday, phoneNumber, address) => {
+  const register = async (email, password, name, nickname, birthday, phoneNumber, address, sex) => {
     const response = await axios.post('/join', {
       email,
       password,
@@ -226,6 +226,7 @@ function AuthProvider({ children }) {
       birthday,
       phoneNumber,
       address,
+      sex
     });
     const user = response.data;
     dispatch({

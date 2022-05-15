@@ -33,7 +33,7 @@ const navConfig = [
     items: [
       {
         title: '신품거래',
-        path: PATH_DASHBOARD.shop.root,
+        path: PATH_DASHBOARD.general.shop,
         icon: <StoreIcon sx={{ width: 1, height: 1 }}/>,
         children: [
           { title: '브랜드', path: PATH_DASHBOARD.shop.brand },
@@ -43,7 +43,7 @@ const navConfig = [
       },
       {
         title: '중고거래',
-        path: PATH_DASHBOARD.shop.root,
+        path: PATH_DASHBOARD.general.shopused,
         icon: <StorefrontIcon sx={{ width: 1, height: 1 }}/>,
         children: [
           { title: '바이크', path: PATH_DASHBOARD.usedshop.bike },
@@ -77,7 +77,7 @@ const navConfig = [
     items: [
       {
         title: '커뮤니티',
-        path: PATH_DASHBOARD.garage.root,
+        path: PATH_DASHBOARD.blog.root,
         icon: <PhotoFilterIcon sx={{ width: 1, height: 1 }}/>,
         children: [
           { title: '포스트', path: PATH_DASHBOARD.blog.posts },

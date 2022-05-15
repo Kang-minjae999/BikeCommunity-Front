@@ -1,171 +1,67 @@
 import * as React from 'react';
 import {useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router';
-// -----------------------------------------
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-// -----------------------------------------
-import {  Typography,  Divider } from '@mui/material';
-import useResponsive from '../../../../hooks/useResponsive';
 import AppFeatured  from './AppFeatured';
 import GaragePosts from '../../../../pages/dashboard/GaragePosts';
 import GarageAsks from '../../../../pages/dashboard/GarageAsks';
 import GarageMap from '../../../../pages/dashboard/GarageMap';
 import GarageCards from '../../../../pages/dashboard/GarageCards';
 import GarageCardsCustom from '../../../../pages/dashboard/GarageCardsCustom';
+import TabMiddle from '../../../../components/TabMiddle';
 
 
 export default function Appgarage() {
-  const isDesktop = useResponsive('up', 'lg');
   const navigate = useNavigate()
-  const {value, tab} = useParams()
+  const {value} = useParams()
 
   useEffect(() => {
     if(!value){
         navigate(`/dashboard/garages/garage`);
     }
-  } , [])
-  
-  const handleChange = (event, newValue) => {
-      navigate(`/dashboard/garages/${newValue}`);
-  };
+  } , [value ,navigate])
+
+  const path = '/dashboard/garages'
+
+  const Featured = <AppFeatured />
 
   const ACCOUNT_TABS = [
     {
+      index: 0,
+      label: '정비소',
       value: 'garage',
       component: <GarageCards />,
     },
     {
+      index: 1,
+      label: '커스텀',
       value: 'custom',
       component: <GarageCardsCustom />,
     },
     {
+      index: 2,
+      label: '위치',
       value: 'map',
       component: <GarageMap />,
     },
     {
+      index: 3,
+      label: '정비질문',
       value: 'ask',
       component: <GarageAsks />,
     },
     {
+      index: 4,
+      label: '정비글',
       value: 'posts',
       component: <GaragePosts />,
     },
   ];
 
-  const valueStyle = {
-    borderBottom:(isDesktop ? 3 : 2),
-    borderBottomColor: 'text.primary',
-    fontWeight:'bold'
-  };
-  
-  const valueStyleNone = {
-    borderBottom:1,
-    borderBottomColor: 'disabled',
-  };
-
-  const valueStyleLeft = {
-    borderTop:2,
-    borderTopColor: 'text.primary',
-    borderRight:1,
-    borderRightColor: 'disabled',
-    fontWeight:'bold'
-  };
-
-  const valueStyleMiddle = {
-    borderTop:2,
-    borderTopColor: 'text.primary',
-    borderLeft:1,
-    borderLeftColor: 'disabled',
-    borderRight:1,
-    borderRightColor: 'disabled',
-    fontWeight:'bold'
-  };
-
-  const valueStyleRight = {
-    borderTop:2,
-    borderTopColor: 'text.primary',
-    borderLeft:1,
-    borderLeftColor: 'disabled',
-    fontWeight:'bold'
-  };
   
 
   return (
     <>
-    {isDesktop && 
-    <>
-    <Divider sx={{ width: '90%', mt:2  }}/>
-    <BottomNavigation showLabels sx={{ width: '100%' }} value={value} onChange={handleChange}>
-    <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'garage' && valueStyle)}}>정비소</Typography>}
-        value="garage"
-      />
-     <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'custom' && valueStyle)}}>커스텀</Typography>}
-        value="custom"
-      />
-      <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'map' && valueStyle)}}>위치</Typography>}
-        value="map"
-      />
-      <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'ask' && valueStyle)}}>정비질문</Typography>}
-        value="ask"
-      />
-      <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'posts' && valueStyle)}}>정비글</Typography>}
-        value="posts"
-      />
-      {/* <BottomNavigationAction
-        label={<Typography variant='body2' sx={{ ...(value === 'review' && valueStyle)}}>후기</Typography>}
-        value="review"
-      /> */}
-    </BottomNavigation>
-    </>}
-    {!isDesktop && 
-    <>
-    <AppFeatured />
-    <BottomNavigation showLabels sx={{ width: '100%'}} value={value} onChange={handleChange} >
-      <BottomNavigationAction
-        sx={{ ...(value === 'garage' ? valueStyleLeft : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={value === 'garage' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비소</Typography>}
-        value="garage"
-      />
-      <BottomNavigationAction
-        sx={{ ...(value === 'custom' ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={value === 'custom' ? 'text.primary' : 'inherit'} fontWeight='bold'>커스텀</Typography>}
-        value="custom"
-      />
-      <BottomNavigationAction
-        sx={{ ...(value === 'map'  ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={value === 'map' ? 'text.primary' : 'inherit'} fontWeight='bold'>위치찾기</Typography>}
-        value="map"
-      />
-      <BottomNavigationAction
-        sx={{ ...(value === 'ask' ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={value === 'ask' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비질문</Typography>}
-        value="ask"
-      />
-      <BottomNavigationAction
-        sx={{ ...(value === 'posts' ? valueStyleRight : valueStyleNone)}}
-        label={<Typography variant='subtitle3' color={value === 'posts' ? 'text.primary' : 'inherit'} fontWeight='bold'>정비글</Typography>}
-        value="posts"
-      />
-      {/* <BottomNavigationAction
-        sx={{ ...(value === 'review' && valueStyle) }}
-        label={<Typography variant='subtitle2' color={value === 'record' ? 'text.primary' : 'inherit'} fontWeight='bold'>후기</Typography>}
-        value="review"
-        icon={<ListIcon color={value === 'review' ? 'action' : 'disabled'} />}
-      /> */}
-    </BottomNavigation>
-    </>}
-      <>
-        {ACCOUNT_TABS.map((button) => {
-          const isMatched = button.value === value;
-          return isMatched && <div key={button.value}>{button.component}</div>;
-        })}
-      </>
+      <TabMiddle TABS={ACCOUNT_TABS} path={path} Featured={Featured} />
     </>
   );
 }

@@ -1,17 +1,11 @@
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
-import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, MenuList, ListItemIcon } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, MenuList, ListItemIcon, Paper } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_AUTH, PATH_PAGE } from '../../../../routes/paths';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
-import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-// components
-import MenuPopover from '../../../../components/MenuPopover';
-import { IconButtonAnimate } from '../../../../components/animate';
 import MyAvatar from '../../../../components/MyAvatar';
 import SettingMode from '../../../../components/settings/SettingMode';
 import Iconify from '../../../../components/Iconify';
@@ -50,12 +44,12 @@ export default function AppUserMenu() {
 const MENU_OPTIONS = [
   {
     label: '홈',
-    linkTo: '/dashboard/app',
+    linkTo: '/dashboard/app/home',
     icon: <Iconify icon='ant-design:home-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
   },
   {
     label: '마이페이지',
-    linkTo: '/dashboard/mypage',
+    linkTo: '/dashboard/mypage/prof',
     icon: <Iconify icon='ant-design:user-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
   },
   {
@@ -136,6 +130,11 @@ const MENU_OPTIONS = [
             로그인
           </MenuItem>
         )}
+        <Paper sx={{width:'100%', position:'fixed', bottom:120, left:0, right:0}}>
+          <Stack direction='row' justifyContent='center' alignItems='center'>
+           <Iconify icon='ant-design:import-outlined' sx={{width:48, height:48, color:'text.secondary'}} onClick={() => navigate(-1)}/>
+          </Stack>
+        </Paper>
     </MenuList>
   );
 }

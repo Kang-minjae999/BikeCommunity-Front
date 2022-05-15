@@ -62,24 +62,23 @@ export default function MainFooter() {
           justifyContent={{ xs: 'center', md: 'space-between' }}
           sx={{ textAlign: { xs: 'center', md: 'left' } }}
         >
-          <Grid item xs={12} sx={{ mb: 3 }}>
-            <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
-          </Grid>
-          <Grid item xs={8} md={3}>
-            <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              (주) RIDERTOWN
-            </Typography>
-
+          <Grid item xs={8} md={12} sx={{ mb: 3 }}>
             <Stack
-              direction="row"
+              direction={{ xs: 'column', md: 'row' }}
               justifyContent={{ xs: 'center', md: 'flex-start' }}
-              sx={{ mt: 5, mb: { xs: 5, md: 0 } }}
+              alignItems={{ xs: 'center', md: 'flex-start' }}
+              sx={{ mt: 5, mb: { xs: 5, md: 5, } }}
+              spacing={2}
             >
+            <Logo sx={{ mx: { xs: 'auto', md: 'inherit' } }} />
+             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
+              RIDERTOWN (주)
+            </Typography>
               <SocialsButton sx={{ mx: 0.5 }} />
             </Stack>
           </Grid>
 
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={12}>
             <Stack
               spacing={5}
               direction={{ xs: 'column', md: 'row' }}

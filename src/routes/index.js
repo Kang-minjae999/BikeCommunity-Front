@@ -114,11 +114,12 @@ export default function Router() {
         { path: 'shop/:value/:tab/:paging', element: <Generalshop /> }, 
         { path: 'shop/:value/:tab/:paging/:option', element: <Generalshop /> }, 
 
-        { path: 'checkout', element: <AEcommerceCheckout /> }, 
-        { path: 'checkout/:value', element: <AEcommerceCheckout /> }, 
+        { path: 'checkout', element: <AllEcommerceCheckout /> }, 
+        { path: 'checkout/:value', element: <AllEcommerceCheckout /> }, 
         
         { path: 'mypage', element: <GeneralUser /> }, 
         { path: 'mypage/:value', element: <GeneralUser /> }, 
+        { path: 'mypage/:value/:profilevalue', element: <GeneralUser /> }, 
 
         { path: 'market/:tab/:paging', element: <Generalmarket /> }, 
         { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, 
@@ -126,7 +127,6 @@ export default function Router() {
 
         { path: 'clubmy', element: <ClubMy /> }, 
         { path: 'menu', element: <GeneralUserMenu /> }, 
-        { path: 'checkout', element: <AEcommerceCheckout /> }, 
         { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, 
         
         {
@@ -276,7 +276,7 @@ const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMar
 const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
 const GeneralUserMenu = Loadable(lazy(() => import('../pages/dashboard/GeneralUserMenu')));
 
-const AEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AEcommerceCheckout')));
+const AllEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AllEcommerceCheckout')));
 // 신품거래
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/EcommerceShop')));
 const Emotocycle = Loadable(lazy(() => import('../pages/dashboard/Emotocycle')));

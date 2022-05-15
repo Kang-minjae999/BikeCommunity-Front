@@ -72,11 +72,11 @@ export default function AccountPopover() {
 const MENU_OPTIONS = [
   {
     label: '홈',
-    linkTo: '/dashboard/app',
+    linkTo: '/dashboard/app/home',
   },
   {
     label: '설정',
-    linkTo: '/dashboard/mypage',
+    linkTo: '/dashboard/mypage/prof/gallery',
   },
   {
     label: '공지사항',

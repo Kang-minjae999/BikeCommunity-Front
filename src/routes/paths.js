@@ -41,7 +41,7 @@ export const PATH_DASHBOARD = {
     app: path(ROOTS_DASHBOARD, '/app/home'),
     garage: path(ROOTS_DASHBOARD, '/garages/garage'),
     riding: path(ROOTS_DASHBOARD, '/riding/home/calendar'),
-    moto: path(ROOTS_DASHBOARD, '/motocycle/maintenance'),
+    moto: path(ROOTS_DASHBOARD, '/motocycle/rent'),
     rider: path(ROOTS_DASHBOARD, '/rider/bikep'),
     checkout: path(ROOTS_DASHBOARD, '/checkout/new'),
     mypage: path(ROOTS_DASHBOARD, '/mypage'),
@@ -53,7 +53,7 @@ export const PATH_DASHBOARD = {
     shopmarket: path(ROOTS_DASHBOARD, '/shop/market/all/0'),
     shopbrand: path(ROOTS_DASHBOARD, '/shop/brand/all/0'),
     shopmoto: path(ROOTS_DASHBOARD, '/shop/moto/all/0'),
-    shopused: path(ROOTS_DASHBOARD, '/shop/used/biketrade/0'),
+    shopused: path(ROOTS_DASHBOARD, '/shop/used'),
 
     market: path(ROOTS_DASHBOARD, '/market/biketrade/0'),
     marketu: path(ROOTS_DASHBOARD, '/marketu/biketrade/0'),

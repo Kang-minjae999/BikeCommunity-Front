@@ -134,7 +134,6 @@ export default function BlogPosts() {
             { name: ''},
           ]}
              action={ <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} /> }   
-          sx={{mt:2}}
         />
           <BlogPostsSearch setparam={setparam}/>
             {admin && <Button

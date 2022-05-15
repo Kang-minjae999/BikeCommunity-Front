@@ -2,7 +2,7 @@ import { pxToRem, responsiveFontSizes } from '../utils/getFontValue';
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = 'Public Sans, sans-serif'; // Google Font
+const FONT_PRIMARY = 'Noto Sans KR, sans-serif'; // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
 const typography = {
@@ -64,8 +64,8 @@ const typography = {
     fontSize: pxToRem(14),
   },
   subtitle3: {
-    fontWeight: 1000,
-    lineHeight: 64 / 48,
+    fontWeight: 900,
+    lineHeight: 1.5,
     fontSize: pxToRem(15),
   },
   body1: {
