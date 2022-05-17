@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Grid, Stack } from '@mui/material';
+import { Grid, Stack, Box } from '@mui/material';
 //
 import ProfilePostCard from './ProfilePostCard';
 
@@ -20,6 +20,94 @@ export default function Profile({ post }) {
             <ProfilePostCard key={post.id} post={post} />
           ))}
         </Stack>}
+        
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
       </Grid>
     </Grid>
   );

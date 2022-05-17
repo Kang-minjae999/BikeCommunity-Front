@@ -1,11 +1,10 @@
 import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk"
 import { useEffect, useState, useCallback} from "react"
 // @mui
-import { Container, Card, Grid, Stack , Divider} from "@mui/material"
+import { Card, Grid, Stack , Divider} from "@mui/material"
 import axios from '../../utils/axiosriding';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
-import Page from '../../components/Page';
 import GeneralMapweather from "../../sections/@dashboard/map/GeneralMapweather";
 import GeneralMapMarker from '../../sections/@dashboard/map/GeneralMapMarker.png';
 import GeneralMapMarkerBefore from '../../sections/@dashboard/map/GeneralMapMarkerBefore.png';
@@ -102,9 +101,7 @@ export default function GarageMap() {
 
 
   return (
-     <Page title="라이딩맵">
-      <Container maxWidth='lx' sx={{mt:2}} disableGutters>
-          <Grid container spacing={2}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={8}>
           <AppRidingMapSearch setPosition={setPosition}/>
         <Card sx={{border:1, borderColor:'darkgray'}}>
@@ -146,9 +143,7 @@ export default function GarageMap() {
           </Stack>
         </Card>}
         </Grid>
-        </Grid>
-    </Container>
-    </Page>
+   </Grid>
   )
 }
 

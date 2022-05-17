@@ -34,6 +34,47 @@ export default function ProfileGallery({ post }) {
           ))}
         </Box>
       </Card>}
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
+      <Box>안녕하세요</Box>
     </Box>
   );
 }

@@ -1,30 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
-import UserProfile from './UserProfile'
-import GarageProfile from './GarageProfile'
-import axiosInstance from '../../utils/axiosuser';
+import { useParams } from 'react-router';
+import axios from '../../utils/axiosuser';
+import { AppOtherProfile, AppGarageProfile, AppBrandProfile, AppClubProfile } from '../../sections/@dashboard/general/user';
 // ----------------------------------------------------------------------
 
 export default function GeneralProfile() {
-  const [profileType, setProfileType] = useState()
+  const { nickname } = useParams();
+  const [profileType, setProfileType] = useState();
 
   const getType = useCallback( async () => {
     try{
-      const response = await axiosInstance.get('url')
+      const response = await axios.get('url', nickname)
       setProfileType(response.data.data)
     } catch {
       // alert('연결이 이상해용~!')
     }
-  }, [])
+  }, [nickname])
 
   useEffect(() => {
     getType()
   }, [getType])
-  
+
+
   return (
     <>
-    {profileType === 'user' && <UserProfile />}
-    {profileType === 'garage' && <GarageProfile />}
-    {profileType === 'brand' && <GarageProfile />}
+    <AppOtherProfile />
+    {profileType === 'garage' && <AppGarageProfile />}
+    {profileType === 'brand' && <AppBrandProfile />}
+    {profileType === 'club' && <AppClubProfile />}
     </>
   );
 }

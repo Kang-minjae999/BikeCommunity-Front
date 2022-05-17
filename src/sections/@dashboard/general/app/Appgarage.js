@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router';
 import AppFeatured  from './AppFeatured';
 import GaragePosts from '../../../../pages/dashboard/GaragePosts';
 import GarageAsks from '../../../../pages/dashboard/GarageAsks';
@@ -12,7 +12,40 @@ import TabMiddle from '../../../../components/TabMiddle';
 
 export default function Appgarage() {
   const navigate = useNavigate()
+  
   const {value} = useParams()
+
+  const { pathname } = useLocation();
+
+  const ref = useRef()
+
+  const [isOpen, setIsOpen] = useState(false)
+  
+  const open = () => {
+    if(window.scrollY + 53 > ref?.current.offsetTop){
+      setIsOpen(true)
+    }
+    if(window.scrollY + 53 < ref?.current.offsetTop){
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', open)
+    return () => {
+      window.removeEventListener('scroll', open)
+    }
+  }, [])
+
+  useEffect(() => {
+    if(!isOpen){
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo(0, ref?.current.offsetTop - 53);
+    }
+  // eslint-disable-next-line
+  }, [pathname]);
+
 
   useEffect(() => {
     if(!value){
@@ -22,7 +55,7 @@ export default function Appgarage() {
 
   const path = '/dashboard/garages'
 
-  const Featured = <AppFeatured />
+  const Featured =  <><AppFeatured /><div ref={ref}/></>
 
   const ACCOUNT_TABS = [
     {

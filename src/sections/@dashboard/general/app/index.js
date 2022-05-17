@@ -18,6 +18,5 @@ export { default as AppFeaturedpc } from './AppFeaturedpc';
 export { default as AppFeaturedpc2 } from './AppFeaturedpc2';
 export { default as AppFeaturedpc3 } from './AppFeaturedpc3';
 
-export { default as Apphome } from './Apphome';
 export { default as Appgarage } from './Appgarage';
-export { default as Appclub } from './Appclub';
+export { default as AppClubHeader } from './AppClubHeader';

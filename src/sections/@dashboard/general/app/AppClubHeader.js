@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import {  Stack, Grid, Typography, Divider } from '@mui/material';
 
 
-export default function Appclub() {
+export default function AppClubHeader() {
   const [value, setValue] = useState('');
   const [valuetrue, setvaluetrue] = useState(false);
   const link = useNavigate();

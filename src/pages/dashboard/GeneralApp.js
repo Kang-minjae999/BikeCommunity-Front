@@ -14,7 +14,7 @@ export default function GeneralApp() {
     <Page title="라이더타운">
       <Container disableGutters maxWidth='xl'>
          <AppHomeHeader /> 
-          <MainFooter />
+         <MainFooter />
       </Container>
     </Page>
   );

@@ -74,8 +74,9 @@ export default function Router() {
       element: <DashboardLayoutForProfile />,
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
-        { path: 'garage/profile', element: <GarageProfile /> },
-        { path: 'garage/profile/:nickname', element: <GarageProfile /> },
+        { path: 'profile', element: <GeneralProfile /> },
+        { path: 'profile/:nickname', element: <GeneralProfile /> },
+        { path: 'profile/:nickname/:profilevalue', element: <GeneralProfile /> },
       ],
     },
     {
@@ -103,8 +104,6 @@ export default function Router() {
         { path: 'motocycle/:value', element: <GeneralMotocycle /> },
         { path: 'motocycle/:value/:tab', element: <GeneralMotocycle /> },
         { path: 'motocycle/:value/:tab/:params', element: <GeneralMotocycle /> },
-
-        { path: 'clubs', element: <GeneralClub /> }, 
         
         { path: 'garages', element: <Generalgarage /> }, 
         { path: 'garages/:value', element: <Generalgarage /> }, 
@@ -126,8 +125,7 @@ export default function Router() {
         { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, 
 
         { path: 'menu', element: <GeneralUserMenu /> }, 
-        { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, 
-        
+        { path: 'mapnewmarker', element: <GeneralMapNewMarker /> },         
         {
           path: 'e-commerce',
           children: [
@@ -149,28 +147,18 @@ export default function Router() {
           path: 'used-e-commerce',
           children: [
             { element: <Navigate to="/dashboard/used-e-commerce/shop" replace />, index: true },
-            { path: 'shop', element: <EcommerceShop /> },
-            { path: 'motocycle', element: <UEmotocycle /> },
-            { path: 'motocyclegarage', element: <UEmotocyclegarage /> },
-            { path: 'motocyclegear', element: <UEmotocyclegear /> },
-            { path: 'motocycleparts', element: <UEmotocycleparts /> },
             { path: 'product/detail/:id', element: <UEcommerceProductDetails /> },
             { path: 'productetc/detail/:id', element: <UEcommerceProductDetailsEtc /> },
-            { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/newmoto', element: <UEcommerceProductCreate /> },
             { path: 'product/newetc', element: <UEcommerceProductCreate /> },
             { path: 'product/newmoto/:id/edit', element: <UEcommerceProductCreate /> },
             { path: 'product/newetc/:id/edit', element: <UEcommerceProductCreate /> },
-            { path: 'checkout', element: <EcommerceCheckout /> },
-            { path: 'invoice', element: <EcommerceInvoice /> },
           ],
         },
         {
           path: 'user',
           children: [
-            { element: <Navigate to="/dashboard/user/profile" replace />, index: true },
-            { path: 'profile', element: <UserProfile /> },
-            { path: 'profile/:nickname', element: <UserProfile /> },
+            { element: <Navigate to="/dashboard" replace />, index: true },
             { path: 'account', element: <UserAccount /> },
           ],
         },
@@ -266,7 +254,6 @@ const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')))
 const GeneralMapNewMarker = Loadable(lazy(() => import('../pages/dashboard/GeneralMapNewMarker')));
 const GeneralRider = Loadable(lazy(() => import('../pages/dashboard/GeneralRider')));
 const GeneralRiding = Loadable(lazy(() => import('../pages/dashboard/GeneralRiding')));
-const GeneralClub = Loadable(lazy(() => import('../pages/dashboard/GeneralClub')));
 const Generalgarage = Loadable(lazy(() => import('../pages/dashboard/GeneralGarage')));
 const GeneralMotocycle = Loadable(lazy(() => import('../pages/dashboard/GeneralMotocycle')));
 const Generalshop = Loadable(lazy(() => import('../pages/dashboard/GeneralShop')));
@@ -274,6 +261,7 @@ const Generalmarket = Loadable(lazy(() => import('../pages/dashboard/GeneralMark
 const Generalmarketu = Loadable(lazy(() => import('../pages/dashboard/GeneralMarketu')));
 const GeneralUser = Loadable(lazy(() => import('../pages/dashboard/GeneralUser')));
 const GeneralUserMenu = Loadable(lazy(() => import('../pages/dashboard/GeneralUserMenu')));
+const GeneralProfile = Loadable(lazy(() => import('../pages/dashboard/GeneralProfile')));
 
 const AllEcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/AllEcommerceCheckout')));
 // 신품거래
@@ -291,10 +279,6 @@ const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/Ecommerc
 const ClubCreate = Loadable(lazy(() => import('../pages/dashboard/ClubCreate')));
 
 // 중고거래
-const UEmotocycle = Loadable(lazy(() => import('../pages/dashboard/UEmotocycle')));
-const UEmotocyclegarage = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclegarage')));
-const UEmotocyclegear = Loadable(lazy(() => import('../pages/dashboard/UEmotocyclegear')));
-const UEmotocycleparts = Loadable(lazy(() => import('../pages/dashboard/UEmotocycleparts')));
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
 const UEcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetails')));
 const UEcommerceProductDetailsEtc = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductDetailsEtc')));
@@ -310,7 +294,6 @@ const BlogDingsta = Loadable(lazy(() => import('../pages/dashboard/BlogDingsta')
 const BlogReport = Loadable(lazy(() => import('../pages/dashboard/BlogReport')));
 const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 // 유저
-const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 // 개러지
 const GarageNewPost = Loadable(lazy(() => import('../pages/dashboard/GarageNewPost')));
@@ -320,7 +303,6 @@ const GarageAsks = Loadable(lazy(() => import('../pages/dashboard/GarageAsks')))
 const GarageAsk = Loadable(lazy(() => import('../pages/dashboard/GarageAsk')));
 const GarageCards = Loadable(lazy(() => import('../pages/dashboard/GarageCards')));
 const GarageCard = Loadable(lazy(() => import('../pages/dashboard/GarageCard')));
-const GarageProfile = Loadable(lazy(() => import('../pages/dashboard/GarageProfile')));
 const GarageMap = Loadable(lazy(() => import('../pages/dashboard/GarageMap')));
 
 const ChatIo = Loadable(lazy(() => import('../pages/dashboard/ChatIo')));
