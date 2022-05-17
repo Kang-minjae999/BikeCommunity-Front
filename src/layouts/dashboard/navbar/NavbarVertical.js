@@ -56,12 +56,6 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
-    useEffect(() => {
-      if(isDesktop){
-        onToggleCollapse();
-      }
-    }, [isDesktop, onToggleCollapse]);
-
   const renderContent = (
     <Scrollbar
       sx={{

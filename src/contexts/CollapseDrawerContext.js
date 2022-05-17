@@ -30,14 +30,6 @@ function CollapseDrawerProvider({ children }) {
     hover: false,
   });
 
-  useEffect(() => {
-    if (!isDesktop) {
-      setCollapse({
-        click: false,
-        hover: false,
-      });
-    }
-  }, [isDesktop]);
 
   const handleToggleCollapse = () => {
     setCollapse({ ...collapse, click: !collapse.click });
@@ -52,6 +44,19 @@ function CollapseDrawerProvider({ children }) {
   const handleHoverLeave = () => {
     setCollapse({ ...collapse, hover: false });
   };
+
+  useEffect(() => {
+    if (!isDesktop) {
+      setCollapse({
+        click: false,
+        hover: false,
+      });
+    }    
+    if (isDesktop) {
+      handleToggleCollapse()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDesktop]);
 
   return (
     <CollapseDrawerContext.Provider
