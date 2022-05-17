@@ -91,24 +91,21 @@ export default function TabProfile({TABS, Featured, path}) {
       {Featured}
     </Grid>
     <Grid item xs={12} lg={4}>
-      <BottomNavigation showLabels sx={{ width: '100%'}} value={valueMobile} onChange={handleNavigate} >
+      <BottomNavigation showLabels sx={{ width: '100%' }} value={valueMobile} onChange={handleNavigate} >
       <BottomNavigationAction
         sx={{ ...(valueMobile === 0 ? valueStyleLeft : valueStyleNone)}}
-        label={<Typography variant='subtitle2' color={valueMobile === 0 ? 'text.primary' : 'inherit'}>{TABS[0].label}</Typography>}
+        label={<Typography variant='subtitle3' color={valueMobile === 0 ? 'text.primary' : 'inherit'}>{TABS[0].label}</Typography>}
         value={TABS[0].index}
-        icon={TABS[0].icon}
       />
       <BottomNavigationAction
         sx={{ ...(valueMobile === 1 ? valueStyleMiddle : valueStyleNone)}}
-        label={<Typography variant='subtitle2' color={valueMobile === 1 ? 'text.primary' : 'inherit'}>{TABS[1].label}</Typography>}
+        label={<Typography variant='subtitle3' color={valueMobile === 1 ? 'text.primary' : 'inherit'}>{TABS[1].label}</Typography>}
         value={TABS[1].index}
-        icon={TABS[1].icon}
       />
       <BottomNavigationAction
         sx={{ ...(valueMobile === 2  ? valueStyleRight : valueStyleNone)}}
-        label={<Typography variant='subtitle2' color={valueMobile === 2 ? 'text.primary' : 'inherit'}>{TABS[2].label}</Typography>}
+        label={<Typography variant='subtitle3' color={valueMobile === 2 ? 'text.primary' : 'inherit'}>{TABS[2].label}</Typography>}
         value={TABS[2].index}
-        icon={TABS[2].icon}
       />
     </BottomNavigation>
      <Box sx={{mt:2}}/> 

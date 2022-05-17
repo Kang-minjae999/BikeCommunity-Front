@@ -50,7 +50,6 @@ export default function GarageAsk() {
     getPost();
   }, [getPost]);
 
-  console.log(post)
 
   const linkToProfile = `${PATH_DASHBOARD.user.profile}/${post?.nicknameOfPost}`;
 

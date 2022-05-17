@@ -2,8 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 // @mui
 import { Box, Typography, Stack, Avatar } from '@mui/material';
-import TocIcon from '@mui/icons-material/Toc';
-import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 // routes
 import axios from '../../../../utils/axiospost';
 // hooks
@@ -12,7 +10,6 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 
 // components
 import Image from '../../../../components/Image';
-import Iconify from '../../../../components/Iconify';
 import TabProfile from '../../../../components/TabProfile';
 // sections
 import {
@@ -71,21 +68,18 @@ export default function AppUserProfile() {
       index: 0,
       value: 'gallery',
       label: '갤러리',
-      icon: <Iconify icon={'ic:round-perm-media'} width={20} height={20} />,
       component: <ProfileGallery post={post}/>,
     }, 
     {
       index: 1,
       value: 'dingsta',
       label: '게시글',
-      icon: <TocIcon icon={'ic:round-perm-media'} width={20} height={20} />,
       component: <Profile post={post}/>,
     },
     {
       index: 2,
       value: 'sell',
       label: '상품',
-      icon: <LocalAtmIcon icon={'eva:heart-fill'} width={20} height={20} />,
       component: <ProfileSell post={post}/>,
     },
   ];

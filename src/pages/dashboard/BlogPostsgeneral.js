@@ -43,8 +43,7 @@ const applySort = (posts, sortBy) => {
 };
 
 export default function BlogPostsgeneral() {
-  const {user} =useAuth()
-  console.log(user.role)
+  // const {user} =useAuth()
   // 유저 role 이 admin 일때만 글쓰기 가능
   const { themeStretch } = useSettings();
 

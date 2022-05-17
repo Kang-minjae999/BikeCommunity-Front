@@ -4,8 +4,6 @@ import { styled } from '@mui/material/styles';
 import { Box, Typography } from '@mui/material';
 // utils
 import cssStyles from '../../../../utils/cssStyles';
-// hooks
-import useAuth from '../../../../hooks/useAuth';
 // components
 import MyAvatar from '../../../../components/MyAvatar';
 import Image from '../../../../components/Image';
@@ -47,7 +45,6 @@ ProfileCover.propTypes = {
 };
 
 export default function ProfileCover({ myProfile , name}) {
-  const { user } = useAuth();
   const { position, cover } = myProfile;
 
   return (

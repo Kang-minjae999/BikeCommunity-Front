@@ -77,7 +77,6 @@ export default function GarageAsks() {
     [getAllPosts, page]
   );
 
-  console.log(posts)
 
   return (
     <Page title="GARAGE">

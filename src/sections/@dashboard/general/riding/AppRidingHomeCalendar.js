@@ -41,6 +41,7 @@ export default function AppRidingHomeCalendar() {
       prev2Label={null}
       showNeighboringMonth={false} //  이전, 이후 달의 날짜는 보이지 않도록 설정
       className="mx-auto w-full text-sm border-b"
+      // eslint-disable-next-line 
       tileContent={({ date }) => { 
         // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
         if (mark.find((x) => x === moment(date).format("YYYY-MM-DD"))) {

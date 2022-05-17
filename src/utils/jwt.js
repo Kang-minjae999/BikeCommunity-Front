@@ -37,7 +37,7 @@ const isValidToken = (accessToken) => {
 const setSessionAccess = (accessToken) => {
   if (accessToken) {
     localStorage.setItem('accessToken', accessToken);
-     axios.defaults.headers.common.Authorization = `${accessToken}`; 
+    //  axios.defaults.headers.common.Authorization = `${accessToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
   } else {
@@ -49,7 +49,7 @@ const setSessionAccess = (accessToken) => {
 const setSessionRefresh = (refreshToken) => {
   if (refreshToken) {
     localStorage.setItem('refreshToken', refreshToken);
-     axios.defaults.headers.common.Authorization = `${refreshToken}`; 
+    //  axios.defaults.headers.common.Authorization = `${refreshToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
   } else {
