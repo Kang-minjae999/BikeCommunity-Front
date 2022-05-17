@@ -1,8 +1,12 @@
-// @mui
+import { PropTypes } from 'prop-types';
 import { Button } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
+
+Pay.propTypes = {
+  pay: PropTypes.object,
+};
 
 export default function Pay({ pay }) {
   const { price, payment, names } = pay;

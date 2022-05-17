@@ -4,7 +4,6 @@ import * as React from 'react';
 // @mui
 import { Typography, Box, Paper } from '@mui/material';
 import Popover from '@mui/material/Popover';
-import Button from '@mui/material/Button';
 // components
 import Image from '../../components/Image';
 import { MotionInView, varFade } from '../../components/animate';
@@ -47,18 +46,6 @@ const CATEGORIES = [
 // ----------------------------------------------------------------------
 
 export default function FaqsCategory() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
   return (
     <>
     <Box

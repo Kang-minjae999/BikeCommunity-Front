@@ -1,4 +1,3 @@
-import { sentenceCase } from 'change-case';
 import { useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 // @mui
@@ -7,10 +6,9 @@ import { Box, Tab, Card, Grid, Divider, Container, Typography } from '@mui/mater
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
 import axios from '../../utils/axiossecondhand';
-import { useDispatch, useSelector } from '../../redux/store';
+import { useDispatch } from '../../redux/store';
 import { addHeartUsed, checkHeartUsed, onGotoStep } from '../../redux/slices/product';
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
@@ -20,14 +18,11 @@ import Page from '../../components/Page';
 import Iconify from '../../components/Iconify';
 import Markdown from '../../components/Markdown';
 import { SkeletonProduct } from '../../components/skeleton';
-import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import {
   ProductDetailsSummary,
-  ProductDetailsReview,
   ProductDetailsCarousel,
 } from '../../sections/@dashboard/used-e-commerce/product-details';
-import CartWidget from '../../sections/@dashboard/e-commerce/CartWidget';
 
 // ----------------------------------------------------------------------
 

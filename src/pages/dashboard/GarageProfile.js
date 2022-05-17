@@ -1,14 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router';
-import { useParams } from 'react-router-dom';
-// @mui
-import { styled } from '@mui/material/styles';
+// import { useNavigate } from 'react-router';
+// import { useParams } from 'react-router-dom';
+// // @mui
+// import { styled } from '@mui/material/styles';
 import { Box, Container, Stack, Grid, BottomNavigation, BottomNavigationAction, Typography } from '@mui/material';
 import TocIcon from '@mui/icons-material/Toc';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import Image from '../../components/Image';
 // hooks
-import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
 // _mock_
 import DashboardHeaderForProfile from '../../layouts/dashboard/header/indexForProfile';
@@ -24,30 +23,12 @@ import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
-const TabsWrapperStyle = styled('div')(({ theme }) => ({
-  zIndex: 9,
-  bottom: 0,
-  width: '100%',
-  display: 'flex',
-  position: 'absolute',
-  backgroundColor: theme.palette.background.paper,
-  [theme.breakpoints.up('sm')]: {
-    justifyContent: 'center',
-  },
-  [theme.breakpoints.up('md')]: {
-    justifyContent: 'flex-end',
-    paddingRight: theme.spacing(3),
-  },
-}));
-
-// ----------------------------------------------------------------------
-
 export default function UserProfile() {
   const { themeStretch } = useSettings();
   const isDesktop = useResponsive('up', 'lg')
-  const { user } = useAuth();
-  const { name = '' } = useParams();
-  const navigate = useNavigate()
+  // const { user } = useAuth();
+  // const { name = '' } = useParams();
+  // const navigate = useNavigate()
 
   const ref = useRef()
 
@@ -175,10 +156,8 @@ export default function UserProfile() {
       </>,
     },
   ];
-  const valueStyle = {
-    borderBottom: 2,
-    borderBottomColor: 'text.primary',
-  };
+
+
 
   const valueStyleLeft = {
     borderTop:(isDesktop ? 3 : 2), 
@@ -222,7 +201,7 @@ export default function UserProfile() {
       setIsOpen(false)
     }
   }
-  console.log(ref)
+
   useEffect(() => {
     window.addEventListener('scroll', open)
     return () => {

@@ -8,7 +8,7 @@ import { Grid, Button, Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
-import { onGotoStep, onBackStep, onNextStep, applyShipping } from '../../../../redux/slices/product';
+import { onGotoStep, onBackStep, onNextStep } from '../../../../redux/slices/product';
 // components
 import Iconify from '../../../../components/Iconify';
 import { FormProvider } from '../../../../components/hook-form';
@@ -19,20 +19,6 @@ import CheckoutPaymentMethods from './CheckoutPaymentMethods';
 import { fCurrency } from '../../../../utils/formatNumber';
 import useResponsive from '../../../../hooks/useResponsive';
 import { Pay } from '../../../Paymentport';
-
-// ----------------------------------------------------------------------
-const DELIVERY_OPTIONS = [
-  {
-    value: 0,
-    title: 'Standard delivery (Free)',
-    description: 'Delivered on Monday, August 12',
-  },
-  {
-    value: 2,
-    title: 'Fast delivery ($2,00)',
-    description: 'Delivered on Monday, August 5',
-  },
-];
 
 const PAYMENT_OPTIONS = [
   {
@@ -115,10 +101,6 @@ export default function CheckoutPayment() {
     dispatch(onGotoStep(step));
   };
 
-  const handleApplyShipping = (value) => {
-    dispatch(applyShipping(value));
-  };
-
   const PaymentSchema = Yup.object().shape({
     payment: Yup.string().required('결제방법을 선택해주세요!'),
   });
@@ -136,7 +118,6 @@ export default function CheckoutPayment() {
   const {
     handleSubmit,
     formState: { isSubmitting },
-    getValues,
     watch,
   } = methods;
 

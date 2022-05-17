@@ -5,14 +5,14 @@ import { useState, useRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { CardContent, Box, Card, Typography, Link } from '@mui/material';
+import { CardContent, Box, Typography, Link } from '@mui/material';
 // _mock_
 import { _appFeatured } from '../../../../_mock';
 import useResponsive from '../../../../hooks/useResponsive';
 // components
 import Image from '../../../../components/Image';
 import { MotionContainer, varFade } from '../../../../components/animate';
-import { CarouselDots, CarouselArrows } from '../../../../components/carousel';
+import { CarouselDots } from '../../../../components/carousel';
 
 // ----------------------------------------------------------------------
 

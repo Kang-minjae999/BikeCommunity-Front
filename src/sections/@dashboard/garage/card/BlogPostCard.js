@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Link, Card, Avatar, Typography, Stack, Divider, Box } from '@mui/material';
+import { Link, Card, Avatar, Typography, Stack, Box } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 

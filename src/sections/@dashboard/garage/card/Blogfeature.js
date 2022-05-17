@@ -1,29 +1,13 @@
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
-import { m } from 'framer-motion';
 import { useState, useRef } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-// @mui
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { CardContent, Box, Card, Typography, Link } from '@mui/material';
+import {  useTheme } from '@mui/material/styles';
+import {Box} from '@mui/material';
 // _mock_
-import { _appFeatured } from '../../../../_mock';
 // components
 import Image from '../../../../components/Image';
-import { MotionContainer, varFade } from '../../../../components/animate';
-import { CarouselDots, CarouselArrows } from '../../../../components/carousel';
+import { CarouselDots } from '../../../../components/carousel';
 
-// ----------------------------------------------------------------------
-
-const OverlayStyle = styled('div')(({ theme }) => ({
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  zIndex: 8,
-  position: 'absolute',
-  backgroundColor: alpha(theme.palette.grey[900], 0),
-}));
 
 // ----------------------------------------------------------------------
 Blogfeature.propTypes = {
@@ -70,12 +54,10 @@ export default function Blogfeature({post}) {
 // ----------------------------------------------------------------------
 
 CarouselItem.propTypes = {
-  isActive: PropTypes.bool,
   item: PropTypes.string,
-  index: PropTypes.number,
 };
 
-function CarouselItem({ item, isActive, index }) {
+function CarouselItem({ item}) {
   return (
     <Box sx={{ position: 'relative'}}>
       <Image ratio='1/1' alt={item} src={item} />

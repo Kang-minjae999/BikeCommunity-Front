@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 // -----------------------------------------
-import { useTheme } from '@mui/material/styles';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // -----------------------------------------
@@ -11,7 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 // -----------------------------------------
 import { useNavigate } from 'react-router-dom';
-import { Card, Paper, Stack, Grid, CardHeader } from '@mui/material';
+import { Card, Stack, Grid, CardHeader } from '@mui/material';
 import { AppFeatured } from '.';
 
 
@@ -24,8 +23,7 @@ export default function Apphome() {
     setvaluetrue(true);
   };
 
-  
-  const theme = useTheme();
+
 
 
   useEffect(() => {
@@ -37,6 +35,7 @@ export default function Apphome() {
       setvaluetrue(false)
       setTimeout(() => {setValue('')}, 100);
         };
+    // eslint-disable-next-line
     }, [valuetrue]); 
  
 

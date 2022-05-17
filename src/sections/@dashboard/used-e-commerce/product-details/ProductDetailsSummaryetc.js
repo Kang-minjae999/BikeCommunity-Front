@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, Button, Divider, Modal, Typography, Avatar, Chip } from '@mui/material';
+import { Box, Stack, Button, Divider, Modal, Typography, Avatar } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils

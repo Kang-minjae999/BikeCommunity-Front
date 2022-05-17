@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -42,13 +41,10 @@ export default function BlogNewPostForm() {
   });
 
   const {
-    watch,
-    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');

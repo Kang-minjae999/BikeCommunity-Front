@@ -1,21 +1,18 @@
 import PropTypes from 'prop-types';
-import { sentenceCase } from 'change-case';
 import { useNavigate } from 'react-router-dom';
 // form
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // @mui
-import { useTheme, styled } from '@mui/material/styles';
-import { Box, Link, Stack, Button, Rating, Divider, IconButton, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Box, Stack, Button, Divider, IconButton, Typography } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
-import { fShortenNumber, fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../../../utils/formatNumber';
 // components
-import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import SocialsButton from '../../../../components/SocialsButton';
-import { ColorSinglePicker } from '../../../../components/color-utils';
-import { FormProvider, RHFSelect } from '../../../../components/hook-form';
+import { FormProvider } from '../../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -31,43 +28,21 @@ const RootStyle = styled('div')(({ theme }) => ({
 ProductDetailsSummary.propTypes = {
   onAddCart: PropTypes.func,
   onGotoStep: PropTypes.func,
-  product: PropTypes.shape({
-    available: PropTypes.number,
-    colors: PropTypes.arrayOf(PropTypes.string),
-    cover: PropTypes.string,
-    id: PropTypes.string,
-    inventoryType: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    priceSale: PropTypes.number,
-    sizes: PropTypes.arrayOf(PropTypes.string),
-    status: PropTypes.string,
-    totalRating: PropTypes.number,
-    totalReview: PropTypes.number,
-  }),
+  product: PropTypes.object
 };
 
 export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, ...other }) {
-  const theme = useTheme();
-
   const navigate = useNavigate();
 
   const {
     id,
     title,
-    gearbox,
     brand,
     modelName,
     price,
     year,
     mileage,
-    displacement,
     status,
-    negoable,
-    tradeable,
-    nicknameOfSeller,
-    avatarURLOfSeller,
-    tradeableModels,
     imageURLs
   } = product;
 
@@ -86,11 +61,11 @@ export default function ProductDetailsSummary({ product, onAddCart, onGotoStep, 
     defaultValues,
   });
 
-  const { watch, control, setValue, handleSubmit } = methods;
+  const { watch,handleSubmit } = methods;
 
   const values = watch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     try {
       onGotoStep(0);
       navigate(PATH_DASHBOARD.eCommerce.checkout);

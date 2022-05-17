@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Box, Chip, Checkbox, FormControlLabel } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../../utils/formatNumber';
+import { Box, Chip } from '@mui/material';
 // components
-import Iconify from '../../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 

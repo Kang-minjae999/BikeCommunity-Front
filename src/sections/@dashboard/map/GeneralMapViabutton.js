@@ -1,22 +1,14 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSnackbar } from 'notistack';
 import {Button, Divider, Typography, Avatar, List, ListItem, ListItemAvatar, ListItemText, Dialog} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import StraightIcon from '@mui/icons-material/Straight';
 import StarIcon from '@mui/icons-material/Star';
 import Iconify from '../../../components/Iconify';
 
-
-const emails = ['바이크', '장비', '부품용품'];
-
-
 function SimpleDialog(props) {
-
-  const {enqueueSnackbar} = useSnackbar()
   
-  const { onClose, selectedValue, open, destination, onSubmitViaDesti, onSubmitViaLike } = props;
+  const { onClose, open, destination, onSubmitViaDesti, onSubmitViaLike } = props;
 
   const navigate = useNavigate()
 
@@ -111,7 +103,6 @@ function SimpleDialog(props) {
 SimpleDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
   destination: PropTypes.array.isRequired,
   onSubmitViaDesti: PropTypes.func.isRequired,
   onSubmitViaLike: PropTypes.func.isRequired,
@@ -127,7 +118,6 @@ GeneralMapViabutton.propTypes = {
 
 export default function GeneralMapViabutton({destination, onSubmitViaDesti, onSubmitViaLike}) {
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -148,7 +138,6 @@ export default function GeneralMapViabutton({destination, onSubmitViaDesti, onSu
       새 경로
       </Button>
       <SimpleDialog
-        selectedValue={selectedValue}
         open={open}
         onClose={handleClose}
         destination={destination}

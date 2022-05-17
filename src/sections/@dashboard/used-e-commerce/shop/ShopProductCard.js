@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { paramCase } from 'change-case';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Box, Card, Link, Typography, Stack, Divider } from '@mui/material';
@@ -7,11 +6,9 @@ import { Box, Card, Link, Typography, Stack, Divider } from '@mui/material';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // utils
 import { fCurrency } from '../../../../utils/formatNumber';
-import { fyeardateTime, fToNow } from '../../../../utils/formatTime';
+import { fToNow } from '../../../../utils/formatTime';
 // components
-import LabelProduct from '../../../../components/LabelProduct';
 import Image from '../../../../components/Image';
-import { ColorPreview } from '../../../../components/color-utils';
 
 // ----------------------------------------------------------------------
 

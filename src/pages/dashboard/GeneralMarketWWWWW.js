@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 // form
 // @mui
 import { Container, Stack, Pagination, Divider, Box, Chip, Button, Typography } from '@mui/material';
-import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/app';
+import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/shop';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
 import axios from '../../utils/axiossecondhand';

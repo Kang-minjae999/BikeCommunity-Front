@@ -1,19 +1,18 @@
 import { Button } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
+// import { useNavigate } from 'react-router';
 import { useDispatch } from '../../../redux/store';
 import { readAlert, addAlert, getAlert } from '../../../redux/slices/notification';
 import NotificationsPopover from './NotificationsPopover';
 import useAuth from '../../../hooks/useAuth';
-import Iconify from '../../../components/Iconify';
 
 const Notification = () => {
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const read = (event) => {
     dispatch(readAlert(event));
@@ -39,6 +38,7 @@ const Notification = () => {
 
       eventSource.addEventListener('sse', notificationSnack);
     }
+    // eslint-disable-next-line
   }, [user]);
 
   /*  (event) => {
@@ -90,11 +90,11 @@ const Notification = () => {
     setNotificationClickEvent(); 
     
   } */
-  const [s, sets] = useState(0);
+  // const [s, sets] = useState(0);
 
-  const alerttest = {
-    data: `안녕하세여${s}`,
-  };
+  // const alerttest = {
+  //   data: `안녕하세여${s}`,
+  // };
 
   return (
     <>

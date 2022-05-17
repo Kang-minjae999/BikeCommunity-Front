@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
 import axios from '../utils/axiosuser';
-import { isValidToken, setSession } from '../utils/jwt';
+import { isValidToken, setSessionAccess, setSessionRefresh } from '../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -99,15 +99,20 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const accessToken = window.localStorage.getItem('accessToken');
-        if (accessToken && isValidToken(accessToken)) {
-          setSession(accessToken);
-
+        const access = window.localStorage.getItem('accessToken');
+        const refresh = window.localStorage.getItem('refreshToken');
+        if (access && isValidToken(access)) {
           const response = await axios.get('/users', {
             headers: {
-              authorization: accessToken,
+              accessToken: access,
+              refreshToken: refresh,
             },
           });
+
+          if(response.headers.accessToken){
+            setSessionAccess(response.headers.accessToken);
+            setSessionRefresh(response.headers.refreshToken);
+          }
 
           const user = response.data.data;
 
@@ -148,8 +153,10 @@ function AuthProvider({ children }) {
       password,
     });
     const user = response.data;
-    const accessToken = response.headers.authorization;
-    setSession(accessToken);
+    const access = response.headers.accessToken;
+    const refresh = response.headers.refreshToken;
+    setSessionAccess(access);
+    setSessionRefresh(refresh);
     dispatch({
       type: 'LOGIN',
       payload: {
@@ -161,8 +168,10 @@ function AuthProvider({ children }) {
   const kakaologin = async (access) => {
     const response = await axios.get('/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
-    const accessToken = response.headers.authorization;
-    setSession(accessToken);
+    const accessT = response.headers.accessToken;
+    const refresh = response.headers.refreshToken;
+    setSessionAccess(accessT);
+    setSessionRefresh(refresh);
     dispatch({
       type: 'KAKAOLOGIN',
       payload: {
@@ -175,8 +184,10 @@ function AuthProvider({ children }) {
   const naverlogin = async (access) => {
     const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
-    const accessToken = response.headers.authorization;
-    setSession(accessToken);
+    const accessT = response.headers.accessToken;
+    const refresh = response.headers.refreshToken;
+    setSessionAccess(accessT);
+    setSessionRefresh(refresh);
     dispatch({
       type: 'NAVERLOGIN',
       payload: {
@@ -187,7 +198,8 @@ function AuthProvider({ children }) {
   };
 
   const afterlogin = async (users) => {
-    const token = localStorage.getItem('accessToken')
+    const accessT = window.localStorage.getItem('accessToken');
+    const refreshT = window.localStorage.getItem('refreshToken');
     const response = await axios.put('/users-oauth', 
     {
       nickname:users.nickname,
@@ -201,14 +213,16 @@ function AuthProvider({ children }) {
     {
       headers:
       {
-        Authorization:token
+        accessToken:accessT,
+        refreshToken:refreshT
       }
     }
     );
     const user = response.data.data;
-    const accessToken = response.headers.authorization;
-    console.log(response)
-    setSession(accessToken);
+    const access = response.headers.accessToken;
+    const refresh = response.headers.refreshToken;
+    setSessionAccess(access);
+    setSessionRefresh(refresh);
     dispatch({
       type: 'AFTERLOGIN',
       payload: {
@@ -238,13 +252,14 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
+    const access = window.localStorage.getItem('accessToken');
     await axios.get('/logout', {
       headers: {
-        authorization: accessToken,
+        accessToken: access,
       },
     });
-    setSession(null);
+    setSessionAccess(null);
+    setSessionRefresh(null);
     dispatch({ type: 'LOGOUT' });
   };
 

@@ -2,8 +2,6 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Stack, Link, Container, Typography } from '@mui/material';
-// hooks
-import useResponsive from '../../hooks/useResponsive';
 // components
 import Page from '../../components/Page';
 // sections
@@ -46,20 +44,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
   backgroundPosition: 'center',
 }));
 
-const ContentStylePC = styled('div')(({ theme }) => ({
-  maxWidth: 480,
-  margin: 'auto',
-  display: 'flex',
-  minHeight: '100vh',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  padding: theme.spacing(8, 0),
-}));
-
 // ----------------------------------------------------------------------
 
 export default function LoginKakaoPage() {
-  const isDesktop = useResponsive('up', 'lg');
 
   return (
     <Page title="Login">

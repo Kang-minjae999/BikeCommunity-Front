@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
@@ -11,13 +10,10 @@ import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox, Button } from '@mui/material';
 // routes
-import axios from 'axios';
 import DaumPostcode from 'react-daum-postcode';
-import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import {
   FormProvider,
-  RHFEditor,
   RHFTextField,
   RHFRadioGroup,
   RHFUploadMultiFile,
@@ -72,7 +68,6 @@ ProductNewForm.propTypes = {
 };
 
 export default function ProductNewForm({ isEdit, currentProduct }) {
-  const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
 

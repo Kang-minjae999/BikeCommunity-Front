@@ -8,7 +8,6 @@ import {
   Radio,
   Stack,
   Button,
-  Drawer,
   Rating,
   Divider,
   IconButton,
@@ -18,7 +17,6 @@ import {
   Popover,
 } from '@mui/material';
 // @types
-import { NAVBAR } from '../../../../config';
 // components
 import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';

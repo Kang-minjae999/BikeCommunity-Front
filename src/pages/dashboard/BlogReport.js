@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 // @mui
-import { Box, Card, Divider, Container, Typography, Pagination } from '@mui/material';
+import { Box, Card, Divider, Container, Typography } from '@mui/material';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -10,15 +10,11 @@ import useIsMountedRef from '../../hooks/useIsMountedRef';
 import axios from '../../utils/axiospost';
 // components
 import Page from '../../components/Page';
-import Markdown from '../../components/Markdown';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import { SkeletonPost } from '../../components/skeleton';
 import  Image from '../../components/Image';
 import { fyeardateTime } from '../../utils/formatTime';
 // sections
-import {
-  BlogPostHero,
-} from '../../sections/@dashboard/blogpost';
 
 // ----------------------------------------------------------------------
 

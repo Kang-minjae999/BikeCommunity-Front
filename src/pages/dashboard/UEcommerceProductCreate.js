@@ -13,7 +13,6 @@ import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import UProductNewForm from '../../sections/@dashboard/used-e-commerce/UProductNewForm';
 import UProductNewFormgear from '../../sections/@dashboard/used-e-commerce/UProductNewFormgear';
-import UProductNewFormparts from '../../sections/@dashboard/used-e-commerce/UProductNewFormparts';
 import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------

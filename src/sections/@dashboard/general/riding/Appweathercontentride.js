@@ -1,23 +1,21 @@
 import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { PropTypes } from 'prop-types';
-import { useState } from 'react';
-import { Typography } from '@mui/material';
 
 
-export default function Appweathercontent2ride({weather ,weathername , weathericon, namek}) {
-  const [open, setOpen] = React.useState(true);
+Appweathercontentride.propTypes = {
+  weather: PropTypes.object,
+  weathername: PropTypes.string,
+  weathericon: PropTypes.any,
+};
 
-  const { id, name, temperature, main , description} = weather
+export default function Appweathercontentride({weather ,weathername , weathericon}) {
 
-  const [krname,setkrname] = useState('')
+  const { temperature,} = weather
 
 
   return (

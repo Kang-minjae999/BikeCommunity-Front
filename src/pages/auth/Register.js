@@ -1,14 +1,13 @@
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Link, Container, Typography,  Stack } from '@mui/material';
+import { Link, Container, Typography,  Stack } from '@mui/material';
 // hooks
 import useResponsive from '../../hooks/useResponsive';
 // routes
 import { PATH_AUTH } from '../../routes/paths';
 // components
 import Page from '../../components/Page';
-import Logo from '../../components/Logo';
 // sections
 import { RegisterForm } from '../../sections/auth/register';
 

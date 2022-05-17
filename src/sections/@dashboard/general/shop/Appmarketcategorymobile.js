@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 // ----------------------------------------
 import BottomNavigation from '@mui/material/BottomNavigation';

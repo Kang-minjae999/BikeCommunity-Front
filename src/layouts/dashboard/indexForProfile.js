@@ -9,7 +9,6 @@ import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // config
 import { HEADER, NAVBAR } from '../../config';
 //
-import DashboardHeaderForProfile from './header/indexForProfile';
 import DashboardHeader from './header';
 import NavbarVertical from './navbar/NavbarVertical';
 import LabelBottomNavigation from './header/LabelBottomNavigation';

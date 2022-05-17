@@ -5,29 +5,19 @@ import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { styled } from '@mui/material/styles';
-import { Typography, Stack, Box, InputAdornment } from '@mui/material';
+import { Stack, Box, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
 import axios from '../../../../utils/axiospost';
 
 // ----------------------------------------------------------------------
-
-const RootStyles = styled('div')(({ theme }) => ({
-  padding: theme.spacing(3),
-  borderRadius: Number(theme.shape.borderRadius) * 2,
-  backgroundColor: theme.palette.background.neutral,
-}));
-
-// ----------------------------------------------------------------------
 BlogPostCommentForm.propTypes = {
   id: PropTypes.number.isRequired,
-  comment: PropTypes.array,
   setComment: PropTypes.func
 };
 
-export default function BlogPostCommentForm({id, comment, setComment}) {
+export default function BlogPostCommentForm({id, setComment}) {
   const { enqueueSnackbar } = useSnackbar();
 
   const CommentSchema = Yup.object().shape({

@@ -119,7 +119,7 @@ useEffect(() => {
   };
 
   const modules = useMemo(() => {
-    return {
+    const module = {
     toolbar: {
       container: `#${id}`,
       handlers: {
@@ -131,7 +131,10 @@ useEffect(() => {
       maxStack: 100,
       userOnly: true,
     },
-  }}, [])
+    }
+    return module
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div>

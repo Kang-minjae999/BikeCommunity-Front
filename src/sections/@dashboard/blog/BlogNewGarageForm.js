@@ -11,7 +11,7 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
-import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFileReport, RHFUploadSingleFile } from '../../../components/hook-form';
+import { FormProvider, RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
@@ -42,13 +42,10 @@ export default function BlogNewGarageForm() {
   });
 
   const {
-    watch,
     setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
-  const values = watch();
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');

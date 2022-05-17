@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 import useAuth from '../../../hooks/useAuth';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
-import { Phonecheck } from '../register';
+// import { Phonecheck } from '../register';
 
 // ----------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 // @mui
-import { Box, Card, Divider, Container, Typography, Stack, Avatar,Link, CardHeader } from '@mui/material';
+import { Box, Card, Divider, Container, Typography, Stack, Avatar,Link } from '@mui/material';
 // routes
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -14,14 +14,10 @@ import Page from '../../components/Page';
 import { SkeletonPost } from '../../components/skeleton';
 // sections
 import {
-  BlogPostTags,
   BlogPostCommentList,
-  BlogPostCommentForm,
-  Blogfeature,
 } from '../../sections/@dashboard/garage/ask';
 import DotdotdotPost from '../../components/DotdotdotPost';
 import Markdown from '../../components/Markdown';
-import Breadcrumbs from '../../components/Breadcrumbs';
 import { fToNow } from '../../utils/formatTime';
 
 // ----------------------------------------------------------------------

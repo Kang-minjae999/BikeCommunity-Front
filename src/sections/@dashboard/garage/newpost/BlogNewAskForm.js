@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -11,7 +10,7 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
-import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFileReport, RHFUploadSingleFile } from '../../../../components/hook-form';
+import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/hook-form';
 //
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
@@ -43,13 +42,10 @@ export default function BlogNewAskForm() {
   });
 
   const {
-    watch,
-    setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');

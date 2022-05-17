@@ -1,45 +1,7 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-// @mui
 import { styled } from '@mui/material/styles';
-import { Box, Card, IconButton, Menu, MenuItem, Stack, Typography, Avatar } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-// utils
-import cssStyles from '../../../../utils/cssStyles';
-// hooks
-import useAuth from '../../../../hooks/useAuth';
-// components
-import MyAvatar from '../../../../components/MyAvatar';
+import { Box, Stack, Typography, Avatar } from '@mui/material';
 import Image from '../../../../components/Image';
-import Iconify from '../../../../components/Iconify';
 
-// ----------------------------------------------------------------------
-
-/* const RootStyle = styled('div')(() => ({
-    top: 0,
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-  }
-));
-
-const InfoStyle = styled('div')(({ theme }) => ({
-  left: 0,
-  right: 0,
-  zIndex: 99,
-  position: 'relative',
-  marginTop: theme.spacing(0),
-  backgroundColor:'white',
-  [theme.breakpoints.up('md')]: {
-    right: 'auto',
-    display: 'flex',
-    alignItems: 'center',
-    left: theme.spacing(3),
-    bottom: theme.spacing(3),
-  },
-}));
- */
 const RootStyle = styled('div')(() => ({
   top: 0,
   zIndex: 3,
@@ -63,32 +25,9 @@ position: 'absolute',
 
 // ----------------------------------------------------------------------
 
-ProfileCover.propTypes = {
-  nickname: PropTypes.string,
-};
-
-export default function ProfileCover({ nickname }) {
-  const { user } = useAuth();
-  const navigate = useNavigate()
 
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClose1 = () => {
-    setAnchorEl(null);
-    navigate('/dashboard/app')
-  };
-  const handleClose2 = () => {
-    setAnchorEl(null);
-    navigate('/dashboard/blog/new-report')
-  };
+export default function ProfileCover() {
 
   return (
   <Box>

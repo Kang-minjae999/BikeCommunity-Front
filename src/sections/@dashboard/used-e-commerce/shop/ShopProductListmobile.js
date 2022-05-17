@@ -5,7 +5,6 @@ import { Box, Grid } from '@mui/material';
 import { SkeletonProductItem } from '../../../../components/skeleton';
 //
 import ShopProductCard from './ShopProductCard';
-import useResponsive from '../../../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 

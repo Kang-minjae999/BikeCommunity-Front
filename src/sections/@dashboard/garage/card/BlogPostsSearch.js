@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper, Stack, Button, Menu, MenuItem } from '@mui/material';
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 
 // routes
@@ -25,22 +24,13 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
   width: '300px !important',
 });
 
-// ----------------------------------------------------------------------
 
 export default function BlogPostsSearch() {
   const navigate = useNavigate();
 
-  const { params } = useParams()
-
   const isDeskTop = useResponsive('up','lg')
 
   const [searchQuery, setSearchQuery] = useState('');
-
-  const [anchorEl, setAnchorEl] = useState(null);
-
-  const open = Boolean(anchorEl);
-
-  const [value, setvalue] = useState('title')
 
   const searchResults = [];
 
@@ -48,38 +38,51 @@ export default function BlogPostsSearch() {
       setSearchQuery(value);
   };
 
-
   const handleClick = (title) => {
     navigate(`${PATH_DASHBOARD.blog.root}/dingstas/${paramCase(title)}`);
   };
 
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      navigate(`/dashboard/motocycle/maintenance/garage/${value}=${searchQuery}`)
+      navigate(`/dashboard/garages/ask/${value}=${searchQuery}`)
       document.activeElement.blur()
     }
   };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const [value, setvalue] = useState('title')
 
   const handleClickButton = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-    setvalue('nickname')
+    setvalue('title')
   };
   const handleClose2 = () => {
     setAnchorEl(null);
-    setvalue('address')
+    setvalue('model')
   };
-  const [label, setlabel] = useState('이름')
+  const handleClose3 = () => {
+    setAnchorEl(null);
+    setvalue('nickname')
+  };
+  const [label, setlabel] = useState('제목')
 
   useEffect(() => {
-    if(value === 'nickname'){
-      setlabel('이름')
+    if(value === 'title'){
+      setlabel('제목')
     }
-    if(value === 'address'){
-      setlabel('지역')
-    } 
+    if(value === 'model'){
+      setlabel('모델명')
+    }
+    if(value === 'nickname'){
+      setlabel('닉네임')
+    }
+    
   }, [value])
   
 
@@ -89,8 +92,8 @@ export default function BlogPostsSearch() {
     direction="row"
     justifyContent="center"
     alignItems="center"
-    spacing={2}
-    sx={{mb:1, width:'100%'}}
+    spacing={1}
+    sx={{mb:1}}
     >
       <Button
         id="basic-button"
@@ -121,8 +124,9 @@ export default function BlogPostsSearch() {
         }}
         color='action'
       >
-        <MenuItem onClick={handleClose}>이름</MenuItem>
-        <MenuItem onClick={handleClose2}>지역</MenuItem>
+        <MenuItem onClick={handleClose}>제목</MenuItem>
+        <MenuItem onClick={handleClose2}>모델명</MenuItem>
+        <MenuItem onClick={handleClose3}>닉네임</MenuItem>
       </Menu>
     <Autocomplete
       size="small"
@@ -177,11 +181,23 @@ export default function BlogPostsSearch() {
         );
       }}
     />
-    {params && 
-    <>
-    <RestartAltIcon onClick={() => navigate('/dashboard/motocycle/maintenance/garage')} />
-    </>
-    }
+    <Link    
+    variant="outlined"
+    component={RouterLink}
+    to='/dashboard/garage/new-ask'
+    >
+    <Stack
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    spacing={0}
+    >
+    <AddIcon sx={{ml:1, mr:1}} color='action'/>
+    <Typography variant="body2" sx={{ color: 'text.primary' }}>
+    추가
+    </Typography> 
+    </Stack>
+    </Link>
     </Stack>
   );
 }

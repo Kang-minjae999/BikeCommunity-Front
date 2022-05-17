@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Card, Typography, CardHeader, Stack, Button, Avatar, Box } from '@mui/material';
+import { Card, Typography, Stack, Button, Avatar, Box } from '@mui/material';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
@@ -10,7 +9,7 @@ import Iconify from '../../../../components/Iconify';
 
 // ----------------------------------------------------------------------
 
-const IconStyle = styled(Iconify)(({ theme }) => ({
+const IconStyle = styled(Iconify)(() => ({
   width: 20,
   height: 20,
   marginTop: 1,

@@ -98,14 +98,14 @@ export default function ChatMessageList({ conversation, socket }) {
         <div ref={ref}/>
       </Scrollbar>
 
-      {/* <LightboxModal
+      <LightboxModal
         images={imagesLightbox}
         mainSrc={imagesLightbox[selectedImage]}
         photoIndex={selectedImage}
         setPhotoIndex={setSelectedImage}
         isOpen={openLightbox}
         onCloseRequest={() => setOpenLightbox(false)}
-      /> */}
+      />
     </>
   );
 }

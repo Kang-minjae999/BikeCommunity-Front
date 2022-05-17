@@ -36,7 +36,7 @@ import { FormProvider, RHFTextField, RHFCheckbox, RHFRadioGroup } from '../../..
 import Regicheck1 from './Rescheck1';
 import Regicheck2 from './Rescheck2';
 import Regicheck3 from './Rescheck3';
-import Phonecheck from './Phonecheck';
+// import Phonecheck from './Phonecheck';
 
 // ----------------------------------------------------------------------
 export default function RegisterForm() {

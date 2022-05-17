@@ -17,7 +17,7 @@ import { SkeletonboardItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
 import { BlogPostlist, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/blogreport';
-import useAuth from '../../hooks/useAuth';
+// import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ const applySort = (posts, sortBy) => {
 export default function Blogreports() {
   const { themeStretch } = useSettings();
 
-  const { user } = useAuth() 
+  // const { user } = useAuth() 
 
   const isMountedRef = useIsMountedRef();
 
@@ -91,7 +91,7 @@ export default function Blogreports() {
     [getAllPosts, page]
   );
 
-  const [admin , setadmin] = useState(false)
+  // const [admin , setadmin] = useState(false)
   
   // useEffect(() => {
   //   if(user){

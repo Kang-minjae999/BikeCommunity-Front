@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 // form
@@ -49,6 +49,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     KakaologinCallback();
+    // eslint-disable-next-line
   },[]);
 
 

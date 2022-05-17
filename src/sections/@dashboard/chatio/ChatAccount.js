@@ -1,24 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { capitalCase } from 'change-case';
 // @mui
-import { Box, List, Stack, Select, Divider, Tooltip, MenuItem, Typography, IconButton } from '@mui/material';
-// hooks
+import { Box, List, Stack, Divider, MenuItem, Typography } from '@mui/material';
+// auth
 import useAuth from '../../../hooks/useAuth';
 // components
 import Iconify from '../../../components/Iconify';
 import MyAvatar from '../../../components/MyAvatar';
 import MenuPopover from '../../../components/MenuPopover';
-import BadgeStatus from '../../../components/BadgeStatus';
 
-// ----------------------------------------------------------------------
-
-const STATUS = ['online', 'invisible', 'away'];
+// -----------------------------------------------------
 
 export default function ChatAccount() {
   const { user } = useAuth();
-
-  const [status, setStatus] = useState('online');
 
   const [open, setOpen] = useState(null);
 

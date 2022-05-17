@@ -1,20 +1,15 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import {
-  Box,
-  Button,
   Avatar,
   Divider,
   ListItem,
-  TextField,
   Typography,
   ListItemText,
   ListItemAvatar,
 } from '@mui/material';
 // utils
 import { fyeardateTime } from '../../../../utils/formatTime';
-import BlogPostCommentForm from './BlogPostCommentForm';
 
 // ----------------------------------------------------------------------
 
@@ -23,15 +18,9 @@ BlogPostCommentItem.propTypes = {
   avatarUrl: PropTypes.string,
   message: PropTypes.string,
   postedAt: PropTypes.string,
-  newcomment: PropTypes.object,
 };
 
-export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt, newcomment }) {
-  const [openReply, setOpenReply] = useState(false);
-
-  const handleOpenReply = () => {
-    setOpenReply(true);
-  };
+export default function BlogPostCommentItem({ name, avatarUrl, message, postedAt }) {
 
   return (
     <>

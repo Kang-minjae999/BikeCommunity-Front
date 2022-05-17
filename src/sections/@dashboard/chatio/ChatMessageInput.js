@@ -4,8 +4,6 @@ import { useRef, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Stack, Input, Divider, IconButton, InputAdornment } from '@mui/material';
 // utils
-import useAuth from '../../../hooks/useAuth';
-import uuidv4 from '../../../utils/uuidv4';
 // components
 import Iconify from '../../../components/Iconify';
 import EmojiPicker from '../../../components/EmojiPicker';
@@ -24,18 +22,13 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 ChatMessageInput.propTypes = {
   socket: PropTypes.object,
-  userName: PropTypes.string,
 };
 
-export default function ChatMessageInput({ userName, socket }) {
+export default function ChatMessageInput({ socket }) {
   const [chatMessage, setChatMessage] = useState("");
 
-  const {user} = useAuth()
 
   const fileInputRef = useRef(null);
-  
-  const [Image, setImage] = useState(false)
-  const [ImageFile, setImageFile] = useState('')
 
 
   const handleSubmit = () => {
@@ -52,7 +45,6 @@ export default function ChatMessageInput({ userName, socket }) {
         type: 'text',
       });
       setChatMessage("");
-      setImage(false)
     }
   };
 

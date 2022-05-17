@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { m } from 'framer-motion';
 // @mui
-import { styled, alpha } from '@mui/material/styles';
 import { Box, Link, Card, Avatar, Typography, CardContent, Stack, Chip, Divider } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';

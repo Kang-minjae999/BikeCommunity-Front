@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useEffect, useState} from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useState} from 'react';
+import { useLocation } from 'react-router-dom';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import { Divider, Typography } from '@mui/material';
@@ -14,7 +14,6 @@ import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
 export default function Aecheckouthead() {
   const isDesktop = useResponsive('up', 'lg');
   const [value, setValue] = useState('new')
-  const navigate = useNavigate();
   const {pathname} = useLocation();
   const isMyPage = pathname.includes('mypage');
   

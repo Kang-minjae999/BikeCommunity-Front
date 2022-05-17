@@ -7,7 +7,7 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useNavigate } from 'react-router-dom';
-import { Card, Paper } from '@mui/material';
+import { Card } from '@mui/material';
 
 
 export default function Appmobilesecond() {
@@ -29,6 +29,7 @@ export default function Appmobilesecond() {
       setvaluetrue(false)
       setTimeout(() => {setValue('')}, 100);
         };
+        // eslint-disable-next-line
     }, [valuetrue]); 
  
 

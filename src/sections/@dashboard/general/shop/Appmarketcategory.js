@@ -1,16 +1,14 @@
 import * as React from 'react';
-import {useState, useCallback} from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // ----------------------------------------
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 // --------------------------------------------------------------
-import { Typography, Stack, Divider } from '@mui/material';
+import { Typography, Divider } from '@mui/material';
 // --------------------------------------------------------------
 
 
 export default function Appmarketcategory() {
-  const { option = '' } = useParams();
   const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {

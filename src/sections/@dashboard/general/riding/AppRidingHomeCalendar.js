@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+// import axios from 'axios';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; 
@@ -9,15 +9,15 @@ import { Card, Box, Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 export default function AppRidingHomeCalendar() {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [value, onChange] = useState(new Date());
 
-  const [mark, setMark] = useState(
+  const mark =
     [
       '2022-05-20',
       '2022-05-21',
       '2022-05-28',
-      '2022-05-30',]);
+      '2022-05-30',]
 
   // const data = async () => {
   //     const result = await axios.get(

@@ -14,12 +14,3 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
-
-
-
-/* const accessToken = window.localStorage.getItem('accessToken');
-await axios.get('/logout', {
-  headers: {
-    Authorization: accessToken,
-  },
-}) */

@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -8,10 +7,9 @@ import { Controller, useForm } from 'react-hook-form';
 // @mui
 import { LoadingButton } from '@mui/lab';
 import { Grid, Card, Stack, CardHeader, Autocomplete } from '@mui/material';
-// routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
+// routes;
 // components
-import { FormProvider, RHFEditor, RHFTextField, RHFUploadSingleFile } from '../../../../components/hook-form';
+import { FormProvider, RHFTextField } from '../../../../components/hook-form';
 //
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
@@ -46,14 +44,10 @@ export default function BlogNewCardForm() {
   });
 
   const {
-    watch,
-    setValue,
     control,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
-  const values = watch();
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');

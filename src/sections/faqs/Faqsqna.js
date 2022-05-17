@@ -1,12 +1,7 @@
 // @mui
-import { styled } from '@mui/material/styles';
-import { Card, CardHeader, Container, Divider, Stack, Typography} from '@mui/material';
+import { Card, CardHeader,Divider, Typography} from '@mui/material';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { MotionContainer, TextAnimate, varFade } from '../../components/animate';
-
-import useAuth from '../../hooks/useAuth';
-import axios from '../../utils/axiospost';
 
 // ----------------------------------------------------------------------
 

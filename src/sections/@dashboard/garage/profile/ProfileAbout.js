@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Card, Typography, CardHeader, Stack } from '@mui/material';
+import { Link, Card, Typography, Stack } from '@mui/material';
 // components
 import Iconify from '../../../../components/Iconify';
 
@@ -22,7 +22,7 @@ ProfileAbout.propTypes = {
 };
 
 export default function ProfileAbout({ profile }) {
-  const { quote, country, email, role, company, school } = profile;
+  const {  role, company, school } = profile;
 
   return (
     <Card sx={{ ml: 1, mr:1 ,mt:1 }}>

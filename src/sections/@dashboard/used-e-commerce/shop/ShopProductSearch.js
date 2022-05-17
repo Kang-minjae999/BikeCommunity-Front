@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
-import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper } from '@mui/material';
 // routes
-import { PATH_DASHBOARD } from '../../../../routes/paths';
 import { useDispatch } from '../../../../redux/store';
 import { addSearch } from '../../../../redux/slices/product';
 // components
@@ -24,12 +21,7 @@ const PopperStyle = styled((props) => <Popper placement="bottom-start" {...props
   width: '300px !important',
 });
 
-// ----------------------------------------------------------------------
-ShopProductSearch.propTypes = {
-  setparam: PropTypes.func.isRequired,
-};
-
-export default function ShopProductSearch({setparam}) {
+export default function ShopProductSearch() {
   const dispatch = useDispatch();
   const {tab = ''} = useParams();
   const isDeskTop = useResponsive('up','lg')

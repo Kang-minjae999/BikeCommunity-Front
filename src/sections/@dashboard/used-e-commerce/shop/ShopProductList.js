@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 // @mui
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 // components
 import { SkeletonProductItem } from '../../../../components/skeleton';
 //
 import ShopProductCard from './ShopProductCard';
 import ShopProductCardEtc from './ShopProductCardEtc';
-import useResponsive from '../../../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
 
@@ -17,8 +16,6 @@ ShopProductList.propTypes = {
 };
 
 export default function ShopProductList({ products, loading }) {
-  const isDesktop = useResponsive('up', 'lg');
-
   const {tab } = useParams()
 
   return (

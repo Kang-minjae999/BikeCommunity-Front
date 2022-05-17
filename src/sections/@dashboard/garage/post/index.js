@@ -1,6 +1,3 @@
-export { default as BlogNewReportForm } from './BlogNewReportForm';
-export { default as BlogNewGarageForm } from './BlogNewPostForm';
-export { default as BlogNewCardForm } from './BlogNewCardForm';
 export { default as BlogNewPostPreview } from './BlogNewPostPreview';
 export { default as BlogPostCard } from './BlogPostCard';
 export { default as BlogPostCommentForm } from './BlogPostCommentForm';

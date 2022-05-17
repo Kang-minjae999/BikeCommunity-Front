@@ -125,7 +125,6 @@ export default function Router() {
         { path: 'marketu/:tab/:paging', element: <Generalmarketu /> }, 
         { path: 'marketu/:tab/:paging/:option', element: <Generalmarketu /> }, 
 
-        { path: 'clubmy', element: <ClubMy /> }, 
         { path: 'menu', element: <GeneralUserMenu /> }, 
         { path: 'mapnewmarker', element: <GeneralMapNewMarker /> }, 
         
@@ -213,10 +212,10 @@ export default function Router() {
           path: 'club',
           children: [
             { element: <Navigate to="/dashboard/club/club" replace />, index: true },
-            { path: 'club', element: <Club /> },
-            { path: 'clubroom/:id', element: <Clubroom /> },
-            { path: 'clubdetail/:id', element: <ClubDetails /> },
-            { path: 'list', element: <ClubList /> },
+            // { path: 'club', element: <Club /> },
+            // { path: 'clubroom/:id', element: <Clubroom /> },
+            // { path: 'clubdetail/:id', element: <ClubDetails /> },
+            // { path: 'list', element: <ClubList /> },
             { path: 'clubnew', element: <ClubCreate /> },
             {
               path: 'clubnew/:id/edit',
@@ -226,8 +225,8 @@ export default function Router() {
                 </AuthGuard>
               ),
             },
-            { path: 'checkout', element: <ClubCheckout /> },
-            { path: 'invoice', element: <ClubInvoice /> },
+            // { path: 'checkout', element: <ClubCheckout /> },
+            // { path: 'invoice', element: <ClubInvoice /> },
           ],
         },
         {
@@ -289,14 +288,7 @@ const EcommerceProductCreateEdu = Loadable(lazy(() => import('../pages/dashboard
 const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/EcommerceCheckout')));
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
 // 동호회
-const Club = Loadable(lazy(() => import('../pages/dashboard/Club')));
-const ClubMy = Loadable(lazy(() => import('../pages/dashboard/ClubMy')));
-const Clubroom = Loadable(lazy(() => import('../pages/dashboard/Clubroom')));
-const ClubDetails = Loadable(lazy(() => import('../pages/dashboard/ClubDetails')));
-const ClubList = Loadable(lazy(() => import('../pages/dashboard/ClubList')));
 const ClubCreate = Loadable(lazy(() => import('../pages/dashboard/ClubCreate')));
-const ClubCheckout = Loadable(lazy(() => import('../pages/dashboard/ClubCheckout')));
-const ClubInvoice = Loadable(lazy(() => import('../pages/dashboard/ClubInvoice')));
 
 // 중고거래
 const UEmotocycle = Loadable(lazy(() => import('../pages/dashboard/UEmotocycle')));

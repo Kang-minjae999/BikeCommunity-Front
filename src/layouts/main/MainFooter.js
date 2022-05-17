@@ -2,8 +2,8 @@ import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Grid, Link, Divider, Container, Typography, Stack } from '@mui/material';
-// components
-import Logo from '../../components/Logo';
+// // components
+// import Logo from '../../components/Logo';
 import SocialsButton from '../../components/SocialsButton';
 
 // ----------------------------------------------------------------------

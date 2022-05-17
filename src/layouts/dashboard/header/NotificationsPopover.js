@@ -1,10 +1,11 @@
+import { PropTypes } from 'prop-types';
 import { useEffect, useState } from 'react';
 // @mui
 import { Box, List, Badge, Button, Avatar, Divider, Typography, ListItemText, ListSubheader, ListItemAvatar, ListItemButton} from '@mui/material';
 // utils
 import { useDispatch, useSelector } from '../../../redux/store';
-import { readAlert, addAlert, deleteAllAlert, getAlert } from '../../../redux/slices/notification';
-import { fToNow } from '../../../utils/formatTime';
+import { readAlert, deleteAllAlert, getAlert } from '../../../redux/slices/notification';
+// import { fToNow } from '../../../utils/formatTime';
 // _mock_
 // components
 import Iconify from '../../../components/Iconify';
@@ -110,17 +111,9 @@ export default function NotificationsPopover() {
 
 // ----------------------------------------------------------------------
 
-/* NotificationItem.propTypes = {
-  notification: PropTypes.shape({
-    createdAt: PropTypes.instanceOf(Date),
-    id: PropTypes.string,
-    isUnRead: PropTypes.bool,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    type: PropTypes.string,
-    avatar: PropTypes.any,
-  }),
-}; */
+ NotificationItem.propTypes = {
+  notification: PropTypes.string
+}; 
 
 function NotificationItem({ notification }) {
 /*   const { avatar, title } = renderContent(notification); */

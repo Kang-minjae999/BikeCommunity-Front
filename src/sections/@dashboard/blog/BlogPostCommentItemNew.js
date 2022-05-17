@@ -1,20 +1,15 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import {
-  Box,
-  Button,
   Avatar,
   Divider,
   ListItem,
-  TextField,
   Typography,
   ListItemText,
   ListItemAvatar,
 } from '@mui/material';
 // utils
 import { fyeardateTime } from '../../../utils/formatTime';
-import BlogPostCommentForm from './BlogPostCommentForm';
 import useAuth from '../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
@@ -24,12 +19,6 @@ BlogPostCommentItemNew.propTypes = {
 };
 
 export default function BlogPostCommentItemNew({ message }) {
-  const [openReply, setOpenReply] = useState(false);
-
-  const handleOpenReply = () => {
-    setOpenReply(true);
-  };
-
   const { user } = useAuth()
 
   const date = new Date()

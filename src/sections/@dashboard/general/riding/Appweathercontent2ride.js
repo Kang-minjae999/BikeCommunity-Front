@@ -1,18 +1,20 @@
 import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import { PropTypes } from 'prop-types';
 
+Appweathercontent2ride.propTypes = {
+  weather: PropTypes.object,
+  weathername: PropTypes.string,
+  weathericon: PropTypes.any,
+};
 
-export default function Appweathercontent2ride({weather,weathername , weathericon,namek}) {
+export default function Appweathercontent2ride({weather, weathername , weathericon}) {
 
-  const { id, name, temperature, main ,description} = weather
+  const { temperature } = weather
 
   return (
     <List

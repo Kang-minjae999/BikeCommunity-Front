@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-// @mui
-import { styled } from '@mui/material/styles';
-import { Box, Grid, Step, Stepper, Container, StepLabel, StepConnector } from '@mui/material';
+import { Box, Container } from '@mui/material';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
 import { getCart, createBilling } from '../../redux/slices/product';
@@ -23,21 +21,6 @@ import {
 // ----------------------------------------------------------------------
 
 const STEPS = ['장바구니', '주소', '결제'];
-
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  top: 10,
-  left: 'calc(-50% + 20px)',
-  right: 'calc(50% + 20px)',
-  '& .MuiStepConnector-line': {
-    borderTopWidth: 2,
-    borderColor: theme.palette.divider,
-  },
-  '&.Mui-active, &.Mui-completed': {
-    '& .MuiStepConnector-line': {
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
 
 QontoStepIcon.propTypes = {
   active: PropTypes.bool,

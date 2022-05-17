@@ -17,8 +17,7 @@ import axios from '../../../utils/axiossecondhand';
 import {
   FormProvider,
   RHFTextField,
-  RHFUploadMultiFile,
-  RHFSwitch
+  RHFUploadMultiFile
 } from '../../../components/hook-form';
 
 // 바이크 중고거래 기준

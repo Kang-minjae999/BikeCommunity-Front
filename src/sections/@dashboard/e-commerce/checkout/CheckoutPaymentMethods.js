@@ -5,16 +5,11 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 import {
   Box,
-  Card,
   Radio,
   Stack,
-  Button,
-  Collapse,
-  TextField,
   Typography,
   RadioGroup,
   CardHeader,
-  CardContent,
   FormHelperText,
   FormControlLabel,
   Grid,
@@ -42,10 +37,9 @@ const OptionStyle = styled('div')(({ theme }) => ({
 CheckoutPaymentMethods.propTypes = {
   paymentOptions: PropTypes.array,
   paymentOptions2: PropTypes.array,
-  cardOptions: PropTypes.array,
 };
 
-export default function CheckoutPaymentMethods({ paymentOptions, cardOptions, paymentOptions2 }) {
+export default function CheckoutPaymentMethods({ paymentOptions, paymentOptions2 }) {
   const { control } = useFormContext();
 
   const isDesktop = useResponsive('up', 'sm');

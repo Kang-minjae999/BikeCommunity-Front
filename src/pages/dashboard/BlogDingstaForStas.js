@@ -1,15 +1,11 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState, useCallback } from 'react';
-import { Link as RouterLink, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Box, Card, Divider, Container, Typography, Stack, Avatar,Link } from '@mui/material';
-// routes
 // hooks
 import useSettings from '../../hooks/useSettings';
-import useIsMountedRef from '../../hooks/useIsMountedRef';
 import { PATH_DASHBOARD } from '../../routes/paths';
-// utils
-import axios from '../../utils/axiospost';
 // components
 import Page from '../../components/Page';
 import { SkeletonPost } from '../../components/skeleton';
@@ -17,7 +13,6 @@ import { SkeletonPost } from '../../components/skeleton';
 import {
   BlogPostTags,
   BlogPostCommentList,
-  BlogPostCommentForm,
   Blogfeature,
 } from '../../sections/@dashboard/blog';
 import DotdotdotPost from '../../components/DotdotdotPost';

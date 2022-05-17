@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 // hooks
 import useAuth from '../../../hooks/useAuth';
@@ -25,6 +25,7 @@ export default function LoginNaver() {
 
   useEffect(() => {
       NaverloginCallback();
+      // eslint-disable-next-line
   }, []);
     
   useEffect(() => {

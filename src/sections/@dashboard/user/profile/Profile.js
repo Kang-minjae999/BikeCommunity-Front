@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // @mui
-import { Grid, Stack, Box } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 //
 import ProfilePostCard from './ProfilePostCard';
 

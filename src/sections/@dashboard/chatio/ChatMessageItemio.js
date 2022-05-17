@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
-import { formatDistanceToNowStrict } from 'date-fns';
+import { useEffect, useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Avatar, Box, Typography } from '@mui/material';

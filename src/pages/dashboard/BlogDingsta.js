@@ -16,7 +16,6 @@ import { SkeletonPost } from '../../components/skeleton';
 import {
   BlogPostTags,
   BlogPostCommentList,
-  BlogPostCommentForm,
   Blogfeature,
 } from '../../sections/@dashboard/blog';
 import DotdotdotPost from '../../components/DotdotdotPost';

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback,  } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -14,18 +14,36 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
-import useAuth from '../../../hooks/useAuth';
+import { access, refresh } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 const TAGS_OPTION = ['모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'];
 // ----------------------------------------------------------------------
 
 export default function BlogNewDingstaForm() {
+  const isValid = async () => {
+    try {
+      await axios.get('/users/access-token', {
+        headers: {
+          accessToken: access,
+          refreshToken: refresh,
+        },
+      });
+      enqueueSnackbar('딩스타그램 추가 완료!');
+      navigate(PATH_DASHBOARD.blog.dingstas);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    isValid()
+    // eslint-disable-next-line
+  }, [])
+  
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
-
-  const { user } = useAuth();
 
   const NewBlogSchema = Yup.object().shape({
     Images: Yup.array().min(1, '사진을 한가지이상 정해주세요!').required('사진을 올려주세요!'),
@@ -69,7 +87,7 @@ export default function BlogNewDingstaForm() {
     formData.append('isPublic', data.isPublic);
     formData.append('content', data.content);
     try {
-      await axios.post('/dingsta/', formData, {
+      await axios.post('/dingsta', formData, {
         headers: {
           'content-type': 'multipart/form-data',
           authorization: accessToken,

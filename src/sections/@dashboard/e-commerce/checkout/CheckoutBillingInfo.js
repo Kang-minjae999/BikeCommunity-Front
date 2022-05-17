@@ -5,7 +5,6 @@ import { Card, Button, Typography, CardHeader, CardContent } from '@mui/material
 import { useSelector } from '../../../../redux/store';
 // components
 import Iconify from '../../../../components/Iconify';
-import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
