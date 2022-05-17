@@ -18,15 +18,13 @@ export default function AccountChangePassword() {
   const { enqueueSnackbar } = useSnackbar();
 
   const ChangePassWordSchema = Yup.object().shape({
-    oldPassword: Yup.string().required('Old Password is required'),
-    newPassword: Yup.string().min(6, 'Password must be at least 6 characters').required('New Password is required'),
-    confirmNewPassword: Yup.string().oneOf([Yup.ref('newPassword'), null], 'Passwords must match'),
+    Password: Yup.string().required('패스워드가 필요해요.'),
+    confirmPassword: Yup.string().oneOf([Yup.ref('Password'), null], '비밀번호가 맞지 않아요.'),
   });
 
   const defaultValues = {
-    oldPassword: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    Password: '',
+    confirmPassword: '',
   };
 
   const methods = useForm({
@@ -42,7 +40,10 @@ export default function AccountChangePassword() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.put(`/users/${user?.id}/password`, data
+      await axios.put(`/users/${user?.id}`, 
+      {
+        password: data.password
+      }
        ,{
         headers: {
           Authorization: accessToken,
@@ -58,14 +59,12 @@ export default function AccountChangePassword() {
     <Card sx={{ p: 3 }}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3} alignItems="flex-end">
-          <RHFTextField name="oldPassword" type="password" label="현재 비밀번호" />
+          <RHFTextField name="Password" type="password" label="현재 비밀번호" />
 
-          <RHFTextField name="newPassword" type="password" label="새 비밀번호" />
-
-          <RHFTextField name="confirmNewPassword" type="password" label="새 비밀번호 확인" />
+          <RHFTextField name="confirmPassword" type="password" label="비밀번호 확인" />
 
           <LoadingButton type="submit" variant="outlined" loading={isSubmitting}>
-            비밀번호 변경
+            회원탈퇴
           </LoadingButton>
         </Stack>
       </FormProvider>

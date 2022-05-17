@@ -3,19 +3,16 @@ import React , { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IconButton, Menu, MenuItem} from '@mui/material';
 import Iconify from './Iconify';
-
-/* Dotdotdot.propTypes = {
-  children: PropTypes.node,
-  sx: PropTypes.object,
-  color: PropTypes.oneOf(['default', 'primary', 'secondary', 'info', 'success', 'warning', 'error']),
-}; */
-// 프로필이랑 채팅 링크 수정
+import useAuth from '../hooks/useAuth'
+import axios from '../utils/axiospost'
 
 DotdotdotPost.propTypes = {
   nicknameOfPost: PropTypes.string.isRequired,
+  id: PropTypes.number,
 };
 
-export default function DotdotdotPost({nicknameOfPost}) {
+export default function DotdotdotPost({nicknameOfPost, id}) {
+  const { user } = useAuth()
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -40,6 +37,19 @@ export default function DotdotdotPost({nicknameOfPost}) {
     setAnchorEl(null);
     navigate('/dashboard/blog/new-report')
   };
+  const handleClose3 = async () => {
+      const accessToken = window.localStorage.getItem('accessToken');
+      try {
+        await axios.delete(`/posts/${id}`, {
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+        navigate(-1);
+      } catch (error) {
+        console.error(error);
+      }
+  };
 
   return (
     <div>
@@ -58,6 +68,7 @@ export default function DotdotdotPost({nicknameOfPost}) {
         <MenuItem onClick={handleClose0}>프로필가기</MenuItem>
         <MenuItem onClick={handleClose1}>채팅하기</MenuItem>
         <MenuItem onClick={handleClose2}>신고하기</MenuItem>
+       {user?.nickname === nicknameOfPost && <MenuItem onClick={handleClose3}>삭제하기</MenuItem>}
       </Menu>
     </div>
   );

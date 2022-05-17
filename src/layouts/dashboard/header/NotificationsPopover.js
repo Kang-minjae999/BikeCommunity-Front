@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import { noCase } from 'change-case';
 import { useEffect, useState } from 'react';
 // @mui
 import { Box, List, Badge, Button, Avatar, Divider, Typography, ListItemText, ListSubheader, ListItemAvatar, ListItemButton} from '@mui/material';
@@ -23,7 +21,7 @@ export default function NotificationsPopover() {
 
   useEffect(() => {
     dispatch(getAlert())
-  }, [])
+  }, [dispatch])
   
 
   const [open, setOpen] = useState(null);
@@ -38,7 +36,7 @@ export default function NotificationsPopover() {
 
   return (
     <>
-      <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen} sx={{ width: 28, height: 28, mt:0.2 }}>
+      <IconButtonAnimate color={open ? 'primary' : 'default'} onClick={handleOpen}>
         <Badge badgeContent={alertNumber} color="error">
         <Iconify icon='bx:bell' sx={{width:28, height:28, color:'text.primary'}} />
         </Badge>
@@ -54,8 +52,8 @@ export default function NotificationsPopover() {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">알림</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              안읽은 메세지가 {alertNumber}개 있어요 &nbsp;
-            <Button onClick={() => dispatch(deleteAllAlert())} sx={{color:'text.primary'}}>다지우기</Button>
+              읽지 않은 메세지가 {alertNumber}개 있어요 &nbsp;
+              {alertNumber !== 0 && <Button onClick={() => dispatch(deleteAllAlert())} sx={{color:'text.primary'}}>다지우기</Button>}
             </Typography>
           </Box>
         </Box>
@@ -63,7 +61,7 @@ export default function NotificationsPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
-         {alert !== [] && 
+         {alertNumber && 
          <List
             disablePadding
             subheader={
@@ -81,7 +79,7 @@ export default function NotificationsPopover() {
             ))}
           </List>}
 
-          {readAlert !== [] && 
+          {readAlert && 
           <List
             disablePadding
             subheader={

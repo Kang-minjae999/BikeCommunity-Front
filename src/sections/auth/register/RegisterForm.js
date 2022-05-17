@@ -68,7 +68,7 @@ export default function RegisterForm() {
       .required('비밀번호를 입력해주세요.')
       .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다.'),
     name: Yup.string().required('이름을 입력해주세요.'),
-    sex: Yup.string().required('이름을 입력해주세요.'),
+    sex: Yup.string().required('성별을 입력해주세요.'),
     nickname: Yup.string()
       .required('닉네임을 입력해주세요.')
       .max(8, '닉네임은 8자리 이하로 입력해주세요.')

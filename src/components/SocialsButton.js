@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Link, Stack, Button, Tooltip, IconButton, Avatar } from '@mui/material';
-//
+import { Link, Stack, Button, Tooltip, IconButton } from '@mui/material';
 import Iconify from './Iconify';
 
 // ----------------------------------------------------------------------
@@ -29,7 +28,7 @@ export default function SocialsButton({ initialColor = false, simple = true, lin
       path: links.instagram || 'https://instagram.com/rt_ridertown?utm_medium=copy_link',
     },
     {
-      name: 'naverblog',
+      name: 'NaverBlog',
       icon: 'simple-icons:naver',
       socialColor: '#007EBB',
       path: links.linkedin || 'https://blog.naver.com/ridertown',

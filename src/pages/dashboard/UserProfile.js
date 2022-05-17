@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // @mui
 import {
   Box,
@@ -33,7 +33,7 @@ export default function UserProfile() {
 
   const isMountedRef = useIsMountedRef();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const { nickname = '' } = useParams();
 
@@ -105,17 +105,17 @@ export default function UserProfile() {
     },
   ];
 
-  const [heart, setHeart] = useState([])
-  const [sum, setSum] = useState(0)
+  // const [heart, setHeart] = useState([])
+  // const [sum, setSum] = useState(0)
   
-  useEffect (() => {
-    if(post){
-      setHeart(post.map((e)=>e.heart))
-      setSum(heart.reduce((stack, el) => {
-        return stack + el;
-      }, 0))
-    }
- },[post, heart])
+//   useEffect (() => {
+//     if(post){
+//       setHeart(post.map((e)=>e.heart))
+//       setSum(heart.reduce((stack, el) => {
+//         return stack + el;
+//       }, 0))
+//     }
+//  },[post, heart])
 
 
  const valueStyleLeft = {
@@ -124,6 +124,7 @@ export default function UserProfile() {
   borderTopColor:'text.primary',
   borderRightColor:'text.disabled',
   fontWeight:'bold',
+  marginTop:2
 }
 
 
@@ -135,6 +136,7 @@ const valueStyleMiddle = {
   borderLeft:(isDesktop ? 2 : 1),
   borderLeftColor:'text.disabled',
   fontWeight:'bold',
+  marginTop:2
 }
 
 const valueStyleRight = {
@@ -143,12 +145,14 @@ const valueStyleRight = {
   borderTop:(isDesktop ? 3 : 2), 
   borderTopColor:'text.primary',
   fontWeight:'bold',
+  marginTop:2
 }
 
 
 const valueStyleNo = {
   borderBottom:(isDesktop ? 2 : 1), 
   borderBottomColor:'text.disabled',
+  marginTop:2
 }
 
   return (
@@ -183,7 +187,7 @@ const valueStyleNo = {
               <Box>
                 <Stack direction="column" justifyContent="center" alignItems="center" spacing={0}>
                   <Typography variant="subtitle2">좋아요</Typography>
-                  <Typography variant="body2">{sum}</Typography>
+                  <Typography variant="body2">0</Typography>
                 </Stack>
               </Box>
             </Stack>
@@ -195,7 +199,7 @@ const valueStyleNo = {
             <BottomNavigationAction
               label={<Typography variant='body2' color={value === 'gallery' ? 'text.primary' : 'disabled'} fontWeight='bold' >갤러리</Typography>}
               value="gallery"
-              icon={<CollectionsIcon  width={20} height={20} color={value === 'gallery' ? 'action' : 'disabled'} sx={{mt:2}}/>}
+              icon={<CollectionsIcon  width={20} height={20} color={value === 'gallery' ? 'action' : 'disabled'} />}
               sx={{...(value === 'gallery') ? valueStyleLeft : valueStyleNo}}
             />
             <BottomNavigationAction
@@ -207,7 +211,7 @@ const valueStyleNo = {
             <BottomNavigationAction
               label={<Typography variant='body2' color={value === 'sell' ? 'text.primary' : 'disabled'} fontWeight='bold'>판매글</Typography>}
               value="sell"
-              icon={<LocalAtmIcon width={20} height={20} color={value === 'sell' ? 'action' : 'disabled'}/>}
+              icon={<LocalAtmIcon width={20} height={20} color={value === 'sell' ? 'action' : 'disabled'} />}
               sx={{...(value === 'sell') ? valueStyleRight : valueStyleNo}}
             />
           </BottomNavigation>

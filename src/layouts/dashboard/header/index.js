@@ -14,6 +14,7 @@ import Notification from './Notification';
 import Iconify from '../../../components/Iconify';
 import MyAvatar from '../../../components/MyAvatar';
 import AccountPopover from './AccountPopover';
+import { IconButtonAnimate } from '../../../components/animate';
 
 
 // ----------------------------------------------------------------------
@@ -93,7 +94,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
       >
         {/* {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />} */}
         {isDesktop && 
-          <Link component={RouterLink} to="/dashboard/app" underline="none" >         
+          <Link component={RouterLink} to="/dashboard/app/home" underline="none" >         
           <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
             RIDERTOWN
           </Typography>
@@ -147,11 +148,12 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
             RIDERTOWN
             </Typography>}
           </>}
-
         <Box sx={{ flexGrow: 1 }} />
-        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 3 }}>
-          <Notification />  
-          <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} onClick={() => navigate('/dashboard/checkout')}/>
+        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 1, sm: 2 }}>
+          <Notification /> 
+          <IconButtonAnimate color='primary' onClick={() => navigate('/dashboard/checkout')} sx={{mr:1}}>
+            <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} />
+          </IconButtonAnimate>
           {!isDesktop 
           ? <MyAvatar sx={{width:36, height:36}} onClick={Menu}/> 
           : <AccountPopover />}

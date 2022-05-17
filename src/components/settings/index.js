@@ -18,10 +18,7 @@ import { IconButtonAnimate, varFade } from '../animate';
 import ToggleButton from './ToggleButton';
 import SettingMode from './SettingMode';
 import SettingLayout from './SettingLayout';
-import SettingStretch from './SettingStretch';
-import SettingDirection from './SettingDirection';
 import SettingFullscreen from './SettingFullscreen';
-import SettingColorPresets from './SettingColorPresets';
 import useResponsive from '../../hooks/useResponsive';
 
 // ----------------------------------------------------------------------
@@ -47,8 +44,12 @@ const RootStyle = styled(m.div)(({ theme }) => ({
 }));
 
 // ----------------------------------------------------------------------
+Settings.propTypes = {
+  click: PropTypes.any,
+  setclick: PropTypes.any,
+}
 
-export default function Settings({click ,setclick ,clicker}) {
+export default function Settings({click ,setclick }) {
   const { themeMode, themeDirection, themeColorPresets, themeStretch, themeLayout, onResetSetting } = useSettings();
   const [open, setOpen] = useState(false);
   const isDesktop = useResponsive('up', 'lg');
@@ -137,12 +138,6 @@ export default function Settings({click ,setclick ,clicker}) {
                     <Typography variant="subtitle2">레이아웃</Typography>
                     <SettingLayout />
                   </Stack>)}
-
-{/*                   <Stack spacing={1.5}>
-                    <Typography variant="subtitle2">색상</Typography>
-                    <SettingColorPresets />
-                  </Stack> */}
-
                   <SettingFullscreen />
                 </Stack>
               </Scrollbar>

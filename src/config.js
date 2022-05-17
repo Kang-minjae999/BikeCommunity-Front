@@ -77,8 +77,5 @@ export const ICON = {
 
 export const defaultSettings = {
   themeMode: 'light',
-  themeDirection: 'ltr',
   themeColorPresets: 'blue',
-  themeLayout: 'vertical',  
-  themeStretch: false,
 };

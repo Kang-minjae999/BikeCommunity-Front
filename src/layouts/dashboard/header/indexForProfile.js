@@ -7,12 +7,10 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
-import MenuIcon from '@mui/icons-material/Menu';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
 import useResponsive from '../../../hooks/useResponsive'; 
 // utils
-import cssStyles from '../../../utils/cssStyles';
 // config
 import { HEADER, NAVBAR } from '../../../config';
 // components
@@ -53,12 +51,11 @@ const RootStyle = styled(AppBar, {
 // ----------------------------------------------------------------------
 
 DashboardHeaderForProfile.propTypes = {
-  onOpenSidebar: PropTypes.func,
   isCollapse: PropTypes.bool,
   verticalLayout: PropTypes.bool,
 };
 
-export default function DashboardHeaderForProfile({ onOpenSidebar, isCollapse = false, verticalLayout = false }) {
+export default function DashboardHeaderForProfile({ isCollapse = false, verticalLayout = false }) {
   const {pathname} = useLocation()
   const {nickname = ''} = useParams()
 
@@ -67,7 +64,6 @@ export default function DashboardHeaderForProfile({ onOpenSidebar, isCollapse = 
   const isDesktop = useResponsive('up', 'lg');
 
   const isGarage = pathname.includes('garage/profile')
-  const isBrand = pathname.includes('user/profile')
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >

@@ -73,14 +73,14 @@ export default function TabHeader({TABS, path}) {
     <>
     {isDesktop ? 
     <>
-    <Divider sx={{ width: '90%', mt:2  }}/>
+    <Divider sx={{ width: '100%', mt:2  }}/>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={valueMobile} onChange={handleNavigate}>
     {TABS.map((item) =>       
         <BottomNavigationAction 
         key={item.value} value={item.index} style={{ minWidth: 20 }} 
         label={<Typography variant="body2" sx={{ ...(valueMobile === item.index && valueStyle)}}>{item.label}</Typography>}/>)}
     </BottomNavigation>
-    <Divider sx={{ width: '90%', mb:2  }}/>
+    <Divider sx={{ width: '100%', mb:2  }}/>
     </> 
     :
       <Paper sx={!isDesktop ? { position: 'fixed', top: 42, left: 0, right: 0, zIndex:50 } : { zIndex:50 } }>

@@ -62,14 +62,14 @@ export default function MainHeader() {
             justifyContent: 'space-between',
           }}
         >
-          <Link component={RouterLink} to="/dashboard/app"underline="none" >         
+          <Link component={RouterLink} to="/dashboard/app/home" underline="none" >         
           {/*  <Label color="primary" sx={{ ml: 1 , mr: 2, typography: 'h4'}} variant = 'ghost'> */}
             <Typography color="primary" variant='h4' sx={{ ml: 1 , mr: 2}}>
             RIDERTOWN
             </Typography>
             </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Button onClick={() => navigate('/dashboard/app')} sx={{color:'text.primary'}}>메인화면으로</Button>
+          <Button onClick={() => navigate('-1')} sx={{color:'text.primary'}}>돌아가기</Button>
         </Container>
       </ToolbarStyle>
 

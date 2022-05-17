@@ -1,5 +1,5 @@
 // @mui
-import { Box, Skeleton, Grid, Stack } from '@mui/material';
+import { Skeleton, Grid } from '@mui/material';
 
 // ----------------------------------------------------------------------
 

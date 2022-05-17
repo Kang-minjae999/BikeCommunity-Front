@@ -39,13 +39,14 @@ const ContentStyle = styled((props) => <Stack spacing={5} {...props} />)(({ them
   },
 }));
 
-const HeroOverlayStyle = styled(m.img)({
+const HeroOverlayStyle = styled(m.div)(({ theme }) => ({
   zIndex: 1,
   width: '100%',
   height: '100%',
+  backgroundColor: theme.palette.warning.main,
   objectFit: 'cover',
   position: 'absolute',
-});
+}));
 
 
 
@@ -55,11 +56,7 @@ export default function HomeHero() {
   return (
     <MotionContainer>
       <RootStyle>
-      <HeroOverlayStyle
-          alt="overlay" 
-          src='Mainback.jpeg' 
-          variants={varFade().in}
-        />
+      <HeroOverlayStyle />
         <Container>
           <ContentStyle>
             <m.div variants={varFade().inRight}>

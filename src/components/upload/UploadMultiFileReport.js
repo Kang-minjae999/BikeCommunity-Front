@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useDropzone } from 'react-dropzone';
-import {useMemo } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';

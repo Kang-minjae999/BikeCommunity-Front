@@ -2,7 +2,6 @@
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, Card, Container, Typography } from '@mui/material';
 // components
-import Image from '../../components/Image';
 import { MotionInView, varFade } from '../../components/animate';
 
 
@@ -135,7 +134,7 @@ export default function HomeMinimal() {
           {CARDS.map((card, index) => (
             <MotionInView variants={varFade().inUp} key={card.title}>
               <CardStyle className={(index === 0 && 'cardLeft') || (index === 1 && 'cardCenter') || (index === 2 && 'cardCenter')}>
-                <Image
+                {/* <Image
                   src={card.icon}
                   alt={card.title}
                   sx={{
@@ -144,7 +143,7 @@ export default function HomeMinimal() {
                     width: 80,
                     height: 80,
                   }}
-                />
+                /> */}
                 <Typography variant="h5" paragraph>
                   {card.title}
                 </Typography>

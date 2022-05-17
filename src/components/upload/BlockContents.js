@@ -1,8 +1,7 @@
 // @mui
-import { Box, Typography, Stack } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 // assets
-import { UploadIllustration } from '../../assets';
 
 
 // ----------------------------------------------------------------------
