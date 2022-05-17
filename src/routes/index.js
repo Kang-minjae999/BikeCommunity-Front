@@ -310,7 +310,7 @@ const UEcommerceProductDetailsEtc = Loadable(lazy(() => import('../pages/dashboa
 // 읽기전용 게시글
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
 const BlogDingstas = Loadable(lazy(() => import('../pages/dashboard/BlogDingstas')));
-const Blognotices = Loadable(lazy(() => import('../pages/dashboard/Blognotices')));
+const Blognotices = Loadable(lazy(() => import('../pages/dashboard/BlogNotices')));
 const BlogReports = Loadable(lazy(() => import('../pages/dashboard/BlogReports')));
 const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
 const BlogNotice = Loadable(lazy(() => import('../pages/dashboard/BlogNotice')));

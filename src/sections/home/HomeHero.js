@@ -69,7 +69,7 @@ export default function HomeHero() {
             </m.div>
             <m.div variants={varFade().inRight}>
               <Typography sx={{ color: 'common.white' }}>
-              라이더타운은 여러분의 안전한 라이딩을 기원합니다!
+              라이더타운 밤하늘의 펄
               </Typography>
             </m.div>
 
@@ -78,7 +78,7 @@ export default function HomeHero() {
                 size="large"
                 variant="contained"
                 component={RouterLink}
-                to={PATH_DASHBOARD.root}
+                to={PATH_DASHBOARD.general.app}
                 startIcon={<TwoWheelerIcon/>}
               >
                 시작하기
