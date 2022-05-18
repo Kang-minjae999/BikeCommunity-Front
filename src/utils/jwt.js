@@ -34,29 +34,31 @@ const isValidToken = (accessToken) => {
 
 // ----------------------------------------------------------------------
 
-const setSessionAccess = (accessToken) => {
-  if (accessToken) {
-    localStorage.setItem('accesstoken', accessToken);
+const setSessionAccess = (accesstoken) => {
+  if (accesstoken) {
+    localStorage.setItem('accesstoken', accesstoken);
     //  axios.defaults.headers.common.Authorization = `${accessToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
-  } else {
-    localStorage.removeItem('accesstoken');
-    delete axios.defaults.headers.common.Authorization;
+  // } else {
+  //   localStorage.removeItem('accesstoken');
+  //   delete axios.defaults.headers.common.Authorization;
+  // }
   }
 };
 
-const setSessionRefresh = (refreshToken) => {
-  if (refreshToken) {
-    localStorage.setItem('refreshtoken', refreshToken);
+const setSessionRefresh = (refreshtoken) => {
+  if (refreshtoken) {
+    localStorage.setItem('refreshtoken', refreshtoken);
     //  axios.defaults.headers.common.Authorization = `${refreshToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
-  } else {
-    localStorage.removeItem('refreshtoken');
-    delete axios.defaults.headers.common.Authorization;
-  }
-};
+    // } else {
+    //   localStorage.removeItem('refreshtoken');
+    //   delete axios.defaults.headers.common.Authorization;
+    // }
+    }
+  };
 
 const access = window.localStorage.getItem('accesstoken');
 const refresh = window.localStorage.getItem('refreshtoken');
