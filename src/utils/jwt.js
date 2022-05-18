@@ -36,29 +36,29 @@ const isValidToken = (accessToken) => {
 
 const setSessionAccess = (accessToken) => {
   if (accessToken) {
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('accesstoken', accessToken);
     //  axios.defaults.headers.common.Authorization = `${accessToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
   } else {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('accesstoken');
     delete axios.defaults.headers.common.Authorization;
   }
 };
 
 const setSessionRefresh = (refreshToken) => {
   if (refreshToken) {
-    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('refreshtoken', refreshToken);
     //  axios.defaults.headers.common.Authorization = `${refreshToken}`; 
     // const { exp } = jwtDecode(accessToken);
     // handleTokenExpired(exp);
   } else {
-    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('refreshtoken');
     delete axios.defaults.headers.common.Authorization;
   }
 };
 
-const access = window.localStorage.getItem('accessToken');
-const refresh = window.localStorage.getItem('refreshToken');
+const access = window.localStorage.getItem('accesstoken');
+const refresh = window.localStorage.getItem('refreshtoken');
 
 export { isValidToken, setSessionRefresh, setSessionAccess, verify, sign, access, refresh };

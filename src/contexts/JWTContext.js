@@ -104,8 +104,8 @@ function AuthProvider({ children }) {
         if (access && refresh) {
           const response = await axios.get('/users', {
             headers: {
-              accessToken: access,
-              refreshToken: refresh,
+              accesstoken: access,
+              refreshtoken: refresh,
             },
           });
 
@@ -198,8 +198,8 @@ function AuthProvider({ children }) {
   };
 
   const afterlogin = async (users) => {
-    const accessT = window.localStorage.getItem('accessToken');
-    const refreshT = window.localStorage.getItem('refreshToken');
+    const accessT = window.localStorage.getItem('accesstoken');
+    const refreshT = window.localStorage.getItem('refreshtoken');
     const response = await axios.put('/users-oauth', 
     {
       nickname:users.nickname,
@@ -213,8 +213,8 @@ function AuthProvider({ children }) {
     {
       headers:
       {
-        accessToken:accessT,
-        refreshToken:refreshT
+        accesstoken:accessT,
+        refreshtoken:refreshT
       }
     }
     );
@@ -252,11 +252,14 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    const access = window.localStorage.getItem('accessToken');
+    const accessT = window.localStorage.getItem('accesstoken');
+    const refreshT = window.localStorage.getItem('refreshtoken');
     await axios.get('/logout', {
-      headers: {
-        accessToken: access,
-      },
+      headers:
+      {
+        accesstoken:accessT,
+        refreshtoken:refreshT
+      }
     });
     setSessionAccess(null);
     setSessionRefresh(null);
