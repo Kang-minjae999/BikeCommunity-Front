@@ -177,7 +177,8 @@ export default function RegisterForm() {
         data.nickname,
         data.birthday,
         data.phoneNumber,
-        data.address
+        data.address,
+        data.sex
       );
       enqueueSnackbar('회원가입 완료!');
       navigate('/auth/login');

@@ -101,28 +101,24 @@ function AuthProvider({ children }) {
       try {
         const access = window.localStorage.getItem('accesstoken');
         const refresh = window.localStorage.getItem('refreshtoken');
-        if (access && refresh) {
+          if (access) {
           const response = await axios.get('/users', {
             headers: {
               accesstoken: access,
               refreshtoken: refresh,
             },
           });
-
-          if(response.headers.accesstoken){
-            setSessionAccess(response.headers.accesstoken);
-            setSessionRefresh(response.headers.refreshtoken);
-          }
-
+          setSessionAccess(response.headers.accesstoken);
+          setSessionRefresh(response.headers.refreshtoken);
           const user = response.data.data;
-
+          console.log(response)
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
               user,
             },
-          });
+          });         
         } else {
           dispatch({
             type: 'INITIALIZE',
