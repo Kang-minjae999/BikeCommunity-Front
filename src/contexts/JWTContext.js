@@ -99,8 +99,8 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const access = window.localStorage.getItem('accessToken');
-        const refresh = window.localStorage.getItem('refreshToken');
+        const access = window.localStorage.getItem('accesstoken');
+        const refresh = window.localStorage.getItem('refreshtoken');
         if (access && refresh) {
           const response = await axios.get('/users', {
             headers: {
@@ -153,8 +153,8 @@ function AuthProvider({ children }) {
       password,
     });
     const user = response.data;
-    const access = response.headers.accessToken;
-    const refresh = response.headers.refreshToken;
+    const access = response.headers.accesstoken;
+    const refresh = response.headers.refreshtoken;
     setSessionAccess(access);
     setSessionRefresh(refresh);
     dispatch({
@@ -168,8 +168,8 @@ function AuthProvider({ children }) {
   const kakaologin = async (access) => {
     const response = await axios.get('/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
-    const accessT = response.headers.accessToken;
-    const refresh = response.headers.refreshToken;
+    const accessT = response.headers.accesstoken;
+    const refresh = response.headers.refreshtoken;
     setSessionAccess(accessT);
     setSessionRefresh(refresh);
     dispatch({
@@ -184,8 +184,8 @@ function AuthProvider({ children }) {
   const naverlogin = async (access) => {
     const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
-    const accessT = response.headers.accessToken;
-    const refresh = response.headers.refreshToken;
+    const accessT = response.headers.accesstoken;
+    const refresh = response.headers.refreshtoken;
     setSessionAccess(accessT);
     setSessionRefresh(refresh);
     dispatch({
@@ -219,8 +219,8 @@ function AuthProvider({ children }) {
     }
     );
     const user = response.data.data;
-    const access = response.headers.accessToken;
-    const refresh = response.headers.refreshToken;
+    const access = response.headers.accesstoken;
+    const refresh = response.headers.refreshtoken;
     setSessionAccess(access);
     setSessionRefresh(refresh);
     dispatch({
