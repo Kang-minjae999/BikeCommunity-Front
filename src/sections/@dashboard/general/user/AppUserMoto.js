@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Typography, Button, Stack, Container } from '@mui/material';
+import axios from '../../../../utils/axiospostadmin';
+import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import AppUserMotoNew from './AppUserMotoNew';
 import useResponsive from '../../../../hooks/useResponsive';
 import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
@@ -11,6 +13,29 @@ import HeaderBreadcrumbs from '../../../../components/HeaderBreadcrumbs';
 
 export default function AppUserMoto() {
   const isDesktop = useResponsive('up', 'lg')
+
+  const isMountedRef = useIsMountedRef();
+
+  const [motos, setMotos] = useState()
+  
+  const getMoto = useCallback(async () => {
+    try {
+      const response = await axios.get(`/posts?page=0&size=12`);
+
+      if (isMountedRef.current) {
+        setMotos(response.data.data.content);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, [isMountedRef]);
+
+  useEffect(() => {
+    getMoto()
+  }, [getMoto])
+  
+
+
   const [newMoto, setNewMoto] = useState(false)
 
   const onNew = () => {

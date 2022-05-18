@@ -81,7 +81,7 @@ export default function GarageCardsCafe() {
       <Container maxWidth='xl' sx={{mt:2}}>
       {isDesktop && 
         <HeaderBreadcrumbs
-          heading="정비소 찾기"
+          heading="라이더카페"
           links={[{ name: '' }]}
           action={
             <>
