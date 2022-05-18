@@ -182,7 +182,6 @@ export default function RegisterForm() {
       enqueueSnackbar('회원가입 완료!');
       navigate('/auth/login');
     } catch (error) {
-      enqueueSnackbar(error);
       if (isMountedRef.current) {
         setError('afterSubmit', error);
       }
