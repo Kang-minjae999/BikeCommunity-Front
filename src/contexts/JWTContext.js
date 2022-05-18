@@ -109,9 +109,9 @@ function AuthProvider({ children }) {
             },
           });
 
-          if(response.headers.accessToken){
-            setSessionAccess(response.headers.accessToken);
-            setSessionRefresh(response.headers.refreshToken);
+          if(response.headers.accesstoken){
+            setSessionAccess(response.headers.accesstoken);
+            setSessionRefresh(response.headers.refreshtoken);
           }
 
           const user = response.data.data;
