@@ -14,6 +14,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { RHFSwitch,  FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospostadmin';
+import { access, refresh } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +49,6 @@ export default function BlogNewPostForm() {
   const values = watch();
 
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     data.images.map((file) => formData.append('imageFiles', file));
     formData.append('title', data.title)
@@ -57,7 +57,10 @@ export default function BlogNewPostForm() {
     try {
       await axios.post('/posts', {
         headers: {
-          Authorization: accessToken,
+          headers: {
+            accesstoken: access,
+            refreshtoken: refresh,
+          },
         },
       });
       enqueueSnackbar('공지사항 추가 완료!');

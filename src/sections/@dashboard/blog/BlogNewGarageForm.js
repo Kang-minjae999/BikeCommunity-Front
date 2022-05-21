@@ -15,6 +15,7 @@ import { FormProvider, RHFEditor, RHFTextField, RHFUploadSingleFile } from '../.
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
+import { access, refresh, IsValid } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +49,6 @@ export default function BlogNewGarageForm() {
   } = methods;
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     formData.append('image', data.image);
     formData.append('content', data.content)
@@ -57,7 +57,8 @@ export default function BlogNewGarageForm() {
       await axios.post(`/report/${user.nickname}`, formData ,{
         headers: {
         'content-type': 'multipart/form-data',
-        Authorization: accessToken,
+        accesstoken: access,
+        refreshtoken: refresh,
         },
       });
       enqueueSnackbar('정비 글 추가 완료!');

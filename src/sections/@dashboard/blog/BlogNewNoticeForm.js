@@ -14,6 +14,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { FormProvider, RHFSwitch, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospostadmin';
+import { access, refresh, IsValid } from '../../../utils/jwt';
 // ----------------------------------------------------------------------
 
 export default function BlogNewNoticeForm() {
@@ -48,7 +49,6 @@ export default function BlogNewNoticeForm() {
   const values = watch();
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     data.images.map((file) => formData.append('imageFiles', file));
     formData.append('title', data.title)
@@ -59,7 +59,10 @@ export default function BlogNewNoticeForm() {
       await axios.post('/notices', formData ,{
         headers: {
         'content-type': 'multipart/form-data',
-        Authorization: accessToken,
+        headers: {
+          accesstoken: access,
+          refreshtoken: refresh,
+        },
         },
       });
       enqueueSnackbar('공지사항 추가 완료!');

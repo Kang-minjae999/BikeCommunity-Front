@@ -15,6 +15,7 @@ import { FormProvider, RHFTextField, RHFUploadMultiFileReport } from '../../../c
 //
 import axios from '../../../utils/axiospost';
 import useAuth from '../../../hooks/useAuth';
+import { access, refresh } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -51,7 +52,6 @@ export default function BlogNewReportForm() {
   const values = watch();
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData()
     data.Images.map((file) => formData.append('imageFiles', file));
     formData.append('content', data.content)
@@ -62,7 +62,10 @@ export default function BlogNewReportForm() {
       await axios.post(`/report/${user.nickname}`, formData ,{
         headers: {
         'content-type': 'multipart/form-data',
-        Authorization: accessToken,
+        headers: {
+          accesstoken: access,
+          refreshtoken: refresh,
+        },
         },
       });
       enqueueSnackbar('공지사항 추가 완료!');

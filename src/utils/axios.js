@@ -1,6 +1,7 @@
 import axios from 'axios';
 // config
 import { HOST_API } from '../config';
+import { access, refresh, setSessionAccess, setSessionRefresh } from './jwt';
 
 // ----------------------------------------------------------------------
 
@@ -13,4 +14,21 @@ axiosInstance.interceptors.response.use(
   (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
 );
 
-export default axiosInstance;
+const isValid = async () => {
+  try {
+    const response = await axios.get('/users/access-token', {
+      headers: {
+        accessToken: access,
+        refreshToken: refresh,
+      },
+    });
+    if(response){
+      setSessionAccess(response.headers.accesstoken);
+      setSessionRefresh(response.headers.refreshtoken);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export default {axiosInstance, isValid};

@@ -14,30 +14,15 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiospost';
-import { access, refresh } from '../../../utils/jwt';
+import { access, refresh, IsValid } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 const TAGS_OPTION = ['모델명, 브랜드 등 아무거나 자유롭게 입력해주세요!'];
 // ----------------------------------------------------------------------
 
 export default function BlogNewDingstaForm() {
-  const isValid = async () => {
-    try {
-      await axios.get('/users/access-token', {
-        headers: {
-          accessToken: access,
-          refreshToken: refresh,
-        },
-      });
-      enqueueSnackbar('딩스타그램 추가 완료!');
-      navigate(PATH_DASHBOARD.blog.dingstas);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    isValid()
+    IsValid()
     // eslint-disable-next-line
   }, [])
   
@@ -80,7 +65,6 @@ export default function BlogNewDingstaForm() {
       enqueueSnackbar('태그를 추가해주세요!');
       return;
     }
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData();
     data.tags.map((tag) => formData.append('tags', tag));
     data.Images.map((file) => formData.append('imageFiles', file));
@@ -90,7 +74,10 @@ export default function BlogNewDingstaForm() {
       await axios.post('/dingsta', formData, {
         headers: {
           'content-type': 'multipart/form-data',
-          authorization: accessToken,
+          headers: {
+            accesstoken: access,
+            refreshtoken: refresh,
+          },
         },
       });
       enqueueSnackbar('딩스타그램 추가 완료!');

@@ -10,59 +10,67 @@ const initialState = {
   isAuthenticated: false,
   isInitialized: false,
   user: {},
+  accessTime: null,
 };
 
 const handlers = {
   INITIALIZE: (state, action) => {
-    const { isAuthenticated, user } = action.payload;
+    const { isAuthenticated, user, accessTime } = action.payload;
     return {
       ...state,
       isAuthenticated,
       isInitialized: true,
       user,
+      accessTime
     };
   },
   LOGIN: (state, action) => {
-    const { user } = action.payload;
+    const { user, accessTime } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
       user,
+      accessTime
     };
   },
   KAKAOLOGIN: (state, action) => {
-    const { user } = action.payload;
+    const { user, accessTime } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
       user,
+      accessTime
     };
   },
   NAVERLOGIN: (state, action) => {
-    const { user } = action.payload;
+    const { user, accessTime } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
       user,
+      accessTime
     };
   },
   AFTERLOGIN: (state, action) => {
-    const { user } = action.payload;
+    const { user, accessTime } = action.payload;
 
     return {
       ...state,
       isAuthenticated: true,
       user,
+      accessTime
     };
   },
   LOGOUT: (state) => ({
     ...state,
     isAuthenticated: false,
     user: null,
+    accessTime:null,
   }),
+
   REGISTER: (state, action) => {
     const { user } = action.payload;
     return {
@@ -111,12 +119,14 @@ function AuthProvider({ children }) {
           setSessionAccess(response.headers.accesstoken);
           setSessionRefresh(response.headers.refreshtoken);
           const user = response.data.data;
-          console.log(response)
+          const accessTime = new Date().getTime();
+          console.log(accessTime)
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
               user,
+              accessTime
             },
           });         
         } else {
@@ -125,6 +135,7 @@ function AuthProvider({ children }) {
             payload: {
               isAuthenticated: false,
               user: null,
+              accessTime: null
             },
           });
         }
@@ -135,11 +146,11 @@ function AuthProvider({ children }) {
           payload: {
             isAuthenticated: false,
             user: null,
+            accessTime: null
           },
         });
       }
     };
-
     initialize();
   }, []);
 
@@ -151,12 +162,14 @@ function AuthProvider({ children }) {
     const user = response.data;
     const access = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
+    const accessTime = new Date().getTime();
     setSessionAccess(access);
     setSessionRefresh(refresh);
     dispatch({
       type: 'LOGIN',
       payload: {
         user,
+        accessTime
       },
     });
   };
@@ -166,12 +179,14 @@ function AuthProvider({ children }) {
     const user = {...response.data, status:response.status}
     const accessT = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
+    const accessTime = new Date().getTime();
     setSessionAccess(accessT);
     setSessionRefresh(refresh);
     dispatch({
       type: 'KAKAOLOGIN',
       payload: {
         user,
+        accessTime
       },
     });
     return user;
@@ -182,12 +197,14 @@ function AuthProvider({ children }) {
     const user = {...response.data, status:response.status}
     const accessT = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
+    const accessTime = new Date().getTime();
     setSessionAccess(accessT);
     setSessionRefresh(refresh);
     dispatch({
       type: 'NAVERLOGIN',
       payload: {
         user,
+        accessTime
       },
     });
     return user;
@@ -217,12 +234,14 @@ function AuthProvider({ children }) {
     const user = response.data.data;
     const access = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
+    const accessTime = new Date().getTime();
     setSessionAccess(access);
     setSessionRefresh(refresh);
     dispatch({
       type: 'AFTERLOGIN',
       payload: {
         user,
+        accessTime
       },
     });
   };

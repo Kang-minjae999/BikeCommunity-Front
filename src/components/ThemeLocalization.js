@@ -10,7 +10,7 @@ ThemeLocalization.propTypes = {
   children: PropTypes.node,
 };
 
-export default function ThemeLocalization({ children }) {
+export default function ThemeLocalization({children}) {
   const defaultTheme = useTheme();
   const { currentLang } = useLocales();
 
