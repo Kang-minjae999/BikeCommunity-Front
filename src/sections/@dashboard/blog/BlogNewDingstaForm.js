@@ -74,10 +74,8 @@ export default function BlogNewDingstaForm() {
       await axios.post('/dingsta', formData, {
         headers: {
           'content-type': 'multipart/form-data',
-          headers: {
             accesstoken: access,
             refreshtoken: refresh,
-          },
         },
       });
       enqueueSnackbar('딩스타그램 추가 완료!');

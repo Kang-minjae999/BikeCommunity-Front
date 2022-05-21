@@ -66,9 +66,12 @@ export default function ProfileName() {
         </Stack>   
       </Stack>
     </Card>
-      <Typography variant="body1" sx={{mt:3,mb:2.5, mx:3}}>
-          안녕하세요. 저희는 바이크 정비 수리 커스텀을 주로하는 라이더타운입니다. 반갑습니다
+    <Card sx={{mt:2,mb:2, mx:2}}>
+      <Typography variant="body1" sx={{my:3, mx:3}}>
+          안녕하세요. 
+          저희는 바이크 정비 수리 커스텀을 주로하는 라이더타운입니다. 반갑습니다
       </Typography> 
+    </Card>
     </>
   );
 }

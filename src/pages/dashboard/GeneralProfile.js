@@ -24,7 +24,7 @@ export default function GeneralProfile() {
 
   return (
     <>
-    <AppOtherProfile />
+    <AppGarageProfile />
     {profileType === 'garage' && <AppGarageProfile />}
     {profileType === 'brand' && <AppBrandProfile />}
     {profileType === 'club' && <AppClubProfile />}

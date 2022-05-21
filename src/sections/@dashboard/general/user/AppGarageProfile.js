@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 // @mui
 import { Box, Stack, Typography } from '@mui/material';
 import Image from '../../../../components/Image';
@@ -18,15 +18,19 @@ import TabProfile from '../../../../components/TabProfile';
 export default function AppGarageProfile() {
   const { nickname } = useParams();
 
+  const { pathname } = useLocation();
+
   const isDesktop = useResponsive('up', 'lg')
 
-  const ref = useRef()
+  const ref = useRef();
+
+  const refs = useRef();
 
   const PROFILE_TABS = [
     {
       index: 0,
       value: 'gallery',
-      label: '바이크',
+      label: '정비글',
       component: 
       <>
       <Typography>확인</Typography>
@@ -74,9 +78,33 @@ export default function AppGarageProfile() {
     {
       index: 1,
       value: 'profile',
-      label: '정비글',
+      label: '판매중',
       component: 
       <>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
       <Typography>확인</Typography>
       <Typography>확인</Typography>
       <Typography>확인</Typography>
@@ -102,7 +130,7 @@ export default function AppGarageProfile() {
     {
       index: 2,
       value: 'sell',
-      label: '판매중',
+      label: '리뷰',
       component: 
       <>
       <Typography>확인</Typography>
@@ -151,7 +179,7 @@ export default function AppGarageProfile() {
     if(!isOpen){
       window.scrollTo(0, 0);
     } else {
-      window.scrollTo(0, ref?.current.offsetTop - 53);
+      window.scrollTo(0, refs?.current.offsetTop - 53);
     }
   // eslint-disable-next-line
   }, [pathname]);
@@ -161,10 +189,11 @@ export default function AppGarageProfile() {
  <Stack direction='column' alignItems='center' justifyContent='center'>
    <Image ratio='1/1' alt="profile cover" 
    src='https://newsimg.hankookilbo.com/cms/articlerelease/2021/02/17/06b02195-4276-4a95-aba5-b7acd11f48c1.jpg'/>
-   <div ref={ref}/>
    <ProfileName />
+   <div ref={ref}/>
    {/* <Button variant='outlined' onClick={()=>navigate('/dashboard/garage/setting')}>정비소 관리</Button>  */}
    </Stack>
+   <Box ref={refs}/>
  </Box>
 
  const path = `/dashboard/profile/${nickname}`

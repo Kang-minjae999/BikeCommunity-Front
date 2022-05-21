@@ -57,10 +57,8 @@ export default function BlogNewPostForm() {
     try {
       await axios.post('/posts', {
         headers: {
-          headers: {
             accesstoken: access,
             refreshtoken: refresh,
-          },
         },
       });
       enqueueSnackbar('공지사항 추가 완료!');
