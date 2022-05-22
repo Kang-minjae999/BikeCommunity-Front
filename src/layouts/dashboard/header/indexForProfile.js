@@ -63,7 +63,7 @@ export default function DashboardHeaderForProfile({ isCollapse = false, vertical
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const isGarage = pathname.includes('garage/profile')
+  const isGarage = pathname.includes('profile')
 
   return (
     <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
@@ -91,7 +91,7 @@ export default function DashboardHeaderForProfile({ isCollapse = false, vertical
           </>}
 
         <Box sx={{ flexGrow: 1 }} />
-        {!isDesktop &&  <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
+        {!isDesktop &&  <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 3, sm: 2 }}>
         {isGarage && 
           <> 
           <CallOutlinedIcon color='action'/>

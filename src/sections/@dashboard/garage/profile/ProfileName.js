@@ -1,6 +1,6 @@
 // @mui
 import { styled } from '@mui/material/styles';
-import { Card, Typography, Stack, Button, Avatar, Box } from '@mui/material';
+import { Card, Typography, Stack, Button, Avatar, Box, Rating } from '@mui/material';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
@@ -23,10 +23,13 @@ const IconStyle = styled(Iconify)(() => ({
 // ----------------------------------------------------------------------
 
 export default function ProfileName() {
+  const value = 4.3
+
+  const review = 120
 
   return (
     <>
-    <Card sx={{bottom:50, right:0, left:0 ,zIndex:99, width:'90%', mb:-5}} >
+    <Card sx={{bottom:50, right:0, left:0 ,zIndex:8, width:'90%', mb:-5}} >
       <Stack direction='column' sx={{width:'100%', mt:2, mb:2}} >
       <Stack direction="row" alignItems='center' justifyContent='space-around' sx={{my:2}}>
         <Avatar alt='정비소 프로필' 
@@ -38,28 +41,45 @@ export default function ProfileName() {
       </Stack>
       <Box/>
       </Stack>
-      <Stack direction="row" alignItems='center' justifyContent='center'sx={{mb:4}}>
+      <Stack direction="row" alignItems='center' justifyContent='center'sx={{mb:2}}>
           <IconStyle icon={'eva:pin-fill'} />
           <Typography variant="body2" color='text.disabled'>
           경기도 군포시 산본동 보람타워 509호
           </Typography>
-        </Stack>   
+        </Stack>
+        <Stack direction="row" alignItems='center' justifyContent='center'sx={{mb:2}}>
+        <Rating name="read-only" value={value} readOnly precision={0.1} size="large"/>  
+        </Stack> 
+        <Stack direction="row" alignItems='center' justifyContent='center' spacing={1} sx={{mb:4}}>
+        <Typography variant="body2" color='text.disabled'>
+          평점       
+          </Typography>
+          <Typography variant="body2" color='text.primary' sx={{mr:1}}>
+          {value}
+          </Typography>
+          <Typography variant="body2" color='text.disabled'>
+          리뷰
+          </Typography>
+          <Typography variant="body2" color='text.primary'>
+          {review}
+          </Typography>
+        </Stack> 
         <Stack direction='row' spacing={1} justifyContent='space-around' alignItems='center' sx={{mb:1}}>
         <Button variant='text'>
-          <CallOutlinedIcon sx={{mr:1}}/>
-            <Typography variant='body1'>
+          <CallOutlinedIcon sx={{mr:1, color:'text.primary'}} />
+            <Typography variant='body1' color='text.primary'>
               전화
             </Typography>
         </Button>
         <Button variant='text'>
-          <ForumOutlinedIcon sx={{mr:1}}/>
-            <Typography variant='body1'>
+          <ForumOutlinedIcon sx={{mr:1, color:'text.primary'}}/>
+            <Typography variant='body1'  color='text.primary'>
               채팅
             </Typography>
         </Button>
         <Button variant='text'>
-          <ContactSupportOutlinedIcon sx={{mr:1}}/>
-            <Typography variant='body1'>
+          <ContactSupportOutlinedIcon sx={{mr:1, color:'text.primary'}}/>
+            <Typography variant='body1'  color='text.primary'>
               질문
             </Typography>
         </Button>

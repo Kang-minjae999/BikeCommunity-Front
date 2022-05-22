@@ -10,8 +10,8 @@ import {
   ProfileName,
 } from '../../garage/profile';
 import useResponsive from '../../../../hooks/useResponsive';
-import TabProfile from '../../../../components/TabProfile';
-
+import TabGarageProfile from '../../../../components/TabGarageProfile';
+import { AppGarageCalendar } from '../../garage/calendar';
 
 // ----------------------------------------------------------------------
 
@@ -22,9 +22,7 @@ export default function AppGarageProfile() {
 
   const isDesktop = useResponsive('up', 'lg')
 
-  const ref = useRef();
-
-  const refs = useRef();
+  const ref = useRef([]);
 
   const PROFILE_TABS = [
     {
@@ -129,7 +127,16 @@ export default function AppGarageProfile() {
     },
     {
       index: 2,
-      value: 'sell',
+      value: 'reservation',
+      label: '예약',
+      component: 
+      <>
+       <AppGarageCalendar/>
+      </>,
+    },
+    {
+      index: 3,
+      value: 'review',
       label: '리뷰',
       component: 
       <>
@@ -160,10 +167,10 @@ export default function AppGarageProfile() {
   const [isOpen, setIsOpen] = useState(false)
   
   const open = () => {
-    if(window.scrollY + 53 > ref?.current.offsetTop){
+    if(window.scrollY + 53 > ref?.current[0].offsetTop){
       setIsOpen(true)
     }
-    if(window.scrollY + 53 < ref?.current.offsetTop){
+    if(window.scrollY + 53 < ref?.current[0].offsetTop){
       setIsOpen(false)
     }
   }
@@ -176,24 +183,23 @@ export default function AppGarageProfile() {
   }, [])
 
   useEffect(() => {
-    if(!isOpen){
-      window.scrollTo(0, 0);
-    } else {
-      window.scrollTo(0, refs?.current.offsetTop - 53);
+    if(isOpen){
+      window.scrollTo(0, ref?.current[1].offsetTop - 53);
     }
   // eslint-disable-next-line
   }, [pathname]);
+
   
  const Feature =       
  <Box>         
  <Stack direction='column' alignItems='center' justifyContent='center'>
    <Image ratio='1/1' alt="profile cover" 
    src='https://newsimg.hankookilbo.com/cms/articlerelease/2021/02/17/06b02195-4276-4a95-aba5-b7acd11f48c1.jpg'/>
+   <div  ref={el => (ref.current[0] = el)}/>
    <ProfileName />
-   <div ref={ref}/>
    {/* <Button variant='outlined' onClick={()=>navigate('/dashboard/garage/setting')}>정비소 관리</Button>  */}
    </Stack>
-   <Box ref={refs}/>
+   <Box  ref={el => (ref.current[1] = el)}/>
  </Box>
 
  const path = `/dashboard/profile/${nickname}`
@@ -201,7 +207,7 @@ export default function AppGarageProfile() {
   return (
     <>
       {isOpen && !isDesktop && <DashboardHeaderForProfile />}
-         <TabProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
+         <TabGarageProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
     </>
   );
 }

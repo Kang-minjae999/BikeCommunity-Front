@@ -176,6 +176,7 @@ export default function Router() {
             { path: 'new-post', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
             { path: 'new-ask', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
             { path: 'new-card', element: (<AuthGuard><GarageNewPost /></AuthGuard>),},
+            { path: 'new-reservation', element: (<GarageNewPost />),},
           ],
         },
         {

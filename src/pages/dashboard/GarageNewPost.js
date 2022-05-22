@@ -7,7 +7,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogNewAskForm,BlogNewCardForm, BlogNewPostForm } from '../../sections/@dashboard/garage/newpost';
+import { BlogNewAskForm,BlogNewCardForm, BlogNewPostForm, BlogNewReserForm } from '../../sections/@dashboard/garage/newpost';
 
 // ----------------------------------------------------------------------
 
@@ -18,6 +18,7 @@ export default function BlogNewPost() {
   const isAsk = pathname.includes('ask');
   const isPost = pathname.includes('post');
   const isCard = pathname.includes('card');
+  const isReser = pathname.includes('reservation');
 
 
   return (
@@ -34,6 +35,7 @@ export default function BlogNewPost() {
         {isAsk && <BlogNewAskForm />}
         {isPost && <BlogNewPostForm />}
         {isCard && <BlogNewCardForm />}
+        {isReser && <BlogNewReserForm />}
       </Container>
     </Page>
   );

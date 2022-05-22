@@ -14,6 +14,7 @@ import { fData } from '../../../../utils/formatNumber';
 // components
 import { FormProvider, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
 import axios from '../../../../utils/axiosuser';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +61,8 @@ export default function AccountGeneral() {
       await axios.put(`/users/${user?.id}`, data
        ,{
         headers: {
-          Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       enqueueSnackbar('회원 수정 완료!');

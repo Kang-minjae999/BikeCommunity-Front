@@ -149,7 +149,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
             </Typography>}
           </>}
         <Box sx={{ flexGrow: 1 }} />
-        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 1, sm: 2 }}>
+        <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={1}>
           <Notification /> 
           <IconButtonAnimate color='primary' onClick={() => navigate('/dashboard/checkout')} sx={{mr:1}}>
             <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} />
