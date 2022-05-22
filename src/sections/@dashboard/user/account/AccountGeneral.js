@@ -56,7 +56,6 @@ export default function AccountGeneral() {
 
 
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.put(`/users/${user?.id}`, data
        ,{

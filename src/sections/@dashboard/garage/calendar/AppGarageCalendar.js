@@ -1,25 +1,89 @@
+import * as Yup from 'yup';
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
+import { Controller, useForm } from 'react-hook-form';
+
+import { useSnackbar } from 'notistack';
+
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+import { LoadingButton } from '@mui/lab';
+import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; 
 import './AppRidingHomeCalendarOri.css';
-import { Card, Box, Typography, TextField, Button } from '@mui/material';
+import { Card, Box, Typography, Button, Autocomplete, Chip } from '@mui/material';
+import { RHFTextField, FormProvider } from '../../../../components/hook-form';
+import { PATH_DASHBOARD } from '../../../../routes/paths';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
+
 export default function AppRidingHomeCalendar() {
-  // const navigate = useNavigate()
-  const [value, setValue] = useState(new Date());
+  const TAGS_OPTION = ['소모품 교환', '정기 점검', '상담', '튜닝'];
+
+  const navigate = useNavigate()
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [value, setV] = useState(new Date());
 
   const [open, setOpen] = useState(false)
 
   const [timePick, setTimePick] = useState(null)
 
+  const NewBlogSchema = Yup.object().shape({
+    modelName: Yup.string().required('모델명을 입력해주세요!'),
+    category: Yup.array().required('정비 분류를 입력해주세요!'),
+    content: Yup.string().required('상세 내용을 입력해주세요!'),
+  });
+
+  const defaultValues = {
+    modelName: '',
+    category: undefined,
+    content: '',
+  };
+
+  const methods = useForm({
+    resolver: yupResolver(NewBlogSchema),
+    defaultValues,
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+
+  const onSubmit = async (data) => {
+    try {
+      await axios.post('/reservation', 
+      {
+        reservationDate:value,
+        reservationTime:timePick,
+        modelName:data.modelName,
+        category:data.category,
+        content:data.content,
+      }, {
+        headers: {
+          'content-type': 'multipart/form-data',
+            accesstoken: access,
+            refreshtoken: refresh,
+        },
+      });
+      enqueueSnackbar('예약 완료!');
+      navigate(PATH_DASHBOARD.blog.dingstas);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const today = new Date()
 
   const onChange = (time) => {
-    setValue(time)
+    setV(time)
     setOpen(true)
     setTimePick(null)
   }
@@ -57,6 +121,7 @@ export default function AppRidingHomeCalendar() {
 
   return (
     <>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
     <Box className='AppRidingHomeCalendarOri' sx={{width:'100%'}}>
     <Calendar
       onChange={onChange} // useState로 포커스 변경 시 현재 날짜 받아오기
@@ -103,20 +168,38 @@ export default function AppRidingHomeCalendar() {
     <Typography variant='body2' sx={{m:1}}>
       모델명
     </Typography>
-    <TextField fullWidth/>
+    <RHFTextField name='modelName' fullWidth color='action'/>
     <Typography variant='body2' sx={{m:1}}>
       정비 분류
     </Typography>
-    <TextField fullWidth/>
+    <Controller
+      name="category"
+      control={control}
+      render={({ field }) => (
+        <Autocomplete
+          multiple
+          freeSolo
+          onChange={(event, newValue) => field.onChange(newValue)}
+          options={TAGS_OPTION.map((option) => option)}
+          renderTags={(value, getTagProps) =>
+            value.map((option, index) => (
+              <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
+            ))
+          }
+          renderInput={(params) => <RHFTextField fullWidth name="category" {...params} color='action'/>}
+        />
+      )}
+      />
     <Typography variant='body2'  sx={{m:1}}>
       상세 내용
     </Typography>
-    <TextField fullWidth rows={3}/>
-    <Button color='inherit' variant='contained' fullWidth size='large' sx={{mt:2}}>
+    <RHFTextField name='content' fullWidth rows={3} multiline color='action'/>
+    <LoadingButton fullWidth type="submit" color='inherit' variant='contained' size='large' loading={isSubmitting} sx={{mt:2}}>
       예약하기
-    </Button>
+    </LoadingButton>
     </Box>}
     <Box sx={{mb:5}}/>
+    </FormProvider>
     </>
   );
 }
