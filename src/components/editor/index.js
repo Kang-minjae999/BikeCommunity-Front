@@ -73,11 +73,6 @@ export default function Editor({
     }
   }, [url])
 
-useEffect(() => {
-  imageDiv()
-}, [imageDiv, url])
-
-
   const imageHandler = () => {
     const accessToken = window.localStorage.getItem('accessToken');
 
@@ -93,7 +88,7 @@ useEffect(() => {
       formData.append('imageFile', file);
       if (file !== null) {
         try {
-         const response = await axios.post('/api/s3/image', formData, {
+        const response = await axios.post('/api/s3/image', formData, {
             headers: {
               'content-type': 'multipart/form-data',
               Authorization: accessToken,
@@ -118,12 +113,19 @@ useEffect(() => {
     };
   };
 
+
+  useEffect(() => {
+    imageDiv()
+  }, [imageDiv, url])
+
+
   const modules = useMemo(() => {
     const module = {
     toolbar: {
       container: `#${id}`,
       handlers: {
-        image: imageHandler
+        image: imageHandler,
+        link: ''
       },
     },
     history: {

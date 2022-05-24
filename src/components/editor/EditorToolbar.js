@@ -23,6 +23,7 @@ const FONT_SIZE = [
   '84px',
   '98px',
 ];
+
 const HEADINGS = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5', 'Heading 6'];
 
 export function undoChange() {
@@ -123,6 +124,7 @@ export default function EditorToolbar({ id, isSimple, ...other }) {
 
 
         <div className="ql-formats">
+          <button type="button" className="ql-link" />
           <button type="button" className="ql-image" />
           <button type="button" className="ql-video" />
         </div>

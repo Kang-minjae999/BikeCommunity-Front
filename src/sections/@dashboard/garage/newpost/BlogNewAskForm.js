@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { useCallback } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
@@ -10,7 +11,7 @@ import { Grid, Card, Stack, CardHeader } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
-import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/hook-form';
+import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFile } from '../../../../components/hook-form';
 //
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
@@ -25,12 +26,11 @@ export default function BlogNewAskForm() {
   const { user } = useAuth();
 
   const NewBlogSchema = Yup.object().shape({
-    title: Yup.string().required('제목이 필요합니다.'),
     content: Yup.string().required('내용이 필요합니다.'),
   });
 
   const defaultValues = {
-    title: '',
+    Images: '',
     content: '',
     modelName:'',
     address:'',
@@ -42,13 +42,23 @@ export default function BlogNewAskForm() {
   });
 
   const {
+    setValue,
+    watch,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
+  const values = watch()
+
   
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
+    const formData = new FormData();
+    data.Images.map((file) => formData.append('imageFiles', file));
+    formData.append('content', data.content);
+    formData.append('isPublic', data.isPublic);
+    formData.append('modelName', data.modelName);
+    formData.append('address', data.address);
     try {
       await axios.post(`/garageask/${user.nickname}`, 
       {
@@ -69,7 +79,29 @@ export default function BlogNewAskForm() {
   };
 
 
-  
+  const handleDrops = useCallback(
+    (acceptedFiles) => {
+      setValue(
+        'Images',
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+    [setValue]
+  );
+
+  const handleRemoveAll = () => {
+    setValue('Images', []);
+  };
+
+  const handleRemove = (file) => {
+    const filteredItems = values.Images?.filter((_file) => _file !== file);
+    setValue('Images', filteredItems);
+  };
+
 
   return (
     <>
@@ -79,7 +111,15 @@ export default function BlogNewAskForm() {
            <CardHeader title='정비소에 질문하기' sx={{mb:2}}/>
             <Card sx={{ p: 3 ,mb:2}}>
               <Stack spacing={3}>
-                <RHFTextField name="title" label="제목" color='action'/>
+              <RHFUploadMultiFile
+                name="Images"
+                showPreview
+                accept="image/*"
+                maxSize={3145728}
+                onDrop={handleDrops}
+                onRemove={handleRemove}
+                onRemoveAll={handleRemoveAll}
+              />
                 <RHFTextField name="modelName" label="모델명" color='action'/>
                 <RHFTextField name="address" label="주소" color='action'/>
                 <RHFEditor name='content' />

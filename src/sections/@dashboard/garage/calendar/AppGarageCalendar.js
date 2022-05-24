@@ -1,12 +1,9 @@
 import * as Yup from 'yup';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-
 import { useSnackbar } from 'notistack';
-
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 import { LoadingButton } from '@mui/lab';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
@@ -95,6 +92,9 @@ export default function AppRidingHomeCalendar() {
       '2022-05-28',
       '2022-05-30',]
     
+
+  console.log(moment(mark[0]).format())
+  
   // const markt = new Date('2022-05-29').getDay()
 
   // const data = async () => {
@@ -112,7 +112,7 @@ export default function AppRidingHomeCalendar() {
   const anotherReaf = () => {
     const array = []
     for (let i = time[0]; i < time[1]; i += 1) {
-        array.push(!disableTime.includes(i) && <Button key={i} variant={timePick === i ? 'contained' : 'outlined'} size='large' color='inherit' onClick={() => setTimePick(i)} sx={{m:2}}>{i}:00</Button>)
+        array.push(<Button key={i} variant={timePick === i ? 'contained' : 'outlined'} size='large' color='inherit' disabled={disableTime.includes(i) && true} onClick={() => setTimePick(i)} sx={{m:2}}>{i}:00</Button>)
     }
     return array;
   }
