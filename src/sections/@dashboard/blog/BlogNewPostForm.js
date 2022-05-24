@@ -55,7 +55,8 @@ export default function BlogNewPostForm() {
     formData.append('content', data.content)
     formData.append('isPublic', data.isPublic)
     try {
-      await axios.post('/posts', {
+      await axios.post('/posts', formData 
+      ,{
         headers: {
             accesstoken: access,
             refreshtoken: refresh,
