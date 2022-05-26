@@ -33,12 +33,6 @@ export default function AppRidingHome() {
   useEffect(() => {
     dispatch(getPosition());
   }, [dispatch]);
-
-  useEffect(() => {
-    if(!icon){
-      navigate(`/dashboard/riding/home/calendar`);
-    }
-  })
   
   const [open, setopen] = useState(icon)
 
@@ -49,7 +43,7 @@ export default function AppRidingHome() {
  
   return (
     <>
-      <Container sx={{mt:2}}>   
+      <Container sx={{mt:1}}>   
       <Stack direction='row' alignItems='center' justifyContent='space-between'>   
         <Button variant='outlined' size='large' onClick={() =>  navigate(`/dashboard/riding/home/calendar`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='ant-design:home-outlined' sx={open === 'calendar' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'text.disabled'}}/></Button>      

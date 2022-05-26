@@ -13,7 +13,7 @@ import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
-export default function AccountChangePassword() {
+export default function AccountGoodBye() {
   const { user } = useAuth()
   const { enqueueSnackbar } = useSnackbar();
 
@@ -24,8 +24,7 @@ export default function AccountChangePassword() {
 
   const defaultValues = {
     Password: '',
-    NewPassword: '',
-    NewconfirmPassword: '',
+    confirmPassword: '',
   };
 
   const methods = useForm({
@@ -43,8 +42,7 @@ export default function AccountChangePassword() {
     try {
       await axios.put(`/users/${user?.id}`, 
       {
-        password: data.Password,
-        newPassword: data.NewPassword
+        password: data.password
       }
        ,{
         headers: {
@@ -63,12 +61,10 @@ export default function AccountChangePassword() {
         <Stack spacing={3} alignItems="flex-end">
           <RHFTextField name="Password" type="password" label="현재 비밀번호" />
 
-          <RHFTextField name="NewPassword" type="password" label="새 비밀번호" />
+          <RHFTextField name="confirmPassword" type="password" label="비밀번호 확인" />
 
-          <RHFTextField name="NewconfirmPassword" type="password" label="새 비밀번호 확인" />
-
-          <LoadingButton type="submit" variant="outlined" color='inherit' size='large' loading={isSubmitting}>
-            비밀번호변경
+          <LoadingButton type="submit" variant="outlined" color='inherit' size='large'  loading={isSubmitting}>
+            회원탈퇴
           </LoadingButton>
         </Stack>
       </FormProvider>

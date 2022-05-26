@@ -7,6 +7,7 @@ import { Box } from '@mui/material';
 //
 import EditorToolbar, { formats } from './EditorToolbar';
 import axios from '../../utils/axios';
+import { access, refresh } from '../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -74,7 +75,6 @@ export default function Editor({
   }, [url])
 
   const imageHandler = () => {
-    const accessToken = window.localStorage.getItem('accessToken');
 
     const input = document.createElement('input');
 
@@ -91,7 +91,8 @@ export default function Editor({
         const response = await axios.post('/api/s3/image', formData, {
             headers: {
               'content-type': 'multipart/form-data',
-              Authorization: accessToken,
+              accesstoken: access,
+              refreshtoken: refresh,
             },
           });
 

@@ -11,6 +11,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 //
 import axios from '../../../utils/axiosriding';
+import { access, refresh } from '../../../utils/jwt';
 // ----------------------------------------------------------------------
 
 export default function RidingNewMarker() {
@@ -41,7 +42,14 @@ export default function RidingNewMarker() {
   const onSubmit = async (data) => {
     console.log(data)
     try {
-      await axios.post(`/marker`, data)
+      await axios.post(`/marker`, 
+      data, 
+      {
+        headers:{
+          accesstoken: access,
+          refreshtoken: refresh,
+        }
+      })
       enqueueSnackbar('추가 완료!');
       navigate(PATH_DASHBOARD.general.riding);
     } catch (error) {

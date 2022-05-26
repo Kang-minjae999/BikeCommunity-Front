@@ -10,6 +10,7 @@ import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
 import axios from '../../../../utils/axiospost';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 BlogPostCommentForm.propTypes = {
@@ -45,7 +46,8 @@ export default function BlogPostCommentForm({id, setComment}) {
       await axios.post(`/dingsta/${id}/comment`, {content:data.content},
       {
         headers: {
-          authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       reset()

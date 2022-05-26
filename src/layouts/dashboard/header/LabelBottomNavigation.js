@@ -16,13 +16,13 @@ export default function LabelBottomNavigation() {
   const isShop = pathname.includes('garages')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
-  const isMoto = pathname.includes('motocycle')
+  const isMy = pathname.includes('mypage')
 
 
   return (
     <> 
     <BottomNavigation showLabels sx={{ width: '100%' ,height:'1%'}}  >
-    <BottomNavigationAction
+      <BottomNavigationAction
         label={<Typography variant='body3' color={isHome ? 'text.primary' : 'disabled'} >HOME</Typography>}
         value="app"
         icon={<Iconify icon='ant-design:home-outlined' sx={isHome ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
@@ -40,17 +40,17 @@ export default function LabelBottomNavigation() {
         icon={<Iconify icon='ant-design:camera-outlined' sx={isRiding ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
         onClick={() => navigate(`/dashboard/riding/home/calendar`)}
       />
-      <BottomNavigationAction
-        label={<Typography variant='body3' color={isMoto ? 'text.primary' : 'disabled'} >바이크</Typography>}
-        value="motocycle"
-        icon={<Iconify icon='ant-design:smile-outlined' sx={isMoto ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/motocycle/rent`)}
-      />
       <BottomNavigationAction 
         label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}
         value="rider" 
         icon={<Iconify icon='ant-design:profile-outlined' sx={isRider ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />} 
-        onClick={() => navigate(`/dashboard/rider/bikep`)}/>
+        onClick={() => navigate(`/dashboard/rider/rent`)}/>
+      <BottomNavigationAction
+        label={<Typography variant='body3' color={isMy ? 'text.primary' : 'disabled'} >마이페이지</Typography>}
+        value="mypage"
+        icon={<Iconify icon='ant-design:smile-outlined' sx={isMy ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
+        onClick={() => navigate(`/dashboard/mypage/prof/gallery`)}
+      />
     </BottomNavigation>
     </>
   );

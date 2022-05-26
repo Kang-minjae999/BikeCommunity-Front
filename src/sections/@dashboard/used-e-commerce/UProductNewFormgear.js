@@ -19,6 +19,7 @@ import {
   RHFTextField,
   RHFUploadMultiFile
 } from '../../../components/hook-form';
+import { access, refresh } from '../../../utils/jwt';
 
 // 바이크 중고거래 기준
 // ----------------------------------------------------------------------
@@ -121,7 +122,6 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
 
   const onSubmit = async (data) => {
     if (!isEdit) {
-      const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
       formData.append('title', data.title);
@@ -134,7 +134,8 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
         await axios.post('/etctrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
-            authorization: accessToken,
+            accesstoken: access,
+            refreshtoken: refresh,
           },
         });
         reset();
@@ -144,7 +145,6 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
         console.error(error);
       }
     } else {
-      const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
       formData.append('title', data.title);
@@ -157,7 +157,8 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
         await axios.put('/etctrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
-            authorization: accessToken,
+            accesstoken: access,
+            refreshtoken: refresh,
           },
         });
         reset();

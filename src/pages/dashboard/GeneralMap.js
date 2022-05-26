@@ -20,6 +20,7 @@ import GeneralMapMarkerBefore from '../../sections/@dashboard/map/GeneralMapMark
 import AppRidingMapSearch from '../../sections/@dashboard/map/AppRidingMapSearch';
 import GeneralMapIsselct from '../../sections/@dashboard/map/GeneralMapIsselect';
 import GeneralMapDestiPeople from '../../sections/@dashboard/map/GeneralMapDestiPeople';
+import { access, refresh } from '../../utils/jwt';
 
 // ------------------------------------------------------------
 GeneralMap.propTypes = {
@@ -166,7 +167,14 @@ export default function GeneralMap({tab, userPo, open}) {
         mapLats: [isselect.lat],
         mapLngs: [isselect.lng],
         isPublic:true
-      });
+      },
+      {
+        headers:{
+          accesstoken: access,
+          refreshtoken: refresh,
+        }
+      }
+      );
       enqueueSnackbar('목적지 추가 완료!');
     } catch (error) {
       console.error(error);

@@ -15,6 +15,7 @@ import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFile } from '../..
 //
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +69,8 @@ export default function BlogNewAskForm() {
         address: data.address
       } ,{
         headers: {
-        Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       enqueueSnackbar('정비 글 추가 완료!');

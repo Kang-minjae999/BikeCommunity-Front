@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import GarageCardsClean from '../../../../pages/dashboard/GarageCardsClean';
-import TabHeader from '../../../../components/TabHeader';
+import TabLongHeader from '../../../../components/TabLongHeader';
+import { AppRidingClub } from '../riding';
 
 export default function AppRidingHeader() {
   const { value } = useParams()
@@ -50,12 +51,42 @@ export default function AppRidingHeader() {
       value: 'test',
       component: <BlogPosts />,
     },
+    {
+      index:5,
+      label: '바프',
+      value: 'bikep',
+      component: '',
+    },
+    {
+      index:6,
+      label: '긴급출동',
+      value: 'emergency',
+      component: <BlogDingstas />,
+    },
+    {
+      index:7,
+      label: '용달',
+      value: 'lorry',
+      component: <BlogPosts />,
+    },
+    {
+      index:8,
+      label: '사고처리',
+      value: 'crash',
+      component: <AppRidingClub />,
+    },
+    {
+      index:9,
+      label: '보험',
+      value: 'insurance',
+      component: <BlogPosts />,
+    },
   ];
 
 
   return (
     <>
-      <TabHeader TABS={ACCOUNT_TABS} path={path}/>
+      <TabLongHeader TABS={ACCOUNT_TABS} path={path}/>
     </>
   );
 }

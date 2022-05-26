@@ -1,7 +1,7 @@
 import { useSnackbar } from 'notistack';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
-import { Box, Divider, Typography, Stack, MenuItem, MenuList, ListItemIcon, Paper } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, MenuList, ListItemIcon } from '@mui/material';
 // routes
 import { PATH_DASHBOARD, PATH_AUTH, PATH_PAGE } from '../../../../routes/paths';
 // hooks
@@ -41,7 +41,10 @@ export default function AppUserMenu() {
 
 // ----------------------------------------------------------------------
 
-const MENU_OPTIONS = [
+const MENU_OPTIONS = [  
+  {
+  menu:'바로가기'
+  },
   {
     label: '홈',
     linkTo: '/dashboard/app/home',
@@ -53,28 +56,71 @@ const MENU_OPTIONS = [
     icon: <Iconify icon='ant-design:user-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
   },
   {
+    menu:'고객센터'
+  },
+  {
     label: '공지사항',
     linkTo: PATH_DASHBOARD.blog.notices,
     icon: <Iconify icon='ant-design:profile-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
   },
   {
-    label: '고객센터',
+    label: 'FAQ',
     linkTo: PATH_PAGE.faqs,
     icon: <Iconify icon='ant-design:question-circle-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
   },
+  {
+    label: '신고하기/문의하기/건의하기',
+    linkTo: PATH_DASHBOARD.blog.newReport,
+    icon: <Iconify icon='ant-design:down-square-outlined' sx={{width:28, height:28, color:'text.primary'}} />,
+  },
+  {
+    menu:'이용약관'
+  },
+  {
+    label: '라이더타운 이용약관',
+    linkTo: PATH_PAGE.faqs,
+    icon: null,
+  },
+  {
+    label: '개인정보처리방침',
+    linkTo: PATH_PAGE.faqs,
+    icon:null,
+  },
+  {
+    label: '전자상거래 이용약관',
+    linkTo: PATH_PAGE.faqs,
+    icon:null,
+  },
 ];
 
-  
   return (
     <MenuList>
-        {user && (
-          <>
-            <Stack sx={{ p: 1 }}>
+        <Stack sx={{ p: 1 }}>
+          <Box sx={{width:'100%'}}>
+            <Divider sx={{ borderStyle: 'dashed' }} />
+              <MenuItem sx={{my:1}} onClick={handleLogin}>
+                  <Stack direction='row' justifyContent='space-between' alignItems='center' spacing={1}  sx={{width:'100%'}}>
+                    <Stack direction='column' justifyContent='center' alignItems='flex-start' spacing={1}>
+                    <Typography variant="h4" >
+                        라이더타운
+                      </Typography>
+                      <Typography variant="subtitle2"  sx={{ color: 'text.disabled' }} >
+                        로그인 및 회원가입
+                      </Typography>
+                    </Stack>
+                    <Iconify icon='ant-design:right-outlined' sx={{width:20, height:20, color:'text.secondary'}}/>
+                  </Stack>
+              </MenuItem>
+          </Box>
+        </Stack>
+        {user && 
+        (
+        <Stack sx={{ p: 1 }}>
               <Box>
                 <MenuItem sx={{my:1}}>
                   <ListItemIcon>
                    <MyAvatar sx={{width:48, height:48, mr:1}} />
-                   </ListItemIcon>
+                  </ListItemIcon>
               <Box>
             <Typography variant="subtitle2" noWrap>
                   {user?.nickname}
@@ -86,22 +132,7 @@ const MENU_OPTIONS = [
               </MenuItem>
               </Box>
         </Stack>
-          </>
         )}
-
-        <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
-            <Box key={option.label}>
-            <Divider sx={{ borderStyle: 'dashed' }} />
-            <MenuItem to={option.linkTo} component={RouterLink} sx={{my:1}}>
-            <ListItemIcon>
-              {option.icon}
-            </ListItemIcon>
-              {option.label}
-            </MenuItem>
-            </Box>
-          ))}
-        </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
         <MenuItem  sx={{ mx: 1 }}>
@@ -110,6 +141,31 @@ const MENU_OPTIONS = [
           </ListItemIcon>
           <SettingMode />
         </MenuItem>
+        <Divider sx={{ borderStyle: 'dashed' }} />
+
+        <Stack sx={{ p: 1 }}>
+          {MENU_OPTIONS.map((option) => !option.menu ? 
+          (
+            <Box key={option.label}>
+            <Divider sx={{ borderStyle: 'dashed' }} />
+            <MenuItem to={option.linkTo} component={RouterLink} sx={{my:1}}>
+            {option.icon && 
+            <ListItemIcon>
+              {option.icon}
+            </ListItemIcon>}
+              {option.label}
+            </MenuItem>
+            </Box>
+          )
+          : 
+          ( 
+            <Box key={option.menu} sx={{my:1}}>
+            <Typography variant="subtitle3" sx={{m:2, color:'text.disabled'}}>
+             {option.menu}
+            </Typography>
+            </Box>
+          ))}
+        </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
@@ -122,19 +178,12 @@ const MENU_OPTIONS = [
           </MenuItem>
         )}
 
-        {!user && (
-          <MenuItem onClick={handleLogin} sx={{ m: 1 }}>
-            <ListItemIcon>
-              <Iconify icon='ant-design:export-outlined' sx={{width:28, height:28, color:'text.primary'}} />
-            </ListItemIcon>
-            로그인
-          </MenuItem>
-        )}
-        <Paper sx={{width:'100%', position:'fixed', bottom:120, left:0, right:0}}>
-          <Stack direction='row' justifyContent='center' alignItems='center'>
-           <Iconify icon='ant-design:import-outlined' sx={{width:48, height:48, color:'text.secondary'}} onClick={() => navigate(-1)}/>
-          </Stack>
-        </Paper>
+        <Box sx={{height:100}}/>
+        <Box  sx={{width:'100%', height:48, color:'text.secondary', position:'fixed', bottom:80}}>
+        <Stack justifyContent='center' alignItems='center'>
+        <Iconify icon='ant-design:close-circle-outlined' onClick={() => navigate(-1)} sx={{width:48, height:48, color:'text.secondary'}}/>
+        </Stack>
+        </Box>
     </MenuList>
   );
 }

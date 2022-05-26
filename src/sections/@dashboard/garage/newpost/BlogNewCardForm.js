@@ -14,6 +14,7 @@ import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/ho
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
 import { CardSliderOpenTime, GarageCardCalendar } from '.';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 const CATEGORY_OPTION = [
@@ -94,7 +95,6 @@ export default function BlogNewCardForm() {
   const values = watch()
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.post(`/garagecard/${user.nickname}`, 
       {
@@ -108,7 +108,8 @@ export default function BlogNewCardForm() {
       } , 
       {
         headers: {
-        Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       enqueueSnackbar('정비소 카드 추가 완료!');

@@ -102,7 +102,6 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
   const handleAddHeart = async () => {
     try{
       checkHeart(values)
-      console.log(usedzzim)
       const accessToken = window.localStorage.getItem('accessToken');
       if(usedzzim){
         try {

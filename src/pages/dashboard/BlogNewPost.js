@@ -7,20 +7,17 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogNewDingstaForm, BlogNewGarageForm, BlogNewNoticeForm, BlogNewPostForm, BlogNewReportForm } from '../../sections/@dashboard/blog';
+import { BlogNewDingstaForm, BlogNewNoticeForm, BlogNewPostForm, BlogNewReportForm } from '../../sections/@dashboard/blog';
 
 // ----------------------------------------------------------------------
 
 export default function BlogNewPost() {
   const { themeStretch } = useSettings();
   const { pathname } = useLocation();
-
   const isnotice = pathname.includes('notice');
   const ispost = pathname.includes('post');
   const isdingsta = pathname.includes('dingsta');
   const isreport = pathname.includes('report');
-  const isgarage = pathname.includes('garage');
-
 
   return (
     <Page title={(isdingsta ?'딩스타그램': '')}>
@@ -37,7 +34,6 @@ export default function BlogNewPost() {
         {ispost && <BlogNewPostForm />}
         {isdingsta && <BlogNewDingstaForm />}
         {isreport && <BlogNewReportForm />}
-        {isgarage && <BlogNewGarageForm />}
       </Container>
     </Page>
   );

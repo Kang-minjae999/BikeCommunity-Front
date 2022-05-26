@@ -39,7 +39,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'flex-end',
   padding: theme.spacing(8, 0),
-  backgroundImage: `url(${'https://post-phinf.pstatic.net/MjAyMDEwMjlfMTgg/MDAxNjAzOTMxNzA3OTUw.oAba4j2x7fRux-rwTUqp-8MUd_RkLsOt66WjbVXsnvwg.mdKWJuu5pqkE9TsWh4OmWI3xtAAA0eQ4MRVx9FpC_90g.PNG/%EC%BA%A1%EC%B2%98.PNG?type=w1200'})`,
+  background: 'url(/LoginBack.png)',  
   backgroundSize: 'cover',
   backgroundPosition: 'center',
 }));

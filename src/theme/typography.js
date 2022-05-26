@@ -53,6 +53,12 @@ const typography = {
     fontSize: pxToRem(17),
     ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
   },
+  h7: {
+    fontWeight: 900,
+    lineHeight: 1.5,
+    fontSize: pxToRem(20),
+    ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
+  },
   subtitle1: {
     fontWeight: 600,
     lineHeight: 1.5,

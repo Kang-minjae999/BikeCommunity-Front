@@ -13,6 +13,7 @@ import { FormProvider, RHFTextField } from '../../../../components/hook-form';
 //
 import axios from '../../../../utils/axiosgarage';
 import useAuth from '../../../../hooks/useAuth';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 const CATEGORY_OPTION = [
@@ -59,7 +60,8 @@ export default function BlogNewReserForm() {
       } , 
       {
         headers: {
-        Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       enqueueSnackbar('정비소 카드 추가 완료!');

@@ -10,6 +10,7 @@ export default function AppHomeHeader() {
     {
       index:0,
       value: 'home',
+      link: 'home',
       label: 'RT',
       component: <AppHomeMain />,
       Feature : <AppFeatured />,
@@ -17,24 +18,28 @@ export default function AppHomeHeader() {
     {
       index:1,
       value: 'brand',
+      link: 'brand',
       label: 'BRAND',
       component: <AppHomeBest />,
     },
     {
       index:2,
       value: 'category',
+      link: 'category',
       label: '카테고리',
       component: <AppHomeBrand />,
     },
     {
       index:3,
       value: 'genre',
+      link: 'genre',
       label: '장르',
       component: <AppHomeMagazine/>,
     },
     {
       index:4,
       value: 'used',
+      link: 'used/biketrade/0',
       label: '중고',
       component: <GeneralMarketu />,
     },

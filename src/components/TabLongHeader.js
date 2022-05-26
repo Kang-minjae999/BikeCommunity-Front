@@ -29,16 +29,16 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-TabHeader.propTypes = {
+TabLongHeader.propTypes = {
   TABS: PropTypes.array.isRequired,
   path: PropTypes.string.isRequired,
 };
 
-export default function TabHeader({TABS, path}) {
+export default function TabLongHeader({TABS, path}) {
   const isDesktop = useResponsive('up', 'lg');
   const navigate = useNavigate();
   const {value} = useParams();
-  const { themeMode } = useSettings();
+  const { themeMode } = useSettings()
 
   const [valueMobile, setValueMobile] = useState(0);
 
@@ -49,17 +49,17 @@ export default function TabHeader({TABS, path}) {
   
   const handleChange = (event, newValue) => {
     setValueMobile(newValue);
-    navigate(`${path}/${TABS[newValue].link}`);
+    navigate(`${path}/${TABS[newValue].value}`);
   };
 
   const handleChangeIndex = (index) => {
     setValueMobile(index);
-    navigate(`${path}/${TABS[index].link}`);
+    navigate(`${path}/${TABS[index].value}`);
   };
 
   const handleNavigate = (event, newValue) => {
     setValueMobile(newValue);
-    navigate(`${path}/${TABS[newValue].link}`);
+    navigate(`${path}/${TABS[newValue].value}`);
   };
 
   const valueStyle = {
@@ -83,26 +83,25 @@ export default function TabHeader({TABS, path}) {
     <Divider sx={{ width: '100%', mb:2  }}/>
     </> 
     :
-    <Paper sx={!isDesktop ? { position: 'fixed', top: 42, left: 0, right: 0, zIndex:50 } : { zIndex:50 } }>
-      <Tabs
+      <Paper sx={!isDesktop ? { position: 'fixed', top: 42, left: 0, right: 0, zIndex:50 } : { zIndex:50 } }>
+        <Tabs
           value={valueMobile}
           onChange={handleChange}
           TabIndicatorProps={themeMode === 'light' ? { style: { background: "#000" } }: { style: { background: "#FFF" }}}
           textColor="inherit"
-          variant="fullWidth"
-          sx={{mx:1}}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{mx:2}}
         > 
-        {TABS.map((item) =>       
+       {TABS.map((item) =>       
         <Tab key={item.value} style={{ minWidth: 20 }} label={<Typography variant="subtitle3">{item.label}</Typography>} />)}
-      </Tabs>
+        </Tabs>
     </Paper>}
-
      <Box sx={{mt:6}}/> 
-     {TABS.map((item) => item.Feature &&     
+     {TABS.map((item) =>  item.Feature &&     
       <TabPanel key={item.value} value={valueMobile} index={item.index}>
       {item.Feature}
       </TabPanel>)}
-
       <SwipeableViews
         axis='x'
         index={valueMobile}

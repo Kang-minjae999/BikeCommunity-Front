@@ -40,6 +40,7 @@ import FBMONDIAL_OPTION from '../../../components/option/FBMONDIAL_OPTION';
 import MOTOGUZZI_OPTION from '../../../components/option/MOTOGUZZI_OPTION';
 // components
 import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFSwitch } from '../../../components/hook-form';
+import { access, refresh } from '../../../utils/jwt';
 // ----------------------------------------------------------------------
 
 const GEARBOX_OPTION = ['메뉴얼', '스쿠터'];
@@ -275,7 +276,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
       }
-      const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
       formData.append('title', data.title);
@@ -296,7 +296,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
         await axios.post('/biketrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
-            authorization: accessToken,
+            accesstoken: access,
+            refreshtoken: refresh,
           },
         });
         reset();
@@ -310,7 +311,6 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
         enqueueSnackbar('태그 칸에서 엔터를 눌러 태그를 추가해주세요!');
         return;
       }
-      const accessToken = window.localStorage.getItem('accessToken');
       const formData = new FormData();
       data.images.map((file) => formData.append('imageFiles', file));
       formData.append('title', data.title);
@@ -331,7 +331,8 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
         await axios.put('/biketrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
-            authorization: accessToken,
+            accesstoken: access,
+            refreshtoken: refresh,
           },
         });
         reset();

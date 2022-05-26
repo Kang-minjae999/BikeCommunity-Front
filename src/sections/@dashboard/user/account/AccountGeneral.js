@@ -169,11 +169,12 @@ export default function AccountGeneral() {
               <RHFTextField name="address.address" label="주소" />
               <RHFTextField name="address.detailAddress" label="상세주소" />
               <RHFTextField name="address.zipcode" label="우편번호" />
-              <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' loading={isSubmitting}>
+              <LoadingButton type="submit" fullWidth variant="outlined" color='inherit' size='large' loading={isSubmitting}>
                 저장하기
               </LoadingButton>
             </Box>
           </Card>
+          <Box sx={{mb:5}}/>
         </Grid>
       </Grid>
     </FormProvider>

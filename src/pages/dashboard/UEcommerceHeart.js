@@ -34,6 +34,10 @@ export default function UEcommerceHeart() {
     navigate(`${PATH_DASHBOARD.usedeCommerce.root}/product${id}`)
   }
 
+  const gotoMore = () => {
+    navigate('/dashboard/app/used/biketrade/0')
+  }
+
   const onClick = (id) => {
     dispatch(deleteHeartUsed(id))
   }
@@ -44,22 +48,18 @@ export default function UEcommerceHeart() {
 
 
 
+
+
   return (
       <Container maxWidth={themeStretch ? false : 'xl'} disableGutters sx={{mt:2}}>
       <Grid container spacing={1}>
       <Grid item xs={12} lg={12} >
       <Stack direction='row' justifyContent='space-between'>
       <Box>
-      {isDesktop ? 
-      <Link component={RouterLink} to='/dashboard/marketu/biketrade/0'>
-      <Button ><AddIcon />더 둘러보기</Button> 
-      </Link> :
-      <Link component={RouterLink} to='/dashboard/shop/marketu/biketrade/0'>
-      <Button ><AddIcon />더 둘러보기</Button> 
-      </Link>}
+       <Button onClick={gotoMore} size='large' variant='outlined' color='inherit' sx={{ml:1}} startIcon={<AddIcon />}>더 둘러보기</Button> 
       </Box>
       <Box>
-      <Button onClick={onClick2}>찜목록 초기화<DeleteIcon /></Button>
+      <Button onClick={onClick2}  size='large' variant='outlined' color='inherit' sx={{mr:1}} endIcon={<DeleteIcon />}>찜 초기화</Button>
       </Box>
       </Stack> 
       </Grid>

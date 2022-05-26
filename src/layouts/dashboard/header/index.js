@@ -63,11 +63,9 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
   const isDesktop = useResponsive('up', 'lg');
 
   const isHome = pathname.includes('app')
-  const isShop = pathname.includes('shop')
   const isGarage = pathname.includes('garages')
   const isRiding = pathname.includes('riding')
   const isRider = pathname.includes('rider')
-  const isMoto = pathname.includes('motocycle')
   const isMypage = pathname.includes('mypage')
   const isCheckout = pathname.includes('checkout')
   const isProfile = pathname.includes('profile')
@@ -92,7 +90,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
           border:"1px",
         }}
       >
-        {/* {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />} */}
+        {/* {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />} TODO */} 
         {isDesktop && 
           <Link component={RouterLink} to="/dashboard/app/home" underline="none" >         
           <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
@@ -103,55 +101,47 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
        {!isDesktop && 
           <>      
             {isHome && <Link component={RouterLink} to="/dashboard/app" underline="none" >       
-              <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+              <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
                 RIDERTOWN
               </Typography>
             </Link>}
 
-            {isShop && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                SHOP
-              </Typography>}
-
-            {isGarage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              GARAGE
+            {isGarage && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+              정비
             </Typography>}
 
-            {isRiding && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-                RIDING
+            {isRiding && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+                라이딩
               </Typography>}
               
-            {isRider && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              RIDER
+            {isRider && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+              라이더
             </Typography>}
 
-            {isMoto && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              MOTOCYCLE
-            </Typography>}
-            
-            {isMypage && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              MYPAGE
+            {isMypage && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+              마이페이지
             </Typography>}    
 
-            {isCheckout && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              CART
+            {isCheckout && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+              장바구니
             </Typography>}
 
-            {isProfile && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-              PROFILE
+            {isProfile && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+              프로필
             </Typography>}
 
-            {isMenu && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-            RIDERTOWN
+            {isMenu && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+            메뉴
             </Typography>}
 
-            {isNotice && <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
-            RIDERTOWN
+            {isNotice && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+            공지사항
             </Typography>}
           </>}
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={1}>
           <Notification /> 
-          <IconButtonAnimate color='primary' onClick={() => navigate('/dashboard/checkout')} sx={{mr:1}}>
+          <IconButtonAnimate color='primary' onClick={() => navigate('/dashboard/checkout/new')} sx={{mr:1}}>
             <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} />
           </IconButtonAnimate>
           {!isDesktop 
