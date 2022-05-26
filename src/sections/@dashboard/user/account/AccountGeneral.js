@@ -65,6 +65,7 @@ export default function AccountGeneral() {
         },
       });
       enqueueSnackbar('회원 수정 완료!');
+      window.location.replace("/")
     } catch (error) {
       console.error(error);
     }
@@ -106,11 +107,11 @@ export default function AccountGeneral() {
   };
   
   const deleteavatar = async () => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.delete(`/users/${user?.id}/avatar`,{
         headers: {
-          Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       setValue('avatar', '')
