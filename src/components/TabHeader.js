@@ -37,7 +37,7 @@ TabHeader.propTypes = {
 export default function TabHeader({TABS, path}) {
   const isDesktop = useResponsive('up', 'lg');
   const navigate = useNavigate();
-  const {value} = useParams();
+  const { value } = useParams();
   const { themeMode } = useSettings();
 
   const [valueMobile, setValueMobile] = useState(0);

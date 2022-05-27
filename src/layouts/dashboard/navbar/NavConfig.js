@@ -22,7 +22,6 @@ const navConfig = [
       { title: '홈', path: PATH_DASHBOARD.general.app, icon: (<HomeIcon sx={{ width: 1, height: 1 }} />)},
       { title: '정비', path: PATH_DASHBOARD.general.garage, icon: (<EngineeringIcon sx={{ width: 1, height: 1 }} />) },
       { title: '라이딩', path: PATH_DASHBOARD.general.riding, icon: (<TwoWheelerIcon sx={{ width: 1, height: 1 }} />) },
-      { title: '바이크', path: PATH_DASHBOARD.general.moto, icon: (<SportsMotorsportsIcon sx={{ width: 1, height: 1 }} />) },
       { title: '라이더', path: PATH_DASHBOARD.general.rider, icon: (<CommentIcon sx={{ width: 1, height: 1 }} />) },
       { title: '장바구니', path: PATH_DASHBOARD.general.checkout ,icon: <ShoppingCartIcon sx={{ width: 1, height: 1 }} />},
       { title: '마이페이지', path: PATH_DASHBOARD.general.mypage ,icon: (<PersonIcon sx={{ width: 1, height: 1 }}/>) },

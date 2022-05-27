@@ -36,25 +36,16 @@ export default function ShopProductSearch() {
   const handleChangeSearch = (value) => {
       setSearchQuery(value);
   };
-  const handleClick = () => {
 
+  const handleClick = () => {
   }
 
   const goSearch = (searchQuery) => {
-    if(!isDeskTop){
       if(tab !== 'etctrade'){
-      navigate(`/dashboard/shop/used/biketrade/0/&title=${searchQuery}`)   
+      navigate(`/dashboard/app/used/biketrade/0/&title=${searchQuery}`)   
       } else {
-      navigate(`/dashboard/shop/used/etctrade/0/&title=${searchQuery}`)   
+      navigate(`/dashboard/app/used/etctrade/0/&title=${searchQuery}`)   
       }
-    }
-    if(isDeskTop){
-      if(tab !== 'etctrade'){
-        navigate(`/dashboard/marketu/biketrade/0/&title=${searchQuery}`)   
-        } else {
-        navigate(`/dashboard/marketu/etctrade/0/&title=${searchQuery}`)   
-        }
-    }
   }
 
 

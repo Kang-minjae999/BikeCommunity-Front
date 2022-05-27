@@ -48,7 +48,6 @@ export default function BlogNewPostForm() {
 
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.post(`/garagepost/${user.nickname}`, data ,{
         headers: {

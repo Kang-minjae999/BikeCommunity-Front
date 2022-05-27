@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // @mui
 import { Box, Stack, Typography } from '@mui/material';
 import Image from '../../../../components/Image';
@@ -10,15 +10,13 @@ import {
   ProfileName,
 } from '../../garage/profile';
 import useResponsive from '../../../../hooks/useResponsive';
-import TabProfile from '../../../../components/TabProfile';
+import TabClub from '../../../../components/TabClub';
 
 
 // ----------------------------------------------------------------------
 
-export default function AppBrandProfile() {
+export default function AppMallProfile() {
   const { nickname } = useParams();
-
-  const { pathname } = useLocation();
 
   const isDesktop = useResponsive('up', 'lg')
 
@@ -27,8 +25,8 @@ export default function AppBrandProfile() {
   const PROFILE_TABS = [
     {
       index: 0,
-      value: 'gallery',
-      label: '바이크',
+      value: 'info',
+      label: '정보',
       component: 
       <>
       <Typography>확인</Typography>
@@ -75,8 +73,8 @@ export default function AppBrandProfile() {
     },
     {
       index: 1,
-      value: 'profile',
-      label: '정비글',
+      value: 'board',
+      label: '게시판',
       component: 
       <>
       <Typography>확인</Typography>
@@ -103,8 +101,36 @@ export default function AppBrandProfile() {
     },
     {
       index: 2,
-      value: 'sell',
-      label: '판매중',
+      value: 'gallery',
+      label: '갤러리',
+      component: 
+      <>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      <Typography>확인</Typography>
+      </>,
+    },
+    {
+      index: 3,
+      value: 'chat',
+      label: '채팅',
       component: 
       <>
       <Typography>확인</Typography>
@@ -148,7 +174,7 @@ export default function AppBrandProfile() {
       window.removeEventListener('scroll', open)
     }
   }, [])
-  
+
   
   useEffect(() => {
     if(!isOpen){
@@ -166,7 +192,6 @@ export default function AppBrandProfile() {
    src='https://newsimg.hankookilbo.com/cms/articlerelease/2021/02/17/06b02195-4276-4a95-aba5-b7acd11f48c1.jpg'/>
    <div ref={ref}/>
    <ProfileName />
-   {/* <Button variant='outlined' onClick={()=>navigate('/dashboard/garage/setting')}>정비소 관리</Button>  */}
    </Stack>
  </Box>
 
@@ -175,7 +200,7 @@ export default function AppBrandProfile() {
   return (
     <>
       {isOpen && !isDesktop && <DashboardHeaderForProfile />}
-         <TabProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
+         <TabClub TABS={PROFILE_TABS} path={path} Featured={Feature} />
     </>
   );
 }

@@ -69,7 +69,7 @@ export default function MainHeader() {
             </Typography>
             </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Button onClick={() => navigate('-1')} sx={{color:'text.primary'}}>돌아가기</Button>
+          <Button onClick={() => navigate(-1)} sx={{color:'text.primary'}}>돌아가기</Button>
         </Container>
       </ToolbarStyle>
 

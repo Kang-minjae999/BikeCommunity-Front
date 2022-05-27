@@ -194,21 +194,11 @@ export default function ShopFilterSidebar({ isOpen, onOpen, onClose }) {
   }, [submit])
 
   const goSearch = () => {
-    if(!isDesktop){
-      navigate(`/dashboard/shop/used/biketrade/0/${sub}`)
-    }
-    if(isDesktop){
-      navigate(`/dashboard/marketu/biketrade/0/${sub}`)
-    }
+      navigate(`/dashboard/app/used/biketrade/0/${sub}`)
   }
 
   const goBack = () => {
-    if(!isDesktop){
-      navigate(`/dashboard/shop/used/biketrade/0`)
-    }
-    if(isDesktop){
-      navigate(`/dashboard/marketu/biketrade/0`)
-    }
+    navigate(`/dashboard/app/used/biketrade/0`)
   }
 
   const onSubmit = () => {

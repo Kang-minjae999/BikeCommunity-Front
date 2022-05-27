@@ -53,7 +53,6 @@ export default function BlogNewAskForm() {
 
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     const formData = new FormData();
     data.Images.map((file) => formData.append('imageFiles', file));
     formData.append('content', data.content);

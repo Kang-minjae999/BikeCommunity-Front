@@ -51,7 +51,6 @@ export default function BlogNewReserForm() {
   } = methods;
   
   const onSubmit = async (data) => {
-    const accessToken = window.localStorage.getItem('accessToken');
     try {
       await axios.post(`/garagecard/${user.nickname}`, 
       {

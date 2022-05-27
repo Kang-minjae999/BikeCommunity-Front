@@ -163,9 +163,8 @@ const path = '/dashboard/mypage/prof'
 
  return (
    <>  
-   <TabProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
-  {error && <Typography>{error}</Typography>}
+    <TabProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
+    {error && <Typography>{error}</Typography>}
   </>
-
   );
 }

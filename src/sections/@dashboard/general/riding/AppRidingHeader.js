@@ -12,9 +12,9 @@ export default function AppRidingHeader() {
   const ACCOUNT_TABS = [
     {
       index:0,
-      label: '라이딩',
-      value: 'home',
-      link: 'home/calendar',
+      label: '지도',
+      value: 'map',
+      link: 'map/calendar',
       component: null,
       Feature:  <AppRidingHome/>,
     },

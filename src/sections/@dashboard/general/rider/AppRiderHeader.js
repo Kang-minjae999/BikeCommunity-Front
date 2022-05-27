@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router';
 import BlogDingstas from '../../../../pages/dashboard/BlogDingstas';
 import BlogPosts from '../../../../pages/dashboard/BlogPosts';
 import GarageCardsClean from '../../../../pages/dashboard/GarageCardsClean';
@@ -8,17 +6,7 @@ import TabLongHeader from '../../../../components/TabLongHeader';
 import { AppRidingClub } from '../riding';
 
 export default function AppRiderHeader() {
-  const { value } = useParams()
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!value){
-      navigate('/dashboard/motocycle/rent')
-    }
-  }, [value, navigate])
-
-  const path = '/dashboard/motocycle'
+  const path = '/dashboard/rider'
 
   const ACCOUNT_TABS = [
     {

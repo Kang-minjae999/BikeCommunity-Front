@@ -38,7 +38,7 @@ export default function LabelBottomNavigation() {
         label={<Typography variant='body3' color={isRiding ? 'text.primary' : 'disabled'} >라이딩</Typography>}
         value="riding"
         icon={<Iconify icon='ant-design:camera-outlined' sx={isRiding ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'disabled'}} />}
-        onClick={() => navigate(`/dashboard/riding/home/calendar`)}
+        onClick={() => navigate(`/dashboard/riding/map/calendar`)}
       />
       <BottomNavigationAction 
         label={<Typography variant='body3' color={isRider ? 'text.primary' : 'disabled'} >라이더</Typography>}

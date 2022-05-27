@@ -71,6 +71,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
   const isProfile = pathname.includes('profile')
   const isMenu = pathname.includes('menu')
   const isNotice = pathname.includes('notice')
+  const isReport = pathname.includes('report')
 
   const Menu = () => {
     if(!isMenu){
@@ -93,7 +94,7 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
         {/* {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />} TODO */} 
         {isDesktop && 
           <Link component={RouterLink} to="/dashboard/app/home" underline="none" >         
-          <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+          <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
             RIDERTOWN
           </Typography>
           </Link>}
@@ -136,6 +137,10 @@ export default function DashboardHeader({ isCollapse = false, verticalLayout = f
 
             {isNotice && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
             공지사항
+            </Typography>}
+
+            {isReport && <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
+             RIDERTOWN
             </Typography>}
           </>}
         <Box sx={{ flexGrow: 1 }} />

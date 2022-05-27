@@ -194,7 +194,7 @@ export default function Router() {
             { path: 'new-post', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
             { path: 'new-notice', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
             { path: 'new-dingsta', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
-            { path: 'new-report', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
+            { path: 'new-report', element: (<BlogNewPost />),},
           ],
         },
         {

@@ -52,8 +52,6 @@ export default function GeneralMarketu() {
 
   const [pagenation, setpagenation] = useState(1);
 
-  const [param, setparam] = useState('')
-
 
   useEffect(()=>{
     setPage(parseInt(paging, 10))
@@ -87,7 +85,7 @@ export default function GeneralMarketu() {
 
   useEffect(() => {
         getAllProducts();  
-  }, [getAllProducts, param, tab]);
+  }, [getAllProducts, tab]);
 
   const handleChange = ((event, value) => {
     setpagenation(value)
@@ -112,9 +110,7 @@ export default function GeneralMarketu() {
 
   const handleReset = (() => {
       navigate(`/dashboard/app/used/${tab}/0`)
-
-  }
-  );
+  });
 
   
   const [openFilter, setOpenFilter] = useState(false);
@@ -153,29 +149,29 @@ export default function GeneralMarketu() {
             sx={{ mb: 2 }}
           >
              <>
-            <ShopProductSearch setparam={setparam} />      
+            <ShopProductSearch  />      
             <SimpleDialogDemo />
             </>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+          <Stack direction="row" flexShrink={0} sx={{ my: 1 }}>
           {tab !== 'etctrade' &&
-          <div>                
-            {option && 
-            <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
-              <ShopFilterSidebar
-                  isOpen={openFilter}
-                  onOpen={handleOpenFilter}
-                  onClose={handleCloseFilter}
-              /></div>}
-          {((tab === 'etctrade') && option) &&
+            <div>                
+              {option && 
               <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
+                <ShopFilterSidebar
+                    isOpen={openFilter}
+                    onOpen={handleOpenFilter}
+                    onClose={handleCloseFilter}
+                />
+            </div>}
+          {((tab === 'etctrade') && option) && <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
           </Stack>
         </Stack>
-        <Box sx={{whiteSpace: 'nowrap',overflowX: 'auto', width:'100%'}}>
+        <Box sx={{whiteSpace:'nowrap', overflowX: 'auto', width:'100%'}}>
           {search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1}}/>))}
         </Box>  
         <Divider sx={{mt:1, mb:1}} />
-        <Appmarketcategory2/>
-          <Divider sx={{mt:1, mb:2}} />
+          <Appmarketcategory2/>
+        <Divider sx={{mt:1, mb:2}} />
 
         <ShopProductList products={productsPC} loading={!products.length} />
         <Stack
@@ -212,7 +208,7 @@ export default function GeneralMarketu() {
                {((tab === 'etctrade') && option) &&
               <Button onClick={handleReset}><RestartAltIcon onClick={handleReset}/></Button>}
             </Stack>
-          <ShopProductSearch setparam={setparam} />
+          <ShopProductSearch/>
           <Box sx={{  whiteSpace: 'nowrap',
           overflowX: 'auto', width:'100%'}}>{search.map((item) => (<Chip key={item} label={item} onClick={() => handleChip(item)} onDelete={() => handleRemoveSearch(item)} sx={{mr:1, mb:1}}/>))}</Box>
           <SimpleDialogDemo />

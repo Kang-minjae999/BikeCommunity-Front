@@ -42,7 +42,7 @@ export const PATH_DASHBOARD = {
     garage: path(ROOTS_DASHBOARD, '/garages/garage'),
     riding: path(ROOTS_DASHBOARD, '/riding/home/calendar'),
     moto: path(ROOTS_DASHBOARD, '/motocycle/rent'),
-    rider: path(ROOTS_DASHBOARD, '/rider/bikep'),
+    rider: path(ROOTS_DASHBOARD, '/rider/rent'),
     checkout: path(ROOTS_DASHBOARD, '/checkout/new'),
     mypage: path(ROOTS_DASHBOARD, '/mypage'),
     menu: path(ROOTS_DASHBOARD, '/menu'),

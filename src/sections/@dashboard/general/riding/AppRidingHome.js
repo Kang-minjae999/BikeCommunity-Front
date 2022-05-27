@@ -45,11 +45,11 @@ export default function AppRidingHome() {
     <>
       <Container sx={{mt:1}}>   
       <Stack direction='row' alignItems='center' justifyContent='space-between'>   
-        <Button variant='outlined' size='large' onClick={() =>  navigate(`/dashboard/riding/home/calendar`)} color='inherit' sx={{mb:2}}>
+        <Button variant='outlined' size='large' onClick={() =>  navigate(`/dashboard/riding/map/calendar`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='ant-design:home-outlined' sx={open === 'calendar' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'text.disabled'}}/></Button>      
-        <Button variant='outlined' size='large' onClick={() => navigate(`/dashboard/riding/home/map`)} color='inherit' sx={{mb:2}}>
+        <Button variant='outlined' size='large' onClick={() => navigate(`/dashboard/riding/map/ridingmap`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='bi:map' sx={open === 'map' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'text.disabled'}}/></Button> 
-        <Button variant='outlined' size='large' onClick={() => navigate(`/dashboard/riding/home/myroute`)} color='inherit' sx={{mb:2}}>
+        <Button variant='outlined' size='large' onClick={() => navigate(`/dashboard/riding/map/myroute`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='clarity:star-line'  sx={open === 'myroute' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'text.disabled'}}/></Button>
       </Stack>
         {open === 'calendar' && 
@@ -59,7 +59,7 @@ export default function AppRidingHome() {
          </Grid>        
         </Grid>}  
         {userPo && <GeneralMap tab={open} userPo={userPo} open={open} setopen={setopen}/>}
-        {open === 'map' && <>{weatherOne && weatherTwo && <Appweather weather={weatherOne} weather2={weatherTwo} />}</>}
+        {open === 'ridingmap' && <>{weatherOne && weatherTwo && <Appweather weather={weatherOne} weather2={weatherTwo} />}</>}
       </Container>
     </>
   );

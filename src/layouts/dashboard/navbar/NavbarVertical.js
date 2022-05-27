@@ -77,7 +77,7 @@ export default function NavbarVertical({ isOpenSidebar, onCloseSidebar }) {
           {!isDesktop &&  (
             <CloseIcon onClick={onCloseSidebar} />
           )}
-          <Typography variant='h5'>RT</Typography>
+          <Typography variant='h7'>RT</Typography>
 
           {isDesktop && !isCollapse && (
             <CollapseButton onToggleCollapse={onToggleCollapse} collapseClick={collapseClick} />

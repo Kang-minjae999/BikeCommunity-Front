@@ -86,11 +86,11 @@ export default function TabProfile({TABS, Featured, path}) {
   
   return (
     <>
-    <Grid container >
-    <Grid item xs={12} lg={8}>
+    <Grid container spacing={2}>
+    <Grid item xs={12} lg={4}>
       {Featured}
     </Grid>
-    <Grid item xs={12} lg={4}>
+    <Grid item xs={12} lg={8}>
       <BottomNavigation showLabels sx={{ width: '100%' }} value={valueMobile} onChange={handleNavigate} >
       <BottomNavigationAction
         sx={{ ...(valueMobile === 0 ? valueStyleLeft : valueStyleNone)}}
