@@ -40,7 +40,7 @@ export const PATH_DASHBOARD = {
   general: {
     app: path(ROOTS_DASHBOARD, '/app/home'),
     garage: path(ROOTS_DASHBOARD, '/garages/garage'),
-    riding: path(ROOTS_DASHBOARD, '/riding/home/calendar'),
+    riding: path(ROOTS_DASHBOARD, '/riding/map/calendar'),
     moto: path(ROOTS_DASHBOARD, '/motocycle/rent'),
     rider: path(ROOTS_DASHBOARD, '/rider/rent'),
     checkout: path(ROOTS_DASHBOARD, '/checkout/new'),
