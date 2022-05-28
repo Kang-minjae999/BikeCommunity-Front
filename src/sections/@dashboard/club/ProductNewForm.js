@@ -1,31 +1,28 @@
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox, Button } from '@mui/material';
+import { Card, Chip, Grid, Stack, TextField, Typography, Autocomplete, FormControlLabel, Checkbox, Button, Box } from '@mui/material';
 // routes
 import DaumPostcode from 'react-daum-postcode';
+import axios from '../../../utils/axios';
 // components
 import {
   FormProvider,
   RHFTextField,
-  RHFRadioGroup,
-  RHFUploadMultiFile,
+  RHFEditor,
 } from '../../../components/hook-form';
+import { PATH_DASHBOARD } from '../../../routes/paths';
+import { access, refresh } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
-
-const GENDER_OPTION = ['상관없음', '남자', '여자'];
-
-const STYLE_OPTION = ['유유자적', '빨리빨리', '맛집탐방', '친목도모', '장거리', '단거리'];
-
-
 const AGE_OPTION = [
   '10대',
   '20대',
@@ -71,9 +68,10 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const navigate = useNavigate();
+
   const [model, setmodel] = useState(false);
   const [brand, setbrand] = useState(false);
-  const [displacement, setdisplacement] = useState(false);
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required('동호회 이름이 필요해요!'),
@@ -85,16 +83,13 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   const defaultValues = useMemo(
     () => ({
       name: currentProduct?.name || '',
-      content: currentProduct?.description || '',
-      images: currentProduct?.images || [],
-      gender: currentProduct?.gender || GENDER_OPTION[0],
+      description: currentProduct?.description || '',
+      isPublic: currentProduct?.isPublic || true,
       age: currentProduct?.age || [],
       city: currentProduct?.city || '',
-      model: currentProduct?.model || '',
-      brand: currentProduct?.brand || '',
-      clubking: currentProduct?.clubking || '',
-      style: currentProduct?.style || '',
-      displacement: currentProduct?.displacement || '',
+      bikeModel: currentProduct?.bikeModel || '',
+      bikeBrand: currentProduct?.bikeBrand || '',
+      idOfCaptain: currentProduct?.idOfCaptain || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentProduct]
@@ -114,8 +109,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     formState: { isSubmitting },
   } = methods;
 
-  const values = watch();
-
   useEffect(() => {
     if (isEdit && currentProduct) {
       reset(defaultValues);
@@ -127,34 +120,25 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   }, [isEdit, currentProduct]);
 
   const onSubmit = async (data) => {
-    console.log(data.age)
+    const formData = new FormData();
+    data.tags.map((tag) => formData.append('tags', tag));
+    data.Images.map((file) => formData.append('imageFiles', file));
+    formData.append('isPublic', data.isPublic);
+    formData.append('content', data.content);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-     /*  await axios.post('api',data, 
-      {headers:{
-        Authorization:'accessToken'
-      }} ) */
-      reset();
-      enqueueSnackbar(!isEdit ? '동호회 생성 완료!' : '동호회 수정 완료!');
-      /* navigate(PATH_DASHBOARD.eCommerce.list); */
+      await axios.post('/dingsta', formData, {
+        headers: {
+          'content-type': 'multipart/form-data',
+            accesstoken: access,
+            refreshtoken: refresh,
+        },
+      });
+      enqueueSnackbar('클럽 추가 완료!');
+      navigate(PATH_DASHBOARD.blog.dingstas);
     } catch (error) {
       console.error(error);
     }
   };
-
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      setValue(
-        'images',
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
-    },
-    [setValue]
-  );
 
     
   const handleChange = () => {
@@ -165,20 +149,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
     setmodel((prev) => !prev);
   };
 
-  const handleChange3 = () => {
-    setdisplacement((prev) => !prev);
-  };
-
-
-
-  const handleRemoveAll = () => {
-    setValue('images', []);
-  };
-
-  const handleRemove = (file) => {
-    const filteredItems = values.images?.filter((_file) => _file !== file);
-    setValue('images', filteredItems);
-  };
 
     // 다음 주소
     const [isOpenPost, setIsOpenPost] = useState(false); // 주소열기
@@ -213,16 +183,7 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
           <Card sx={{ p: 3 }}>
             <Stack spacing={3}>
               <RHFTextField name="name" label="동호회 이름" autoComplete="false"/>
-                <RHFTextField name="content" label="소개" multiline minRows={5}/>
-                <RHFUploadMultiFile
-                  name="images"
-                  showPreview
-                  accept="image/*"
-                  maxSize={3145728}
-                  onDrop={handleDrop}
-                  onRemove={handleRemove}
-                  onRemoveAll={handleRemoveAll}
-                />
+              <RHFEditor name="description" label="소개" multiline minRows={5}/>
             </Stack>
           </Card>
         </Grid>
@@ -231,16 +192,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
           <Stack spacing={3}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={3} mt={2}>
-                <div>
-                  <LabelStyle>성별</LabelStyle>
-                  <RHFRadioGroup
-                    name="gender"
-                    options={GENDER_OPTION}
-                    sx={{
-                      '& .MuiFormControlLabel-root': { mr: 4 },
-                    }}
-                  />
-                </div>
                 <div>
                 <LabelStyle>지역</LabelStyle>
                 <Button onClick={onChangeOpenPost} variant="outlined" sx={{ width: '100%' ,mb:1}}>
@@ -263,23 +214,6 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                         ))
                       }
                       renderInput={(params) => <TextField label="나이대" {...params} />}
-                    />
-                  )}
-                />
-                <Controller
-                  name="style"
-                  control={control}
-                  render={({ field }) => (
-                    <Autocomplete
-                      multiple
-                      onChange={(event, newValue) => field.onChange(newValue)}
-                      options={STYLE_OPTION.map((option) => option)}
-                      renderTags={(value, getTagProps) =>
-                        value.map((option, index) => (
-                          <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                        ))
-                      }
-                      renderInput={(params) => <TextField label="라이딩 스타일" {...params} />}
                     />
                   )}
                 />
@@ -332,38 +266,14 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
                    />
                  )}
                />}
-               <br/>
-                <FormControlLabel
-                control={<Checkbox checked={displacement} onChange={handleChange3} />}
-                label="입장 가능한 배기량 선택하기"
-                />
-                {!displacement
-                ? '' :  <Controller
-                 name="displacement"
-                 control={control}
-                 render={({ field }) => (
-                   <Autocomplete
-                     multiple
-                     onChange={(event, newValue) => field.onChange(newValue)}
-                     options={MODEL_OPTION.map((option) => option)}
-                     renderTags={(value, getTagProps) =>
-                       value.map((option, index) => (
-                         <Chip {...getTagProps({ index })} key={option} size="small" label={option} />
-                       ))
-                     }
-                     renderInput={(params) => <TextField 
-                      name="displacement" label="배기량" helperText='배기량을 검색해주세요.'{...params} />}
-                   />
-                 )}
-               />}
                </div>
               </Stack>
             </Card>
 
-
             <LoadingButton type="submit" variant="contained" size="large" loading={isSubmitting}>
               {!isEdit ? '동호회 등록하기' : '동호회 수정하기'}
             </LoadingButton>
+            <Box sx={{mb:5}}/>
           </Stack>
         </Grid>
       </Grid>

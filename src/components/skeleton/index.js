@@ -3,6 +3,7 @@ export { default as SkeletonPost } from './SkeletonPost';
 export { default as SkeletonDingsta } from './SkeletonDingsta';
 export { default as SkeletonProduct } from './SkeletonProduct';
 export { default as SkeletonPostItem } from './SkeletonPostItem';
+export { default as SkeletonListItem } from './SkeletonListItem';
 export { default as SkeletonGarageCard } from './SkeletonGarageCard';
 export { default as SkeletonGarageAsk } from './SkeletonGarageAsk';
 export { default as SkeletonboardItem } from './SkeletonboardItem';

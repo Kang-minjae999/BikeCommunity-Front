@@ -13,7 +13,7 @@ import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
-export default function ClubCreate() {
+export default function ClubEdit() {
   const { pathname } = useLocation();
   const isMountedRef = useIsMountedRef();
   const { user } = useAuth();

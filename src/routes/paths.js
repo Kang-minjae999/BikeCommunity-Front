@@ -163,6 +163,8 @@ export const PATH_DASHBOARD = {
   },
   club: {
     root: path(ROOTS_DASHBOARD, '/club'),
+    newDingsta: path(ROOTS_DASHBOARD, '/club/new-dingsta'),
+    newClub: path(ROOTS_DASHBOARD, '/club/new-club'),
     club: path(ROOTS_DASHBOARD, '/club/club'),    
     clubroom: path(ROOTS_DASHBOARD, '/club/clubroom/:id'),    
     clubdetail: path(ROOTS_DASHBOARD, '/club/clubdetail/:id'),

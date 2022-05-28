@@ -36,8 +36,9 @@ export default function AppRidingHeader() {
       index:3,
       label: '클럽',
       value: 'club',
-      link: 'club',
-      component: <AppRidingClub />,
+      link: 'club/dingsta',
+      component: null,
+      Feature: <AppRidingClub />,
     },
     {
       index:4,

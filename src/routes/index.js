@@ -200,12 +200,14 @@ export default function Router() {
         {
           path: 'club',
           children: [
-            { element: <Navigate to="/dashboard/club/club" replace />, index: true },
+            { element: <Navigate to="/dashboard/club" replace />, index: true },
             // { path: 'club', element: <Club /> },
             // { path: 'clubroom/:id', element: <Clubroom /> },
             // { path: 'clubdetail/:id', element: <ClubDetails /> },
             // { path: 'list', element: <ClubList /> },
-            { path: 'clubnew', element: <ClubCreate /> },
+            { path: 'new-dingsta', element: <ClubNewPost /> },
+            { path: 'edit/:id', element: <ClubEdit /> },
+            { path: 'new-club', element: <ClubCreate /> },
             {
               path: 'clubnew/:id/edit',
               element: (
@@ -278,6 +280,8 @@ const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/Ecommer
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
 // 동호회
 const ClubCreate = Loadable(lazy(() => import('../pages/dashboard/ClubCreate')));
+const ClubEdit = Loadable(lazy(() => import('../pages/dashboard/ClubEdit')));
+const ClubNewPost = Loadable(lazy(() => import('../pages/dashboard/ClubNewPost')));
 
 // 중고거래
 const UEcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/UEcommerceProductCreate')));
