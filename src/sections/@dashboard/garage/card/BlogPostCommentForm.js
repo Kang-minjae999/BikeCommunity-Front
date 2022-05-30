@@ -9,7 +9,7 @@ import { Stack, Box, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axios';
 
 // ----------------------------------------------------------------------
 BlogPostCommentForm.propTypes = {

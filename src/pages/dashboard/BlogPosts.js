@@ -7,7 +7,7 @@ import { Grid, Button, Container, Stack, Pagination } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospostadmin';
+import axios from '../../utils/axios';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
@@ -60,7 +60,7 @@ export default function BlogPosts() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/posts?page=${page}&size=12`);
+      const response = await axios.get(`/admin-post-service/posts?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);

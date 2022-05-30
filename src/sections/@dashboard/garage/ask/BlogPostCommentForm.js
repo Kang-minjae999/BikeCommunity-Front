@@ -9,7 +9,7 @@ import { Stack, Box, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axios';
 import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -43,7 +43,7 @@ export default function BlogPostCommentForm({id, setComment}) {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.post(`/dingsta/${id}/comment`, {content:data.content},
+      await axios.post(`/garagepost-service/dingsta/${id}/comment`, {content:data.content},
       {
         headers: {
           accesstoken: access,

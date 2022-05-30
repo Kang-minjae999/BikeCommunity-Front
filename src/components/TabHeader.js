@@ -95,9 +95,10 @@ export default function TabHeader({TABS, path}) {
         {TABS.map((item) =>       
         <Tab key={item.value} style={{ minWidth: 20 }} label={<Typography variant="subtitle3">{item.label}</Typography>} />)}
       </Tabs>
+     <Divider sx={{ width: '100%' }}/>
     </Paper>}
 
-     <Box sx={{mt:6}}/> 
+     <Box sx={{height:53}}/> 
      {TABS.map((item) => item.Feature &&     
       <TabPanel key={item.value} value={valueMobile} index={item.index}>
       {item.Feature}

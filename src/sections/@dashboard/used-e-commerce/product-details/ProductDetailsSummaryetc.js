@@ -17,7 +17,7 @@ import Label from '../../../../components/Label';
 import Iconify from '../../../../components/Iconify';
 import { FormProvider } from '../../../../components/hook-form';
 import useAuth from '../../../../hooks/useAuth';
-import axios from '../../../../utils/axiossecondhand';
+import axios from '../../../../utils/axios';
 import { useSelector } from '../../../../redux/store';
 
 // ----------------------------------------------------------------------
@@ -96,7 +96,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
       const accessToken = window.localStorage.getItem('accessToken');
       if(usedzzim){
         try {
-          await axios.get(`/biketrade/zzim/${id}`, {
+          await axios.get(`/secondhand-trade-service/biketrade/zzim/${id}`, {
             headers: {
               authorization: accessToken,
             }});
@@ -134,7 +134,7 @@ export default function ProductDetailsSummary({ product, onAddHeart, checkHeart,
   const jaeUp = async () => {
     const accessToken = window.localStorage.getItem('accessToken');
       try {
-        await axios.get(`/biketrade/refresh/${id}`, {
+        await axios.get(`/secondhand-trade-service/biketrade/refresh/${id}`, {
           headers: {
             authorization: accessToken,
           }});

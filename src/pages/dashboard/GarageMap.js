@@ -2,7 +2,7 @@ import { Map, MapMarker, ZoomControl } from "react-kakao-maps-sdk"
 import { useEffect, useState, useCallback} from "react"
 // @mui
 import { Card, Grid, Stack , Divider} from "@mui/material"
-import axios from '../../utils/axiosriding';
+import axios from '../../utils/axios';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
 import GeneralMapweather from "../../sections/@dashboard/map/GeneralMapweather";
@@ -50,7 +50,7 @@ export default function GarageMap() {
   // 마커 불러오기
   const getMapMarker = useCallback(async () => {
       try {
-        const response = await axios.get(`/marker?content=정비소`);
+        const response = await axios.get(`/riding-service/marker?content=정비소`);
         if (isMountedRef.current) {
           setAllPosition(response.data.data.content);
         }
@@ -63,7 +63,7 @@ export default function GarageMap() {
   // 마커 디테일 불러오기
   const getPositionDetail = useCallback(async (position) => {
     try {
-      const response = await axios.get(`/marker/detail/${position.id}`);
+      const response = await axios.get(`/riding-service/marker/detail/${position.id}`);
       if (isMountedRef.current) {
         setisselect(response.data.data);
       }

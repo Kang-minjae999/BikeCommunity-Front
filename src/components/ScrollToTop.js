@@ -6,14 +6,14 @@ import { useLocation } from 'react-router-dom';
 export default function ScrollToTop() {
   const { pathname } = useLocation();
 
-  const isProfile = pathname.includes('/dashboard/garages')
+  const isClub = pathname.includes('/dashboard/club/room')
 
   const isGarage = pathname.includes('/dashboard/profile')
 
   useEffect(() => {
-    if(!isProfile && !isGarage)
+    if(!isClub && !isGarage)
     window.scrollTo(0, 0);
-  }, [isProfile, isGarage, pathname]);
+  }, [isClub, isGarage, pathname]);
 
   return null;
 }

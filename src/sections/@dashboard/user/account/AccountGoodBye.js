@@ -8,8 +8,9 @@ import { Stack, Card } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
-import axios from '../../../../utils/axiosuser';
+import axios from '../../../../utils/axios';
 import useAuth from '../../../../hooks/useAuth';
+import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
 
@@ -40,13 +41,14 @@ export default function AccountGoodBye() {
   const onSubmit = async (data) => {
     const accessToken = window.localStorage.getItem('accessToken');
     try {
-      await axios.put(`/users/${user?.id}`, 
+      await axios.put(`/user-service/users/${user?.id}`, 
       {
         password: data.password
       }
        ,{
         headers: {
-          Authorization: accessToken,
+          accesstoken: access,
+          refreshtoken: refresh,
         },
       });
       enqueueSnackbar('회원 수정 완료!');

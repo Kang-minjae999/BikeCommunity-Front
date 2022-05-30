@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
-import axios from '../utils/axiosuser';
+import axios from '../utils/axios';
 import { setSessionAccess, setSessionRefresh } from '../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -110,7 +110,7 @@ function AuthProvider({ children }) {
         const access = window.localStorage.getItem('accesstoken');
         const refresh = window.localStorage.getItem('refreshtoken');
           if (access) {
-          const response = await axios.get('/users', {
+          const response = await axios.get('/user-service/users', {
             headers: {
               accesstoken: access,
               refreshtoken: refresh,
@@ -155,7 +155,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/login', {
+    const response = await axios.post('/user-service/login', {
       email,
       password,
     });
@@ -175,7 +175,7 @@ function AuthProvider({ children }) {
   };
 
   const kakaologin = async (access) => {
-    const response = await axios.get('/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
+    const response = await axios.get('/user-service/login/oauth2/kakao', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
     const accessT = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
@@ -193,7 +193,7 @@ function AuthProvider({ children }) {
   };
 
   const naverlogin = async (access) => {
-    const response = await axios.get('/login/oauth2/naver', { headers: { Authorization: `${access}` } });
+    const response = await axios.get('/user-service/login/oauth2/naver', { headers: { Authorization: `${access}` } });
     const user = {...response.data, status:response.status}
     const accessT = response.headers.accesstoken;
     const refresh = response.headers.refreshtoken;
@@ -213,7 +213,7 @@ function AuthProvider({ children }) {
   const afterlogin = async (users) => {
     const accessT = window.localStorage.getItem('accesstoken');
     const refreshT = window.localStorage.getItem('refreshtoken');
-    const response = await axios.put('/users-oauth', 
+    const response = await axios.put('/user-service/users-oauth', 
     {
       nickname:users.nickname,
       name:users.name,
@@ -247,7 +247,7 @@ function AuthProvider({ children }) {
   };
 
   const register = async (email, password, name, nickname, birthday, phoneNumber, address, sex) => {
-    const response = await axios.post('/join', {
+    const response = await axios.post('/user-service/join', {
       email,
       password,
       name,
@@ -269,7 +269,7 @@ function AuthProvider({ children }) {
   const logout = async () => {
     const accessT = window.localStorage.getItem('accesstoken');
     const refreshT = window.localStorage.getItem('refreshtoken');
-    await axios.get('/logout', {
+    await axios.get('/user-service/logout', {
       headers:
       {
         accesstoken:accessT,

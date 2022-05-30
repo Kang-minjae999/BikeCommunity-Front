@@ -11,7 +11,7 @@ import { LoadingButton } from '@mui/lab';
 import { Card, Chip, Grid, Stack, Autocomplete, InputAdornment } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../../../routes/paths';
-import axios from '../../../../utils/axiossecondhand';
+import axios from '../../../../utils/axios';
 // option
 import BRAND_OPTION from '../../../../components/option/BRAND_OPTION';
 import HONDA_OPTION from '../../../../components/option/HONDA_OPTION';
@@ -273,7 +273,7 @@ export default function AppUserMotoNew({ isEdit, currentProduct }) {
       formData.append('isCrashed', data.isCrashed);
       data.tradeableModel.map((model) => formData.append('tradeableModel', model));
       try {
-        await axios.post('/biketrade', formData, {
+        await axios.post('/personalbikeinfo-service/biketrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
             accesstoken: access,

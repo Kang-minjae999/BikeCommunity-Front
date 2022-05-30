@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import { Typography, Button, Stack, Container } from '@mui/material';
-import axios from '../../../../utils/axiospostadmin';
+import axios from '../../../../utils/axios';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import AppUserMotoNew from './AppUserMotoNew';
 import useResponsive from '../../../../hooks/useResponsive';
@@ -20,7 +20,7 @@ export default function AppUserMoto() {
   
   const getMoto = useCallback(async () => {
     try {
-      const response = await axios.get(`/posts?page=0&size=12`);
+      const response = await axios.get(`/personalbikeinfo-service/posts?page=0&size=12`);
 
       if (isMountedRef.current) {
         setMotos(response.data.data.content);

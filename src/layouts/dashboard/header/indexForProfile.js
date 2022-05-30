@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useLocation, useParams } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useParams, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, Link, Typography } from '@mui/material';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
@@ -16,6 +15,8 @@ import { HEADER, NAVBAR } from '../../../config';
 // components
 import AccountPopover from './AccountPopover';
 import Notification from './Notification';
+import { IconButtonAnimate } from '../../../components/animate';
+import Iconify from '../../../components/Iconify';
 
 
 // ----------------------------------------------------------------------
@@ -53,60 +54,65 @@ const RootStyle = styled(AppBar, {
 DashboardHeaderForProfile.propTypes = {
   isCollapse: PropTypes.bool,
   verticalLayout: PropTypes.bool,
+  handleOpen: PropTypes.func,
 };
 
-export default function DashboardHeaderForProfile({ isCollapse = false, verticalLayout = false }) {
-  const {pathname} = useLocation()
-  const {nickname = ''} = useParams()
+export default function DashboardHeaderForProfile({ isCollapse = false, verticalLayout = false ,handleOpen }) {
+  const {pathname} = useLocation();
+
+  const {nickname = ''} = useParams();
+
+  const navigate = useNavigate();
 
   const isOffset = useOffSetTop(HEADER.DASHBOARD_DESKTOP_HEIGHT) && !verticalLayout;
 
   const isDesktop = useResponsive('up', 'lg');
 
-  const isGarage = pathname.includes('profile')
+  const isProfile = pathname.includes('/dashboard/profile');
+
+  const isClub = pathname.includes('/dashboard/club/room');
 
   return (
-    <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}  >
+    <RootStyle isCollapse={isCollapse} isOffset={isOffset} verticalLayout={verticalLayout}>
       <Toolbar
         sx={{
           px: { lg: 5 }, 
           border:"1px",
         }}
       >
-        {/* {!isDesktop && <MenuIcon color='action' onClick={onOpenSidebar} />} */}
         {isDesktop && 
+          <>
           <Link component={RouterLink} to="/dashboard/app" underline="none" >         
-          <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+          <Typography color="text.primary" variant='h7' sx={{ mr: 2}}>
             RIDERTOWN
           </Typography>
-          </Link>}
+          </Link>
+         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
+         <Notification /> 
+          <IconButtonAnimate color='primary' onClick={() => navigate('/dashboard/checkout/new')} sx={{mr:1}}>
+            <Iconify icon='bx:shopping-bag' sx={{width:28, height:28, color:'text.primary'}} />
+          </IconButtonAnimate>
+          <AccountPopover color='text.primary' />
+        </Stack>
+        </>}
 
-       {!isDesktop && 
+          {!isDesktop && 
           <>      
             <Link component={RouterLink} to="/dashboard/app" underline="none" >       
-              <Typography color="text.primary" variant='h3' sx={{ mr: 2}}>
+              <Typography color="text.primary" variant='h7' sx={{ mr: 2 }}>
                 {nickname}
               </Typography>
             </Link>
-          </>}
 
-        <Box sx={{ flexGrow: 1 }} />
-        {!isDesktop &&  <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 3, sm: 2 }}>
-        {isGarage && 
-          <> 
-          <CallOutlinedIcon color='action'/>
-          <ForumOutlinedIcon color='action'/>
-          <ContactSupportOutlinedIcon color='action'/>
+            <Box sx={{ flexGrow: 1 }} />
+            {isProfile && 
+            <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 3, sm: 2 }}>
+              <CallOutlinedIcon color='action'/>
+              <ForumOutlinedIcon color='action'/>
+              <ContactSupportOutlinedIcon color='action'/>
+            </Stack>}
+            {isClub && <Iconify icon='ant-design:user-add-outlined' sx={{width:28, height:28, color:'text.primary'}} onClick={handleOpen}/>}
           </>}
-          </Stack>}
-         {isDesktop && 
-         <Stack direction="row" alignItems="center" justifyContent='space-between' spacing={{ xs: 2, sm: 1.5 }}>
-          <Notification />
-        <Link component={RouterLink} to="/dashboard/checkout" underline="none" sx={{mt:1}}>     
-          <LocalGroceryStoreIcon color='action' />
-        </Link>
-          <AccountPopover color='text.primary' />
-        </Stack>}
         </Toolbar>  
     </RootStyle>  
   );

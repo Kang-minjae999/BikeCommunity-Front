@@ -1,6 +1,6 @@
 import { verify, sign } from 'jsonwebtoken';
 //
-import axios from './axiosuser';
+import axios from './axios';
 
 // ----------------------------------------------------------------------
 const isValidToken = (accessToken) => {
@@ -14,7 +14,7 @@ const IsValid = async (accessTime) => {
   const nowTime = new Date().getTime();
   if(accessTime && accessTime + 2400000 < nowTime){
     try {
-      const response = await axios.get('/users/access-token', {
+      const response = await axios.get('/user-service/users/access-token', {
         headers: {
           accessToken: access,
           refreshToken: refresh,

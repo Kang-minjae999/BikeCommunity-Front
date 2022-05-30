@@ -6,7 +6,7 @@ import DashboardLayout from '../layouts/dashboard';
 import DashboardLayoutForProfile from '../layouts/dashboard/indexForProfile';
 // guards
 import GuestGuard from '../guards/GuestGuard';
-import AuthGuard from '../guards/AuthGuard';
+// import AuthGuard from '../guards/AuthGuard';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // components
 import LoadingScreen from '../components/LoadingScreen';
@@ -74,9 +74,8 @@ export default function Router() {
       element: <DashboardLayoutForProfile />,
       children: [
         { element: <Navigate to="/dashboard/app" replace />, index: true },
-        { path: 'profile', element: <GeneralProfile /> },
-        { path: 'profile/:nickname', element: <GeneralProfile /> },
         { path: 'profile/:nickname/:profilevalue', element: <GeneralProfile /> },
+        { path: 'club/room/:nickname/:tab', element: <ClubDetail /> },
       ],
     },
     {
@@ -191,9 +190,9 @@ export default function Router() {
             { path: 'notice/:id', element: <BlogNotice /> },
             { path: 'dingsta/:id', element: <BlogDingsta /> },
             { path: 'report/:id', element: <BlogReport /> },
-            { path: 'new-post', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
-            { path: 'new-notice', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
-            { path: 'new-dingsta', element: (<AuthGuard><BlogNewPost /></AuthGuard>),},
+            { path: 'new-post', element: (<><BlogNewPost /></>),},
+            { path: 'new-notice', element: (<><BlogNewPost /></>),},
+            { path: 'new-dingsta', element: (<><BlogNewPost /></>),},
             { path: 'new-report', element: (<BlogNewPost />),},
           ],
         },
@@ -201,19 +200,13 @@ export default function Router() {
           path: 'club',
           children: [
             { element: <Navigate to="/dashboard/club" replace />, index: true },
-            // { path: 'club', element: <Club /> },
-            // { path: 'clubroom/:id', element: <Clubroom /> },
-            // { path: 'clubdetail/:id', element: <ClubDetails /> },
-            // { path: 'list', element: <ClubList /> },
             { path: 'new-dingsta', element: <ClubNewPost /> },
             { path: 'edit/:id', element: <ClubEdit /> },
             { path: 'new-club', element: <ClubCreate /> },
             {
               path: 'clubnew/:id/edit',
               element: (
-                <AuthGuard>
                   <ClubCreate />
-                </AuthGuard>
               ),
             },
             // { path: 'checkout', element: <ClubCheckout /> },
@@ -279,6 +272,7 @@ const EcommerceProductCreateEdu = Loadable(lazy(() => import('../pages/dashboard
 const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/EcommerceCheckout')));
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
 // 동호회
+const ClubDetail = Loadable(lazy(() => import('../pages/dashboard/ClubDetail')));
 const ClubCreate = Loadable(lazy(() => import('../pages/dashboard/ClubCreate')));
 const ClubEdit = Loadable(lazy(() => import('../pages/dashboard/ClubEdit')));
 const ClubNewPost = Loadable(lazy(() => import('../pages/dashboard/ClubNewPost')));

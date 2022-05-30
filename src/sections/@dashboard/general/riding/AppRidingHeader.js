@@ -14,7 +14,7 @@ export default function AppRidingHeader() {
       index:0,
       label: '지도',
       value: 'map',
-      link: 'map/calendar',
+      link: 'map/ridingmap',
       component: null,
       Feature:  <AppRidingHome/>,
     },

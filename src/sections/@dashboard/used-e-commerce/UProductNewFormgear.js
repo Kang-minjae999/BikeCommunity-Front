@@ -12,7 +12,7 @@ import { LoadingButton } from '@mui/lab';
 import { Card, Chip, Grid, Stack, Typography, Autocomplete, InputAdornment, Button } from '@mui/material';
 // routes
 import DaumPostcode from 'react-daum-postcode';
-import axios from '../../../utils/axiossecondhand';
+import axios from '../../../utils/axios';
 // components
 import {
   FormProvider,
@@ -131,7 +131,7 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
       formData.append('price', data.price);
       formData.append('etcCategory', submitCate);
       try {
-        await axios.post('/etctrade', formData, {
+        await axios.post('/secondhand-trade-service/etctrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
             accesstoken: access,
@@ -154,7 +154,7 @@ export default function UProductNewFormgear({ isEdit, currentProduct }) {
       formData.append('price', data.price);
       formData.append('etcCategory', submitCate);
       try {
-        await axios.put('/etctrade', formData, {
+        await axios.put('/secondhand-trade-service/etctrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
             accesstoken: access,

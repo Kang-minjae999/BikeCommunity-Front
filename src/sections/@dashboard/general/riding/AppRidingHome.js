@@ -43,7 +43,7 @@ export default function AppRidingHome() {
  
   return (
     <>
-      <Container sx={{mt:1}}>   
+      <Container >   
       <Stack direction='row' alignItems='center' justifyContent='space-between'>   
         {/* <Button variant='outlined' size='large' onClick={() =>  navigate(`/dashboard/riding/map/calendar`)} color='inherit' sx={{mb:2}}>
           <Iconify icon='ant-design:home-outlined' sx={open === 'calendar' ? {width:28, height:28, color:'text.primary'} : {width:28, height:28, color:'text.disabled'}}/></Button>       */}

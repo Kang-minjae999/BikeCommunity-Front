@@ -1,10 +1,14 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router';
+import { Button } from '@mui/material';
 import { AppHomeMain ,AppHomeBest, AppHomeBrand, AppHomeMagazine } from '.';
 import GeneralMarketu from '../../../../pages/dashboard/GeneralMarketu';
 import TabHeader from '../../../../components/TabHeader';
 import AppFeatured from './AppFeatured';
 
 export default function AppHomeHeader() {
+
+  const navigate = useNavigate()
 
   const APP_TABS = [
     {
@@ -13,7 +17,12 @@ export default function AppHomeHeader() {
       link: 'home',
       label: 'RT',
       component: <AppHomeMain />,
-      Feature : <AppFeatured />,
+      Feature : 
+      <>
+      <AppFeatured />
+      <Button onClick={() => navigate('/dashboard/profile/강민순/gallery')}>정비소 프로필</Button>
+      <Button onClick={() => navigate('/dashboard/club/room/강민순/info')}>클럽 디테일</Button>
+      </>,
     },
     {
       index:1,

@@ -8,7 +8,7 @@ import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axios';
 // components
 import Page from '../../components/Page';
 import { SkeletonPost } from '../../components/skeleton';
@@ -35,7 +35,7 @@ export default function GaragePost() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/${id}`);
+      const response = await axios.get(`/garagepost-service/dingsta/${id}`);
 
       if (isMountedRef.current) {
         setPost(response.data.data);

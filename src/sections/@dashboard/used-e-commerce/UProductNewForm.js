@@ -12,7 +12,7 @@ import { Card, Chip, Grid, Stack, Autocomplete, InputAdornment, Button } from '@
 // routes
 import DaumPostcode from 'react-daum-postcode';
 import { PATH_DASHBOARD } from '../../../routes/paths';
-import axios from '../../../utils/axiossecondhand';
+import axios from '../../../utils/axios';
 // option
 import BRAND_OPTION from '../../../components/option/BRAND_OPTION';
 import HONDA_OPTION from '../../../components/option/HONDA_OPTION';
@@ -293,7 +293,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       formData.append('isCrashed', data.isCrashed);
       data.tradeableModels.map((model) => formData.append('tradeableModels', model));
       try {
-        await axios.post('/biketrade', formData, {
+        await axios.post('/secondhand-trade-service/biketrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
             accesstoken: access,
@@ -328,7 +328,7 @@ export default function UProductNewForm({ isEdit, currentProduct }) {
       formData.append('isCrashed', data.isCrashed);
       data.tradeableModels.map((model) => formData.append('tradeableModels', model));
       try {
-        await axios.put('/biketrade', formData, {
+        await axios.put('/secondhand-trade-service/biketrade', formData, {
           headers: {
             'content-type': 'multipart/form-data',
             accesstoken: access,

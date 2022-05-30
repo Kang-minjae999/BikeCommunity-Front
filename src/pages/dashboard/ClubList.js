@@ -1,42 +1,22 @@
-import orderBy from 'lodash/orderBy';
 import { useEffect, useCallback, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 // @mui
-import { Grid, Container, Stack, Pagination } from '@mui/material';
+import { Grid, Container, Stack, Pagination, Link, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axios';
 // routes
 // components
 import Page from '../../components/Page';
 import { SkeletonListItem } from '../../components/skeleton';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 // sections
-import { BlogPostCard, BlogPostsSort, BlogPostsSearch } from '../../sections/@dashboard/clublist';
+import { BlogPostCard, BlogPostsSearch } from '../../sections/@dashboard/clublist';
+import { PATH_DASHBOARD } from '../../routes/paths';
 
-// ----------------------------------------------------------------------
-
-const SORT_OPTIONS = [
-  { value: 'latest', label: '최신' },
-  { value: 'popular', label: '인기' },
-  { value: 'oldest', label: '과거' },
-];
-
-// ----------------------------------------------------------------------
-
-const applySort = (posts, sortBy) => {
-  if (sortBy === 'latest') {
-    return orderBy(posts, ['createdDate'], ['desc']);
-  }
-  if (sortBy === 'oldest') {
-    return orderBy(posts, ['createdDate'], ['asc']);
-  }
-  if (sortBy === 'popular') {
-    return orderBy(posts, ['view'], ['desc']);
-  }
-  return posts;
-};
 
 export default function ClubList() {
   const { themeStretch } = useSettings();
@@ -49,13 +29,9 @@ export default function ClubList() {
   const [totalpage, settotalpage] = useState(0);
   const [pagenation, setpagenation] = useState(1);
 
-  const [filters, setFilters] = useState('latest');
-
-  const sortedPosts = applySort(posts, filters);
-
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/club-service/clubs?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -72,7 +48,7 @@ export default function ClubList() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/club-service/clubs/search?page=${page}&size=12&${api}=${param}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
@@ -93,12 +69,6 @@ export default function ClubList() {
 
   // --------------------------------------------------------------
 
-  const handleChangeSort = (value) => {
-    if (value) {
-      setFilters(value);
-    }
-  };
-
   const handleChange = useCallback(
     (event, value) => {
       setpagenation(value);
@@ -109,21 +79,36 @@ export default function ClubList() {
   );
 
   return (
-    <Page title="Posts">
+    <Page title="클럽 리스트">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <HeaderBreadcrumbs
           heading="클럽 리스트"
           links={[{ name: '' }]}
           action={
-            <>
-              <BlogPostsSort query={filters} options={SORT_OPTIONS} onSort={handleChangeSort} />
-            </>
+            <Link    
+              variant="outlined"
+              component={RouterLink}
+              to={PATH_DASHBOARD.blog.newDingsta}
+              >
+              <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+              >
+              <AddIcon sx={{ml:1, mr:1}} color='action'/>
+                <Typography variant="body2" sx={{ color: 'text.primary' }}>
+                  만들기
+                </Typography> 
+              </Stack>
+              </Link>
           }
+          sx={{mb:2}}
         />
         <BlogPostsSearch setparam={setparam} setapi={setapi} />
 
         <Grid container spacing={2}>
-          {(!posts.length ? [...Array(12)] : sortedPosts).map((post, index) =>
+          {(!posts.length ? [...Array(12)] : posts).map((post, index) =>
             post ? (
               <Grid key={post.id} item xs={6} sm={4} md={3}>
                 <BlogPostCard post={post} />

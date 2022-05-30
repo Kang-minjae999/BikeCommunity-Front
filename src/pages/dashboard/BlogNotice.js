@@ -7,7 +7,7 @@ import { Box, Card, Divider, Container, Typography } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospostadmin';
+import axios from '../../utils/axios';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
@@ -34,7 +34,7 @@ export default function BlogPost() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/notices/${id}`);
+      const response = await axios.get(`/admin-post-service/notices/${id}`);
 
       if (isMountedRef.current) {
         setPost(response.data.data);

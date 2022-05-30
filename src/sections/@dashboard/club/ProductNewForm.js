@@ -120,13 +120,8 @@ export default function ProductNewForm({ isEdit, currentProduct }) {
   }, [isEdit, currentProduct]);
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    data.tags.map((tag) => formData.append('tags', tag));
-    data.Images.map((file) => formData.append('imageFiles', file));
-    formData.append('isPublic', data.isPublic);
-    formData.append('content', data.content);
     try {
-      await axios.post('/dingsta', formData, {
+      await axios.post('/club-service/clubs', data, {
         headers: {
           'content-type': 'multipart/form-data',
             accesstoken: access,

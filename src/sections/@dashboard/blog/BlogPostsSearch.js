@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { paramCase } from 'change-case';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Link, Typography, Autocomplete, InputAdornment, Popper, Stack, Button, Menu, MenuItem } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 
 // routes
@@ -189,23 +188,6 @@ export default function BlogPostsSearch({setparam , setapi}) {
         );
       }}
     />
-    <Link    
-    variant="outlined"
-    component={RouterLink}
-    to={PATH_DASHBOARD.blog.newDingsta}
-    >
-    <Stack
-    direction="column"
-    justifyContent="center"
-    alignItems="center"
-    spacing={0}
-    >
-    <AddIcon sx={{ml:1, mr:1}} color='action'/>
-    <Typography variant="body2" sx={{ color: 'text.primary' }}>
-    추가
-    </Typography> 
-    </Stack>
-    </Link>
     </Stack>
   );
 }

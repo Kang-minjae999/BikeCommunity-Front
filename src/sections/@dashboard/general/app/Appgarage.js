@@ -94,7 +94,7 @@ export default function Appgarage() {
 
   return (
     <>
-      <TabMiddle TABS={ACCOUNT_TABS} path={path} Featured={Featured} />
+      <TabMiddle TABS={ACCOUNT_TABS} path={path} Featured={Featured} isTab={isOpen}/>
     </>
   );
 }

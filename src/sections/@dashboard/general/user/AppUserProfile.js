@@ -1,41 +1,35 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router';
 // @mui
-import { Box, Typography, Stack, Avatar } from '@mui/material';
+import { Box, Typography, Stack, Avatar, Card } from '@mui/material';
 // routes
-import axios from '../../../../utils/axiospost';
+import axios from '../../../../utils/axios';
 // hooks
 import useResponsive from '../../../../hooks/useResponsive';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 
 // components
 import Image from '../../../../components/Image';
-import TabProfile from '../../../../components/TabProfile';
+import DashboardHeaderForProfile from '../../../../layouts/dashboard/header/indexForProfile';
+import useAuth from '../../../../hooks/useAuth';
+import TabProfileForMyPage from '../../../../components/TabProfileForMyPage';
 // sections
 import {
   Profile,
   ProfileGallery,
   ProfileSell,
 } from '../../user/profile';
-import useAuth from '../../../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
-export default function AppUserProfile() {
-  const {user} = useAuth()
-
-  const { profilevalue } = useParams()
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if(!profilevalue){
-      navigate('/dashboard/mypage/prof/gallery')
-    }
-  }, [profilevalue, navigate])
-  
+export default function AppOtherProfile() {
+  const { user } = useAuth();
 
   const isMountedRef = useIsMountedRef();
+
+  const { pathname } = useLocation();
+
+  const ref = useRef([]);
 
   const [post, setPost] = useState(null);
 
@@ -46,7 +40,7 @@ export default function AppUserProfile() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/users/${user?.nickname}`);
+      const response = await axios.get(`/post-service/dingsta/users/${user?.nickname}`);
 
       if (isMountedRef.current) {
         setPost(response.data.data.content);
@@ -94,77 +88,123 @@ export default function AppUserProfile() {
     }
  },[post, heart])
  
+ const [isOpen, setIsOpen] = useState(false)
 
-const Feature =           
-<Box sx={{mb:2}}>
-<Stack
-  direction="row"
-  justifyContent="space-between"
-  alignItems="center"
-  spacing={0}
-  >
-  <Box>
+ const [isOpenTab, setIsOpenTab] = useState(false)
+ 
+ const open = () => {
+   if((window.scrollY + 53 ) > ref?.current[0].offsetTop){
+     setIsOpen(true)
+   }
+   if((window.scrollY + 53 ) < ref?.current[0].offsetTop){
+     setIsOpen(false)
+   }
+ };
+
+ const openTab = () => {
+   if((window.scrollY + 56 ) > ref?.current[1].offsetTop){
+     setIsOpenTab(true)
+   }
+   if((window.scrollY + 56 ) < ref?.current[1].offsetTop){
+     setIsOpenTab(false)
+   }
+ };
+
+ useEffect(() => {
+   window.addEventListener('scroll', open)
+   window.addEventListener('scroll', openTab)
+   return () => {
+     window.removeEventListener('scroll', open)
+     window.removeEventListener('scroll', openTab)
+   }
+ }, []);
+
+ 
+ useEffect(() => {
+   if(isOpenTab){
+     window.scrollTo(0, ref?.current[1].offsetTop - 55);
+   }
+ // eslint-disable-next-line
+ }, [pathname]);
+
+
+  const Feature =     
+  <>      
+  <Box sx={{mb:2}}>
+  <Image alt="profile cover" src='https://t1.daumcdn.net/cfile/tistory/999352405AC58DC731' ratio='16/9' /> 
+  <div ref={el => (ref.current[0] = el)}/>
+  <Card>
     <Stack
       direction="row"
-      justifyContent="flex-start"
+      justifyContent="space-between"
       alignItems="center"
       spacing={0}
-    >
-    <Avatar sx={{width:60,height:60, mx:1 ,my:1}} alt='avatar' src={user?.avatar} />
-    <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;{user?.nickname}&nbsp;</Typography> 
-    </Stack>
-  </Box>
-  <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      spacing={2}
-      sx={{mr:2}}
       >
-      <Box >
+      <Box>
         <Stack
-          direction="column"
-          justifyContent="center"
+          direction="row"
+          justifyContent="flex-start"
           alignItems="center"
           spacing={0}
         >
-          <Typography variant="subtitle2">게시글</Typography>
-          <Typography variant="body2" >{post?.length}</Typography>
+        <Avatar sx={{width:60,height:60, mx:1 ,my:1}} alt='avatar' src={user?.nickname} />
+        <Typography variant={isDesktop ? "h6" : 'h4'}>&nbsp;{user?.nickname}&nbsp;</Typography> 
         </Stack>
       </Box>
-    <Box >
       <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={0}
-      >
-        <Typography variant="subtitle2" >판매글</Typography>
-        <Typography variant="body2" >{post?.length}</Typography>
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+          sx={{mr:2}}
+          >
+          <Box >
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+            >
+              <Typography variant="body2">게시글</Typography>
+              <Typography variant="body2" >{post?.length}</Typography>
+            </Stack>
+          </Box>
+        <Box >
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0}
+          >
+            <Typography variant="body2" >판매글</Typography>
+            <Typography variant="body2" >{post?.length}</Typography>
+          </Stack>
+        </Box>
+        <Box >
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            spacing={0}
+          >
+            <Typography variant="body2" >좋아요</Typography>
+            <Typography variant="body2" >{sum}</Typography>
+          </Stack>
+        </Box>
+        </Stack>
       </Stack>
-    </Box>
-    <Box >
-      <Stack
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        spacing={0}
-      >
-        <Typography variant="subtitle2" >좋아요</Typography>
-        <Typography variant="body2" >{sum}</Typography>
-      </Stack>
-    </Box>
-    </Stack>
-</Stack>
-<Image alt="profile cover" src='https://file.philgo.com/data/upload/9/2107609' ratio='16/9' /> 
-</Box>
+    </Card>
+  </Box>
+  <div ref={el => (ref.current[1] = el)}/>
+  </>
 
-const path = '/dashboard/mypage/prof'
+  const path = `/dashboard/mypage/prof`
 
  return (
    <>  
-    <TabProfile TABS={PROFILE_TABS} path={path} Featured={Feature} />
-    {error && <Typography>{error}</Typography>}
+   {isOpen && !isDesktop && <DashboardHeaderForProfile />}
+   <TabProfileForMyPage TABS={PROFILE_TABS} path={path} Featured={Feature} isTab={isOpenTab} />
+  {error && <Typography>{error}</Typography>}
   </>
   );
 }

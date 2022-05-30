@@ -6,7 +6,7 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axios';
 // routes
 // components
 import Page from '../../components/Page';
@@ -55,7 +55,7 @@ export default function ClubDingstas() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/club-service/dingsta?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);

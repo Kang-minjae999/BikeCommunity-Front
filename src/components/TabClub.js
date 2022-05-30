@@ -3,7 +3,8 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
-import { Typography, Box, BottomNavigation, BottomNavigationAction, Grid } from '@mui/material';
+import { Typography, Box, BottomNavigation, BottomNavigationAction, Grid, Paper } from '@mui/material';
+import useResponsive from '../hooks/useResponsive';
 
 function TabPanel(props) {
   const { children, value, index } = props;
@@ -29,19 +30,21 @@ TabPanel.propTypes = {
 TabClub.propTypes = {
   TABS: PropTypes.array.isRequired,
   path: PropTypes.string.isRequired,
-  Featured: PropTypes.node
+  Featured: PropTypes.node,
+  isTab: PropTypes.bool.isRequired,
 };
 
-export default function TabClub({TABS, Featured, path}) {
+export default function TabClub({TABS, Featured, path, isTab}) {
   const navigate = useNavigate();
-  const {profilevalue} = useParams();
+  const { tab } = useParams();
+  const isDesktop = useResponsive('up', 'lg')
 
   const [valueMobile, setValueMobile] = useState(0);
 
   useEffect(() => {
-    const index = TABS.map((item) => item.value).findIndex(a => a === profilevalue)
+    const index = TABS.map((item) => item.value).findIndex(a => a === tab)
     setValueMobile(index);
-  }, [profilevalue, TABS])
+  }, [tab, TABS])
 
   const handleChangeIndex = (index) => {
     setValueMobile(index);
@@ -86,11 +89,13 @@ export default function TabClub({TABS, Featured, path}) {
   
   return (
     <>
-    <Grid container >
-    <Grid item xs={12} lg={8}>
+    <Grid container spacing={{lg:2}}>
+    <Grid item xs={12} lg={4}>
       {Featured}
     </Grid>
-    <Grid item xs={12} lg={4}>
+    <Grid item xs={12} lg={8}>
+      {isTab && <Box sx={{height:56}}/>}
+      <Paper sx={!isDesktop && isTab ? { position: 'fixed', top: 50, left: 0, right: 0, zIndex:1111 } : {} }>
       <BottomNavigation showLabels sx={{ width: '100%' }} value={valueMobile} onChange={handleNavigate} >
       <BottomNavigationAction
         sx={{ ...(valueMobile === 0 ? valueStyleLeft : valueStyleNone)}}
@@ -113,6 +118,7 @@ export default function TabClub({TABS, Featured, path}) {
         value={TABS[3].index}
       />
     </BottomNavigation>
+    </Paper>
      <Box sx={{mt:2}}/> 
     <SwipeableViews
         axis='x'

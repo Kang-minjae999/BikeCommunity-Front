@@ -11,7 +11,7 @@ import { Grid, Card, Stack, CardHeader, Autocomplete, Chip ,Typography } from '@
 // components
 import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiosgarage';
+import axios from '../../../../utils/axios';
 import useAuth from '../../../../hooks/useAuth';
 import { CardSliderOpenTime, GarageCardCalendar } from '.';
 import { access, refresh } from '../../../../utils/jwt';
@@ -96,7 +96,7 @@ export default function BlogNewCardForm() {
   
   const onSubmit = async (data) => {
     try {
-      await axios.post(`/garagecard/${user.nickname}`, 
+      await axios.post(`/garagepost-service/garagecard/${user.nickname}`, 
       {
         address:data.address,
         category:data.category,

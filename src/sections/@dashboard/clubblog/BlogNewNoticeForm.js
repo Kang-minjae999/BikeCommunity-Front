@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFSwitch, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospostadmin';
+import axios from '../../../utils/axios';
 import { access, refresh } from '../../../utils/jwt';
 // ----------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ export default function BlogNewNoticeForm() {
     formData.append('isPublic', data.isPublic)
 
     try {
-      await axios.post('/notices', formData ,{
+      await axios.post('/adminpost-service/notices', formData ,{
         headers: {
         'content-type': 'multipart/form-data',
         headers: {

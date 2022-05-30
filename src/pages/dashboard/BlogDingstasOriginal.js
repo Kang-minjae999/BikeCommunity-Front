@@ -6,7 +6,7 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axios';
 // routes
 // components
 import Page from '../../components/Page';
@@ -55,7 +55,7 @@ export default function BlogDingstas() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta?page=${page}&size=12`);
+      const response = await axios.get(`/post-service/dingsta?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -72,7 +72,7 @@ export default function BlogDingstas() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/search?page=${page}&size=12&${api}=${param}`);
+      const response = await axios.get(`/post-service/dingsta/search?page=${page}&size=12&${api}=${param}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);

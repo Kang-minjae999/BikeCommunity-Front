@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 // @mui
 import { Container } from '@mui/material';
 // redux
-import axios from '../../utils/axiossecondhand';
+import axios from '../../utils/axios';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // routes
 // hooks
@@ -45,7 +45,7 @@ export default function EcommerceProductCreate() {
   const getProduct = useCallback(async () => {
     if(isEdit){
     try {
-      const response = await axios.get(`/${api}/${id}`);
+      const response = await axios.get(`/secondhand-trade-service/${api}/${id}`);
       if (isMountedRef.current) {
         setcurrentProduct(response.data.data);
       }

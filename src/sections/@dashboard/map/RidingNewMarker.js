@@ -10,7 +10,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiosriding';
+import axios from '../../../utils/axios';
 import { access, refresh } from '../../../utils/jwt';
 // ----------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ export default function RidingNewMarker() {
   const onSubmit = async (data) => {
     console.log(data)
     try {
-      await axios.post(`/marker`, 
+      await axios.post(`/riding-service/marker`, 
       data, 
       {
         headers:{

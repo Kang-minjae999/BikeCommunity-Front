@@ -9,7 +9,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // utils
 import { MotionContainer, varFade } from '../../../components/animate';
-import axios from '../../../utils/axiospost';
+import axios from '../../../utils/axios';
 import { fyeardateTime } from '../../../utils/formatTime';
 import { fNumber } from '../../../utils/formatNumber';
 // components
@@ -41,7 +41,7 @@ export default function BlogPostCard({ post }) {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/dingsta/${id}`);
+      const response = await axios.get(`/post-service/dingsta/${id}`);
 
       if (isMountedRef.current) {
         setPostClick(response.data.data);

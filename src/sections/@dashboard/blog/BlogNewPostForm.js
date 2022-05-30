@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { RHFSwitch,  FormProvider, RHFTextField, RHFUploadMultiFile } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospostadmin';
+import axios from '../../../utils/axios';
 import { access, refresh } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -55,7 +55,7 @@ export default function BlogNewPostForm() {
     formData.append('content', data.content)
     formData.append('isPublic', data.isPublic)
     try {
-      await axios.post('/posts', formData 
+      await axios.post('/admin-post-service/posts', formData 
       ,{
         headers: {
             accesstoken: access,

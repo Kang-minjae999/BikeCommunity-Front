@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Menu, MenuItem} from '@mui/material';
 import Iconify from './Iconify';
 import useAuth from '../hooks/useAuth'
-import axios from '../utils/axiospost'
+import axios from '../utils/axios'
+import { access, refresh } from '../utils/jwt';
 
 DotdotdotPost.propTypes = {
   nicknameOfPost: PropTypes.string.isRequired,
@@ -38,11 +39,11 @@ export default function DotdotdotPost({nicknameOfPost, id}) {
     navigate('/dashboard/blog/new-report')
   };
   const handleClose3 = async () => {
-      const accessToken = window.localStorage.getItem('accessToken');
       try {
-        await axios.delete(`/posts/${id}`, {
+        await axios.delete(`/post-service/posts/${id}`, {
           headers: {
-            Authorization: accessToken,
+            accessToken: access,
+            refreshToken: refresh,
           },
         });
         navigate(-1);

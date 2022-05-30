@@ -7,7 +7,7 @@ import { useSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { Container, Button, Card, Typography, Grid, Stack , Divider, Chip, Box } from "@mui/material"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import axios from '../../utils/axiosriding';
+import axios from '../../utils/axios';
 import useAuth from '../../hooks/useAuth';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // map
@@ -72,7 +72,7 @@ export default function GeneralMap({tab, userPo, open}) {
   // 마커 불러오기
   const getMapMarker = useCallback(async () => {
       try {
-        const response = await axios.get(`/marker`);
+        const response = await axios.get(`/riding-service/marker`);
         if (isMountedRef.current) {
           setAllPosition(response.data.data.content);
         }
@@ -85,7 +85,7 @@ export default function GeneralMap({tab, userPo, open}) {
   // 마커 디테일 불러오기
   const getPositionDetail = useCallback(async (position) => {
     try {
-      const response = await axios.get(`/marker/detail/${position.id}`);
+      const response = await axios.get(`/riding-service/marker/detail/${position.id}`);
       if (isMountedRef.current) {
         setisselect(response.data.data);
       }
@@ -101,7 +101,7 @@ export default function GeneralMap({tab, userPo, open}) {
   // 마커 가는 사람 수 불러오기
   const getDestiUsers = useCallback(async () => {
     try {
-      const response = await axios.get(`/riding/map/${isselect.id}`);
+      const response = await axios.get(`/riding-service/riding/map/${isselect.id}`);
       if (isMountedRef.current) {
         setDestiUsers(response.data.data.content);
       }
@@ -123,7 +123,7 @@ export default function GeneralMap({tab, userPo, open}) {
       return ;
     }
     try {
-      await axios.post(`/riding/${user.nickname}`, {mapId:isselect.id, mapName:isselect.name} );
+      await axios.post(`/riding-service/riding/${user.nickname}`, {mapId:isselect.id, mapName:isselect.name} );
       enqueueSnackbar('목적지 추가 완료!');
     } catch (error) {
       console.error(error);
@@ -139,7 +139,7 @@ export default function GeneralMap({tab, userPo, open}) {
     const accessToken = window.localStorage.getItem('accessToken');
     const viaDesti = values.destination.map((item) => item.id)
     try {
-      await axios.post(`/riding/${user.nickname}`, viaDesti , {
+      await axios.post(`/riding-service/riding/${user.nickname}`, viaDesti , {
         headers: {
           'content-type': 'multipart/form-data',
           authorization: accessToken,
@@ -159,7 +159,7 @@ export default function GeneralMap({tab, userPo, open}) {
     }
     console.log( [isselect.id], [isselect.name], [isselect.lat], [isselect.lng],)
     try {
-      await axios.post(`/route/${user.nickname}`, 
+      await axios.post(`/riding-service/route/${user.nickname}`, 
       {
         routeName:[isselect.name],
         mapIds: [isselect.id],
@@ -193,7 +193,7 @@ export default function GeneralMap({tab, userPo, open}) {
     const lngs = values.destination.map((item) => item.lng)
     console.log(ids, name, lats, lngs)
     try {
-      await axios.post(`/route/${user.nickname}`, 
+      await axios.post(`/riding-service/route/${user.nickname}`, 
       {
         routeName: '테스트',
         mapIds: ids,
@@ -211,7 +211,7 @@ export default function GeneralMap({tab, userPo, open}) {
   // 저장된 경로 불러오기
   const getViaLike = useCallback(async () => {
     try {
-      const response = await axios.get(`/route/nickname/${user?.nickname}`);
+      const response = await axios.get(`/riding-service/route/nickname/${user?.nickname}`);
       if (isMountedRef.current) {
         setViaLike(response.data.data.content);
       }

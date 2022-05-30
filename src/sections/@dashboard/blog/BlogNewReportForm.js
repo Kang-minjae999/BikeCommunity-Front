@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField, RHFUploadMultiFileReport } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospost';
+import axios from '../../../utils/axios';
 import useAuth from '../../../hooks/useAuth';
 import { access, refresh } from '../../../utils/jwt';
 
@@ -59,7 +59,7 @@ export default function BlogNewReportForm() {
     formData.append('nickname', user.nickname)
 
     try {
-      await axios.post(`/report/${user.nickname}`, formData ,{
+      await axios.post(`/admin-post-service/report/${user.nickname}`, formData ,{
         headers: {
         'content-type': 'multipart/form-data',
         headers: {

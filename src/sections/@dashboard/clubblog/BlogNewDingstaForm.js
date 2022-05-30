@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../routes/paths';
 // components
 import { FormProvider, RHFTextField, RHFUploadMultiFile, RHFCheckbox } from '../../../components/hook-form';
 //
-import axios from '../../../utils/axiospost';
+import axios from '../../../utils/axios';
 import { access, refresh, IsValid } from '../../../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -71,7 +71,7 @@ export default function BlogNewDingstaForm() {
     formData.append('isPublic', data.isPublic);
     formData.append('content', data.content);
     try {
-      await axios.post('/dingsta', formData, {
+      await axios.post('/club-service/dingsta', formData, {
         headers: {
           'content-type': 'multipart/form-data',
             accesstoken: access,

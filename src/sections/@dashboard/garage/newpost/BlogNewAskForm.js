@@ -13,7 +13,7 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
 import { FormProvider, RHFEditor, RHFTextField, RHFUploadMultiFile } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiosgarage';
+import axios from '../../../../utils/axios';
 import useAuth from '../../../../hooks/useAuth';
 import { access, refresh } from '../../../../utils/jwt';
 
@@ -60,7 +60,7 @@ export default function BlogNewAskForm() {
     formData.append('modelName', data.modelName);
     formData.append('address', data.address);
     try {
-      await axios.post(`/garageask/${user.nickname}`, 
+      await axios.post(`/garagepost-service/garageask/${user.nickname}`, 
       {
         title: data.title,
         content: data.content,

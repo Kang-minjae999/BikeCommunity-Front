@@ -26,7 +26,7 @@ export default function ClubEdit() {
   const getClub = useCallback(async () => {
     if(isEdit){
     try {
-      const response = await axios.get(`/${id}`);
+      const response = await axios.get(`/club-service/${id}`);
       if (isMountedRef.current) {
         setcurrentProduct(response.data.data);
       }

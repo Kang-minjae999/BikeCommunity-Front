@@ -3,7 +3,7 @@ import * as React from 'react';
 import {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
-import { Typography, Box, Divider, BottomNavigation, BottomNavigationAction } from '@mui/material';
+import { Typography, Box, Divider, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
 import useResponsive from '../hooks/useResponsive';
 
 
@@ -31,10 +31,11 @@ TabPanel.propTypes = {
 TabMiddle.propTypes = {
   TABS: PropTypes.array.isRequired,
   path: PropTypes.string.isRequired,
-  Featured: PropTypes.node
+  Featured: PropTypes.node,
+  isTab: PropTypes.bool.isRequired,
 };
 
-export default function TabMiddle({TABS, Featured, path}) {
+export default function TabMiddle({TABS, Featured, path, isTab}) {
   const isDesktop = useResponsive('up', 'lg');
   const navigate = useNavigate();
   const {value} = useParams();
@@ -96,18 +97,20 @@ export default function TabMiddle({TABS, Featured, path}) {
     <>
     {isDesktop ? 
     <>
-    <Divider sx={{ width: '90%', mt:2  }}/>
+    <Divider sx={{ width: '90%', mt:2 }}/>
     <BottomNavigation showLabels sx={{ width: '100%' }} value={valueMobile} onChange={handleNavigate}>
     {TABS.map((item) =>       
         <BottomNavigationAction 
         key={item.value} value={item.index} style={{ minWidth: 20 }} 
         label={<Typography variant="body2" sx={{ ...(valueMobile === item.index && valueStyle)}}>{item.label}</Typography>}/>)}
     </BottomNavigation>
-    <Divider sx={{ width: '90%', mb:2  }}/>
+    <Divider sx={{ width: '90%', mb:2 }}/>
     </> 
     :
     <>
     {Featured}
+      {isTab && <Box sx={{height:56}}/>}
+      <Paper sx={!isDesktop && isTab ? { position: 'fixed', top: 50, left: 0, right: 0, zIndex:1111 } : {} }>
     <BottomNavigation showLabels sx={{ width: '100%'}} value={valueMobile} onChange={handleNavigate} >
       <BottomNavigationAction
         sx={{ ...(valueMobile === 0 ? valueStyleLeft : valueStyleNone)}}
@@ -135,6 +138,7 @@ export default function TabMiddle({TABS, Featured, path}) {
         value={TABS[4].index}
       />
     </BottomNavigation>
+    </Paper>
     </>}
      <Box sx={{mt:2}}/> 
     <SwipeableViews

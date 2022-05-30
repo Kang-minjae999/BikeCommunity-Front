@@ -13,7 +13,7 @@ import useAuth from '../../../../hooks/useAuth';
 import { fData } from '../../../../utils/formatNumber';
 // components
 import { FormProvider, RHFTextField, RHFUploadAvatar } from '../../../../components/hook-form';
-import axios from '../../../../utils/axiosuser';
+import axios from '../../../../utils/axios';
 import { access, refresh } from '../../../../utils/jwt';
 
 // ----------------------------------------------------------------------
@@ -57,7 +57,7 @@ export default function AccountGeneral() {
 
   const onSubmit = async (data) => {
     try {
-      await axios.put(`/users/${user?.id}`, data
+      await axios.put(`/user-service/users/${user?.id}`, data
        ,{
         headers: {
           accesstoken: access,

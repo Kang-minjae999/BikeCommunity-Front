@@ -7,7 +7,7 @@ import { Box, Card, Divider, Container, Typography } from '@mui/material';
 import useSettings from '../../hooks/useSettings';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiospost';
+import axios from '../../utils/axios';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
@@ -31,7 +31,7 @@ export default function BlogReport() {
 
   const getPost = useCallback(async () => {
     try {
-      const response = await axios.get(`/report/${id}`);
+      const response = await axios.get(`/post-service/report/${id}`);
       if (isMountedRef.current) {
         setPost(response.data.data);
       }

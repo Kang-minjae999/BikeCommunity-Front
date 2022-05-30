@@ -5,7 +5,7 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiosgarage';
+import axios from '../../utils/axios';
 // routes
 // components
 import Page from '../../components/Page';
@@ -32,7 +32,7 @@ export default function GarageAsks() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/garagepost?page=${page}&size=12`);
+      const response = await axios.get(`/garagepost-service/garagepost?page=${page}&size=12`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -47,7 +47,7 @@ export default function GarageAsks() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/garagepost/search?page=${page}&size=12&${params}`);
+      const response = await axios.get(`/garagepost-service/garagepost/search?page=${page}&size=12&${params}`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);

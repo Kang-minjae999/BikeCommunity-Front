@@ -12,7 +12,7 @@ import { PATH_DASHBOARD } from '../../../../routes/paths';
 // components
 import { FormProvider, RHFEditor, RHFTextField } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiosgarage';
+import axios from '../../../../utils/axios';
 import useAuth from '../../../../hooks/useAuth';
 import { access, refresh } from '../../../../utils/jwt';
 
@@ -49,7 +49,7 @@ export default function BlogNewPostForm() {
   
   const onSubmit = async (data) => {
     try {
-      await axios.post(`/garagepost/${user.nickname}`, data ,{
+      await axios.post(`/garagepost-service/garagepost/${user.nickname}`, data ,{
         headers: {
           accesstoken: access,
           refreshtoken: refresh,

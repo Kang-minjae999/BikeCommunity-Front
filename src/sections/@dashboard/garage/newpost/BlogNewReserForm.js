@@ -11,7 +11,7 @@ import { Grid, Card, Stack, CardHeader, Autocomplete } from '@mui/material';
 // components
 import { FormProvider, RHFTextField } from '../../../../components/hook-form';
 //
-import axios from '../../../../utils/axiosgarage';
+import axios from '../../../../utils/axios';
 import useAuth from '../../../../hooks/useAuth';
 import { access, refresh } from '../../../../utils/jwt';
 
@@ -52,7 +52,7 @@ export default function BlogNewReserForm() {
   
   const onSubmit = async (data) => {
     try {
-      await axios.post(`/garagecard/${user.nickname}`, 
+      await axios.post(`/garagepost-service/garagecard/${user.nickname}`, 
       {
         address:data.address,
         category:data.category

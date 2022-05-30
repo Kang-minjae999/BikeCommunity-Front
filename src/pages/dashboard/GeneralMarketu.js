@@ -7,7 +7,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { Appmarketcategory2, Appmarketcategory2mobile } from '../../sections/@dashboard/general/shop';
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // redux
-import axios from '../../utils/axiossecondhand';
+import axios from '../../utils/axios';
 import { useDispatch, useSelector } from '../../redux/store';
 import { deleteSearch } from '../../redux/slices/product';
 // routes;
@@ -60,7 +60,7 @@ export default function GeneralMarketu() {
   const getAllProducts = useCallback(async () => {
     if(!option){
       try {
-        const response = await axios.get(`/${tab}?page=${page}&size=2`);
+        const response = await axios.get(`/secondhand-trade-service/${tab}?page=${page}&size=2`);
         if (isMountedRef.current) {
           setProductsPC(response.data.data.content);
           setProducts(response.data.data.content);
@@ -71,7 +71,7 @@ export default function GeneralMarketu() {
       }
     } else {
       try {
-        const response = await axios.get(`/${tab}/search?page=${page}&size=2${option}`);
+        const response = await axios.get(`/secondhand-trade-service/${tab}/search?page=${page}&size=2${option}`);
         if (isMountedRef.current) {
             setProductsPC(response.data.data.content);
             setProducts(response.data.data.content);

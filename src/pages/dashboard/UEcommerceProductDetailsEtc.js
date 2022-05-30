@@ -5,7 +5,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { Box, Tab, Card, Grid, Divider, Container, Typography } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 // redux
-import axios from '../../utils/axiossecondhand';
+import axios from '../../utils/axios';
 import { useDispatch } from '../../redux/store';
 import { addHeartUsed, checkHeartUsed, onGotoStep } from '../../redux/slices/product';
 // routes
@@ -75,7 +75,7 @@ export default function UEcommerceProductDetailsEtc() {
 
   const getProduct = useCallback(async () => {
     try {
-      const response = await axios.get(`/etctrade/${id}`);
+      const response = await axios.get(`/secondhand-trade-service/etctrade/${id}`);
   
       if (isMountedRef.current) {
         setProduct(response.data.data);

@@ -5,7 +5,7 @@ import { Grid, Container, Stack, Pagination } from '@mui/material';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 // utils
-import axios from '../../utils/axiosgarage';
+import axios from '../../utils/axios';
 // routes
 // components
 import Page from '../../components/Page';
@@ -31,7 +31,7 @@ export default function GarageCards() {
 
   const getAllPosts = useCallback(async () => {
     try {
-      const response = await axios.get(`/garagecard/search?page=${page}&size=12&category=정비소`);
+      const response = await axios.get(`/garagepost-service/garagecard/search?page=${page}&size=12&category=정비소`);
 
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
@@ -46,7 +46,7 @@ export default function GarageCards() {
 
   const getAllPosts2 = useCallback(async () => {
     try {
-      const response = await axios.get(`/garagecard/search?page=${page}&size=12&${params}&category=정비소`);
+      const response = await axios.get(`/garagepost-service/garagecard/search?page=${page}&size=12&${params}&category=정비소`);
       if (isMountedRef.current) {
         setPosts(response.data.data.content);
         settotalpage(response.data.data.totalPages);
